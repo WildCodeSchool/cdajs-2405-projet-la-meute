@@ -9,6 +9,9 @@
 - TypeGraphQL
 - PostegreSQL
 - Docker
+- Biome 
+
+- **Biome** : Alternative à _ESlint_ et _Prettier_, assurant la qualité du code selon des règles choisies.
 
 ## Launch
 
