@@ -9,9 +9,7 @@
 - TypeGraphQL
 - PostegreSQL
 - Docker
-- Biome 
-
-- **Biome** : Alternative à _ESlint_ et _Prettier_, assurant la qualité du code selon des règles choisies.
+- **Biome** : Biome is an alternative to ESLint and Prettier for ensuring code quality. It provides both linting and formatting in one tool.
 
 ## Launch
 
@@ -19,7 +17,7 @@ Work in progress
 - Frontend: `npm i` on first launch + `npm run dev`
 
 
-### Structure des Dossiers
+### Folder Structure
 
 ```plaintext
 
