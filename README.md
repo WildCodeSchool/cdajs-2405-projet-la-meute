@@ -9,6 +9,7 @@
 - TypeGraphQL
 - PostegreSQL
 - Docker
+- **Biome** : Biome is an alternative to ESLint and Prettier for ensuring code quality. It provides both linting and formatting in one tool.
 
 ## Launch
 
@@ -33,3 +34,24 @@ GRANT ALL PRIVILEGES ON DATABASE paw_planner TO paw_planner_admin;
 exit
 ```
 These informations must match the ones in your `.env` and `Server/.env` files.
+
+
+
+### Folder Structure
+
+```plaintext
+
+Work in progress
+
+PawPlanner/
+│
+├── server/
+│
+└── client/
+    ├── src/
+    │   ├── components/
+    │   ├── pages/
+    │   └── App.tsx
+    ├── .env
+    └── .env.sample
+```
