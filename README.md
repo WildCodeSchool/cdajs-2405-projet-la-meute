@@ -20,7 +20,6 @@ Work in progress
 On first launch, create your PostgreSQL user, either inside your container (as explained right under) or through a PostgreSQL user interface such as **pgAdmin**.
 
 To manage your database inside your container:
-psql -U postgres
 
 1. Access Postgres in Docker: 
 ```sh

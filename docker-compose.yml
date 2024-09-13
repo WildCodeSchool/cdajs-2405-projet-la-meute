@@ -19,6 +19,10 @@ services:
       - 4000:4000
     volumes:
       - ./server:/server
+    environment:
+      POSTGRES_DB: ${DBNAME}
+      POSTGRES_USER: ${DBUSERNAME}
+      POSTGRES_PASSWORD: ${DBPASS}
 
   db:
     image: postgres:16
@@ -26,10 +30,8 @@ services:
     shm_size: 128mb
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ${DBNAME}
-      POSTGRES_USER: ${DBUSERNAME}
-      POSTGRES_PASSWORD: ${DBPASS}
+    env_file:
+      - .env
     ports:
       - 5432:5432
 
