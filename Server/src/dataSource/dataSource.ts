@@ -1,9 +1,5 @@
 import { DataSource } from "typeorm";
 
-export const verifEnv = () => {
-    console.log("💪✨ verif env datasource", process.env.DBNAME, process.env.DBUSERNAME, process.env.DBPASS);
-}
-
 export const dataSource = new DataSource({
     // database configuration
     type: 'postgres',
