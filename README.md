@@ -1,21 +1,22 @@
 # Paw Planner
 
 ## Stack
-- React (ViteJS)
-- NodeJS
-- Typescript
-- Apollo (Client (via Vite) et Server)
-- TypeORM
-- TypeGraphQL
-- PostegreSQL
-- Docker
+- **React** (through ViteJS)
+- **NodeJS**
+- **Typescript**
+- **Apollo** (Client (via Vite) et Server)
+- **TypeORM**
+- **TypeGraphQL**
+- **PostegreSQL**
+- **Docker**
 - **Biome** : Biome is an alternative to ESLint and Prettier for ensuring code quality. It provides both linting and formatting in one tool.
 
 ## Launch
 
-First of all, copy and edit the `.env.sample` in a `.env` file. There's one in the root folder and Server folder. (FIXME: to be centralized)
+First of all, copy and edit the `.env.sample` in a `.env` file. There's one in the root folder and /server folder. (FIXME: to be centralized)<br>
+On first launch, **the variables you'll put in this file will be used to create your database** so file it up accordingly with secured informations.
 
-Then run `npm run install:all` to run the `npm install` commands in the root, client and server folders. 
+Then run `npm run install:all` to run the `npm install` commands in the root, /client and /server folders in one go. 
 
 Work in progress
 - client: `npm i` on first launch + `npm run dev`

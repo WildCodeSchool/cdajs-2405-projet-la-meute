@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "install:all": "npm install && npm install --prefix client && npm install --prefix server"
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "init:db": "dotenv ./_ressources/scripts/init_db.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3"
+    "@biomejs/biome": "1.8.3",
+    "dotenv-cli": "^7.4.2"
   }
 }
