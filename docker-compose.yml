@@ -24,7 +24,6 @@ services:
       - DBUSERNAME=${DBUSERNAME}
       - DBPASS=${DBPASS}
 
-
   db:
     image: postgres:16
     restart: unless-stopped

@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.8.3"
   }

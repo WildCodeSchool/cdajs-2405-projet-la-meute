@@ -13,40 +13,24 @@
 
 ## Launch
 
+First of all, copy and edit the `.env.sample` in a `.env` file. There's one in the root folder and Server folder. (FIXME: to be centralized)
+
+Then run `npm run install:all` to run the `npm install` commands in the root, client and server folders. 
+
 Work in progress
-- Client: `npm i` on first launch + `npm run dev`
+- client: `npm i` on first launch + `npm run dev`
 
-- Server: 
+- server: 
 
-On first launch, create your PostgreSQL user, either inside your container (as explained right under) or through a PostgreSQL user interface such as **pgAdmin**.
-
-To manage your database inside your container:
-
-1. Access Postgres in Docker: 
-```sh
-docker exec -it pawplanner-db-1 psql -U postgres
-```
-2. Create your user: 
-```sql
-CREATE USER paw_planner_admin WITH PASSWORD '1234';
-CREATE DATABASE paw_planner OWNER paw_planner_admin;
-GRANT ALL PRIVILEGES ON DATABASE paw_planner TO paw_planner_admin;
-exit
-```
-These informations must match the ones in your `.env` and `Server/.env` files.
-
+On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db` as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
 
 
 ### Folder Structure
 
-```plaintext
-
-Work in progress
-
+```lua
+-- Work in progress
 PawPlanner/
-│
 ├── server/
-│
 └── client/
     ├── src/
     │   ├── components/
