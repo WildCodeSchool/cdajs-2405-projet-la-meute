@@ -1,23 +1,14 @@
 const { exec } = require('child_process');
 require('dotenv').config();
 
-// Commande pour créer l'utilisateur
-const createUserCommand = `
-    docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE USER ${process.env.DBUSERNAME} WITH PASSWORD '${process.env.DBPASS}';"
-`;
+// SQL commands
+const createUserCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE USER ${process.env.DBUSERNAME} WITH PASSWORD '${process.env.DBPASS}';"`;
+const createDatabaseCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE DATABASE ${process.env.DBNAME} OWNER ${process.env.DBUSERNAME};"`;
+const grantPrivilegesCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE ${process.env.DBNAME} TO ${process.env.DBUSERNAME};"`;
 
-// Commande pour créer la base de données
-const createDatabaseCommand = `
-    docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE DATABASE ${process.env.DBNAME} OWNER ${process.env.DBUSERNAME};"
-`;
-
-// Commande pour accorder les privilèges
-const grantPrivilegesCommand = `
-    docker exec -i pawplanner-db-1 psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE ${process.env.DBNAME} TO ${process.env.DBUSERNAME};"
-`;
 // Fonction pour exécuter une commande shell
-function executeCommand(command, callback) {
-    exec(command, (error, stdout, stderr) => {
+function executeCommand(command: string, callback: (error: Error | null) => void) {
+    exec(command, (error, stdout: string, stderr) => {
         if (error) {
             console.error(`Error: ${error}`);
             return callback(error);
@@ -29,7 +20,7 @@ function executeCommand(command, callback) {
 }
 
 // Attendre que PostgreSQL soit prêt
-function waitForPostgres(callback) {
+function waitForPostgres(callback: (error: Error | null) => void) {
     const checkCommand = 'docker exec pawplanner-db-1 pg_isready';
     let retries = 10;
 
@@ -52,36 +43,25 @@ function waitForPostgres(callback) {
 
 // Démarrer le conteneur PostgreSQL
 const startDbCommand = 'docker compose up -d db';
+const stopDbCommand = 'docker compose stop db';
 
 executeCommand(startDbCommand, (err) => {
     if (err) return;
-
     waitForPostgres((err) => {
         if (err) return;
-
-        // Exécuter la commande pour créer l'utilisateur
         executeCommand(createUserCommand, (err) => {
             if (err) return;
-
-            // Exécuter la commande pour créer la base de données
             executeCommand(createDatabaseCommand, (err) => {
                 if (err) return;
-
-                // Exécuter la commande pour accorder les privilèges
                 executeCommand(grantPrivilegesCommand, (err) => {
                     if (err) return;
-                    console.log('Base de données configurée et privilèges accordés avec succès.');
-
-                    // Arrêter le conteneur PostgreSQL
-                    const stopDbCommand = 'docker compose stop db';
-
+                    console.info('Base de données configurée et privilèges accordés avec succès.');
                     executeCommand(stopDbCommand, (err) => {
                         if (err) return;
-                        console.log('Base de données configurée et conteneur arrêté avec succès.');
+                        console.info('Base de données configurée et conteneur arrêté avec succès.');
                     });
                 });
             });
         });
     });
 });
-
