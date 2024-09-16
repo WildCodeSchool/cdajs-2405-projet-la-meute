@@ -21,9 +21,9 @@ Then run `npm run install:all` to run the `npm install` commands in the root, /c
 Work in progress
 - client: `npm i` on first launch + `npm run dev`
 
-- server: 
+- server: On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
 
-On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db` as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
+You can verify if your user is created through adminer (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME)
 
 
 ### Folder Structure
@@ -31,12 +31,15 @@ On first launch, create your PostgreSQL user, either inside your container (run 
 ```lua
 -- Work in progress
 PawPlanner/
+├── _ressources/
+│   ├── documentation/
+│   └── UML/
 ├── server/
 └── client/
     ├── src/
     │   ├── components/
     │   ├── pages/
-    │   └── App.tsx
+    │       └── App.tsx
     ├── .env
     └── .env.sample
 ```

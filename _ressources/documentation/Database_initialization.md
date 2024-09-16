@@ -4,10 +4,11 @@
 
 After you've run your first `npm install` command in root (manually or through the `npm run install:all` custom command), you'll have `dotenv-cli` installed as a dev dependency.
 
-
+**dotenv-cli** allows the use of environement variables in the shell, meaning you can run commands with variables in them.
 
 !! le conteneur doit tourner avant
 
+on décide 'un nom de conteneur fixe
 
 
 1. Access Postgres in Docker: 
