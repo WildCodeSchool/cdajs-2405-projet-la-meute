@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "install:all": "npm install && npm install --prefix client && npm install --prefix server",
     "init:db": "node ./_ressources/scripts/init_db_user.ts"
