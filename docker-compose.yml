@@ -1,0 +1,45 @@
+services:
+  client:
+    build: ./client
+    restart: unless-stopped
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./client:/client
+    # Fixit for HR in Windows
+    environment:
+      - WDS_SOCKET=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    volumes:
+      - ./server:/server
+    environment:
+      - DBNAME=${DBNAME}
+      - DBUSERNAME=${DBUSERNAME}
+      - DBPASS=${DBPASS}
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    shm_size: 128mb
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5433:5432
+    container_name: pawplanner-db-1
+    environment:
+      - POSTGRES_PASSWORD=${DBPASS}
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080

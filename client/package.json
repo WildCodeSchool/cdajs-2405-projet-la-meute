@@ -6,12 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
+    "format": "../node_modules/@biomejs/biome/bin/biome format --write ./src",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.8",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.9.0",
+    "gsap": "^3.12.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "sass": "^1.78.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
