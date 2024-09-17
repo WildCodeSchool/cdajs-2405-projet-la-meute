@@ -1,26 +1,27 @@
-const { exec } = require('child_process');
-require('dotenv').config();
+import { exec } from 'child_process';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // SQL commands
 const createUserCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE USER ${process.env.DBUSERNAME} WITH PASSWORD '${process.env.DBPASS}';"`;
 const createDatabaseCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "CREATE DATABASE ${process.env.DBNAME} OWNER ${process.env.DBUSERNAME};"`;
 const grantPrivilegesCommand = `docker exec -i pawplanner-db-1 psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE ${process.env.DBNAME} TO ${process.env.DBUSERNAME};"`;
 
-// Fonction pour exécuter une commande shell
-function executeCommand(command: string, callback: (error: Error | null) => void) {
-    exec(command, (error, stdout: string, stderr) => {
+// Function to execute a shell command
+function executeCommand(command: string, errorHandler: (error: Error | null) => void) {
+    exec(command, (error, stdout: string, stderr: string) => {
         if (error) {
             console.error(`Error: ${error}`);
-            return callback(error);
+            return errorHandler(error);
         }
-        console.log(`Output: ${stdout}`);
+        console.info(`Output: ${stdout}`);
         console.error(`Errors: ${stderr}`);
-        callback(null);
+        errorHandler(null);
     });
 }
 
-// Attendre que PostgreSQL soit prêt
-function waitForPostgres(callback: (error: Error | null) => void) {
+// Loop to wait for the container to run
+function waitForPostgres(errorHandler: (error: Error | null) => void) {
     const checkCommand = 'docker exec pawplanner-db-1 pg_isready';
     let retries = 10;
 
@@ -28,12 +29,12 @@ function waitForPostgres(callback: (error: Error | null) => void) {
         exec(checkCommand, (error) => {
             if (error && retries > 0) {
                 retries--;
-                console.log('PostgreSQL n\'est pas encore prêt, réessai...');
-                setTimeout(check, 2000); // Réessayer après 2 secondes
+                console.info('PostgreSQL is not ready, trying again...');
+                setTimeout(check, 2000);
             } else if (retries === 0) {
-                return callback(new Error('PostgreSQL n\'est pas prêt après plusieurs essais.'));
+                return errorHandler(new Error('PostgreSQL is still not ready after 10 tries. Stopping attempts.'));
             } else {
-                callback(null);
+                errorHandler(null);
             }
         });
     }
@@ -55,10 +56,10 @@ executeCommand(startDbCommand, (err) => {
                 if (err) return;
                 executeCommand(grantPrivilegesCommand, (err) => {
                     if (err) return;
-                    console.info('Base de données configurée et privilèges accordés avec succès.');
+                    console.info('Database initialized and permissions granted.');
                     executeCommand(stopDbCommand, (err) => {
                         if (err) return;
-                        console.info('Base de données configurée et conteneur arrêté avec succès.');
+                        console.info('Database initialized and container successfully stopped.');
                     });
                 });
             });

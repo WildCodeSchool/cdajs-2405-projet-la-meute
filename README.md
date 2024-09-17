@@ -7,6 +7,11 @@ Started in September 2024 as a school project, **Paw Planner** is a service desi
 We are a team of four aspiring web developers working on this project: [Florence](https://github.com/FlorenceBuchelet), [Florian](https://github.com/Dolpheus89), [Julien](https://github.com/Carcali) and [Melissa](https://github.com/Melprcllr).
 
 ## Stack
+- **Prerequisites**:
+    - **NodeJS** needs to be installed **globally**.
+    - **npm**
+___
+
 - General:
     - **Typescript**
     - **Docker**
