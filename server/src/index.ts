@@ -6,9 +6,8 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./dataSource/dataSource";
 import { initTestData } from "./dataSource/initTestData";
 import { CategoryResolver } from "./resolvers/CategoryResolvers";
-import { config } from "dotenv";
-
-config({ path: __dirname + '/../.env' }); // Fix .env forwarding issue
+import dotenv from 'dotenv';
+dotenv.config();
 
 const port = 4000;
 
