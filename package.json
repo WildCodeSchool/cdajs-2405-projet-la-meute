@@ -1,13 +1,13 @@
 {
-  "type": "module",
   "scripts": {
     "install:all": "npm install && npm install --prefix client && npm install --prefix server",
-    "init:db": "node ./_ressources/scripts/init_db_user.ts"
+    "init:db": "ts-node ./_ressources/scripts/init_db_user.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@types/node": "^22.5.5",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
-
