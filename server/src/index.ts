@@ -9,7 +9,7 @@ import { CategoryResolver } from "./resolvers/CategoryResolvers";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const port = 4000;
+const port = 3200;
 
 export async function startServerApollo() {
 
@@ -27,7 +27,7 @@ export async function startServerApollo() {
     }
 
     // FIXME: Comment this after first launch to avoid doubles
-    await initTestData();
+    // await initTestData();
 
     const { url } = await startStandaloneServer(server, {
         listen: { port },

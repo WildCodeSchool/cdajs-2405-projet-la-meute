@@ -3,7 +3,7 @@ services:
     build: ./client
     restart: unless-stopped
     ports: 
-      - 3000:3000
+      - 4200:4200
     volumes:
       - ./client:/client
     # Fixit for HR in Windows
@@ -16,7 +16,7 @@ services:
     build: ./server
     restart: unless-stopped
     ports:
-      - 4000:4000
+      - 3200:3200
     volumes:
       - ./server:/server
     environment:
