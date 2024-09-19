@@ -10,6 +10,7 @@ We are a team of four aspiring web developers working on this project: [Florence
 - **Prerequisites**:
     - **NodeJS** needs to be installed **globally**.
     - **npm**
+    - **Docker**
 ___
 
 - General:
@@ -43,18 +44,17 @@ ___
 First of all, copy and edit the `.env.sample` in a `.env` file. There's one in the root folder and another in the /server folder. (FIXME: to be centralized)<br>
 On first launch, **the variables you'll put in this file will be used to create your database** so file it up accordingly with secured informations.
 
-Then run `npm run install:all` to run the `npm install` commands in the root, /client and /server folders in one go. 
+Then run `npm run install:all` to run the `npm install` commands in the /root, /client and /server folders in one go. 
 
 On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
 
-You can verify if your user has been created through adminer (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME).
+You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME).
 
 Run `docker compose up`.
 
 Isolated basic commands for debugging purpose: 
 - client side: `npm run dev`
 - server side: `npm start`
-
 
 ### Folder Structure
 
@@ -63,16 +63,38 @@ PawPlanner/
 ├── _ressources/
 │   ├── documentation/
 |   │   └── -- documentation on specific features
+│   ├── scripts/
 │   └── UML/
-├── server/                 -- backend
-├── client/                 -- frontend
+├── client/                     -- Frontend
+│   ├── public/
 |   ├── src/
+|   │   ├── assets/
 |   │   ├── components/
-|   │   └── pages/
-|   │       └── App.tsx
-|   ├── .env                -- create this before first launch
+|   │   |   └── ComponentName/
+|   |   │       ├── ComponentName.tsx
+|   |   │       └── ComponentName.scss
+|   │   ├── graphQL/
+|   │   |   ├── mutations/
+|   │   |   └── queries/
+|   │   ├── layouts/
+|   │   |   └── -- Footer, Header, general layout
+|   │   ├── pages/
+|   │   |   └── PageName/
+|   |   │       ├── PageName.tsx
+|   |   │       └── PageName.scss
+|   │   ├── styles/             -- General styles
+|   │   |   ├── _base.scss      -- HTML selectors
+|   │   |   ├── _mixins.scss
+|   │   |   ├── _reset.scss     -- normalize.css
+|   │   |   ├── _variables.scss -- Colors, typography and variables naming
+|   │   |   └── main.scss       -- Style imports in App.tsx
+|   │   ├── types/              -- Typescript type declarations
+|   │   |   └── ...
+|   │   └── App.tsx
+|   ├── .env                    -- Create this before first launch
 |   └── .env.sample
-├── .env                    -- create this before first launch
+├── server/                     -- Backend
+├── .env                        -- ❗ create this before first launch
 ├── .env.sample
 ├── docker-compose.yml
 └── -- Other config files

@@ -1,0 +1,25 @@
+// Main colors
+$primary-dark: #0C343D;
+$primary-light: #F9F4E5;
+
+$secondary-dark: #8CC871;
+$secondary-light: #ECEC59;
+
+$accent-color: #FFA84D;
+
+// 
+$background-color: $primary-light;
+$aside-color: $primary-dark;
+
+// Links
+$base-link: $accent-color;
+$visited-link: darken($accent-color, 20%);
+$active-link: blue;
+$hovered-link: lighten($accent-color, 10%);
+$focused-link: red;
+
+// Debug
+$border-debug: 5px solid lime;
+.debug {
+    border: $border-debug;
+}

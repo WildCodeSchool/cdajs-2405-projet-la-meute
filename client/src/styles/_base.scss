@@ -1,0 +1,18 @@
+a {
+    color: $base-link;
+    text-decoration: none;
+    font-weight: bold;
+    &:visited {
+        color: $visited-link;
+    }
+    &:active {
+        color: $active-link;
+    }
+    &:hover {
+        color: $hovered-link;
+    }
+    &:focus {
+        color: $focused-link;
+        padding-inline: 2px;
+    }
+}
