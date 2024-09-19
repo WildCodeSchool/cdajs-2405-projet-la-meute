@@ -1,11 +1,11 @@
 FROM node:18-bookworm
 
-RUN mkdir /Client
-WORKDIR /Client
+RUN mkdir /server
+WORKDIR /server
 
 COPY package*.json ./
 RUN npm i
 
 COPY . .
 
-CMD npm run dev
+CMD npm run start

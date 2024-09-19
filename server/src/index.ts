@@ -6,11 +6,10 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./dataSource/dataSource";
 import { initTestData } from "./dataSource/initTestData";
 import { CategoryResolver } from "./resolvers/CategoryResolvers";
-import { config } from "dotenv";
+import dotenv from 'dotenv';
+dotenv.config();
 
-config({ path: __dirname + '/../.env' }); // Fix .env forwarding issue
-
-const port = 4000;
+const port = 3200;
 
 export async function startServerApollo() {
 
@@ -28,7 +27,7 @@ export async function startServerApollo() {
     }
 
     // FIXME: Comment this after first launch to avoid doubles
-    await initTestData();
+    // await initTestData();
 
     const { url } = await startStandaloneServer(server, {
         listen: { port },
