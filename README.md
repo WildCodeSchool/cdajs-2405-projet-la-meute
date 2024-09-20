@@ -70,7 +70,10 @@ PawPlanner/
 |   ├── src/
 |   │   ├── assets/
 |   │   ├── components/
-|   │   |   └── ComponentName/
+|   │   |   ├── _atoms/
+|   │   |   ├── _molecules/
+|   │   |   ├── _organisms/
+|   │   |   └── ComponentName/  -- TODO: sort and clean
 |   |   │       ├── ComponentName.tsx
 |   |   │       └── ComponentName.scss
 |   │   ├── graphQL/
@@ -79,6 +82,8 @@ PawPlanner/
 |   │   ├── layouts/
 |   │   |   └── -- Footer, Header, general layout
 |   │   ├── pages/
+|   │   |   ├── DesignSystem/
+|   |   │   |   └── DesignSystem.tsx
 |   │   |   └── PageName/
 |   |   │       ├── PageName.tsx
 |   |   │       └── PageName.scss
