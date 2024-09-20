@@ -7,10 +7,6 @@ $secondary-light: #ECEC59;
 
 $accent-color: #FFA84D;
 
-// 
-$background-color: $primary-light;
-$aside-color: $primary-dark;
-
 // Links
 $base-link: $accent-color;
 $visited-link: darken($accent-color, 20%);
@@ -23,3 +19,7 @@ $border-debug: 5px solid lime;
 .debug {
     border: $border-debug;
 }
+
+// Transparent variables renaming 
+$background-color: $primary-light;
+$aside-color: $primary-dark;

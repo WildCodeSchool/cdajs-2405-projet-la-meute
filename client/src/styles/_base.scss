@@ -1,3 +1,9 @@
+// Only use global HTML selectors in this file to avoid conflicts 
+
+#root {
+    color: $primary-dark;
+}
+
 a {
     color: $base-link;
     text-decoration: none;
@@ -15,4 +21,16 @@ a {
         color: $focused-link;
         padding-inline: 2px;
     }
+}
+
+h1, h2, h3, h4, h5 {
+    @include title;
+}
+
+h1 {
+    @include h1;
+}
+
+.quote1 {
+    @include quote1;
 }

@@ -6,8 +6,6 @@ function App() {
   return (
     <>
       <Layout>
-        <h1>App</h1>
-        <a href="/" className="debug">Test link</a>
         <PageName />
       </Layout>
     </>
