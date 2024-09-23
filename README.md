@@ -65,7 +65,7 @@ PawPlanner/
 |   │   └── -- documentation on specific features
 │   ├── scripts/
 │   └── UML/
-├── client/                     -- Frontend
+├── client/                     -- FRONTEND
 │   ├── public/
 |   ├── src/
 |   │   ├── assets/
@@ -96,11 +96,18 @@ PawPlanner/
 |   │   ├── types/              -- Typescript type declarations
 |   │   |   └── ...
 |   │   └── App.tsx
-|   ├── .env                    -- Create this before first launch
-|   └── .env.sample
-├── server/                     -- Backend
+|   └── -- Other client side config files
+├── server/                     -- BACKEND
+|   ├── src/
+|   │   ├── dataSource/
+|   │   |   ├── dataSource.ts
+|   │   |   └── initTestData.ts
+|   │   ├── entities/
+|   │   └── resolvers/
+|   ├── index.ts          
+|   └── -- Other server side config files
 ├── .env                        -- ❗ create this before first launch
 ├── .env.sample
 ├── docker-compose.yml
-└── -- Other config files
+└── -- Other general config files
 ```
