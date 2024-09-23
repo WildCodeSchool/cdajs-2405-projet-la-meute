@@ -32,16 +32,16 @@ ___
 
 ### TLDR;
 1. **First Launch**
-    - Clone both `.env.sample` in a `.env` file (in root and /server)
+    - Clone the `.env.sample` in a `.env` file, edit it.
     - Run `npm run install:all`
     - Run `npm run init:db`
     - Run `docker compose up`
 2. **Any other launch**
-    - `docker compose up`
+    - Run `docker compose up`
 
 ### Explanations
 
-First of all, copy and edit the `.env.sample` in a `.env` file. There's one in the root folder and another in the /server folder. (FIXME: to be centralized)<br>
+First of all, copy and edit the `.env.sample` in a `.env` file. <br>
 On first launch, **the variables you'll put in this file will be used to create your database** so file it up accordingly with secured informations.
 
 Then run `npm run install:all` to run the `npm install` commands in the /root, /client and /server folders in one go. 

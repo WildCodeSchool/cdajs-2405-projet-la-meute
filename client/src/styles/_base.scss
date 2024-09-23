@@ -1,4 +1,5 @@
 // Only use global HTML selectors in this file to avoid conflicts 
+// -- alphabetical order
 
 #root {
     color: $primary-dark;
@@ -8,29 +9,83 @@ a {
     color: $base-link;
     text-decoration: none;
     font-weight: bold;
+
     &:visited {
         color: $visited-link;
     }
+
     &:active {
         color: $active-link;
     }
+
     &:hover {
         color: $hovered-link;
     }
+
     &:focus {
         color: $focused-link;
         padding-inline: 2px;
     }
 }
 
-h1, h2, h3, h4, h5 {
+blockquote {
+    @include quote;
+
+    &.quote1 {
+        font-size: 4.5rem;
+
+        &::before {
+            content: '⸙';
+            font-size: 5rem;
+        }
+    }
+
+    &.quote2 {
+        font-size: 2.5rem;
+
+        &::before {
+            content: '⸙';
+            font-size: 3rem;
+        }
+    }
+}
+
+button {
+    &::before {
+        content: "⬭ ";
+    }
+}
+
+figcaption {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-left: auto;
+}
+
+figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
     @include title;
+
+    &.h1 {
+        color: none;
+    }
 }
 
-h1 {
-    @include h1;
-}
-
-.quote1 {
-    @include quote1;
+p {
+    padding-inline: 1rem;
 }

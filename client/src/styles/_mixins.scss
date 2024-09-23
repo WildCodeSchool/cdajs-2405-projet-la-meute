@@ -9,22 +9,18 @@
     }
 }
 
-@mixin h1 {
-    
-}
-
-@mixin quote1 {
+@mixin quote {
     color: $accent-color;
     font-style: italic;
-    font-size: 4.5rem;
     margin: 0.5rem;
+    padding-inline: 0;
 
     &::before {
         content: '⸙';
-        font-size: 5rem;
         color: lighten($accent-color, 20%);
         padding: 0;
         margin: 0;
         line-height: 0;
     }
+
 }
