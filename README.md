@@ -79,6 +79,8 @@ PawPlanner/
 |   │   ├── graphQL/
 |   │   |   ├── mutations/
 |   │   |   └── queries/
+|   │   ├── helpers/
+|   │   |   └── -- Utility functions
 |   │   ├── layouts/
 |   │   |   └── -- Footer, Header, general layout
 |   │   ├── pages/
