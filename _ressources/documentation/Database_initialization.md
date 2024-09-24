@@ -19,7 +19,7 @@ Here's what we needed to achieve with this script:
 1. We needed a npm command to run the whole process
 2. This command runs a nodeJS script
 3. This script uses environment variables
-4. The `.env` file must be filed in root
+4. The `.env` file must be filed in /root
 5. This script runs SQL commands sequentially
 6. The container must run during the process and stop when it's finished to avoid conflicts
 7. The container's name must always be the same to ensure the script works
