@@ -1,0 +1,26 @@
+// All mixins must be gathered in this file
+
+@mixin title {
+    color: $secondary-dark;
+    padding-inline: 1rem;
+
+    &::first-letter {
+        color: darken($secondary-dark, 30%);
+    }
+}
+
+@mixin quote {
+    color: $accent-color;
+    font-style: italic;
+    margin: 0.5rem;
+    padding-inline: 0;
+
+    &::before {
+        content: '⸙';
+        color: lighten($accent-color, 20%);
+        padding: 0;
+        margin: 0;
+        line-height: 0;
+    }
+
+}

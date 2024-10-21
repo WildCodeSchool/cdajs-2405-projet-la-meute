@@ -21,7 +21,7 @@ export async function startServerApollo() {
 
     try {
         await dataSource.initialize();
-        console.log("Database connected successfully!");
+        console.info("Database connected successfully!");
     } catch (error) {
         console.error("Failed to initialize data source:", error);
     }
@@ -33,7 +33,7 @@ export async function startServerApollo() {
         listen: { port },
     });
 
-    console.log(`🚀🚀 Server running at ${url}`);
+    console.info(`🚀🚀 Server running at ${url}`);
 }
 
 startServerApollo();
