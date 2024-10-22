@@ -4,4 +4,4 @@ We used **Notion** to manage our User Stories. You can find our dashboard [here]
 
 # UML diagrams
 
-The [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) extension was used to create our diagrams so we could keep it in project and track and save our progress.
+The [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) extension was used to create the Class diagram.
