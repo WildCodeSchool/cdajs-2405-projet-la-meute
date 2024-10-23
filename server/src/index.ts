@@ -9,7 +9,7 @@ import { CategoryResolver } from "./resolvers/CategoryResolvers";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const port = 4000;
+const port = 3200;
 
 export async function startServerApollo() {
 
@@ -21,19 +21,19 @@ export async function startServerApollo() {
 
     try {
         await dataSource.initialize();
-        console.log("Database connected successfully!");
+        console.info("Database connected successfully!");
     } catch (error) {
         console.error("Failed to initialize data source:", error);
     }
 
     // FIXME: Comment this after first launch to avoid doubles
-    await initTestData();
+    // await initTestData();
 
     const { url } = await startStandaloneServer(server, {
         listen: { port },
     });
 
-    console.log(`🚀🚀 Server running at ${url}`);
+    console.info(`🚀🚀 Server running at ${url}`);
 }
 
 startServerApollo();

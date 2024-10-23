@@ -3,9 +3,10 @@ services:
     build: ./client
     restart: unless-stopped
     ports: 
-      - 3000:3000
+      - 4200:4200
     volumes:
       - ./client:/client
+      - node_modules:/client/node_modules
     # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
@@ -16,7 +17,7 @@ services:
     build: ./server
     restart: unless-stopped
     ports:
-      - 4000:4000
+      - 3200:3200
     volumes:
       - ./server:/server
     environment:
@@ -43,3 +44,6 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+
+volumes:
+  node_modules:
