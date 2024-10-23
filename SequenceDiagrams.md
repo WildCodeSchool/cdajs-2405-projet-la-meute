@@ -47,6 +47,12 @@ sequenceDiagram
     end
 ```
 
+    Retours : 
+    - Guest et client au même niveau me semblent étrange, on a l'impression que Guest devient Client, ce ne sont pas des éléments comparables qui ne devraient donc pas se trouver côte à côte
+    - Rien n'est renvoyé au Guest en fin de parcours (pour les deux scénarios)
+    - Trop technique je pense
+
+
 ## Login Sequence
 
 [Back to Top](#table-of-contents)
@@ -78,6 +84,10 @@ sequenceDiagram
         Server -->> Client: Account not found (Error)
     end
 ```
+
+    Retours : 
+    - la logique est nickel mais il reste les problèmes soulevés avant. il manque au moins un retour vers le Guest et je pense qu'il faut le représenter autrement.
+    - Tu as perdu les rectangles qui représentent le temps dans ce diag.
 
 ## Logout Sequence
 
@@ -157,6 +167,10 @@ sequenceDiagram
         Client -->> Dog_Trainer: Display error message
     end
 ```
+
+    Retours : 
+    - Le rôle Dog_Trainer ne correspond à rien dans nos entités, il faut qu'on soit d'accord tout de suite : c'est soit trainer soit dog_trainer mais on doit garder les mêmes termes partout. Pareil pour appointment, c'est un terme qu'on utilise ? Je me souviens plus.
+    - pas de s à Select
 
 
 
