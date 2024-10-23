@@ -5,6 +5,8 @@ WORKDIR /server
 
 COPY package*.json ./
 RUN npm i
+# Fix for Windows - sh: ts-node-dev not found
+RUN npm i -g ts-node-dev
 
 COPY . .
 
