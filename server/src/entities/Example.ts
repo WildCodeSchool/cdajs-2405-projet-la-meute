@@ -19,7 +19,7 @@ export class Example extends BaseEntity {
     category?: Category;
 
     constructor(
-        title: string = ""
+        title = ""
     ) {
         super();
 
