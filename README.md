@@ -23,10 +23,12 @@ ___
     - **Apollo Server**
     - **TypeGraphQL**
     - **PostegreSQL**
+    - **Jest**
 - Client side:
     - **React** (through ViteJS)
     - **Apollo Client** (via Vite)
     - **Sass**
+    - **Vitest**
 
 ## Launch
 
@@ -68,6 +70,8 @@ PawPlanner/
 ├── client/                     -- FRONTEND
 │   ├── public/
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── assets/
 |   │   ├── components/
 |   │   |   ├── _atoms/
@@ -101,6 +105,8 @@ PawPlanner/
 |   └── -- Other client side config files
 ├── server/                     -- BACKEND
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── dataSource/
 |   │   |   ├── dataSource.ts
 |   │   |   └── initTestData.ts
