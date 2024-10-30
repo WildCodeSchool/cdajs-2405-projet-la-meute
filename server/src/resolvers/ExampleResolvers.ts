@@ -1,6 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Example } from "../entities/Example";
 import { Category } from "../entities/Category";
+import { dataSource } from "../dataSource/dataSource";
 
 @Resolver(Example)
 export class ExampleResolver {
@@ -9,9 +10,16 @@ export class ExampleResolver {
     // If 'take' is undefined, return all examples
     @Query(type => [Example])
     async getSomeExamples(@Arg("limit", { nullable: true }) limit?: number): Promise<Example[]> {
-        const examples: Example[] = await Example.find({
+        const examples: Example[] = await dataSource.manager.find(Example, {
             take: limit,
         });
+        return examples;
+    }
+
+    @Query(type => [Example])
+    async getAllExamples(): Promise<Example[]> {
+        console.log("MODIFIED getAllExamples Query called from graphql")
+        const examples: Example[] = await dataSource.manager.find(Example);
         return examples;
     }
 
