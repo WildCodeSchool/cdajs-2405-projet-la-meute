@@ -77,7 +77,7 @@ PawPlanner/
 |   │   |   ├── _atoms/
 |   │   |   ├── _molecules/
 |   │   |   ├── _organisms/
-|   │   |   └── ComponentName/  -- TODO: sort and clean
+|   │   |   └── ComponentName/
 |   |   │       ├── ComponentName.tsx
 |   |   │       └── ComponentName.scss
 |   │   ├── graphQL/
