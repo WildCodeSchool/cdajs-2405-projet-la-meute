@@ -1,9 +1,9 @@
 import { Example } from "../entities/Example";
+import { Category } from "../entities/Category";
 import { ExampleResolver } from "../resolvers/ExampleResolvers";
 import { MockTypeORM } from "mock-typeorm";
 
 describe("ExampleResolvers", () => {
-
     let exampleResolver: ExampleResolver;
     let examples: Example[];
     let typeorm: MockTypeORM;

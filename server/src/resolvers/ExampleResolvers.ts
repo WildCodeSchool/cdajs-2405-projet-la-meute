@@ -16,6 +16,12 @@ export class ExampleResolver {
         return examples;
     }
 
+    @Query(type => [Example])
+    async getAllExamples(): Promise<Example[]> {
+        const examples: Example[] = await dataSource.manager.find(Example);
+        return examples;
+    }
+
     // Get one Example by ID
     @Query(() => Example, { nullable: true })
     async getExampleById(@Arg("id") id: number): Promise<Example | null> {
