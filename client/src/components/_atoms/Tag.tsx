@@ -8,7 +8,7 @@ export default function Tag({
 	const lighterColor = lighten(color, 80);
 
 	return (
-		<a href={href}>
+		 <a href={href}>
 			<span
 				className="tag"
 				style={{
