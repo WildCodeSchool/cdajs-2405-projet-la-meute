@@ -1,10 +1,10 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Example } from "./Example";
 
 @Entity()
 @ObjectType()
-export class Category extends BaseEntity {
+export class Category {
 
     @PrimaryGeneratedColumn()
     @Field(_ => ID)
@@ -19,10 +19,8 @@ export class Category extends BaseEntity {
     examples?: Promise<Example[]>;
 
     constructor(
-        title: string = ""
+        title = ""
     ) {
-        super();
-
         this.title = title;
     }
 }

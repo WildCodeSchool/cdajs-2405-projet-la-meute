@@ -41,6 +41,11 @@ ___
 2. **Any other launch**
     - Run `docker compose up`
 
+**Client**: http://localhost:4200/ </br>
+**Server**: http://localhost:3200/
+
+**Adminer**: http://localhost:8080/
+
 ### Explanations
 
 First of all, copy and edit the `.env.sample` in a `.env` file. <br>

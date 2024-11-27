@@ -1,6 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Example } from "../entities/Example";
 import { Category } from "../entities/Category";
+import { dataSource } from "../dataSource/dataSource";
 
 @Resolver(Example)
 export class ExampleResolver {
@@ -9,7 +10,7 @@ export class ExampleResolver {
     // If 'take' is undefined, return all examples
     @Query(type => [Example])
     async getSomeExamples(@Arg("limit", { nullable: true }) limit?: number): Promise<Example[]> {
-        const examples: Example[] = await Example.find({
+        const examples: Example[] = await dataSource.manager.find(Example, {
             take: limit,
         });
         return examples;
@@ -18,7 +19,7 @@ export class ExampleResolver {
     // Get one Example by ID
     @Query(() => Example, { nullable: true })
     async getExampleById(@Arg("id") id: number): Promise<Example | null> {
-        return Example.findOneBy({ id });
+        return dataSource.manager.findOneBy(Example, { id });
     }
 
     // Create new Example
@@ -31,12 +32,12 @@ export class ExampleResolver {
             const example = new Example();
             example.title = title;
             if (categoryId) {
-                const category = await Category.findOne({ where: { id: categoryId } });
+                const category = await dataSource.manager.findOne(Category, { where: { id: categoryId } });
                 if (category) {
                     example.category = category;
                 }
             }
-            await example.save();
+            await dataSource.manager.save(example);
             return example;
         } catch (error) {
             console.error("Creation failed. ", error);
@@ -53,7 +54,7 @@ export class ExampleResolver {
     ): Promise<Example | null> {
         try {
             // Find the right Example
-            const example = await Example.findOneBy({ id });
+            const example = await dataSource.manager.findOneBy(Example, { id });
             if (!example) {
                 console.error(`Unassigned Id ${id}`);
                 return null;
@@ -64,7 +65,7 @@ export class ExampleResolver {
             }
             if (categoryId !== undefined) {
                 // Find the right Category
-                const category = await Category.findOneBy({ id: categoryId });
+                const category = await dataSource.manager.findOneBy(Category, { id: categoryId });
                 // Update Example
                 if (category) {
                     example.category = category;
@@ -74,7 +75,7 @@ export class ExampleResolver {
                 }
             }
             // Save and return the updated Example
-            await example.save();
+            await dataSource.manager.save(example);
             return example;
         } catch (error) {
             console.error("Failed to update id: ", id, error);
@@ -86,7 +87,7 @@ export class ExampleResolver {
     @Mutation(() => Boolean) // True if success
     async deleteExample(@Arg("id") id: number): Promise<boolean> {
         try {
-            const result = await Example.delete(id);
+            const result = await dataSource.manager.delete(Example, id);
             return result.affected !== 0; // Returns true if a row has been affected
         } catch (error) {
             console.error("Failed to delete id: ", id, error);
