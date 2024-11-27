@@ -1,15 +1,14 @@
-import Layout from './layouts/Layout';
-import PageName from './pages/PageName/PageName';
+import Layout from "./layouts/Layout";
+import PageName from "./pages/PageName/PageName";
 
 function App() {
-
-  return (
-    <>
-      <Layout>
-        <PageName />
-      </Layout>
-    </>
-  )
+	return (
+		<>
+			<Layout>
+				<PageName />
+			</Layout>
+		</>
+	);
 }
 
 export default App;

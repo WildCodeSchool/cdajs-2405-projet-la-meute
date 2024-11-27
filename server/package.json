@@ -1,30 +1,30 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev --respawn ./src/index.ts",
-    "lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
-    "format": "../node_modules/@biomejs/biome/bin/biome format --write ./src"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@apollo/server": "^4.10.5",
-    "argon2": "^0.41.1",
-    "express": "^4.21.0",
-    "graphql": "^16.9.0",
-    "graphql-scalars": "^1.23.0",
-    "pg": "^8.12.0",
-    "reflect-metadata": "^0.2.2",
-    "type-graphql": "^2.0.0-rc.2",
-    "typeorm": "^0.3.20"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "ts-node-dev": "^2.0.0"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "ts-node-dev --respawn ./src/index.ts",
+		"lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
+		"format": "../node_modules/@biomejs/biome/bin/biome format --write ./src"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@apollo/server": "^4.10.5",
+		"argon2": "^0.41.1",
+		"express": "^4.21.0",
+		"graphql": "^16.9.0",
+		"graphql-scalars": "^1.23.0",
+		"pg": "^8.12.0",
+		"reflect-metadata": "^0.2.2",
+		"type-graphql": "^2.0.0-rc.2",
+		"typeorm": "^0.3.20"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.21",
+		"ts-node-dev": "^2.0.0"
+	}
 }

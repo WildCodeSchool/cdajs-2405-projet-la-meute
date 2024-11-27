@@ -1,7 +1,7 @@
-import { Category } from "./Category";
+import type { Category } from "./Category";
 
 export interface Example {
-    id: number,
-    title: string,
-    category?: Category
+	id: number;
+	title: string;
+	category?: Category;
 }
