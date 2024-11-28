@@ -1,16 +1,10 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToOne,
-	PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { Category } from "./Category";
 
 @Entity()
 @ObjectType()
-export class Example extends BaseEntity {
+export class Example {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
 	id?: number;
@@ -28,8 +22,6 @@ export class Example extends BaseEntity {
 	category?: Category;
 
 	constructor(title = "") {
-		super();
-
 		this.title = title;
 	}
 }
