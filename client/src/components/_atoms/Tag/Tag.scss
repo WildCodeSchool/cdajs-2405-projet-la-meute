@@ -1,29 +1,11 @@
 @import "@style";
 
 .tag {
-    color: $primary-light;
-    min-width: 15ch;
-    padding: 1rem;
-    padding-inline: 2rem;
-    padding-block: 0.6rem;
-    border-radius: 10px;
-    margin: 0.2rem;
-    display: inline-block;
-    font-weight: bold;
-    text-align: center;
+    @include tag;
 }
 
 .newTag {
-    color: $primary-light;
+    @include tag;
     background-color: none;
     border: 2px solid currentColor;
-    min-width: 15ch;
-    padding: 1rem;
-    padding-inline: 2rem;
-    padding-block: 0.6rem;
-    border-radius: 10px;
-    margin: 0.2rem;
-    display: inline-block;
-    font-weight: bold;
-    text-align: center;
 }

@@ -1,6 +1,8 @@
 import Button from "@/components/_atoms/Button/Button";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import NewTag from "@/components/_atoms/Tag/NewTag";
 import Tag from "@/components/_atoms/Tag/Tag";
+import Form from "@/components/_molecules/Form/Form";
 
 export default function DesignSystem() {
 	return (
@@ -13,19 +15,13 @@ export default function DesignSystem() {
 						par page.
 					</p>
 					<h2>Heading 02</h2>
-					<p>Sert à donner des titres d’étagère de la page.</p>
+					<p>Sert à donner des titres d'étagère de la page.</p>
 					<h3>Heading 03</h3>
 					<p>Sert pour les sous-titres.</p>
 					<h4>Heading 04</h4>
 					<p>Sert pour donner des titres à des paragraphes.</p>
 					<h5>Heading 05</h5>
 					<p>Sert pour les titres du formulaire.</p>
-				</div>
-				<div>
-					<blockquote className="quote1">Quote 01</blockquote>
-					<p>Sert à mettre en valeur les thèmes de salon ou des accroches</p>
-					<blockquote className="quote2">Display 02</blockquote>
-					<p>Sert à mettre en valeur des citations.</p>
 				</div>
 				<div>
 					<p className="body1">
@@ -48,6 +44,7 @@ export default function DesignSystem() {
 					</figure>
 				</div>
 				<div>
+					<h2>Buttons</h2>
 					<div>
 						<div>
 							<Button type="form-submit" href="/">
@@ -61,7 +58,7 @@ export default function DesignSystem() {
 						</div>
 						<div>
 							<Button type="invite" href="/">
-								Invite a new client
+								+ Inviter un client à s'inscrire
 							</Button>
 						</div>
 						<div>
@@ -90,11 +87,21 @@ export default function DesignSystem() {
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" />
-					<input type="checkbox" disabled={true} />
-					<input type="radio" name="radio" value={1} />
-					<input type="radio" name="radio" value={2} />
-					<input type="radio" name="radio" value={3} disabled={true} />
+					<h2>Form</h2>
+					<Form title="Connectez-vous ici">
+						<TextInput type="email" />
+						<TextInput type="password" />
+						<Button type="form-deny" href="">
+							Annuler
+						</Button>
+						<Button type="form-submit" href="">
+							Me connecter
+						</Button>
+						<p>
+							On peut ajouter d'autres <strong>champs</strong>.{" "}
+							<a href="/">Un lien par exemple</a>.
+						</p>
+					</Form>
 				</div>
 			</div>
 		</div>

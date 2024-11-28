@@ -1,0 +1,55 @@
+@import "@style";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: auto;
+    background-color: $blue-400;
+    border-radius: $windows-radius;
+    padding: 2rem;
+    width: fit-content;
+    margin: auto;
+
+    h2 {
+        color: $blue-100;
+        font-weight: $semiBold;
+        font-size: $xl;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form__buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    .form__fields {
+        color: $primary-light;
+        & * {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+
+@media screen and (max-width: 470px) {
+    .form  {
+        width: 90%;
+        
+        .form__buttons {
+            display: flex;
+            flex-direction: column-reverse;
+         //   align-items: center;
+            & button {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                padding-block: 0.8rem;
+            }
+        }
+    }
+}

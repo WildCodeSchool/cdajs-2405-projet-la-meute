@@ -31,6 +31,7 @@ $border-debug: 5px solid lime;
 $atoms-radius: 10px;
 $windows-radius: 20px;
 $blocks-margin: 2rem;
+$btn-height: 2rem;
 
 // Transparent variables renaming
 $background-color: $primary-light;
@@ -39,3 +40,21 @@ $aside-color: $primary-dark;
 
 // Fonts
 $font: "Poppins", sans-serif;
+// -- weights
+$extraBold: 800;
+$bold: 700;
+$semiBold: 600;
+$medium: 500;
+$regular: 400;
+$light: 300;
+$extraLight: 200;
+$thin: 100;
+// -- sizes
+$xxs: 0.5rem;
+$xs: 0.75rem;
+$s: 1rem;
+$m: 1.25rem;
+$l: 1.5rem;
+$xl: 2rem;
+$xxl: 2.5rem;
+$xxxl: 3rem;

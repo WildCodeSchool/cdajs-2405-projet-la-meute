@@ -1,0 +1,19 @@
+@import "@style";
+
+.textInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: 0.5rem;
+    color: $blue-100;
+
+    input {
+        border-radius: 7px;
+        border: 2px solid $blue-300;
+        background-color: $primary-light;
+        background-color: $blue-500;
+        padding: 0.5rem;
+        padding-inline: 2rem;
+        color: $primary-light;
+    }
+}

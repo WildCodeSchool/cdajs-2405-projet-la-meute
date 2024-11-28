@@ -20,3 +20,16 @@
     }
 
 }
+
+@mixin tag {
+    color: $primary-light;
+    min-width: 15ch;
+    padding: 1rem;
+    padding-inline: 2rem;
+    padding-block: 0.6rem;
+    border-radius: $atoms-radius;
+    margin: 0.2rem;
+    display: inline-block;
+    font-weight: $semiBold;
+    text-align: center;
+}

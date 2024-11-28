@@ -6,6 +6,9 @@ html {
     background-color: $background-color;
     font-family: $font;
     color: $primary-dark;
+    & * {
+        box-sizing: border-box;
+    }
 }
 
 a {
@@ -28,28 +31,6 @@ a {
     &:focus {
         color: $focused-link;
         padding-inline: 2px;
-    }
-}
-
-blockquote {
-    @include quote;
-
-    &.quote1 {
-        font-size: 4.5rem;
-
-        &::before {
-            content: '⸙';
-            font-size: 5rem;
-        }
-    }
-
-    &.quote2 {
-        font-size: 2.5rem;
-
-        &::before {
-            content: '⸙';
-            font-size: 3rem;
-        }
     }
 }
 

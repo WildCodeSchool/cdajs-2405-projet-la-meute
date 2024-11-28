@@ -1,25 +1,24 @@
 @import "@style";
 
-$btn-height: 2rem;
-
 .button button {
     all: unset;
     min-height: $btn-height;
     color: $primary-light;
-    font-weight: bold;
+    font-weight: $semiBold;
     border-radius: $atoms-radius;
-    padding: 0.9rem;
+    padding: 0.8rem;
     padding-inline: 3.5rem;
     margin: 0.2rem;
-    font-size: large;
+    font-size: $s;
     background-color: $blue-200;
+    text-align: center;
 
     &.btn-submit {
-        background-color: $blue-100;
+        background-color: $blue-200;
     }
 
     &.btn-deny {
-        background-color: $blue-300;
+        background-color: $blue-500;
     }
 
     &.btn-invite {
