@@ -7,7 +7,7 @@ import { Category } from "./Category";
 export class Example {
 
     @PrimaryGeneratedColumn()
-    @Field(_ => ID)
+    @Field((_) => ID)
     id?: number;
 
 	@Column()

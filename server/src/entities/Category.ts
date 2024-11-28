@@ -7,19 +7,16 @@ import { Example } from "./Example";
 export class Category {
 
     @PrimaryGeneratedColumn()
-    @Field(_ => ID)
+    @Field((_) => ID)
     id?: number;
 
-	@Column()
-	@Field()
-	title: string;
+    @Column()
+    @Field()
+    title: string;
 
-	@OneToMany(
-		() => Example,
-		(entity) => entity.category,
-	)
-	@Field((_) => [Example])
-	examples?: Promise<Example[]>;
+    @OneToMany(() => Example, entity => entity.category)
+    @Field((_) => [Example])
+    examples?: Promise<Example[]>;
 
     constructor(
         title = ""

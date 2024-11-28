@@ -8,7 +8,7 @@ export class ExampleResolver {
 
     // Get some Examples
     // If 'take' is undefined, return all examples
-    @Query(type => [Example])
+    @Query(() => [Example])
     async getSomeExamples(@Arg("limit", { nullable: true }) limit?: number): Promise<Example[]> {
         const examples: Example[] = await dataSource.manager.find(Example, {
             take: limit,
@@ -16,7 +16,7 @@ export class ExampleResolver {
         return examples;
     }
 
-    @Query(type => [Example])
+    @Query(() => [Example])
     async getAllExamples(): Promise<Example[]> {
         const examples: Example[] = await dataSource.manager.find(Example);
         return examples;

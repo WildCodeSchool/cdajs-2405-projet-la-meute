@@ -8,7 +8,7 @@ export class CategoryResolver {
 
     // Get Some Categories
     // If 'take' is undefined, return all categories
-    @Query(type => [Category])
+    @Query(() => [Category])
     async getSomeCategories(@Arg("limit", ({ nullable: true })) limit?: number): Promise<Category[]> {
         const category: Category[] = await dataSource.manager.find(Category, {
             take: limit,
