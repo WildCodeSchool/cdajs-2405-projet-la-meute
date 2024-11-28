@@ -10,13 +10,17 @@ export class Example {
     @Field(_ => ID)
     id?: number;
 
-    @Column()
-    @Field()
-    title: string;
+	@Column()
+	@Field()
+	title: string;
 
-    @ManyToOne(() => Category, category => category.examples, { eager: true, onDelete: "SET NULL" })
-    @Field(_ => Category, { nullable: true })
-    category?: Category;
+	@ManyToOne(
+		() => Category,
+		(category) => category.examples,
+		{ eager: true, onDelete: "SET NULL" },
+	)
+	@Field((_) => Category, { nullable: true })
+	category?: Category;
 
     constructor(
         title = ""

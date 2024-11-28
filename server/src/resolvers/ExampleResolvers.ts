@@ -101,5 +101,5 @@ export class ExampleResolver {
         }
     }
 
-    // autres CRUD
+	// autres CRUD
 }

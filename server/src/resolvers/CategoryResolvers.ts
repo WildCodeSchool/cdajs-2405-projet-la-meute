@@ -87,5 +87,5 @@ export class CategoryResolver {
         }
     }
 
-    // autres CRUD
+	// autres CRUD
 }
