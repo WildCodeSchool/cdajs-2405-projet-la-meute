@@ -6,8 +6,8 @@
 	"scripts": {
 		"test": "jest --watchAll",
 		"start": "ts-node-dev --respawn ./src/index.ts",
-		"lint": "biome lint --write ./src",
-		"format": "biome format --write ./src"
+		"lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
+		"format": "../node_modules/@biomejs/biome/bin/biome format --write ./src"
 	},
 	"keywords": [],
 	"author": "",
