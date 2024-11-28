@@ -5,22 +5,22 @@ import { Example } from "./Example";
 @Entity()
 @ObjectType()
 export class Category {
+	@PrimaryGeneratedColumn()
+	@Field((_) => ID)
+	id?: number;
 
-    @PrimaryGeneratedColumn()
-    @Field((_) => ID)
-    id?: number;
+	@Column()
+	@Field()
+	title: string;
 
-    @Column()
-    @Field()
-    title: string;
+	@OneToMany(
+		() => Example,
+		(entity) => entity.category,
+	)
+	@Field((_) => [Example])
+	examples?: Promise<Example[]>;
 
-    @OneToMany(() => Example, entity => entity.category)
-    @Field((_) => [Example])
-    examples?: Promise<Example[]>;
-
-    constructor(
-        title = ""
-    ) {
-        this.title = title;
-    }
+	constructor(title = "") {
+		this.title = title;
+	}
 }

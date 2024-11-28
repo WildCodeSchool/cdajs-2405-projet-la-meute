@@ -5,10 +5,9 @@ import { Category } from "./Category";
 @Entity()
 @ObjectType()
 export class Example {
-
-    @PrimaryGeneratedColumn()
-    @Field((_) => ID)
-    id?: number;
+	@PrimaryGeneratedColumn()
+	@Field((_) => ID)
+	id?: number;
 
 	@Column()
 	@Field()
@@ -22,9 +21,7 @@ export class Example {
 	@Field((_) => Category, { nullable: true })
 	category?: Category;
 
-    constructor(
-        title = ""
-    ) {
-        this.title = title;
-    }
+	constructor(title = "") {
+		this.title = title;
+	}
 }
