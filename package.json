@@ -2,13 +2,16 @@
   "scripts": {
     "install:all": "npm install && npm install --prefix client && npm install --prefix server",
     "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
-    "check-format": "npx @biomejs/biome format './server/src' './client/src'",
-    "format": "npx @biomejs/biome format --write './server/src' './client/src'",
+    "check-format": "npx @biomejs/biome format ./server/src ./client/src",
+    "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.5.5",
+    "@types/sinon": "^17.0.3",
     "dotenv": "^16.4.5",
     "husky": "^9.1.7",
     "ts-node": "^10.9.2",
