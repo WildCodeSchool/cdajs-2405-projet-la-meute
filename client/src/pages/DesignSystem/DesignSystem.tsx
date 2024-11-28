@@ -1,4 +1,5 @@
 import Button from "@/components/_atoms/Button/Button";
+import NewTag from "@/components/_atoms/Tag/NewTag";
 import Tag from "@/components/_atoms/Tag/Tag";
 
 export default function DesignSystem() {
@@ -82,6 +83,9 @@ export default function DesignSystem() {
 							<Tag color="#ff3729" href="/fourth-tag">
 								🎊 Fourth Tag
 							</Tag>
+							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
+								<NewTag href="" />
+							</div>
 						</div>
 					</div>
 				</div>

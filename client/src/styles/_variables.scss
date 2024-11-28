@@ -12,6 +12,7 @@ $blue-500: #04272f;
 $blue-400: #063b46;
 $blue-300: #0a6375;
 $blue-200: #0c778d;
+$blue-100: #43A6BA;
 
 // Links
 $base-link: $accent-color;
@@ -34,3 +35,7 @@ $blocks-margin: 2rem;
 // Transparent variables renaming
 $background-color: $primary-light;
 $aside-color: $primary-dark;
+
+
+// Fonts
+$font: "Poppins", sans-serif;

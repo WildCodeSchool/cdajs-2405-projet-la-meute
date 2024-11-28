@@ -2,9 +2,10 @@
 // Other CSS selectors meant for use through the whole project should be kept in this file
 // -- alphabetical order
 
-#root {
-    color: $primary-dark;
+html {
     background-color: $background-color;
+    font-family: $font;
+    color: $primary-dark;
 }
 
 a {

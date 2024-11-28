@@ -1,12 +1,8 @@
 // All mixins must be gathered in this file
 
 @mixin title {
-    color: $secondary-dark;
+    color: $blue-400;
     padding-inline: 1rem;
-
-    &::first-letter {
-        color: darken($secondary-dark, 30%);
-    }
 }
 
 @mixin quote {
