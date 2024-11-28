@@ -71,17 +71,14 @@ export class CategoryResolver {
         try {
             // Find all Examples for this Category
             const examples = await dataSource.manager.find(Example, { where: { category: { id } } });
-            console.log('👉👉 examples', examples);
             
             // Delete Category from the Examples
             await Promise.all(examples.map(async (example) => {
                 example.category = undefined;
-                console.log('👉👉 example', example);
                 await dataSource.manager.save(example);
             }));
             // When empty, delete the Category from the database
             const result = await dataSource.manager.delete(Category, id);
-            console.log('👉👉 result', result);
             
             return result.affected !== 0; // Returns true if a row has been affected
         } catch (error) {
