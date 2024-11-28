@@ -27,7 +27,7 @@ export class Example extends BaseEntity {
 	@Field((_) => Category, { nullable: true })
 	category?: Category;
 
-	constructor(title: string = "") {
+	constructor(title = "") {
 		super();
 
 		this.title = title;

@@ -6,8 +6,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
-		"format": "../node_modules/@biomejs/biome/bin/biome format --write ./src",
+		"lint": "biome lint --write ./src",
+		"format": "biome format --write ./src",
 		"preview": "vite preview"
 	},
 	"dependencies": {

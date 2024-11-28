@@ -26,7 +26,7 @@ export class Category extends BaseEntity {
 	@Field((_) => [Example])
 	examples?: Promise<Example[]>;
 
-	constructor(title: string = "") {
+	constructor(title = "") {
 		super();
 
 		this.title = title;
