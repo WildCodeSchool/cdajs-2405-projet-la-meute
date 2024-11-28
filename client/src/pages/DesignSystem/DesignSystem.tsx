@@ -49,16 +49,24 @@ export default function DesignSystem() {
 				<div>
 					<div>
 						<div>
-							<Button type="form-submit" href="/">Form Submit</Button>
+							<Button type="form-submit" href="/">
+								Form Submit
+							</Button>
 						</div>
 						<div>
-							<Button type="form-deny" href="/">Form Deny</Button>
+							<Button type="form-deny" href="/">
+								Form Deny
+							</Button>
 						</div>
 						<div>
-							<Button type="invite" href="/">Invite a new client</Button>
+							<Button type="invite" href="/">
+								Invite a new client
+							</Button>
 						</div>
 						<div>
-							<Button type="button" href="/">Button</Button>
+							<Button type="button" href="/">
+								Button
+							</Button>
 						</div>
 
 						<div>

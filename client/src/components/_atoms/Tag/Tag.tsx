@@ -5,13 +5,9 @@ export default function Tag({
 	children,
 	href,
 }: { color: string; children: string; href: string }) {
-
 	return (
 		<a href={href}>
-			<span
-				className="tag"
-				style={{ backgroundColor: color }}
-			>
+			<span className="tag" style={{ backgroundColor: color }}>
 				{children}
 			</span>
 		</a>
