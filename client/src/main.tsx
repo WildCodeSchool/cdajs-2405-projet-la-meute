@@ -22,6 +22,7 @@ const router = createBrowserRouter([
 	},
 ]);
 
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<Layout>

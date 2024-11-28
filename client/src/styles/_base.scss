@@ -51,12 +51,6 @@ blockquote {
     }
 }
 
-button {
-    &::before {
-        content: "⬭ ";
-    }
-}
-
 figcaption {
     font-size: 0.9rem;
     font-style: italic;

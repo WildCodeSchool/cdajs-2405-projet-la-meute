@@ -1,0 +1,14 @@
+@import "@style";
+
+.tag {
+    color: white;
+    min-width: 15ch;
+    padding: 1rem;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    border-radius: 10px;
+    margin: 0.2rem;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+}

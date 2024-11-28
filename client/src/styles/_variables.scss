@@ -1,11 +1,17 @@
 // Main colors
-$primary-dark: #0C343D;
-$primary-light: #F9F4E5;
+$primary-dark: #0c343d;
+$primary-light: #f9f4e5;
 
-$secondary-dark: #8CC871;
-$secondary-light: #ECEC59;
+$secondary-dark: #8cc871;
+$secondary-light: #ecec59;
 
-$accent-color: #FFA84D;
+$accent-color: #ffa84d;
+
+$blue-600: #021418;
+$blue-500: #04272f;
+$blue-400: #063b46;
+$blue-300: #0a6375;
+$blue-200: #0c778d;
 
 // Links
 $base-link: $accent-color;
@@ -20,6 +26,11 @@ $border-debug: 5px solid lime;
     border: $border-debug;
 }
 
-// Transparent variables renaming 
+// Fixed values
+$atoms-radius: 10px;
+$windows-radius: 20px;
+$blocks-margin: 2rem;
+
+// Transparent variables renaming
 $background-color: $primary-light;
 $aside-color: $primary-dark;

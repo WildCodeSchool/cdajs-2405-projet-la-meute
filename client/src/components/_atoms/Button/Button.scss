@@ -1,0 +1,32 @@
+@import "@style";
+
+$btn-height: 2rem;
+
+.button button {
+    all: unset;
+    min-height: $btn-height;
+    color: white;
+    font-weight: bold;
+    border-radius: $atoms-radius;
+    padding: 0.9rem;
+    padding-inline: 3.5rem;
+    margin: 0.2rem;
+    font-size: large;
+    background-color: $blue-200;
+
+    &.btn-submit {
+        background-color: $blue-200;
+    }
+
+    &.btn-deny {
+        background-color: $blue-400;
+    }
+
+    &.btn-invite {
+        background-color: $blue-500;
+    }
+
+    &.btn-default {
+        // rules
+    }
+}

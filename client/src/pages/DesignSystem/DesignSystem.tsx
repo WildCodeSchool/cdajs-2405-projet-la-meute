@@ -1,4 +1,5 @@
-import Tag from "@/components/_atoms/Tag";
+import Button from "@/components/_atoms/Button/Button";
+import Tag from "@/components/_atoms/Tag/Tag";
 
 export default function DesignSystem() {
 	return (
@@ -48,69 +49,30 @@ export default function DesignSystem() {
 				<div>
 					<div>
 						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
+							<Button type="form-submit" href="/">Form Submit</Button>
 						</div>
 						<div>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button></button>
+							<Button type="form-deny" href="/">Form Deny</Button>
 						</div>
 						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
+							<Button type="invite" href="/">Invite a new client</Button>
 						</div>
 						<div>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button></button>
+							<Button type="button" href="/">Button</Button>
 						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Special button</button>
-							<button>Special button</button>
-							<button>Special button</button>
-						</div>
+
 						<div>
 							<Tag color="#167024" href="/first-tag">
-								First Tag
+								✨ First Tag
 							</Tag>
 							<Tag color="#1b1670" href="/second-tag">
-								Second Tag
+								🔥 Second Tag
 							</Tag>
 							<Tag color="#c728c4" href="/third-tag">
-								Third Tag
+								🎉 Third Tag
 							</Tag>
 							<Tag color="#ff3729" href="/fourth-tag">
-								Fourth Tag
+								🎊 Fourth Tag
 							</Tag>
 						</div>
 					</div>
