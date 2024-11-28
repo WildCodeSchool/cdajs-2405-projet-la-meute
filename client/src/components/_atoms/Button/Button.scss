@@ -5,7 +5,7 @@ $btn-height: 2rem;
 .button button {
     all: unset;
     min-height: $btn-height;
-    color: white;
+    color: $primary-light;
     font-weight: bold;
     border-radius: $atoms-radius;
     padding: 0.9rem;
