@@ -1,0 +1,10 @@
+@import "@style";
+
+.header {
+    background-color: $green-100;
+    padding: 1rem;
+
+    & h1 {
+        color: $green-400;
+    }
+}
