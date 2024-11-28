@@ -1,16 +1,17 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Category } from "../entities/Category";
 import { Example } from "../entities/Example";
+import { dataSource } from "../dataSource/dataSource";
 
 @Resolver(Category)
 export class CategoryResolver {
 	// Get Some Categories
 	// If 'take' is undefined, return all categories
-	@Query((type) => [Category])
+	@Query(() => [Category])
 	async getSomeCategories(
 		@Arg("limit", { nullable: true }) limit?: number,
 	): Promise<Category[]> {
-		const category: Category[] = await Category.find({
+		const category: Category[] = await dataSource.manager.find(Category, {
 			take: limit,
 		});
 		return category;
@@ -19,7 +20,7 @@ export class CategoryResolver {
 	// Get one Category by ID
 	@Query(() => Category, { nullable: true })
 	async getCategoryById(@Arg("id") id: number): Promise<Category | null> {
-		return Category.findOneBy({ id });
+		return dataSource.manager.findOneBy(Category, { id });
 	}
 
 	// Create new Category
@@ -28,7 +29,7 @@ export class CategoryResolver {
 		try {
 			const category = new Category();
 			category.title = title;
-			await category.save();
+			await dataSource.manager.save(category);
 			return category;
 		} catch (error) {
 			console.error("Creation failed. ", error);
@@ -44,7 +45,7 @@ export class CategoryResolver {
 	): Promise<Category | null> {
 		try {
 			// Find the right Category
-			const category = await Category.findOneBy({ id });
+			const category = await dataSource.manager.findOneBy(Category, { id });
 			if (!category) {
 				console.error(`Unassigned Id ${id}`);
 				return null;
@@ -54,7 +55,7 @@ export class CategoryResolver {
 				category.title = title;
 			}
 			// Save and return the updated Category
-			await category.save();
+			await dataSource.manager.save(category);
 			return category;
 		} catch (error) {
 			console.error("Failed to update id: ", id, error);
@@ -68,20 +69,19 @@ export class CategoryResolver {
 	async deleteCategory(@Arg("id") id: number): Promise<boolean> {
 		try {
 			// Find all Examples for this Category
-			const examples = await Example.find({ where: { category: { id } } });
-			console.log("👉👉 examples", examples);
+			const examples = await dataSource.manager.find(Example, {
+				where: { category: { id } },
+			});
 
 			// Delete Category from the Examples
 			await Promise.all(
 				examples.map(async (example) => {
 					example.category = undefined;
-					console.log("👉👉 example", example);
-					await example.save();
+					await dataSource.manager.save(example);
 				}),
 			);
 			// When empty, delete the Category from the database
-			const result = await Category.delete(id);
-			console.log("👉👉 result", result);
+			const result = await dataSource.manager.delete(Category, id);
 
 			return result.affected !== 0; // Returns true if a row has been affected
 		} catch (error) {
