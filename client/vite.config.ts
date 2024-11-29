@@ -4,6 +4,11 @@ import path from "node:path";
 
 export default defineConfig({
 	plugins: [react()],
+	test: {
+		globals: true,
+		environment: 'jsdom', 
+		setupFiles: './src/__tests__/setup.ts',
+	},
 	server: {
 		host: "0.0.0.0",
 		port: 4200,
