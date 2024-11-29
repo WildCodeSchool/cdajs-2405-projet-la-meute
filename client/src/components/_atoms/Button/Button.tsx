@@ -24,7 +24,9 @@ export default function Button({
 				className={buttonClassName}
 				onClick={() => console.log(buttonClassName)}
 			>
-				{type === "invite" && !children ? "+ Inviter un client à s'inscrire" : children}
+				{type === "invite" && !children
+					? "+ Inviter un client à s'inscrire"
+					: children}
 			</button>
 		</a>
 	);
