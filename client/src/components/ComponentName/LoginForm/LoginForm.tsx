@@ -14,11 +14,12 @@ function LoginForm() {
 			<Button type="form-submit" href="">
 				Me connecter
 			</Button>
-			<p >
+			<p>
 				Si vous avez oublié votre mot de passe <a href="/">cliquer ici</a>
 			</p>
 			<p>
-				Si vous n’êtes pas inscrit vous pouvez ici faire votre <a href="/">inscription</a>
+				Si vous n’êtes pas inscrit vous pouvez ici faire votre{" "}
+				<a href="/">inscription</a>
 			</p>
 		</Form>
 	);
