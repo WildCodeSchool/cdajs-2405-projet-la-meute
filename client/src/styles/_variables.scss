@@ -12,7 +12,7 @@ $base-link: $accent-color;
 $visited-link: darken($accent-color, 20%);
 $active-link: blue;
 $hovered-link: lighten($accent-color, 10%);
-$focused-link: red;
+$focused-link: $accent-color;
 
 // Debug
 $border-debug: 5px solid lime;

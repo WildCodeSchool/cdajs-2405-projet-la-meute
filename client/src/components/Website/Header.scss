@@ -1,0 +1,57 @@
+@import "@style";
+
+.website__header--all {
+    position: fixed;
+    z-index:9000;
+    width: 86vw;
+    top: 0;
+    background-color: $background-color;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0vh 7vw;
+    border-bottom: 2px solid #E5D7C8;
+}
+
+.website__header--logo {
+    height: 60%;
+}
+
+.website__header--links {
+    position: fixed;
+    display: flex;
+    column-gap: 3vw;
+    justify-content: space-between;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 2px;
+
+    a {
+        color: $primary-dark;
+        &:hover {
+            color: $hovered-link;
+        }
+    }
+}
+
+.website__header--button {
+    background-color: $primary-dark;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #43A6BA;
+        color: $primary-light;
+    }
+}

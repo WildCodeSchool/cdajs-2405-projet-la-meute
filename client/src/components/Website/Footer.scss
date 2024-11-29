@@ -1,0 +1,115 @@
+@import "@style";
+
+.website__footer--logo {
+    height: 7vh;
+    margin-top: 2vh;
+}
+
+.website__footer--all {
+    background-color: $background-color;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    padding: 3vh 7vw;
+}
+
+.website__footer--pages {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-bottom: 3vh;
+
+    h5 {
+        font-size: 1.75rem;
+        font-weight: 600;
+    }
+
+    a {
+        color: $primary-dark;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 2vh;
+    }
+}
+
+.website__footer--support {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-bottom: 3vh;
+
+    h5 {
+        font-size: 1.75rem;
+        font-weight: 600;
+    }
+
+    p {
+        margin-top: 0;
+    }
+}
+
+.website__footer--button {
+    background-color: #0A6375;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+    text-align: center;
+
+    &:hover {
+        background-color: #43A6BA;
+        color: $primary-light;
+    }
+}
+
+/* Et maintenant, envie d'essayer ? */
+
+.website__footer--bottom {
+    background-color: #FFBF80;
+    min-height: 90vh;
+    padding: 10vh 7vw 0vh 7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.website__footer--bottom-text {
+    margin-top: 10vh;
+    width: 50%;
+    align-content: start;
+
+    h1 {
+        color: $primary-dark;
+        font-size: 4.75rem;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 1px;
+    }
+
+    p {
+        width: 90%;
+        color: $primary-dark;
+        font-size: 1.25rem;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 2.5rem;
+        margin-bottom: 10vh;
+    }
+}
+
+.website__footer--bottom-img {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    img {
+        height: auto;
+        width: auto;
+    }
+}

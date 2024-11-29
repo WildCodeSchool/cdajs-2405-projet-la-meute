@@ -1,0 +1,235 @@
+@import "@style";
+
+.services__section-subscriptions {
+    padding: 5vh 7vw 5vh 0vw;
+    background-color: #BDF2A4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        text-align: center;
+        color: $primary-dark;
+        font-size: 3.75rem;
+        font-weight: 600;
+        font-style: normal;
+        letter-spacing: 1px;
+    }
+}
+
+.services__section-text {
+    width: 50%;
+    text-align: center;
+    color: $primary-dark;
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 2.25rem;
+    margin-top: 0vh;
+    margin-bottom: 5vh;
+}
+
+/* Cards */
+
+.services__cards--div {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.services__cards--1-3 {
+    width: auto;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+/* Pack basique */
+
+.services__cards--basique-base {
+    min-height: 55vh;
+    width: auto;
+    background: linear-gradient(35deg, rgba(8, 43, 51, 1) 0%, rgba(16, 85, 99, 1) 100%);
+    padding: 1vh 2vw 5vh 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+}
+
+.services__cards--basique-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    font-style: italic;
+    color: $primary-light;
+    margin-bottom: 0;
+}
+
+.services__cards--basique-price {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $primary-light;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+}
+
+.services__cards--basique-text-bold {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: $primary-light;
+    line-height: 1.75rem;
+}
+
+.services__cards--basique-text-normal {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: $primary-light;
+    line-height: 1.75rem;
+}
+
+.services__cards--basique-button {
+    background-color: #43A6BA;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+    text-align: center;
+
+    &:hover {
+        background-color: #021418;
+        color: $primary-light;
+    }
+}
+
+/* Pack business */
+
+.services__cards--business-base {
+    min-height: 55vh;
+    width: auto;
+    background: linear-gradient(35deg, rgba(11, 89, 104, 1) 0%, rgba(14, 127, 151, 1) 100%);
+    padding: 1vh 2vw 5vh 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+}
+
+.services__cards--business-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    font-style: italic;
+    color: $primary-light;
+    margin-bottom: 0;
+}
+
+.services__cards--business-price {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $primary-light;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+}
+
+.services__cards--business-text-bold {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: $primary-light;
+    line-height: 1.75rem;
+}
+
+.services__cards--business-text-normal {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: $primary-light;
+    line-height: 1.75rem;
+}
+
+.services__cards--business-button {
+    background-color: #43A6BA;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+    text-align: center;
+
+    &:hover {
+        background-color: #021418;
+        color: $primary-light;
+    }
+}
+
+/* Pack custom */
+
+.services__cards--custom-base {
+    min-height: 55vh;
+    width: auto;
+    background-color: #BDF2A4;
+    padding: 1vh 2vw 5vh 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 5px solid $primary-dark;
+    border-radius: 15px;
+}
+
+.services__cards--custom-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    font-style: italic;
+    color: $primary-dark;
+    margin-bottom: 0;
+}
+
+.services__cards--custom-price {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $primary-dark;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+}
+
+.services__cards--custom-text-bold {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: $primary-dark;
+    line-height: 1.75rem;
+}
+
+.services__cards--custom-text-normal {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: $primary-dark;
+    line-height: 1.75rem;
+}
+
+.services__cards--custom-button {
+    background-color: #063B46;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+    text-align: center;
+
+    &:hover {
+        background-color: #43A6BA;
+        color: $primary-light;
+    }
+}

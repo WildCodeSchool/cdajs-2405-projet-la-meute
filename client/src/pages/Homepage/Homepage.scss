@@ -1,2 +1,172 @@
 @import "@style";
 
+/* Votre temps est précieux... */
+
+.homepage__section--top {
+    background-color: $primary-light;
+    min-height: 90vh;
+    padding: 10vh 7vw 0vh 7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.homepage__div--top-text {
+    margin-top: 10vh;
+    width: 50%;
+    align-content: start;
+
+    p {
+        color: $primary-dark;
+        font-size: 1rem;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 2rem;
+    }
+}
+
+.homepage__div--top-h1 {
+    color: $primary-dark;
+    font-size: 4.75rem;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 1px;
+}
+
+.homepage__div--top-img {
+    width: 80%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    img {
+        width: auto;
+    }
+}
+
+/* De quel côté êtes-vous ? */
+
+.homepage__section--choice {
+    background-color: #F1E6DA;
+    padding: 5vh 12vw 5vh 12vw;
+
+    h2 {
+        color: $primary-dark;
+        font-size: 3.75rem;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 1px;
+    }
+}
+
+.homepage__div--choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 6vh;
+}
+
+.homepage__div--choice-left {
+    background-color: #BDF2A4;
+    padding: 2%;
+    width: 45%;
+    border-radius: 10px;
+}
+
+.homepage__div--choice-right {
+    background-color: #FFBF80;
+    padding: 2%;
+    width: 45%;
+    border-radius: 10px;
+}
+
+.homepage__div--choice-title {
+    margin-top: 1vh;
+    color: #0A6375;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.homepage__div--choice-text {
+    color: #0A6375;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+/* Fonctionnalités principales */
+
+.homepage__section-features {
+    padding: 5vh 12vw 10vh 12vw;
+    background-color: #0A6375;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        text-align: center;
+        color: $primary-light;
+        font-size: 3.75rem;
+        font-weight: 600;
+        font-style: normal;
+        letter-spacing: 1px;
+        width: 100%;
+    }
+}
+
+.homepage__section-features-text {
+    text-align: center;
+    color: $primary-light;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 2rem;
+    margin-bottom: 5vh;
+    width: 50%;
+}
+
+.homepage__div--features {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 4vh;
+    column-gap: 2vw;
+}
+
+.homepage__cards--features {
+    background-color: #04272F;
+    padding: 2%;
+    width: 30%;
+    border-radius: 10px;
+}
+
+.homepage__cards--title {
+    margin-top: 1vh;
+    color: #43A6BA;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.homepage__cards--text {
+    color: $primary-light;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+.homepage__div--bottom-button {
+    background-color: $primary-dark;
+    color: $primary-light;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #43A6BA;
+        color: $primary-light;
+    }
+
+}
