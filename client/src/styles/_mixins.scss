@@ -2,7 +2,8 @@
 
 @mixin title {
     color: $blue-400;
-    padding-inline: 1rem;
+    margin-inline: 1rem;
+    font-weight: $semiBold;
 }
 
 @mixin quote {

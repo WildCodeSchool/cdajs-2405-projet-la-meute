@@ -6,7 +6,7 @@ export default function Button({
 	type,
 	children,
 	href,
-}: { type: ButtonTypes; children: string; href: string }) {
+}: { type: ButtonTypes; href: string; children?: string }) {
 	const buttonType = type === "form-submit" ? "submit" : "button";
 	const buttonClassName =
 		type === "form-submit"
@@ -24,7 +24,7 @@ export default function Button({
 				className={buttonClassName}
 				onClick={() => console.log(buttonClassName)}
 			>
-				{children}
+				{type === "invite" && !children ? "+ Inviter un client à s'inscrire" : children}
 			</button>
 		</a>
 	);

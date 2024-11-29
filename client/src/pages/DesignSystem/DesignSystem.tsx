@@ -2,6 +2,7 @@ import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import NewTag from "@/components/_atoms/Tag/NewTag";
 import Tag from "@/components/_atoms/Tag/Tag";
+import DashHeader from "@/components/_molecules/DashHeader/DashHeader";
 import Form from "@/components/_molecules/Form/Form";
 
 export default function DesignSystem() {
@@ -38,6 +39,11 @@ export default function DesignSystem() {
 					</p>
 				</div>
 				<div>
+					<h2>Dashboard header</h2>
+					<DashHeader title="Planning" />
+				</div>
+				<div>
+					<h2>Image</h2>
 					<figure>
 						<img src="https://placehold.co/600x400" alt="empty placeholder" />
 						<figcaption>Caption — Détails</figcaption>
@@ -57,9 +63,7 @@ export default function DesignSystem() {
 							</Button>
 						</div>
 						<div>
-							<Button type="invite" href="/">
-								+ Inviter un client à s'inscrire
-							</Button>
+							<Button type="invite" href="/" />
 						</div>
 						<div>
 							<Button type="button" href="/">
@@ -98,7 +102,7 @@ export default function DesignSystem() {
 							Me connecter
 						</Button>
 						<p>
-							On peut ajouter d'autres <strong>champs</strong>.{" "}
+							On peut ajouter d'autres <strong>champs</strong>.
 							<a href="/">Un lien par exemple</a>.
 						</p>
 					</Form>

@@ -1,0 +1,10 @@
+@import "@style";
+
+
+.h1 {
+    @include title;
+}
+
+.dashHeader__title {
+    letter-spacing: 0.15ch;
+}

@@ -14,18 +14,35 @@
     text-align: center;
 
     &.btn-submit {
-        background-color: $blue-200;
+        $background-color: $blue-200;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
     }
-
+    
     &.btn-deny {
-        background-color: $blue-500;
+        $background-color: $blue-500;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
     }
 
     &.btn-invite {
-        background-color: $blue-500;
+        $background-color: $blue-500;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
     }
 
     &.btn-default {
-        // rules
+        $background-color: $blue-200;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
     }
+
 }
