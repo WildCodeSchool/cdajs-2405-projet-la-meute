@@ -23,10 +23,12 @@ ___
     - **Apollo Server**
     - **TypeGraphQL**
     - **PostegreSQL**
+    - **Jest**
 - Client side:
     - **React** (through ViteJS)
     - **Apollo Client** (via Vite)
     - **Sass**
+    - **Vitest**
 
 ## Launch
 
@@ -38,6 +40,11 @@ ___
     - Run `docker compose up`
 2. **Any other launch**
     - Run `docker compose up`
+
+**Client**: http://localhost:4200/ </br>
+**Server**: http://localhost:3200/
+
+**Adminer**: http://localhost:8080/
 
 ### Explanations
 
@@ -68,12 +75,14 @@ PawPlanner/
 ├── client/                     -- FRONTEND
 │   ├── public/
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── assets/
 |   │   ├── components/
 |   │   |   ├── _atoms/
 |   │   |   ├── _molecules/
 |   │   |   ├── _organisms/
-|   │   |   └── ComponentName/  -- TODO: sort and clean
+|   │   |   └── ComponentName/
 |   |   │       ├── ComponentName.tsx
 |   |   │       └── ComponentName.scss
 |   │   ├── graphQL/
@@ -101,6 +110,8 @@ PawPlanner/
 |   └── -- Other client side config files
 ├── server/                     -- BACKEND
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── dataSource/
 |   │   |   ├── dataSource.ts
 |   │   |   └── initTestData.ts
