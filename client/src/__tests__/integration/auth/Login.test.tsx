@@ -1,12 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
+import { server } from "@/__tests__/mocks/loginHandler";
 
 import "@testing-library/jest-dom";
 
 import LoginForm from "@/components/ComponentName/LoginForm/LoginForm";
+
+beforeAll(() => server.listen());
+afterAll(() => server.close());
+afterEach(() => server.resetHandlers());
 
 describe("LoginForm", () => {
 	it("renders the LoginForm component", async () => {
@@ -44,5 +46,43 @@ describe("LoginForm", () => {
 
 		expect(emailError).toBeInTheDocument();
 		expect(passwordError).toBeInTheDocument();
+	});
+
+	it("sends a login request with wrong credentials and handle errors", async () => {
+		render(<LoginForm />);
+
+		const emailField = await screen.findByLabelText("Email");
+		const passwordField = await screen.findByLabelText("Mot de passe");
+		const loginButton = await screen.findByRole("button", {
+			name: "Me connecter",
+		});
+
+		await userEvent.type(emailField, "Youki@PawPlanner.com");
+		await userEvent.type(passwordField, "wrongPassword");
+
+		await userEvent.click(loginButton);
+
+		await waitFor(() => screen.getByText(/Identifiants invalides/i));
+	});
+
+	it("JWT is stored in cookie after successful login", async () => {
+		render(<LoginForm />);
+
+		const emailField = await screen.findByLabelText("Email");
+		const passwordField = await screen.findByLabelText("Mot de passe");
+		const loginButton = await screen.findByRole("button", {
+			name: "Me connecter",
+		});
+
+		await userEvent.type(emailField, "Youki@PawPlanner.com");
+		await userEvent.type(passwordField, "securePassword");
+		await userEvent.click(loginButton);
+
+		expect(document.cookie).toContain("jwt=fake-jwt-token");
+
+		const homePageHeading = await screen.findByRole("heading", {
+			name: /Bonjour/,
+		});
+		expect(homePageHeading).toBeInTheDocument();
 	});
 });
