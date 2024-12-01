@@ -80,9 +80,9 @@ describe("LoginForm", () => {
 
 		expect(document.cookie).toContain("jwt=fake-jwt-token");
 
-		const homePageHeading = await screen.findByRole("heading", {
+		const dashboardHeading = await screen.findByRole("heading", {
 			name: /Bonjour/,
 		});
-		expect(homePageHeading).toBeInTheDocument();
+		expect(dashboardHeading).toBeInTheDocument();
 	});
 });
