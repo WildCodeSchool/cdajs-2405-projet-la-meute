@@ -6,7 +6,6 @@ import Homepage from "./pages/Homepage/Homepage.tsx";
 import Layout from "./layouts/Layout.tsx";
 import PageName from "./pages/PageName/PageName.tsx";
 import DesignSystem from "./pages/DesignSystem/DesignSystem.tsx";
-import LoginForm from "./components/ComponentName/LoginForm/LoginForm.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -20,10 +19,6 @@ const router = createBrowserRouter([
 	{
 		path: "/designsystem",
 		element: <DesignSystem />,
-	},
-	{
-		path: "/test",
-		element: <LoginForm />,
 	},
 ]);
 

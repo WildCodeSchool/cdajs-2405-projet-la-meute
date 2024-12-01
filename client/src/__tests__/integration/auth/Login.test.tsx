@@ -31,6 +31,14 @@ describe("LoginForm", () => {
 		expect(cancelButton).toBeInTheDocument();
 	});
 
+	it("should have password input of type 'password'", async () => {
+		render(<LoginForm />);
+
+		const passwordField = await screen.findByLabelText("Mot de passe");
+
+		expect(passwordField).toHaveAttribute("type", "password");
+	});
+
 	it("should send error message when fields are empty", async () => {
 		render(<LoginForm />);
 
