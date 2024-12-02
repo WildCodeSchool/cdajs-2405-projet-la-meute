@@ -5,7 +5,7 @@ import "./LoginForm.scss";
 
 function LoginForm() {
 	return (
-		<section className="loginForm__section--all">
+		<section className="loginForm__section">
 			<Form title="Connectez-vous ici">
 				<TextInput type="email" />
 				<TextInput type="password" />

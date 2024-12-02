@@ -4,7 +4,7 @@ import { server } from "@/__tests__/mocks/loginHandler";
 
 import "@testing-library/jest-dom";
 
-import LoginForm from "@/components/ComponentName/LoginForm/LoginForm";
+import LoginForm from "@/components/LoginForm/LoginForm";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
