@@ -12,7 +12,7 @@
     margin: auto;
 
     h2 {
-        color: $primary-light;
+        color: $font-light;
         font-weight: $semiBold;
         font-size: $xl;
         margin: 0;
@@ -26,8 +26,8 @@
         justify-content: flex-end;
     }
 
-    .form__fields {
-        color: $primary-light;
+    .form__otherFields {
+        color: $font-light;
         & * {
             margin: 0;
             padding: 0;
@@ -43,7 +43,6 @@
         .form__buttons {
             display: flex;
             flex-direction: column-reverse;
-         //   align-items: center;
             & button {
                 width: 100%;
                 margin: 0;
