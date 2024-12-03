@@ -7,7 +7,6 @@ export default function Form({
 	title,
 	children,
 }: { title: string; children: React.ReactNode }) {
-
 	// Read { children } as an array to filter elements
 	const buttons = React.Children.toArray(children).filter(
 		(child) => React.isValidElement(child) && child.type === Button,
