@@ -9,8 +9,10 @@ import {
 	ChildEntity,
 } from "typeorm";
 import { User } from "./User";
+import { Service } from "./Service";
+import { Event } from "./Event";
 
-// La classe Trainer est une sous-classe de User, elle hérite des propriétés et méthodes de User.
+// The Trainer class is a subclass of User; it inherits the properties and methods from User.
 
 @Entity()
 @ObjectType()
@@ -20,8 +22,32 @@ export class Trainer extends User {
 	@Field((_) => ID)
 	trainer_id?: number;
 
-	constructor() {
+	@Column({
+		type: "varchar",
+		length: 14,
+	})
+	@Field()
+	siret: string;
+
+	@OneToMany(
+		() => Service,
+		(service) => service.trainer,
+		{ cascade: true },
+	)
+	@Field(() => [Service], { nullable: true })
+	service?: Service[];
+
+	@OneToMany(
+		() => Event,
+		(event) => event.trainer,
+		{ cascade: true },
+	)
+	@Field(() => [Event], { nullable: true })
+	event?: Event[];
+
+	constructor(siret: string) {
 		super();
 		this.role = "Trainer";
+		this.siret = siret;
 	}
 }

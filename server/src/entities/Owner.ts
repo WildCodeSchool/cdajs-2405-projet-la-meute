@@ -9,8 +9,9 @@ import {
 	ChildEntity,
 } from "typeorm";
 import { User } from "./User";
+import { Dog } from "./Dog";
 
-// La classe Owner est une sous-classe de User, elle hérite des propriétés et méthodes de User.
+// The Ownerr class is a subclass of User; it inherits the properties and methods from User.
 
 @Entity()
 @ObjectType()
@@ -20,7 +21,15 @@ export class Owner extends User {
 	@Field((_) => ID)
 	owner_id?: number;
 
-	constructor(dog_id: number[]) {
+	@OneToMany(
+		() => Dog,
+		(dog) => dog.owner,
+		{ cascade: true },
+	)
+	@Field(() => [Dog], { nullable: true })
+	dog_id?: Dog[];
+
+	constructor() {
 		super();
 		this.role = "Owner";
 	}

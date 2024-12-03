@@ -7,25 +7,29 @@ import {
 	TableInheritance,
 } from "typeorm";
 
-// La classe User est la classe parente des classes "Owner" et "Trainer", elles héritent des propriétés et méthodes de User.
-// Si le role est "Owner", TypeORM charge une instance de la classe Owner.
-// Si le role est "Trainer", TypeORM charge une instance de la classe Trainer.
+// The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
+// If the role is "Owner," TypeORM loads an instance of the Owner class.
+// If the role is "Trainer," TypeORM loads an instance of the Trainer class.
 
 @Entity()
 @ObjectType()
-@TableInheritance({ column: { type: "varchar", name: "role" } })
+@TableInheritance({
+	column: { type: "enum", name: "role", enum: ["Trainer", "Owner"] },
+})
 export class User {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
 	user_id?: number;
 
 	@Column({
+		type: "varchar",
 		length: 255,
 	})
 	@Field()
 	name: string;
 
 	@Column({
+		type: "varchar",
 		length: 255,
 		unique: true,
 	})
@@ -33,12 +37,14 @@ export class User {
 	email: string;
 
 	@Column({
+		type: "varchar",
 		length: 255,
 	})
 	@Field()
 	password_hashed: string;
 
 	@Column({
+		type: "varchar",
 		length: 15,
 		nullable: true,
 	})
@@ -46,12 +52,14 @@ export class User {
 	phone_number?: string;
 
 	@Column({
+		type: "varchar",
 		length: 50,
 	})
 	@Field()
 	city: string;
 
 	@Column({
+		type: "int",
 		length: 5,
 	})
 	@Field()
