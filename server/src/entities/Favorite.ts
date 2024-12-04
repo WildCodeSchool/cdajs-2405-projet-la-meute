@@ -20,23 +20,15 @@ export class Favorite {
 	@Field()
 	add_date: Date;
 
-	@ManyToOne(
-		() => Trainer,
-		(trainer) => trainer.trainer_id,
-		{ onDelete: "CASCADE" },
-	)
-	@JoinColumn({ name: "trainer_id" })
-	@Field(() => Trainer)
-	trainer?: Trainer;
+    @ManyToOne(() => Trainer, trainer => trainer.user_id, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "trainer_id" })
+    @Field(() => Trainer)
+    trainer: Trainer;
 
-	@ManyToOne(
-		() => Owner,
-		(owner) => owner.owner_id,
-		{ onDelete: "CASCADE" },
-	)
-	@JoinColumn({ name: "owner_id" })
-	@Field(() => Owner)
-	owner?: Owner;
+    @ManyToOne(() => Owner, owner => owner.user_id, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "owner_id" }) 
+    @Field(() => Owner)
+    owner: Owner;
 
 	constructor(trainer_id: Trainer, owner_id: Owner, add_date: Date) {
 		this.trainer = trainer_id;

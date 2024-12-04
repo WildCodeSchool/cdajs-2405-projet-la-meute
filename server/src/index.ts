@@ -18,12 +18,7 @@ export async function startServerApollo() {
 
 	const server = new ApolloServer({ schema });
 
-	try {
-		await dataSource.initialize();
-		console.info("Database connected successfully!");
-	} catch (error) {
-		console.error("Failed to initialize data source:", error);
-	}
+	await initTestData()
 
 	// FIXME: Comment this after first launch to avoid doubles
 	// await initTestData();

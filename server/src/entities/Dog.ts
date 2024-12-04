@@ -41,13 +41,11 @@ export class Dog {
 	@Field({ nullable: true })
 	picture?: string;
 
-	@ManyToOne(
-		() => Owner,
-		(owner) => owner.dog_id,
-		{ onDelete: "CASCADE" },
-	)
-	@JoinColumn({ name: "owner_id" })
-	owner?: Owner;
+	@ManyToOne(() => Owner, owner => owner.dogs, { nullable: false, onDelete: "CASCADE" })
+    @JoinColumn([
+		{ name: "owner_id", referencedColumnName: "user_id", foreignKeyConstraintName: "FK_dog_owner" }
+	  ])
+    owner: Owner;
 
 	@OneToMany(
 		() => Participation,
@@ -56,8 +54,8 @@ export class Dog {
 	@Field(() => [Participation], { nullable: true })
 	participation?: Participation[];
 
-	constructor(owner_id: Owner, name = "", age = 0, breed = "", picture = "") {
-		this.owner = owner_id;
+	constructor(owner: Owner, name = "", age = 0, breed = "", picture = "") {
+		this.owner = owner;
 		this.name = name;
 		this.age = age;
 		this.breed = breed;

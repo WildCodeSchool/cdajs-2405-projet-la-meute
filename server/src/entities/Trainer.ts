@@ -1,11 +1,8 @@
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, ObjectType,ID } from "type-graphql";
 import {
 	Column,
 	Entity,
-	JoinColumn,
-	ManyToOne,
 	OneToMany,
-	PrimaryGeneratedColumn,
 	ChildEntity,
 } from "typeorm";
 import { User } from "./User";
@@ -18,9 +15,6 @@ import { Event } from "./Event";
 @ObjectType()
 @ChildEntity()
 export class Trainer extends User {
-	@PrimaryGeneratedColumn()
-	@Field((_) => ID)
-	trainer_id?: number;
 
 	@Column({
 		type: "varchar",

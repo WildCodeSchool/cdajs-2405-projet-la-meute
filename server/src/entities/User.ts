@@ -2,7 +2,6 @@ import { Field, ID, ObjectType } from "type-graphql";
 import {
 	Column,
 	Entity,
-	OneToMany,
 	PrimaryGeneratedColumn,
 	TableInheritance,
 } from "typeorm";
@@ -14,9 +13,9 @@ import {
 @Entity()
 @ObjectType()
 @TableInheritance({
-	column: { type: "enum", name: "role", enum: ["Trainer", "Owner"] },
+	column: { type: "enum", name: "role", enum: ["trainer", "owner"] },
 })
-export class User {
+export abstract class User {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
 	user_id?: number;
@@ -59,16 +58,14 @@ export class User {
 	city: string;
 
 	@Column({
-		type: "int",
-		length: 5,
+		length:5
 	})
 	@Field()
 	postal_code: string;
 
 	@Column({
 		type: "enum",
-		enum: ["Trainer", "Owner"],
-		default: "Owner",
+		enum: ["trainer", "owner"],
 	})
 	@Field()
 	role: string;
@@ -80,7 +77,7 @@ export class User {
 		phone_number = "",
 		city = "",
 		postal_code = "",
-		role = "Owner",
+		role = "",
 	) {
 		this.name = name;
 		this.email = email;

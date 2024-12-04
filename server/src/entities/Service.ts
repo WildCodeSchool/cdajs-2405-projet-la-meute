@@ -37,13 +37,10 @@ export class Service {
 	@Field()
 	tag: string;
 
-	@ManyToOne(
-		() => Trainer,
-		(trainer) => trainer.service,
-		{ onDelete: "CASCADE" },
-	)
-	@JoinColumn({ name: "trainer_id" })
-	trainer?: Trainer;
+    @ManyToOne(() => Trainer)
+    @JoinColumn({ name: "trainer_id" })
+    @Field(() => Trainer)
+    trainer?: Trainer;
 
 	@OneToMany(
 		() => Event,
