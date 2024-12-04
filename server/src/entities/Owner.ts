@@ -1,9 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import {
-	Entity,
-	OneToMany,
-	ChildEntity,
-} from "typeorm";
+import { Entity, OneToMany, ChildEntity } from "typeorm";
 import { User } from "./User";
 import { Dog } from "./Dog";
 
@@ -13,10 +9,12 @@ import { Dog } from "./Dog";
 @ChildEntity("owner")
 @Entity({ name: "owner" })
 export class Owner extends User {
-
-    @OneToMany(() => Dog, dog => dog.owner)
-    @Field(() => [Dog], { nullable: true })
-    dogs?: Dog[];
+	@OneToMany(
+		() => Dog,
+		(dog) => dog.owner,
+	)
+	@Field(() => [Dog], { nullable: true })
+	dogs?: Dog[];
 
 	constructor() {
 		super();

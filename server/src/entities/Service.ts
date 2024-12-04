@@ -37,10 +37,10 @@ export class Service {
 	@Field()
 	tag: string;
 
-    @ManyToOne(() => Trainer)
-    @JoinColumn({ name: "trainer_id" })
-    @Field(() => Trainer)
-    trainer?: Trainer;
+	@ManyToOne(() => Trainer)
+	@JoinColumn({ name: "trainer_id" })
+	@Field(() => Trainer)
+	trainer?: Trainer;
 
 	@OneToMany(
 		() => Event,

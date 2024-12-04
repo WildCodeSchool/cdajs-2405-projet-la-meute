@@ -1,10 +1,5 @@
-import { Field, ObjectType,ID } from "type-graphql";
-import {
-	Column,
-	Entity,
-	OneToMany,
-	ChildEntity,
-} from "typeorm";
+import { Field, ObjectType, ID } from "type-graphql";
+import { Column, Entity, OneToMany, ChildEntity } from "typeorm";
 import { User } from "./User";
 import { Service } from "./Service";
 import { Event } from "./Event";
@@ -15,7 +10,6 @@ import { Event } from "./Event";
 @ObjectType()
 @ChildEntity()
 export class Trainer extends User {
-
 	@Column({
 		type: "varchar",
 		length: 14,

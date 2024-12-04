@@ -41,11 +41,19 @@ export class Dog {
 	@Field({ nullable: true })
 	picture?: string;
 
-	@ManyToOne(() => Owner, owner => owner.dogs, { nullable: false, onDelete: "CASCADE" })
-    @JoinColumn([
-		{ name: "owner_id", referencedColumnName: "user_id", foreignKeyConstraintName: "FK_dog_owner" }
-	  ])
-    owner: Owner;
+	@ManyToOne(
+		() => Owner,
+		(owner) => owner.dogs,
+		{ nullable: false, onDelete: "CASCADE" },
+	)
+	@JoinColumn([
+		{
+			name: "owner_id",
+			referencedColumnName: "user_id",
+			foreignKeyConstraintName: "FK_dog_owner",
+		},
+	])
+	owner: Owner;
 
 	@OneToMany(
 		() => Participation,

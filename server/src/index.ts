@@ -18,7 +18,7 @@ export async function startServerApollo() {
 
 	const server = new ApolloServer({ schema });
 
-	await initTestData()
+	await initTestData();
 
 	// FIXME: Comment this after first launch to avoid doubles
 	// await initTestData();

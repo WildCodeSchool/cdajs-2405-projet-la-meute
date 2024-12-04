@@ -58,7 +58,7 @@ export abstract class User {
 	city: string;
 
 	@Column({
-		length:5
+		length: 5,
 	})
 	@Field()
 	postal_code: string;
