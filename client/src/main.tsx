@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 	{
 		path: "/login",
 		element: <Login />,
-	}
+	},
 ]);
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
