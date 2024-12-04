@@ -6,20 +6,9 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Login() {
 	return (
-		/**
-		 * logo + titre paw planner
-		 * formulaire
-		 *     - email
-		 *     - password
-		 *     - bouton login
-		 *     - deux lignes de plus
-		 *          - oubli mot de passe
-		 *          - inscription
-		 * image ?
-		 * */
 		<main className="login">
 			<img className="login__logo" src={logo} alt="logo paw planner" />
-			<Form className="login__form" title="Connectez-vous ici">
+			<Form className="login__form" title="Connectez-vous&nbsp;ici">
 				<TextInput type="email" />
 				<TextInput type="password" />
 				<Button type="form-deny" href="">
