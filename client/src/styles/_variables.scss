@@ -1,11 +1,23 @@
 // Main colors
-$primary-dark: #0C343D;
-$primary-light: #F9F4E5;
+$primary-dark: #0c343d;
+$primary-light: #f9f4e5;
 
-$secondary-dark: #8CC871;
-$secondary-light: #ECEC59;
+$secondary-dark: #8cc871;
+$secondary-light: #ecec59;
 
-$accent-color: #FFA84D;
+$accent-color: #ffa84d;
+
+$beige-200: #F1E6DA;
+
+$blue-600: #021418;
+$blue-500: #04272f;
+$blue-400: #063b46;
+$blue-300: #0a6375;
+$blue-200: #0c778d;
+$blue-100: #43A6BA;
+
+$green-400: #6AB847;
+$green-100: #BDF2A4;
 
 // Links
 $base-link: $accent-color;
@@ -20,6 +32,36 @@ $border-debug: 5px solid lime;
     border: $border-debug;
 }
 
-// Transparent variables renaming 
+// Fixed values
+$atoms-radius: 10px;
+$windows-radius: 20px;
+$blocks-margin: 2rem;
+$btn-height: 2rem;
+
+// Transparent variables renaming
 $background-color: $primary-light;
 $aside-color: $primary-dark;
+
+// Fonts
+$font: "Poppins", sans-serif;
+// -- colors
+$font-light: $primary-light;
+$font-dark: $primary-dark;
+// -- weights
+$extraBold: 800;
+$bold: 700;
+$semiBold: 600;
+$medium: 500;
+$regular: 400;
+$light: 300;
+$extraLight: 200;
+$thin: 100;
+// -- sizes
+$xxs: 0.5rem;
+$xs: 0.75rem;
+$s: 1rem;
+$m: 1.25rem;
+$l: 1.5rem;
+$xl: 2rem;
+$xxl: 2.5rem;
+$xxxl: 3rem;

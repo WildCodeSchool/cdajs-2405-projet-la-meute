@@ -1,26 +1,19 @@
 // All mixins must be gathered in this file
 
 @mixin title {
-    color: $secondary-dark;
-    padding-inline: 1rem;
-
-    &::first-letter {
-        color: darken($secondary-dark, 30%);
-    }
+    color: $blue-400;
+    margin-inline: 1rem;
+    font-weight: $semiBold;
 }
 
-@mixin quote {
-    color: $accent-color;
-    font-style: italic;
-    margin: 0.5rem;
-    padding-inline: 0;
-
-    &::before {
-        content: '⸙';
-        color: lighten($accent-color, 20%);
-        padding: 0;
-        margin: 0;
-        line-height: 0;
-    }
-
+@mixin tag {
+    color: $primary-light;
+    min-width: 15ch;
+    padding-inline: 2rem;
+    padding-block: 0.6rem;
+    border-radius: $atoms-radius;
+    margin: 0.2rem;
+    display: inline-block;
+    font-weight: $semiBold;
+    text-align: center;
 }

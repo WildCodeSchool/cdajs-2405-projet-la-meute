@@ -1,0 +1,11 @@
+@import "@style";
+
+.tag {
+    @include tag;
+}
+
+.newTag {
+    @include tag;
+    background-color: none;
+    border: 2px solid currentColor;
+}

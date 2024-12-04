@@ -1,0 +1,48 @@
+@import "@style";
+
+.button button {
+    all: unset;
+    min-height: $btn-height;
+    color: $primary-light;
+    font-weight: $semiBold;
+    border-radius: $atoms-radius;
+    padding: 0.8rem;
+    padding-inline: 3.5rem;
+    margin: 0.2rem;
+    font-size: $s;
+    background-color: $blue-200;
+    text-align: center;
+
+    &.btn-submit {
+        $background-color: $blue-200;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
+    }
+    
+    &.btn-deny {
+        $background-color: $blue-500;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
+    }
+
+    &.btn-invite {
+        $background-color: $blue-500;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
+    }
+
+    &.btn-default {
+        $background-color: $blue-200;
+        background-color: $background-color;
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
+    }
+
+}
