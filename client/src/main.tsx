@@ -8,7 +8,6 @@ import DesignSystem from './pages/DesignSystem/DesignSystem.tsx';
 import WelcomePageLayout from './layouts/WelcomePage/WelcomePageLayout.tsx';
 import Services from '@/pages/WelcomePage/Services.tsx';
 import Contact from '@/pages/WelcomePage/Contact.tsx';
-import Login from '@/pages/WelcomePage/Login.tsx';
 
 const router = createBrowserRouter([
   {
@@ -25,10 +24,6 @@ const router = createBrowserRouter([
         path: "/contact", element: <Contact />
       },
     ],
-  },
-  {
-    path: "/connexion",
-    element: <Login />
   },
   {
     path: "/page",

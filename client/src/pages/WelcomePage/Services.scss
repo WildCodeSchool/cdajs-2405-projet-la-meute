@@ -2,7 +2,7 @@
 
 .services__section-subscriptions {
     padding: 5vh 7vw 5vh 0vw;
-    background-color: #BDF2A4;
+    background-color: $green-100;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +11,7 @@
         text-align: center;
         color: $primary-dark;
         font-size: 3.75rem;
-        font-weight: 600;
+        font-weight: $semiBold;
         font-style: normal;
         letter-spacing: 1px;
     }
@@ -21,8 +21,8 @@
     width: 50%;
     text-align: center;
     color: $primary-dark;
-    font-size: 1.25rem;
-    font-weight: 400;
+    font-size: $m;
+    font-weight: $regular;
     font-style: normal;
     line-height: 2.25rem;
     margin-top: 0vh;
@@ -58,24 +58,24 @@
 }
 
 .services__cards--basique-title {
-    font-size: 1.75rem;
-    font-weight: 400;
+    font-size: $l;
+    font-weight: $regular;
     font-style: italic;
     color: $primary-light;
     margin-bottom: 0;
 }
 
 .services__cards--basique-price {
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: $xxl;
+    font-weight: $semiBold;
     color: $primary-light;
     margin-top: 1vh;
     margin-bottom: 3vh;
 }
 
 .services__cards--basique-text-bold {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: $s;
+    font-weight: $semiBold;
     font-style: italic;
     letter-spacing: 1px;
     color: $primary-light;
@@ -83,25 +83,25 @@
 }
 
 .services__cards--basique-text-normal {
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: $s;
+    font-weight: $light;
     letter-spacing: 1px;
     color: $primary-light;
     line-height: 1.75rem;
 }
 
 .services__cards--basique-button {
-    background-color: #43A6BA;
+    background-color: $blue-100;
     color: $primary-light;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: $s;
+    font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
     text-align: center;
 
     &:hover {
-        background-color: #021418;
+        background-color: $blue-600;
         color: $primary-light;
     }
 }
@@ -120,24 +120,24 @@
 }
 
 .services__cards--business-title {
-    font-size: 1.75rem;
-    font-weight: 400;
+    font-size: $l;
+    font-weight: $regular;
     font-style: italic;
     color: $primary-light;
     margin-bottom: 0;
 }
 
 .services__cards--business-price {
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: $xxl;
+    font-weight: $semiBold;
     color: $primary-light;
     margin-top: 1vh;
     margin-bottom: 3vh;
 }
 
 .services__cards--business-text-bold {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: $s;
+    font-weight: $semiBold;
     font-style: italic;
     letter-spacing: 1px;
     color: $primary-light;
@@ -145,25 +145,25 @@
 }
 
 .services__cards--business-text-normal {
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: $s;
+    font-weight: $light;
     letter-spacing: 1px;
     color: $primary-light;
     line-height: 1.75rem;
 }
 
 .services__cards--business-button {
-    background-color: #43A6BA;
+    background-color: $blue-100;
     color: $primary-light;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: $s;
+    font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
     text-align: center;
 
     &:hover {
-        background-color: #021418;
+        background-color: $blue-600;
         color: $primary-light;
     }
 }
@@ -173,7 +173,7 @@
 .services__cards--custom-base {
     min-height: 55vh;
     width: auto;
-    background-color: #BDF2A4;
+    background-color: $green-100;
     padding: 1vh 2vw 5vh 2vw;
     display: flex;
     flex-direction: column;
@@ -183,24 +183,24 @@
 }
 
 .services__cards--custom-title {
-    font-size: 1.75rem;
-    font-weight: 400;
+    font-size: $l;
+    font-weight: $regular;
     font-style: italic;
     color: $primary-dark;
     margin-bottom: 0;
 }
 
 .services__cards--custom-price {
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: $xxl;
+    font-weight: $semiBold;
     color: $primary-dark;
     margin-top: 1vh;
     margin-bottom: 3vh;
 }
 
 .services__cards--custom-text-bold {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: $s;
+    font-weight: $semiBold;
     font-style: italic;
     letter-spacing: 1px;
     color: $primary-dark;
@@ -208,25 +208,25 @@
 }
 
 .services__cards--custom-text-normal {
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: $s;
+    font-weight: $light;
     letter-spacing: 1px;
     color: $primary-dark;
     line-height: 1.75rem;
 }
 
 .services__cards--custom-button {
-    background-color: #063B46;
+    background-color: $blue-400;
     color: $primary-light;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: $s;
+    font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
     text-align: center;
 
     &:hover {
-        background-color: #43A6BA;
+        background-color: $blue-100;
         color: $primary-light;
     }
 }

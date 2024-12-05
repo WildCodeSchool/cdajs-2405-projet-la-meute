@@ -23,15 +23,15 @@
 
     a {
         color: $primary-dark;
-        font-size: 1rem;
-        font-weight: 400;
+        font-size: $s;
+        font-weight: $regular;
         margin-bottom: 2vh;
     }
 }
 
 .welcomepage__footer--navigation {
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: $l;
+    font-weight: $semiBold;
 }
 
 .welcomepage__footer--support {
@@ -42,23 +42,23 @@
 }
 
 .welcomepage__footer--button {
-    background-color: #0A6375;
+    background-color: $blue-300;
     color: $primary-light;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: $s;
+    font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
     text-align: center;
 
     &:hover {
-        background-color: #43A6BA;
+        background-color: $blue-100;
         color: $primary-light;
     }
 }
 
 .welcomepage__footer--bottom {
-    background-color: #FFBF80;
+    background-color: $orange-300;
     min-height: 90vh;
     padding: 10vh 7vw 10vh 7vw;
     display: flex;
@@ -74,8 +74,8 @@
     p {
         width: 90%;
         color: $primary-dark;
-        font-size: 1.25rem;
-        font-weight: 400;
+        font-size: $m;
+        font-weight: $regular;
         font-style: normal;
         line-height: 2.5rem;
         margin-bottom: 10vh;
@@ -85,7 +85,7 @@
 .welcomepage__footer--bottom-title {
     color: $primary-dark;
     font-size: 4.75rem;
-    font-weight: 700;
+    font-weight: $bold;
     font-style: normal;
     letter-spacing: 1px;
 }

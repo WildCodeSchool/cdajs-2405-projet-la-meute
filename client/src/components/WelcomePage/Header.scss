@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0vh 7vw;
-    border-bottom: 2px solid #E5D7C8;
+    border-bottom: 2px solid $beige-300;
 }
 
 .welcomepage__header--logo {
@@ -26,8 +26,8 @@
     justify-content: space-between;
     left: 50%;
     transform: translate(-50%);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: $s;
+    font-weight: $semiBold;
     font-style: normal;
     letter-spacing: 2px;
 
@@ -39,7 +39,7 @@
         }
 
         &:active {
-            color: #43A6BA;
+            color: $blue-100;
         }
     }
 }
@@ -47,14 +47,14 @@
 .welcomepage__header--button {
     background-color: $primary-dark;
     color: $primary-light;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: $s;
+    font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
 
     &:hover {
-        background-color: #43A6BA;
+        background-color: $blue-100;
         color: $primary-light;
     }
 }
