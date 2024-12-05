@@ -1,20 +1,17 @@
 // Only use global HTML selectors in this file to avoid conflicts
 // Other CSS selectors meant for use through the whole project should be kept in this file
-// -- alphabetical order
 
+// -- all global HTML selectors
 html {
     background-color: $background-color;
-    font-family: "Poppins", sans-serif;
+    font-family: $font;
     color: $primary-dark;
     & * {
         box-sizing: border-box;
     }
 }
 
-#root {
-    color: $primary-dark;
-}
-
+// -- alphabetical order
 a {
     text-decoration: none;
 
@@ -24,34 +21,6 @@ a {
 
     &:hover {
         color: $hovered-link;
-    }
-}
-
-blockquote {
-    @include quote;
-
-    &.quote1 {
-        font-size: 4.5rem;
-
-        &::before {
-            content: '⸙';
-            font-size: 5rem;
-        }
-    }
-
-    &.quote2 {
-        font-size: 2.5rem;
-
-        &::before {
-            content: '⸙';
-            font-size: 3rem;
-        }
-    }
-}
-
-button {
-    &::before {
-        content: "⬭ ";
     }
 }
 
@@ -67,8 +36,25 @@ figure {
     align-items: center;
 }
 
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    @include title;
+    
+    &.h1 {
+        color: none;
+    }
+}
+
 img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 10px;
+}
+
+p {
+    padding-inline: 1rem;
 }

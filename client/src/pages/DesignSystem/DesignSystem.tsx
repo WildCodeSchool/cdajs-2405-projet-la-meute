@@ -1,4 +1,9 @@
-import Tag from "@/components/_atoms/Tag";
+import Button from "@/components/_atoms/Button/Button";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import NewTag from "@/components/_atoms/Tag/NewTag";
+import Tag from "@/components/_atoms/Tag/Tag";
+import DashHeader from "@/components/_molecules/DashHeader/DashHeader";
+import Form from "@/components/_molecules/Form/Form";
 
 export default function DesignSystem() {
 	return (
@@ -11,19 +16,13 @@ export default function DesignSystem() {
 						par page.
 					</p>
 					<h2>Heading 02</h2>
-					<p>Sert à donner des titres d’étagère de la page.</p>
+					<p>Sert à donner des titres d'étagère de la page.</p>
 					<h3>Heading 03</h3>
 					<p>Sert pour les sous-titres.</p>
 					<h4>Heading 04</h4>
 					<p>Sert pour donner des titres à des paragraphes.</p>
 					<h5>Heading 05</h5>
 					<p>Sert pour les titres du formulaire.</p>
-				</div>
-				<div>
-					<blockquote className="quote1">Quote 01</blockquote>
-					<p>Sert à mettre en valeur les thèmes de salon ou des accroches</p>
-					<blockquote className="quote2">Display 02</blockquote>
-					<p>Sert à mettre en valeur des citations.</p>
 				</div>
 				<div>
 					<p className="body1">
@@ -40,87 +39,73 @@ export default function DesignSystem() {
 					</p>
 				</div>
 				<div>
+					<h2>Dashboard header</h2>
+					<DashHeader title="Planning" />
+				</div>
+				<div>
+					<h2>Image</h2>
 					<figure>
 						<img src="https://placehold.co/600x400" alt="empty placeholder" />
 						<figcaption>Caption — Détails</figcaption>
 					</figure>
 				</div>
 				<div>
+					<h2>Buttons</h2>
 					<div>
 						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
+							<Button type="form-submit" href="/">
+								Form Submit
+							</Button>
 						</div>
 						<div>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button></button>
+							<Button type="form-deny" href="/">
+								Form Deny
+							</Button>
 						</div>
 						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
+							<Button type="invite" href="/" />
 						</div>
 						<div>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button>Outlined</button>
-							<button></button>
+							<Button type="button" href="/">
+								Button
+							</Button>
 						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Button</button>
-							<button>Button</button>
-							<button>Button</button>
-							<button></button>
-						</div>
-						<div>
-							<button>Special button</button>
-							<button>Special button</button>
-							<button>Special button</button>
-						</div>
+
 						<div>
 							<Tag color="#167024" href="/first-tag">
-								First Tag
+								✨ First Tag
 							</Tag>
 							<Tag color="#1b1670" href="/second-tag">
-								Second Tag
+								🔥 Second Tag
 							</Tag>
 							<Tag color="#c728c4" href="/third-tag">
-								Third Tag
+								🎉 Third Tag
 							</Tag>
 							<Tag color="#ff3729" href="/fourth-tag">
-								Fourth Tag
+								🎊 Fourth Tag
 							</Tag>
+							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
+								<NewTag href="" />
+							</div>
 						</div>
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" />
-					<input type="checkbox" disabled={true} />
-					<input type="radio" name="radio" value={1} />
-					<input type="radio" name="radio" value={2} />
-					<input type="radio" name="radio" value={3} disabled={true} />
+					<h2>Form</h2>
+					<Form title="Connectez-vous ici">
+						<TextInput type="email" />
+						<TextInput type="password" />
+						<Button type="form-deny" href="">
+							Annuler
+						</Button>
+						<Button type="form-submit" href="">
+							Me connecter
+						</Button>
+						<p>
+							On peut ajouter d'autres <strong>champs</strong>.
+							<a href="/">Un lien par exemple</a>.
+						</p>
+					</Form>
 				</div>
 			</div>
 		</div>
