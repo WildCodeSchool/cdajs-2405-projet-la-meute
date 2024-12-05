@@ -24,6 +24,7 @@ export default function Login() {
 				variables: { email, password },
 			});
 		} catch (err) {
+			// TODO: handle error
 			console.error("Login error:", err);
 		}
 	};
@@ -31,7 +32,7 @@ export default function Login() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
 	if (data) {
-		// Redirection ou autre traitement après succès
+		// TODO: rediction
 		console.info(data);
 	}
 

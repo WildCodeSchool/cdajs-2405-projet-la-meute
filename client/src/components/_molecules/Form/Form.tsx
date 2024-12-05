@@ -16,7 +16,7 @@ export default function Form({
 	children,
 	onSubmit,
 }: FormProps) {
-	// Read children to organize them
+	// Read { children } as an array to filter elements
 	const buttons = React.Children.toArray(children).filter(
 		(child) => React.isValidElement(child) && child.type === Button,
 	);
@@ -30,7 +30,7 @@ export default function Form({
 			!React.isValidElement(child) ||
 			(child.type !== Button && child.type !== TextInput),
 	);
-	// -- end filtering
+	// -- End children filtering
 
 	return (
 		<form className={`form ${className}`} onSubmit={onSubmit}>

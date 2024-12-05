@@ -3,6 +3,7 @@ import "./TextInput.scss";
 
 type TextInputTypes = "email" | "password";
 
+// forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement,
 	{ type: TextInputTypes; required?: boolean }
@@ -12,7 +13,8 @@ const TextInput = React.forwardRef<
 	if (type === "email") {
 		label = "Email";
 		placeholder = "Entrez votre email";
-	} else if (type === "password") {
+	}
+	if (type === "password") {
 		label = "Mot de passe";
 		placeholder = "Entrez votre mot de passe";
 	}
