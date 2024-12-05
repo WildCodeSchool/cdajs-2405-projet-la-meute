@@ -111,8 +111,6 @@ async function createData() {
 }
 
 export async function initTestData() {
-	await dataSource.initialize();
-	console.info("Data source initialized. Creating test data...");
 	await createData();
 	console.info("Test data created successfully.");
 }

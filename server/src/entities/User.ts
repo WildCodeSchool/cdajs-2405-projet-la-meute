@@ -1,10 +1,5 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import {
-	Column,
-	Entity,
-	PrimaryGeneratedColumn,
-	TableInheritance,
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 // The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
 // If the role is "Owner," TypeORM loads an instance of the Owner class.
@@ -28,6 +23,7 @@ export abstract class User {
 		type: "varchar",
 		length: 255,
 		unique: true,
+		select: false,
 	})
 	@Field()
 	email: string;
