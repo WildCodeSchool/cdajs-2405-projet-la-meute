@@ -17,10 +17,7 @@ export default function Button({
 					: "btn-default";
 
 	return (
-		<button
-			type={buttonType}
-			className={`button ${buttonClassName}`}
-		>
+		<button type={buttonType} className={`button ${buttonClassName}`}>
 			{type === "invite" && !children
 				? "+ Inviter un client à s'inscrire"
 				: children}

@@ -39,7 +39,11 @@ export default function Login() {
 		<>
 			<Header />
 			<main className="login">
-				<Form className="login__form" title="Connectez-vous ici" onSubmit={onFormSubmit}>
+				<Form
+					className="login__form"
+					title="Connectez-vous ici"
+					onSubmit={onFormSubmit}
+				>
 					<TextInput type="email" ref={emailRef} required />
 					<TextInput type="password" ref={passwordRef} required />
 					<Button type="submit">Me connecter</Button>

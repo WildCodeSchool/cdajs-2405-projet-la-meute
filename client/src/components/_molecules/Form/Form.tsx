@@ -10,7 +10,12 @@ type FormProps = {
 	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export default function Form({ className, title, children, onSubmit }: FormProps) {
+export default function Form({
+	className,
+	title,
+	children,
+	onSubmit,
+}: FormProps) {
 	// Read children to organize them
 	const buttons = React.Children.toArray(children).filter(
 		(child) => React.isValidElement(child) && child.type === Button,
