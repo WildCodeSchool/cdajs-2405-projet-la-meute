@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+/* import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Example } from "../entities/Example";
 import { Category } from "../entities/Category";
 import { dataSource } from "../dataSource/dataSource";
@@ -108,3 +108,4 @@ export class ExampleResolver {
 
 	// autres CRUD
 }
+ */

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+/* import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { Category } from "./Category";
 
@@ -25,3 +25,4 @@ export class Example {
 		this.title = title;
 	}
 }
+ */

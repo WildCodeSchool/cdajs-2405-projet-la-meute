@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from "type-graphql";
+/* import { Field, ID, ObjectType } from "type-graphql";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Example } from "./Example";
 
@@ -24,3 +24,4 @@ export class Category {
 		this.title = title;
 	}
 }
+ */
