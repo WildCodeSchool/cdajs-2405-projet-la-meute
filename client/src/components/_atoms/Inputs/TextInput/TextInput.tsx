@@ -1,10 +1,11 @@
 import "./TextInput.scss";
 
-type TextInputTypes = "email" | "password";
+type TextInputTypes = "email" | "password" | "name" | "city" | "postcode" | "telephone";
 
-export default function TextInput({ type }: { type: TextInputTypes }) {
+export default function TextInput({ type, required }: { type: TextInputTypes; required?: boolean }) {
 	let label = "";
 	let placeholder = "";
+
 	if (type === "email") {
 		label = "Email";
 		placeholder = "Entrez votre email";
@@ -15,10 +16,32 @@ export default function TextInput({ type }: { type: TextInputTypes }) {
 		placeholder = "Entrez votre mot de passe";
 	}
 
+	if (type === "name") {
+		label = "Nom";
+        placeholder = "Entrez votre nom";
+	}
+
+	if (type === "city") {
+        label = "Ville";
+        placeholder = "Entrez votre ville";
+    }
+
+	if (type === "postcode") {
+        label = "Code Postal";
+        placeholder = "Entrez votre code postal";
+    }
+
+    if (type === "telephone") {
+        label = "Numéro de téléphone";
+        placeholder = "Entrez votre numéro de téléphone";
+    }
+
+	const fieldRequired = required ? `${label} *` : label;
+
 	return (
 		<label className="textInput">
-			{label}
-			<input type={type} placeholder={placeholder} />
+			{fieldRequired}
+			<input type={type} placeholder={placeholder} required={required} />
 		</label>
 	);
 }
