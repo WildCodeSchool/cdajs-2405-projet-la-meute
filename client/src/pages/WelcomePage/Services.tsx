@@ -1,9 +1,9 @@
-import '@/pages/WelcomePage/Services.scss';
+import "@/pages/WelcomePage/Services.scss";
 
 function Services() {
-    return (
-        <>
-            {/*<section className='services__section-subscriptions'>
+	return (
+		<>
+			{/*<section className='services__section-subscriptions'>
                 <h2>Découvrez nos offres</h2>
                 <p className='services__section-text'>Choisissez l’offre la plus adaptée à votre besoin et votre budget, chaque offre est évolutive. L’abonnement annuel vous offre une réduction !</p>
                 <div className='services__cards--div'>
@@ -57,8 +57,8 @@ function Services() {
                     </div>
                 </div>
             </section>*/}
-        </>
-    );
+		</>
+	);
 }
 
 export default Services;

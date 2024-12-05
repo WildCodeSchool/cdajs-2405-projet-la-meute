@@ -3,13 +3,13 @@ import Header from "@/components/WelcomePage/Header";
 import { Outlet } from "react-router-dom";
 
 export default function WelcomePageLayout() {
-    return (
-        <>
-            <Header />
-            <main>
-                <Outlet />
-            </main>
-            <Footer />
-        </>
-    );
+	return (
+		<>
+			<Header />
+			<main>
+				<Outlet />
+			</main>
+			<Footer />
+		</>
+	);
 }
