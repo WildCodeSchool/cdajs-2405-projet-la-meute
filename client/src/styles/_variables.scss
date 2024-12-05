@@ -1,13 +1,10 @@
-// Main colors
-$primary-dark: #0c343d;
-$primary-light: #f9f4e5;
+// Fonts - Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-$secondary-dark: #8cc871;
-$secondary-light: #ecec59;
-
-$accent-color: #ffa84d;
-
+// Colors palette
+$beige-300: #E5D7C8;
 $beige-200: #F1E6DA;
+$beige-100: #FAF4E6;
 
 $blue-600: #021418;
 $blue-500: #04272f;
@@ -19,12 +16,27 @@ $blue-100: #43A6BA;
 $green-400: #6AB847;
 $green-100: #BDF2A4;
 
+$orange-500: #EC7F13;
+$orange-400: #FFA84E;
+$orange-300: #FFBF80;
+$orange-200: #FFDEBD;
+$orange-100: #FFF2E5;
+
+// Main colors
+$primary-dark: #0c343d;
+$primary-light: $beige-100;
+
+$secondary-dark: #8cc871;
+$secondary-light: #ecec59;
+
+$accent-color: $orange-400;
+
 // Links
 $base-link: $accent-color;
 $visited-link: darken($accent-color, 20%);
 $active-link: blue;
 $hovered-link: lighten($accent-color, 10%);
-$focused-link: red;
+$focused-link: $accent-color;
 
 // Debug
 $border-debug: 5px solid lime;
@@ -64,7 +76,7 @@ $xxs: 0.5rem;
 $xs: 0.75rem;
 $s: 1rem;
 $m: 1.25rem;
-$l: 1.5rem;
+$l: 1.75rem;
 $xl: 2rem;
 $xxl: 2.5rem;
 $xxxl: 3rem;

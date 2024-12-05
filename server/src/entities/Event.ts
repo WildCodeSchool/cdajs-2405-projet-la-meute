@@ -63,13 +63,13 @@ export class Event {
 		trainer: Trainer,
 		service: Service,
 		date: Date,
-		localisation = "",
+		localization = "",
 		groupSizeMax = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
 		this.date = date;
-		this.localization = localisation;
+		this.localization = localization;
 		this.groupSizeMax = groupSizeMax;
 	}
 }

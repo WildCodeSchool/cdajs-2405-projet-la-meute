@@ -37,6 +37,7 @@ export class Dog {
 
 	@Column({
 		nullable: true,
+		default: "/upload/images/defaultdog.jpg",
 	})
 	@Field({ nullable: true })
 	picture?: string;
