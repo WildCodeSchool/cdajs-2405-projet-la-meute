@@ -2,15 +2,15 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/global.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Homepage from './pages/Homepage/Homepage.tsx';
-import PageName from './pages/PageName/PageName.tsx';
-import DesignSystem from './pages/DesignSystem/DesignSystem.tsx';
-import WelcomePageLayout from './layouts/WelcomePage/WelcomePageLayout.tsx';
-import Services from '@/pages/WelcomePage/Services.tsx';
-import Contact from '@/pages/WelcomePage/Contact.tsx';
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphQL/apolloClient.ts";
-import Login from "./pages/Login/Login.tsx";
+
+import Homepage from '@/pages/Homepage/Homepage.tsx';
+import DesignSystem from '@/pages/DesignSystem/DesignSystem.tsx';
+import WelcomePageLayout from '@/layouts/WelcomePage/WelcomePageLayout.tsx';
+import Services from '@/pages/WelcomePage/Services.tsx';
+import Contact from '@/pages/WelcomePage/Contact.tsx';
+import Login from "@/pages/Login/Login.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -30,10 +30,6 @@ const router = createBrowserRouter([
 				element: <Contact />
 			},
 		],
-	},
-	{
-		path: "/page",
-		element: <PageName />
 	},
 	{
 		path: "/designsystem",

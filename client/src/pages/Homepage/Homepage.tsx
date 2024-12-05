@@ -10,7 +10,7 @@ function Homepage() {
                     <p>Gérez vos plannings et suivez les progrès de chaque chien facilement. Quant à vous amis des chiens, prenez rendez-vous en ligne et suivez l'évolution de l'éducation de votre chien.</p>
                 </div>
                 <div className='homepage__div--top-img'>
-                    <img src={Image}></img>
+                    <img src={Image} alt='Femme promenant ses chiens' />
                 </div>
             </section>
 
