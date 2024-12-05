@@ -43,6 +43,9 @@ $border-debug: 5px solid lime;
 .debug {
     border: $border-debug;
 }
+@mixin debug {
+    border: $border-debug;
+}
 
 // Fixed values
 $atoms-radius: 10px;
