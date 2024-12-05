@@ -2,6 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/global.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ApolloProvider } from "@apollo/client";
+import client from "./graphQL/apolloClient.ts";
+
 import Homepage from "./pages/Homepage/Homepage.tsx";
 import Layout from "./layouts/Layout.tsx";
 import PageName from "./pages/PageName/PageName.tsx";
@@ -30,8 +33,10 @@ const router = createBrowserRouter([
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<Layout>
-			<RouterProvider router={router} />
-		</Layout>
+		<ApolloProvider client={client}>
+			<Layout>
+				<RouterProvider router={router} />
+			</Layout>
+		</ApolloProvider>
 	</StrictMode>,
 );
