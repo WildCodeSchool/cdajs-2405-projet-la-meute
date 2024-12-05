@@ -6,6 +6,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./dataSource/dataSource";
 import { initTestData } from "./dataSource/initTestData";
 import { CategoryResolver } from "./resolvers/CategoryResolvers";
+import { UserResolvers } from "./resolvers/UserResolvers";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -13,7 +14,7 @@ const port = 3200;
 
 export async function startServerApollo() {
 	const schema = await buildSchema({
-		resolvers: [ExampleResolver, CategoryResolver],
+		resolvers: [ExampleResolver, CategoryResolver, UserResolvers],
 	});
 
 	const server = new ApolloServer({ schema });

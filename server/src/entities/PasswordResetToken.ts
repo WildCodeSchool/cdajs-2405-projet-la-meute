@@ -15,6 +15,10 @@ export class PasswordResetToken {
 
 	@Column()
 	@Field()
+	user_id?: number;
+
+	@Column()
+	@Field()
 	token?: string;
 
 	@Column({
@@ -34,5 +38,5 @@ export class PasswordResetToken {
 
 	@Column({ default: false })
 	@Field()
-	expired?: boolean;
+	used?: boolean;
 }

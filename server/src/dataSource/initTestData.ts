@@ -26,7 +26,6 @@ async function createData() {
 		await queryRunner.manager.query('DROP TABLE IF EXISTS "trainer" CASCADE');
 		await queryRunner.manager.query('DROP TABLE IF EXISTS "owner" CASCADE');
 		await queryRunner.manager.query('DROP TABLE IF EXISTS "user" CASCADE');
-
 		// Let TypeORM recreate the tables with proper inheritance
 		await dataSource.synchronize();
 

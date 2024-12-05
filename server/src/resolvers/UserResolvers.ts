@@ -6,6 +6,7 @@ import {
 	Field,
 	ObjectType,
 } from "type-graphql";
+import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
 import { Owner } from "../entities/Owner";
 import { Trainer } from "../entities/Trainer";
@@ -112,9 +113,6 @@ export class UserResolvers {
 	// request password reset
 	// User requests a password reset with their email and receives a token for reinitialization.
 	@Mutation(() => ResetPasswordResponse)
-	/**
-	 * @returns An email with token if we found an user with corresponding email
-	 */
 	async requestPasswordReset(
 		@Arg("email") email: string,
 	): Promise<ResetPasswordResponse> {
@@ -124,7 +122,7 @@ export class UserResolvers {
 			}
 
 			const user = await this.findUserByEmail(email, {
-				select: ["email"],
+				select: ["email", "id"],
 			});
 
 			// for security we always send a good response
@@ -137,13 +135,12 @@ export class UserResolvers {
 			}
 
 			// Generate and save token
-			const resetToken = crypto.randomBytes(32).toString("hex");
-			const tokenHash = await bcrypt.hash(resetToken, 10);
+			const token = crypto.randomBytes(32).toString("hex");
 
 			const tokenRepository = dataSource.getRepository(PasswordResetToken);
 			const passwordResetToken = new PasswordResetToken();
-			passwordResetToken.id = user.id;
-			passwordResetToken.token = tokenHash;
+			passwordResetToken.user_id = user.id;
+			passwordResetToken.token = token;
 			passwordResetToken.user_role =
 				user instanceof Owner ? "owner" : "trainer";
 			passwordResetToken.expires_at = new Date(Date.now() + 900000); // 15 minutes
@@ -159,6 +156,72 @@ export class UserResolvers {
 			return {
 				success: false,
 				message: "Une erreur est survenue",
+			};
+		}
+	}
+
+	// request password reset
+	// User have a valid token and reset password.
+	@Mutation(() => ResetPasswordResponse)
+	async PasswordReset(
+		@Arg("token") token: string,
+		@Arg("newPassword") newPassword: string,
+	): Promise<ResetPasswordResponse> {
+		try {
+			const tokenRepository = dataSource.getRepository(PasswordResetToken);
+			const resetToken = await tokenRepository.findOne({
+				where: {
+					token: token,
+					used: false,
+					expires_at: MoreThan(new Date()),
+				},
+			});
+
+			if (!resetToken || !resetToken.token) {
+				return {
+					success: false,
+					message: "Ce lien de réinitialisation est invalide ou a expiré1",
+				};
+			}
+
+			const isValidToken = token === resetToken.token;
+			if (!isValidToken) {
+				return {
+					success: false,
+					message: "Ce lien de réinitialisation est invalide ou a expiré2",
+				};
+			}
+
+			if (newPassword.length < 8) {
+				return {
+					success: false,
+					message: "Le mot de passe doit faire au moins 8 caractères",
+				};
+			}
+
+			const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+			const userRepository =
+				resetToken.user_role === "owner"
+					? dataSource.getRepository(Owner)
+					: dataSource.getRepository(Trainer);
+
+			await userRepository.update(
+				{ id: resetToken.user_id },
+				{ password_hashed: hashedPassword },
+			);
+
+			await tokenRepository.update({ id: resetToken.id }, { used: true });
+
+			return {
+				success: true,
+				message: "Votre mot de passe a été modifié avec succès",
+			};
+		} catch (error) {
+			console.error("Erreur changement mot de passe:", error);
+			return {
+				success: false,
+				message: "Une erreur est survenue lors du changement de mot de passe",
 			};
 		}
 	}
