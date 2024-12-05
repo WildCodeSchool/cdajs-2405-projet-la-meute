@@ -21,6 +21,7 @@ export class UserResolvers {
 		return trainers;
 	}
 
+	// Get one user by email
 	@Query(() => Trainer || Owner || null)
 	async getUserByEmail(
 		@Arg("email") email: string,
@@ -42,7 +43,7 @@ export class UserResolvers {
 	async login(
 		@Arg("email") email: string,
 		@Arg("password") password: string,
-	): Promise<string | null | Owner> {
+	): Promise<string | null> {
 		if (!password || !email) {
 			throw new Error("Password and email are required");
 		}
@@ -61,14 +62,14 @@ export class UserResolvers {
 			throw new Error("User not found");
 		}
 
-		const validPassword = await bcrypt.compare(password, user.password);
+		// Using bcrypt to compare submitted password with hashed password
+		//const validPassword = await bcrypt.compare(password, user.password_hashed);
+		const validPassword = password === user.password_hashed;
 		if (!validPassword) {
-			throw new Error(
-				`"Invalid password" ${user.password_hashed} != ${password}`,
-			);
+			throw new Error("Invalid password");
 		}
 
-		// Génération du token JWT
+		// JWT creation
 		const token = jwt.sign(
 			{ userId: user.id },
 			process.env.JWTSECRETKEY || "default secret",
