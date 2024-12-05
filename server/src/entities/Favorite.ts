@@ -22,19 +22,27 @@ export class Favorite {
 
 	@ManyToOne(
 		() => Trainer,
-		(trainer) => trainer.user_id,
+		(trainer) => trainer.id,
 		{ onDelete: "CASCADE" },
 	)
-	@JoinColumn({ name: "trainer_id" })
+	@JoinColumn([
+		{
+			name: "trainer_id",
+		},
+	])
 	@Field(() => Trainer)
 	trainer: Trainer;
 
 	@ManyToOne(
 		() => Owner,
-		(owner) => owner.user_id,
+		(owner) => owner.id,
 		{ onDelete: "CASCADE" },
 	)
-	@JoinColumn({ name: "owner_id" })
+	@JoinColumn([
+		{
+			name: "owner_id",
+		},
+	])
 	@Field(() => Owner)
 	owner: Owner;
 

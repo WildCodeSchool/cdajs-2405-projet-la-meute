@@ -49,8 +49,7 @@ export class Dog {
 	@JoinColumn([
 		{
 			name: "owner_id",
-			referencedColumnName: "user_id",
-			foreignKeyConstraintName: "FK_dog_owner",
+			referencedColumnName: "id",
 		},
 	])
 	owner: Owner;

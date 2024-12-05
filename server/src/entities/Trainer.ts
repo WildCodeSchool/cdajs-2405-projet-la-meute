@@ -1,14 +1,13 @@
 import { Field, ObjectType, ID } from "type-graphql";
-import { Column, Entity, OneToMany, ChildEntity } from "typeorm";
+import { Column, Entity, OneToMany, ChildEntity, PrimaryColumn } from "typeorm";
 import { User } from "./User";
 import { Service } from "./Service";
 import { Event } from "./Event";
 
 // The Trainer class is a subclass of User; it inherits the properties and methods from User.
 
-@Entity()
 @ObjectType()
-@ChildEntity()
+@Entity()
 export class Trainer extends User {
 	@Column({
 		type: "varchar",
@@ -35,7 +34,7 @@ export class Trainer extends User {
 
 	constructor(siret: string) {
 		super();
-		this.role = "Trainer";
+		this.role = "trainer";
 		this.siret = siret;
 	}
 }

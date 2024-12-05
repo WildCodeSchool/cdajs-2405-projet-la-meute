@@ -12,13 +12,10 @@ import {
 
 @Entity()
 @ObjectType()
-@TableInheritance({
-	column: { type: "enum", name: "role", enum: ["trainer", "owner"] },
-})
 export abstract class User {
 	@PrimaryGeneratedColumn()
-	@Field((_) => ID)
-	user_id?: number;
+	@Field(() => ID)
+	id?: number;
 
 	@Column({
 		type: "varchar",
@@ -64,8 +61,8 @@ export abstract class User {
 	postal_code: string;
 
 	@Column({
-		type: "enum",
-		enum: ["trainer", "owner"],
+		type: "varchar",
+		length: 10,
 	})
 	@Field()
 	role: string;

@@ -1,13 +1,12 @@
-import { Field, ObjectType } from "type-graphql";
-import { Entity, OneToMany, ChildEntity } from "typeorm";
+import { Field, ObjectType, ID } from "type-graphql";
+import { Entity, OneToMany, ChildEntity, PrimaryColumn } from "typeorm";
 import { User } from "./User";
 import { Dog } from "./Dog";
 
 // The Owner class is a subclass of User; it inherits the properties and methods from User.
 
 @ObjectType()
-@ChildEntity("owner")
-@Entity({ name: "owner" })
+@Entity()
 export class Owner extends User {
 	@OneToMany(
 		() => Dog,
@@ -18,6 +17,6 @@ export class Owner extends User {
 
 	constructor() {
 		super();
-		this.role = "Owner";
+		this.role = "owner";
 	}
 }

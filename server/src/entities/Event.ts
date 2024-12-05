@@ -38,7 +38,11 @@ export class Event {
 		(trainer) => trainer.event,
 		{ onDelete: "CASCADE" },
 	)
-	@JoinColumn({ name: "trainer_id" })
+	@JoinColumn([
+		{
+			name: "trainer_id",
+		},
+	])
 	trainer?: Trainer;
 
 	@ManyToOne(

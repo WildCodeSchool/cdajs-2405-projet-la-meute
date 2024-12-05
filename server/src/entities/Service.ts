@@ -38,7 +38,11 @@ export class Service {
 	tag: string;
 
 	@ManyToOne(() => Trainer)
-	@JoinColumn({ name: "trainer_id" })
+	@JoinColumn([
+		{
+			name: "owner_id",
+		},
+	])
 	@Field(() => Trainer)
 	trainer?: Trainer;
 
