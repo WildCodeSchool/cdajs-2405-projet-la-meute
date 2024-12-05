@@ -1,34 +1,47 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./styles/global.scss";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Homepage from "./pages/Homepage/Homepage.tsx";
-import PageName from "./pages/PageName/PageName.tsx";
-import DesignSystem from "./pages/DesignSystem/DesignSystem.tsx";
-import Login from "./pages/Login/Login.tsx";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './styles/global.scss';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Homepage from './pages/Homepage/Homepage.tsx';
+import Layout from "./layouts/Layout.tsx";
+import PageName from './pages/PageName/PageName.tsx';
+import DesignSystem from './pages/DesignSystem/DesignSystem.tsx';
+import WelcomePageLayout from './layouts/WelcomePage/WelcomePageLayout.tsx';
+import Services from '@/pages/WelcomePage/Services.tsx';
+import Contact from '@/pages/WelcomePage/Contact.tsx';
+import { ApolloProvider } from "@apollo/client";
+import client from "./graphQL/apolloClient.ts";
 
 const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Homepage />,
-	},
-	{
-		path: "/page",
-		element: <PageName />,
-	},
-	{
-		path: "/designsystem",
-		element: <DesignSystem />,
-	},
-	{
-		path: "/login",
-		element: <Login />,
-	},
+  {
+    path: "/",
+    element: <WelcomePageLayout />,
+    children: [
+      {
+        path: "/", element: <Homepage />
+      },
+      {
+        path: "/services", element: <Services />
+      },
+      {
+        path: "/contact", element: <Contact />
+      },
+    ],
+  },
+  {
+    path: "/page",
+    element: <PageName />
+  },
+  {
+    path: "/designsystem",
+    element: <DesignSystem />
+  }
 ]);
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<ApolloProvider client={client}>
+		  <RouterProvider router={router} />
+		</ApolloProvider>
 	</StrictMode>,
 );

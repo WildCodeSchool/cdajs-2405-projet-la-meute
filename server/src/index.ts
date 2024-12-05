@@ -26,6 +26,8 @@ export async function startServerApollo() {
 	}
 
 	// FIXME: Comment this after first launch to avoid doubles
+	await initTestData();
+	// initTestData() Drop table and reload data test in every launch
 	// await initTestData();
 
 	const { url } = await startStandaloneServer(server, {
