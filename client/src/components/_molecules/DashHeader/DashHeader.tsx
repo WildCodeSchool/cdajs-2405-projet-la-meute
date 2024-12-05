@@ -7,7 +7,7 @@ export default function DashHeader({ title }: { title: string }) {
 		<>
 			<header className="dashHeader">
 				<H1 className="dashHeader__title">{title}</H1>
-				<Button type="invite" href={""} />
+				<Button type="invite" href="" />
 			</header>
 		</>
 	);
