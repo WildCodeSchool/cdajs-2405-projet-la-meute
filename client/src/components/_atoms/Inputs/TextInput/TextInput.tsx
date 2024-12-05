@@ -1,6 +1,6 @@
 import "./TextInput.scss";
 
-type TextInputTypes = "email" | "password" | "name" | "city" | "postcode" | "telephone";
+type TextInputTypes = "email" | "password" | "name" | "firstname" | "city" | "postcode" | "SIRET" | "companyName" | "telephone";
 
 export default function TextInput({ type, required }: { type: TextInputTypes; required?: boolean }) {
 	let label = "";
@@ -21,6 +21,11 @@ export default function TextInput({ type, required }: { type: TextInputTypes; re
         placeholder = "Entrez votre nom";
 	}
 
+	if (type === "firstname") {
+		label = "Prénom";
+        placeholder = "Entrez votre prénom";
+	}
+
 	if (type === "city") {
         label = "Ville";
         placeholder = "Entrez votre ville";
@@ -30,6 +35,16 @@ export default function TextInput({ type, required }: { type: TextInputTypes; re
         label = "Code Postal";
         placeholder = "Entrez votre code postal";
     }
+
+	if (type === "SIRET") {
+		label = "SIRET";
+		placeholder = "Entrez votre SIRET";
+	}
+
+	if (type === "companyName") {
+		label = "Nom de l'entreprise";
+		placeholder = "Entrez le nom de votre entreprise";
+	}
 
     if (type === "telephone") {
         label = "Numéro de téléphone";

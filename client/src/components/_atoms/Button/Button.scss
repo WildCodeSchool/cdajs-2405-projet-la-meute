@@ -45,4 +45,12 @@
         }
     }
 
+    &.btn-role-select {
+        $background-color: $blue-500;
+        background-color: $background-color;
+        cursor: pointer;
+        &:hover {
+          background-color: lighten($background-color, 5%);
+        }
+      }     
 }
