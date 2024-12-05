@@ -1,9 +1,9 @@
 @import "@style";
 
-.website__header--all {
+.welcomepage__header--all {
     position: fixed;
-    z-index:9000;
-    width: 86vw;
+    z-index: 9000;
+    width: 100%;
     top: 0;
     background-color: $background-color;
     height: 10vh;
@@ -15,11 +15,11 @@
     border-bottom: 2px solid #E5D7C8;
 }
 
-.website__header--logo {
+.welcomepage__header--logo {
     height: 60%;
 }
 
-.website__header--links {
+.welcomepage__header--links {
     position: fixed;
     display: flex;
     column-gap: 3vw;
@@ -27,24 +27,27 @@
     left: 50%;
     transform: translate(-50%);
     font-size: 1rem;
-    font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-style: normal;
     letter-spacing: 2px;
 
     a {
         color: $primary-dark;
+
         &:hover {
             color: $hovered-link;
+        }
+
+        &:active {
+            color: #43A6BA;
         }
     }
 }
 
-.website__header--button {
+.welcomepage__header--button {
     background-color: $primary-dark;
     color: $primary-light;
     font-size: 1rem;
-    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
     padding: 1.5vh 3vw;

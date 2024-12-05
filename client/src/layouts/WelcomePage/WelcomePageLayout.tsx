@@ -1,8 +1,8 @@
-import Footer from "@/components/Website/Footer";
-import Header from "@/components/Website/Header";
+import Footer from "@/components/WelcomePage/Footer";
+import Header from "@/components/WelcomePage/Header";
 import { Outlet } from "react-router-dom";
 
-export default function WebsiteLayout() {
+export default function WelcomePageLayout() {
     return (
         <>
             <Header />

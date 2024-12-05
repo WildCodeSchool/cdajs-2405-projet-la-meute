@@ -2,12 +2,20 @@
 // Other CSS selectors meant for use through the whole project should be kept in this file
 // -- alphabetical order
 
+html {
+    background-color: $background-color;
+    font-family: "Poppins", sans-serif;
+    color: $primary-dark;
+    & * {
+        box-sizing: border-box;
+    }
+}
+
 #root {
     color: $primary-dark;
 }
 
 a {
-    font-family: "Poppins", sans-serif;
     text-decoration: none;
 
     &:active {
@@ -16,11 +24,6 @@ a {
 
     &:hover {
         color: $hovered-link;
-    }
-
-    &:focus {
-        color: $focused-link;
-        padding-inline: 2px;
     }
 }
 
@@ -64,16 +67,8 @@ figure {
     align-items: center;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: "Poppins", sans-serif;
-}
-
 img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 10px;
-}
-
-p {
-    font-family: "Poppins", sans-serif;
 }

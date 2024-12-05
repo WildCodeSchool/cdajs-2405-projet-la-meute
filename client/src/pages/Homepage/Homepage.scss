@@ -4,8 +4,8 @@
 
 .homepage__section--top {
     background-color: $primary-light;
-    min-height: 90vh;
-    padding: 10vh 7vw 0vh 7vw;
+    min-height: 100vh;
+    padding: 10vh 7vw 10vh 7vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -158,7 +158,6 @@
     background-color: $primary-dark;
     color: $primary-light;
     font-size: 1rem;
-    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
     padding: 1.5vh 3vw;

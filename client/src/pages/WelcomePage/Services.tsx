@@ -1,5 +1,4 @@
-import '@/pages/Website/Services.scss';
-import Image from '@/assets/image-test.svg';
+import '@/pages/WelcomePage/Services.scss';
 
 function Services() {
     return (

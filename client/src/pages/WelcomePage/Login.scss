@@ -7,17 +7,13 @@
     background-position: bottom right;
     width: 100%;
     height: 100vh;
-}
-
-.login__div--all {
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    padding: 5%;
+}
 
-    img {
-        width: 25%;
-    }
+.login__logo {
+    width: 25%;
 }
