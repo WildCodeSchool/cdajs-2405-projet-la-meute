@@ -9,7 +9,7 @@ function Registration() {
   const [role, setRole] = useState<"trainer" | "owner" | null>(null);
   return (
     <main className="registration">
-      
+
       <img className="registration__logo" src={logo} alt="Le logo de PawPlanner" />
 
       {!role ? (
@@ -26,24 +26,23 @@ function Registration() {
         <Form className="registration__form" title="Inscription">
 
           {role === "trainer" && (
-            <TextInput
-              type="SIRET"
-              required
-            />
+            <>
+              <TextInput
+                type="SIRET"
+                required
+              />
+              <TextInput
+                type="companyName"
+                required
+              />
+            </>
           )}
-
-          {role === "trainer" && (
-            <TextInput
-            type="companyName"
-            required
-            />
-          )} 
 
           <TextInput
             type="name"
             required
           />
-            <TextInput
+          <TextInput
             type="firstname"
             required
           />
@@ -68,7 +67,7 @@ function Registration() {
             type="telephone"
           />
 
-        <input type="hidden" name="role" value={role} />
+          <input type="hidden" name="role" value={role} />
 
           <Button type="form-deny" href="/">
             Retour
