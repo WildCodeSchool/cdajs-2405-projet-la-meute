@@ -1,3 +1,4 @@
+import React from "react";
 import "./TextInput.scss";
 
 type TextInputTypes =
@@ -11,10 +12,11 @@ type TextInputTypes =
 	| "companyName"
 	| "telephone";
 
-export default function TextInput({
-	type,
-	required,
-}: { type: TextInputTypes; required?: boolean }) {
+// forwardRef allows us to use useRef in the component calling this one
+const TextInput = React.forwardRef<
+	HTMLInputElement,
+	{ type: TextInputTypes; required?: boolean }
+>(({ type, required }, ref) => {
 	let label = "";
 	let placeholder = "";
 
@@ -22,7 +24,6 @@ export default function TextInput({
 		label = "Email";
 		placeholder = "Entrez votre email";
 	}
-
 	if (type === "password") {
 		label = "Mot de passe";
 		placeholder = "Entrez votre mot de passe";
@@ -63,12 +64,19 @@ export default function TextInput({
 		placeholder = "Entrez votre numéro de téléphone";
 	}
 
-	const fieldRequired = required ? `${label} *` : label;
+	const fieldRequired = required ? " *" : "";
 
 	return (
 		<label className="textInput">
-			{fieldRequired}
-			<input type={type} placeholder={placeholder} required={required} />
+			{label}{fieldRequired}
+			<input
+				ref={ref}
+				type={type}
+				placeholder={placeholder}
+				required={required}
+			/>
 		</label>
 	);
-}
+});
+
+export default TextInput;

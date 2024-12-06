@@ -1,7 +1,7 @@
 import "./Button.scss";
 
 type ButtonTypes =
-	| "form-submit"
+	| "submit"
 	| "form-deny"
 	| "invite"
 	| "button"
@@ -10,17 +10,10 @@ type ButtonTypes =
 export default function Button({
 	type,
 	children,
-	href,
-	onClick,
-}: {
-	type: ButtonTypes;
-	href: string;
-	children?: string;
-	onClick?: () => void;
-}) {
-	const buttonType = type === "form-submit" ? "submit" : "button";
+}: { type: ButtonTypes; children?: string }) {
+	const buttonType = type === "submit" ? "submit" : "button";
 	const buttonClassName =
-		type === "form-submit"
+		type === "submit"
 			? "btn-submit"
 			: type === "form-deny"
 				? "btn-deny"
@@ -31,12 +24,10 @@ export default function Button({
 						: "btn-default";
 
 	return (
-		<a className="button" href={href} onClick={onClick}>
-			<button type={buttonType} className={buttonClassName} onClick={onClick}>
-				{type === "invite" && !children
-					? "+ Inviter un client à s'inscrire"
-					: children}
-			</button>
-		</a>
+		<button type={buttonType} className={`button ${buttonClassName}`}>
+			{type === "invite" && !children
+				? "+ Inviter un client à s'inscrire"
+				: children}
+		</button>
 	);
 }

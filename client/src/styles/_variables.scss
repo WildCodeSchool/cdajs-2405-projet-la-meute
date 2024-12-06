@@ -33,7 +33,6 @@ $accent-color: $orange-400;
 
 // Links
 $base-link: $accent-color;
-$visited-link: darken($accent-color, 20%);
 $active-link: blue;
 $hovered-link: lighten($accent-color, 10%);
 $focused-link: $accent-color;
@@ -41,6 +40,9 @@ $focused-link: $accent-color;
 // Debug
 $border-debug: 5px solid lime;
 .debug {
+    border: $border-debug;
+}
+@mixin debug {
     border: $border-debug;
 }
 
