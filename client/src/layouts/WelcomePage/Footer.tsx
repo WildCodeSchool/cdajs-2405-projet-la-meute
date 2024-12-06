@@ -32,7 +32,7 @@ function Footer() {
 				<div className="welcomepage__footer--pages">
 					<p className="welcomepage__footer--navigation">Pages</p>
 					<a href="/">Accueil</a>
-					<a href="/offres">Offres</a>
+					<a href="/services">Services</a>
 					<a href="/contact">Contact</a>
 				</div>
 				<div className="welcomepage__footer--pages">

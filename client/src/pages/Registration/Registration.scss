@@ -2,30 +2,64 @@
 
 .registration {
     min-height: 100vh;
-    background-image: url("@/assets/illustrations/chien-attendant-sages-restaurant-proprietaires.png");
-    background-size: 50%;
+    background-image: url("@/assets/illustrations/promeneur-proprietaire-se-baladant-avec-son-chien-au-parc.png");
+    background-size: 45%;
     background-position: bottom right;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
 
-    &__logo {
-        width: 30rem;
-        margin-inline: auto;
-        max-width: 80%;
-        margin-block: 3rem;
-    }
+.registration__section--choice {
 
-    &__form {
-        margin-block: 0;
-    }
+    width: 60%;
 
-    &__bottomLinks:first-child {
-        margin-block-end: 1rem;
+    h2 {
+        color: $primary-dark;
+        font-size: 3.75rem;
+        font-weight: $bold;
+        font-style: normal;
+        letter-spacing: 1px;
     }
 }
 
+.registration__div--choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 7vh;
+    gap: 2vw;
+}
+
+.registration__div--card {
+    background-color: $blue-500;
+    padding: 2%;
+    width: 100%;
+    border-radius: $atoms-radius;
+}
+
+.registration__div--choice-title {
+    margin-top: 1vh;
+    color: $primary-light;
+    font-size: $xl;
+    font-weight: $bold;
+}
+
+.registration__div--choice-text {
+    color: $blue-300;
+    font-size: $s;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+.registration__form {
+    margin-top: 15vh;
+    margin-bottom: 15vh;
+    width: 50%;
+}
 
 @media screen and (max-width: 600px) {
     .registration {

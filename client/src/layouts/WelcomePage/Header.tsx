@@ -17,9 +17,14 @@ function Header() {
 					<a href="/services">Services</a>
 					<a href="/contact">Contact</a>
 				</div>
-				<a href="/login" className="welcomepage__header--button">
-					Se connecter / S’inscrire
-				</a>
+				<div>
+					<a href="/registration" className="welcomepage__header--button-sign">
+						S’inscrire
+					</a>
+					<a href="/login" className="welcomepage__header--button-login">
+						Se connecter
+					</a>
+				</div>
 			</header>
 		</>
 	);

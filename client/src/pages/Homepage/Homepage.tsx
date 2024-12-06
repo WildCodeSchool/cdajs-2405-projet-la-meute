@@ -22,7 +22,7 @@ function Homepage() {
 				<h2>De quel côté êtes-vous ?</h2>
 				<div className="homepage__div--choice">
 					<div className="homepage__div--choice-left">
-						<h3 className="homepage__div--choice-title">Éducateur</h3>
+						<h3 className="homepage__div--choice-title">🙋🏻‍♂️ Éducateur</h3>
 						<p className="homepage__div--choice-text">
 							Optimisez votre emploi du temps grâce à notre plateforme de
 							gestion de planning. En tant qu’Éducateur canin, vous pourrez
@@ -31,7 +31,7 @@ function Homepage() {
 						</p>
 					</div>
 					<div className="homepage__div--choice-right">
-						<h3 className="homepage__div--choice-title">Propriétaire</h3>
+						<h3 className="homepage__div--choice-title">🐶 Propriétaire</h3>
 						<p className="homepage__div--choice-text">
 							Simplifiez la gestion des séances avec votre Éducateur canin. En
 							tant que Propriétaire, vous pouvez consulter facilement les
