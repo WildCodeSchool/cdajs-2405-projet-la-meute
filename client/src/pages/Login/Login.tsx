@@ -1,32 +1,62 @@
-import Form from "@/components/_molecules/Form/Form";
 import "./Login.scss";
-import logo from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
+import Form from "@/components/_molecules/Form/Form";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import Header from "@/layouts/WelcomePage/Header";
+import { useRef } from "react";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "@/graphQL/mutations/user";
 
-function Login() {
+export default function Login() {
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+
+	const [login, { data, loading, error }] = useMutation(LOGIN);
+
+	const onFormSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		const email = emailRef.current?.value;
+		const password = passwordRef.current?.value;
+
+		try {
+			await login({
+				variables: { email, password },
+			});
+		} catch (err) {
+			// TODO: handle error
+			console.error("Login error:", err);
+		}
+	};
+
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error: {error.message}</p>;
+	if (data) {
+		// TODO: rediction
+		console.info(data);
+	}
+
 	return (
-		<main className="login">
-			<img className="login__logo" src={logo} alt="logo paw planner" />
-			<Form className="login__form" title="Connectez-vous&nbsp;ici">
-				<TextInput type="email" />
-				<TextInput type="password" />
-				<Button type="form-deny" href="">
-					Retour
-				</Button>
-				<Button type="form-submit" href="/">
-					Me connecter
-				</Button>
-				<p className="login__bottomLinks">
-					Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.
-				</p>
-				<p className="login__bottomLinks">
-					Si vous n'êtes pas inscrit, vous pouvez{" "}
-					<a href="/">vous inscrire ici</a>.
-				</p>
-			</Form>
-		</main>
+		<>
+			<Header />
+			<main className="login">
+				<Form
+					className="login__form"
+					title="Connectez-vous ici"
+					onSubmit={onFormSubmit}
+				>
+					<TextInput type="email" ref={emailRef} required />
+					<TextInput type="password" ref={passwordRef} required />
+					<Button type="submit">Me connecter</Button>
+					<p className="login__bottomLinks">
+						Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.
+					</p>
+					<p className="login__bottomLinks">
+						Si vous n'êtes pas inscrit, vous pouvez{" "}
+						<a href="/">vous inscrire ici</a>.
+					</p>
+				</Form>
+			</main>
+		</>
 	);
 }
-
-export default Login;

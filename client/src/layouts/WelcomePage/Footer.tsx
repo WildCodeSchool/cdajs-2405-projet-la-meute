@@ -1,4 +1,4 @@
-import "@/components/WelcomePage/Footer.scss";
+import "./Footer.scss";
 import Logo from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
 import Image from "@/assets/illustrations/chien-high-five-proprietaire-canape.png";
 
@@ -19,12 +19,16 @@ function Footer() {
 					</a>
 				</div>
 				<div className="welcomepage__footer--bottom-img">
-					<img src={Image}></img>
+					<img src={Image} alt="Homme tenant la patte de son chien" />
 				</div>
 			</section>
 
 			<footer className="welcomepage__footer">
-				<img src={Logo} className="welcomepage__footer--logo"></img>
+				<img
+					src={Logo}
+					className="welcomepage__footer--logo"
+					alt="Logo Paw Planner"
+				/>
 				<div className="welcomepage__footer--pages">
 					<p className="welcomepage__footer--navigation">Pages</p>
 					<a href="/">Accueil</a>

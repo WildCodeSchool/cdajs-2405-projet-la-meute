@@ -14,7 +14,7 @@ function Homepage() {
 					</p>
 				</div>
 				<div className="homepage__div--top-img">
-					<img src={Image}></img>
+					<img src={Image} alt="Femme promenant ses chiens" />
 				</div>
 			</section>
 

@@ -1,19 +1,18 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { ExampleResolver } from "./resolvers/ExampleResolvers";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./dataSource/dataSource";
 import { initTestData } from "./dataSource/initTestData";
-import { CategoryResolver } from "./resolvers/CategoryResolvers";
 import dotenv from "dotenv";
+import { UserResolvers } from "./resolvers/UserResolvers";
 dotenv.config();
 
 const port = 3200;
 
 export async function startServerApollo() {
 	const schema = await buildSchema({
-		resolvers: [ExampleResolver, CategoryResolver],
+		resolvers: [UserResolvers],
 	});
 
 	const server = new ApolloServer({ schema });
@@ -26,9 +25,8 @@ export async function startServerApollo() {
 	}
 
 	// FIXME: Comment this after first launch to avoid doubles
-	await initTestData();
 	// initTestData() Drop table and reload data test in every launch
-	// await initTestData();
+	await initTestData();
 
 	const { url } = await startStandaloneServer(server, {
 		listen: { port },
