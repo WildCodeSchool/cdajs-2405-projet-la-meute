@@ -9,13 +9,14 @@ import Registration from "./pages/Registration/Registration.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
+import WelcomePageLayoutLight from "@/layouts/WelcomePage/WelcomePageLayoutLight.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import Login from "@/pages/Login/Login.tsx";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		// Header and footer layout
 		element: <WelcomePageLayout />,
 		children: [
 			{
@@ -33,16 +34,26 @@ const router = createBrowserRouter([
 		],
 	},
 	{
+		// Header-only layout
+		element: <WelcomePageLayoutLight />,
+		children: [
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/registration",
+				element: <Registration />,
+			},
+		],
+	},
+	{
 		path: "/designsystem",
 		element: <DesignSystem />,
 	},
 	{
 		path: "/login",
 		element: <Login />,
-	},
-	{
-		path: "/registration",
-		element: <Registration />,
 	},
 ]);
 

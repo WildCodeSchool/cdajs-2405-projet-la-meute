@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
-import logo from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 
@@ -9,12 +8,6 @@ function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
 	return (
 		<main className="registration">
-			<img
-				className="registration__logo"
-				src={logo}
-				alt="Le logo de PawPlanner"
-			/>
-
 			{!role ? (
 				<div className="registration__roleSelection">
 					<h1>Vous êtes ...</h1>
