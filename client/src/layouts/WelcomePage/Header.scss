@@ -44,7 +44,23 @@
     }
 }
 
-.welcomepage__header--button {
+.welcomepage__header--button-sign {
+    background-color: $beige-200;
+    color: $beige-500;
+    font-size: $s;
+    font-weight: $medium;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: 5px;
+    letter-spacing: 1px;
+
+    &:hover {
+        background-color: $beige-300;
+        color: $beige-500;
+    }
+}
+
+.welcomepage__header--button-login {
     background-color: $primary-dark;
     color: $primary-light;
     font-size: $s;
@@ -52,6 +68,8 @@
     font-style: normal;
     padding: 1.5vh 3vw;
     border-radius: 5px;
+    letter-spacing: 1px;
+    margin-left: $s;
 
     &:hover {
         background-color: $blue-100;
