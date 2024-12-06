@@ -4,6 +4,7 @@ import "./styles/global.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphQL/apolloClient.ts";
+import Registration from "./pages/Registration/Registration.tsx";
 
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
 	{
 		path: "/login",
 		element: <Login />,
+	},
+	{
+		path: "/registration",
+		element: <Registration />,
 	},
 ]);
 
