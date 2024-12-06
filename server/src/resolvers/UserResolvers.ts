@@ -114,7 +114,7 @@ export class UserResolvers {
 	// request password reset
 	// User requests a password reset with their email and receives a token for reinitialization.
 	@Mutation(() => ResetPasswordResponse)
-	async requestPasswordReset(
+	async RequestPasswordReset(
 		@Arg("email") email: string,
 	): Promise<ResetPasswordResponse> {
 		try {
