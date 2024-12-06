@@ -18,27 +18,20 @@ function Registration() {
 			{!role ? (
 				<div className="registration__roleSelection">
 					<h1>Vous êtes ...</h1>
-					<Button
-						href="#"
-						type="role-select"
-						onClick={() => setRole("trainer")}
-					>
+					<Button type="role-select" onClick={() => setRole("trainer")}>
 						Je suis éducateur•trice canin
 					</Button>
-					<Button href="#" type="role-select" onClick={() => setRole("owner")}>
+					<Button type="role-select" onClick={() => setRole("owner")}>
 						Je suis un•e propriétaire de chien
 					</Button>
 				</div>
 			) : (
 				<Form className="registration__form" title="Inscription">
-					{role === "trainer" && (
-						<>
-							<TextInput type="SIRET" required />
-							<TextInput type="companyName" required />
-						</>
-					)}
+					{role === "trainer" && <TextInput type="SIRET" required />}
 
-					<TextInput type="name" required />
+					{role === "trainer" && <TextInput type="companyName" required />}
+
+					<TextInput type="lastname" required />
 					<TextInput type="firstname" required />
 					<TextInput type="email" required />
 					<TextInput type="password" required />
@@ -51,9 +44,7 @@ function Registration() {
 						Retour
 					</Button>
 
-					<Button type="form-submit" href="#">
-						S'inscrire
-					</Button>
+					<Button type="submit">S'inscrire</Button>
 
 					<p className="registration__bottomLinks">
 						Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.

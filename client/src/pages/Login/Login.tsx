@@ -53,7 +53,7 @@ export default function Login() {
 					</p>
 					<p className="login__bottomLinks">
 						Si vous n'êtes pas inscrit, vous pouvez{" "}
-						<a href="/">vous inscrire ici</a>.
+						<a href="/registration">vous inscrire ici</a>.
 					</p>
 				</Form>
 			</main>
