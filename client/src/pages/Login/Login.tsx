@@ -49,7 +49,7 @@ export default function Login() {
 					<TextInput type="password" ref={passwordRef} required />
 					<Button type="submit">Me connecter</Button>
 					<p className="login__bottomLinks">
-						Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.
+						Si vous avez oublié votre mot de passe <a href="/reset-password">cliquez ici</a>.
 					</p>
 					<p className="login__bottomLinks">
 						Si vous n'êtes pas inscrit, vous pouvez{" "}

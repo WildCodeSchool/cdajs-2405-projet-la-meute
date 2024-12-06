@@ -1,15 +1,15 @@
 @import "@style";
 
 .login {
-    min-height: 90vh;
+    min-height: 100vh;
     background-image: url("@/assets/illustrations/chien-attendant-sages-restaurant-proprietaires.png");
     background-size: 50%;
     background-position: bottom right;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-block-start: 10vh;
 
     &__logo {
         width: 30rem;
@@ -19,11 +19,12 @@
     }
 
     &__form {
-        margin-block-start: 3vh;
+        width: 33%;
     }
 
-    &__bottomLinks:first-child {
+    &__bottomLinks {
         margin-block-end: 1rem;
+        line-height: $l;
     }
 }
 
@@ -31,5 +32,4 @@
     .login {
         background-size: contain;
     }
-
 }
