@@ -34,15 +34,8 @@
     gap: 2vw;
 }
 
-.registration__div--choice-left {
-    background-color: $green-100;
-    padding: 2%;
-    width: 100%;
-    border-radius: $atoms-radius;
-}
-
-.registration__div--choice-right {
-    background-color: $orange-300;
+.registration__div--card {
+    background-color: $blue-500;
     padding: 2%;
     width: 100%;
     border-radius: $atoms-radius;
@@ -50,7 +43,7 @@
 
 .registration__div--choice-title {
     margin-top: 1vh;
-    color: $blue-300;
+    color: $primary-light;
     font-size: $xl;
     font-weight: $bold;
 }

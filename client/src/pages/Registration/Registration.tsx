@@ -17,15 +17,15 @@ function Registration() {
 						<section className="registration__section--choice">
 							<h2>Vous êtes ...</h2>
 							<div className="registration__div--choice">
-								<div className="registration__div--choice-left">
+								<div className="registration__div--card">
 									<h3 className="registration__div--choice-title">🙋🏻‍♂️ Éducateur</h3>
-									<Button type="role-select" onClick={() => setRole("trainer")}>
+									<Button type="role-select-left" onClick={() => setRole("trainer")}>
 										Je suis éducateur•trice canin
 									</Button>
 								</div>
-								<div className="registration__div--choice-right">
+								<div className="registration__div--card">
 									<h3 className="registration__div--choice-title">🐶 Propriétaire</h3>
-									<Button type="role-select" onClick={() => setRole("owner")}>
+									<Button type="role-select-right" onClick={() => setRole("owner")}>
 										Je suis un•e propriétaire de chien
 									</Button>
 								</div>

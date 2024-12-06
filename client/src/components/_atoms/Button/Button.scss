@@ -44,19 +44,29 @@
 
     &.btn-default {
         $background-color: $blue-200;
-        background-color: $background-color;
 
         &:hover {
             background-color: lighten($background-color, 10%);
         }
     }
 
-    &.btn-role-select {
-        $background-color: $blue-500;
+    &.btn-role-select-left {
+        $background-color: $green-400;
         background-color: $background-color;
+        color: $primary-light;
 
         &:hover {
-            background-color: lighten($background-color, 10%);
+            background-color: $green-300;
+        }
+    }
+
+    &.btn-role-select-right {
+        $background-color: $orange-500;
+        background-color: $background-color;
+        color: $primary-light;
+
+        &:hover {
+            background-color: $orange-400;
         }
     }
 }
