@@ -11,6 +11,7 @@ import { dataSource } from "../dataSource/dataSource";
 import { Owner } from "../entities/Owner";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
+import { EmailService } from "../services/EmailService";
 import bcrypt from "bcryptjs";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
@@ -138,13 +139,18 @@ export class UserResolvers {
 			const token = crypto.randomBytes(32).toString("hex");
 
 			const tokenRepository = dataSource.getRepository(PasswordResetToken);
+
 			const passwordResetToken = new PasswordResetToken();
 			passwordResetToken.user_id = user.id;
 			passwordResetToken.token = token;
 			passwordResetToken.user_role =
 				user instanceof Owner ? "owner" : "trainer";
 			passwordResetToken.expires_at = new Date(Date.now() + 900000); // 15 minutes
+
 			await tokenRepository.save(passwordResetToken);
+
+			const emailService = new EmailService();
+			await emailService.sendPasswordResetEmail(email, token);
 
 			return {
 				success: true,
@@ -180,7 +186,7 @@ export class UserResolvers {
 			if (!resetToken || !resetToken.token) {
 				return {
 					success: false,
-					message: "Ce lien de réinitialisation est invalide ou a expiré1",
+					message: "Ce lien de réinitialisation est invalide ou a expiré",
 				};
 			}
 
@@ -188,7 +194,7 @@ export class UserResolvers {
 			if (!isValidToken) {
 				return {
 					success: false,
-					message: "Ce lien de réinitialisation est invalide ou a expiré2",
+					message: "Ce lien de réinitialisation est invalide ou a expiré",
 				};
 			}
 
