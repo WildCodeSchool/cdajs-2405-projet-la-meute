@@ -15,12 +15,9 @@ html {
 a {
     text-decoration: none;
 
-    &:active {
-        color: $active-link;
-    }
-
+    color: $orange-500;
     &:hover {
-        color: $hovered-link;
+        color: $orange-300;
     }
 }
 
