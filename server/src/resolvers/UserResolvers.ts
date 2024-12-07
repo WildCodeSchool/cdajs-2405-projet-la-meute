@@ -1,12 +1,53 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {
+	Arg,
+	Mutation,
+	Query,
+	Resolver,
+	Field,
+	ObjectType,
+} from "type-graphql";
+import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
 import { Owner } from "../entities/Owner";
 import { Trainer } from "../entities/Trainer";
+import { PasswordResetToken } from "../entities/PasswordResetToken";
+import { EmailService } from "../services/EmailService";
 import bcrypt from "bcryptjs";
+import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
+
+@ObjectType()
+class ResetPasswordResponse {
+	@Field()
+	success?: boolean;
+
+	@Field(() => String, { nullable: true })
+	message?: string;
+}
 
 @Resolver()
 export class UserResolvers {
+	private async findUserByEmail(
+		/**
+		 * This function centralizes the logic to retrirve user by email
+		 * @param email - The email of the user to search for.
+		 * @param options - Additional options (select fields or relations) to customize the query.
+		 */
+		email: string,
+		options: object = {},
+	): Promise<Trainer | Owner | null> {
+		return (
+			(await dataSource.manager.findOne(Owner, {
+				where: { email },
+				...options,
+			})) ||
+			(await dataSource.manager.findOne(Trainer, {
+				where: { email },
+				...options,
+			}))
+		);
+	}
+
 	// Get all owners
 	@Query(() => [Owner])
 	async getAllOwners(): Promise<Owner[]> {
@@ -26,10 +67,7 @@ export class UserResolvers {
 	async getUserByEmail(
 		@Arg("email") email: string,
 	): Promise<Trainer | Owner | null> {
-		const user: Trainer | Owner | null =
-			(await dataSource.manager.findOneBy(Owner, { email })) ||
-			(await dataSource.manager.findOneBy(Trainer, { email }));
-		return user;
+		return this.findUserByEmail(email);
 	}
 
 	// Login
@@ -48,15 +86,9 @@ export class UserResolvers {
 			throw new Error("Password and email are required");
 		}
 
-		const user: Trainer | Owner | null =
-			(await dataSource.manager.findOne(Owner, {
-				where: { email },
-				select: ["id", "password_hashed"],
-			})) ||
-			(await dataSource.manager.findOne(Trainer, {
-				where: { email },
-				select: ["id", "password_hashed"],
-			}));
+		const user = await this.findUserByEmail(email, {
+			select: ["id", "password_hashed"],
+		});
 
 		if (!user) {
 			throw new Error("User not found");
@@ -77,5 +109,127 @@ export class UserResolvers {
 		);
 
 		return token;
+	}
+
+	// request password reset
+	// User requests a password reset with their email and receives a token for reinitialization.
+	@Mutation(() => ResetPasswordResponse)
+	async RequestPasswordReset(
+		@Arg("email") email: string,
+	): Promise<ResetPasswordResponse> {
+		try {
+			if (!email) {
+				throw new Error("Email are required");
+			}
+
+			const user = await this.findUserByEmail(email, {
+				select: ["email", "id"],
+			});
+
+			// for security we always send a good response
+			if (!user) {
+				return {
+					success: true,
+					message:
+						"Si votre email existe, vous recevrez un lien de réinitialisation.",
+				};
+			}
+
+			// Generate and save token
+			const token = crypto.randomBytes(32).toString("hex");
+
+			const tokenRepository = dataSource.getRepository(PasswordResetToken);
+
+			const passwordResetToken = new PasswordResetToken();
+			passwordResetToken.user_id = user.id;
+			passwordResetToken.token = token;
+			passwordResetToken.user_role =
+				user instanceof Owner ? "owner" : "trainer";
+			passwordResetToken.expires_at = new Date(Date.now() + 900000); // 15 minutes
+
+			await tokenRepository.save(passwordResetToken);
+
+			const emailService = new EmailService();
+			await emailService.sendPasswordResetEmail(email, token);
+
+			return {
+				success: true,
+				message:
+					"Si votre email existe, vous recevrez un lien de réinitialisation.",
+			};
+		} catch (error) {
+			console.error("Erreur réinitialisation mot de passe:", error);
+			return {
+				success: false,
+				message: "Une erreur est survenue",
+			};
+		}
+	}
+
+	// request password reset
+	// User have a valid token and reset password.
+	@Mutation(() => ResetPasswordResponse)
+	async PasswordReset(
+		@Arg("token") token: string,
+		@Arg("newPassword") newPassword: string,
+	): Promise<ResetPasswordResponse> {
+		try {
+			const tokenRepository = dataSource.getRepository(PasswordResetToken);
+			const resetToken = await tokenRepository.findOne({
+				where: {
+					token: token,
+					used: false,
+					expires_at: MoreThan(new Date()),
+				},
+			});
+
+			if (!resetToken || !resetToken.token) {
+				return {
+					success: false,
+					message: "Ce lien de réinitialisation est invalide ou a expiré",
+				};
+			}
+
+			const isValidToken = token === resetToken.token;
+			if (!isValidToken) {
+				return {
+					success: false,
+					message: "Ce lien de réinitialisation est invalide ou a expiré",
+				};
+			}
+
+			// Change this when we choose the format
+			if (newPassword.length < 8) {
+				return {
+					success: false,
+					message: "Le mot de passe doit faire au moins 8 caractères",
+				};
+			}
+
+			const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+			const userRepository =
+				resetToken.user_role === "owner"
+					? dataSource.getRepository(Owner)
+					: dataSource.getRepository(Trainer);
+
+			await userRepository.update(
+				{ id: resetToken.user_id },
+				{ password_hashed: hashedPassword },
+			);
+
+			await tokenRepository.update({ id: resetToken.id }, { used: true });
+
+			return {
+				success: true,
+				message: "Votre mot de passe a été modifié avec succès",
+			};
+		} catch (error) {
+			console.error("Erreur changement mot de passe:", error);
+			return {
+				success: false,
+				message: "Une erreur est survenue lors du changement de mot de passe",
+			};
+		}
 	}
 }

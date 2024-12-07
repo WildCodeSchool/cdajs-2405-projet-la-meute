@@ -31,6 +31,7 @@ export abstract class User {
 	@Column({
 		type: "varchar",
 		length: 255,
+		select: false,
 	})
 	@Field()
 	password_hashed: string;
