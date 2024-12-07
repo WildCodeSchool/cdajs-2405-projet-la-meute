@@ -198,6 +198,7 @@ export class UserResolvers {
 				};
 			}
 
+			// Change this when we choose the format
 			if (newPassword.length < 8) {
 				return {
 					success: false,

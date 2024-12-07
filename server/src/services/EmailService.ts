@@ -3,6 +3,7 @@ import * as nodemailer from "nodemailer";
 export class EmailService {
 	private transporter?: nodemailer.Transporter;
 
+	// this function decide if we use SMTP server in production or fake one in dev mode
 	private async initialize() {
 		// dev mode
 		if (process.env.NODE_ENV !== "production") {
@@ -21,6 +22,7 @@ export class EmailService {
 		}
 	}
 
+	// Create fake mail account on Ethereal.com and give credentials with a console info, if we are in dev mode
 	private async createTestAccount() {
 		const testAccount = await nodemailer.createTestAccount();
 
@@ -41,19 +43,18 @@ export class EmailService {
 		});
 	}
 
-	// Méthode pour s'assurer que le transporteur est initialisé
 	private async ensureTransporter() {
 		if (!this.transporter) {
 			await this.initialize();
 		}
 	}
 
+	// this function create and send content for the reset password email.
 	async sendPasswordResetEmail(
 		email: string,
 		resetToken: string,
 	): Promise<boolean> {
 		try {
-			// S'assurer que le transporteur est initialisé avant l'envoi
 			await this.ensureTransporter();
 
 			if (!this.transporter) {
