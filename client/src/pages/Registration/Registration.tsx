@@ -1,61 +1,74 @@
 import { useState } from "react";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
-import logo from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import Header from "@/layouts/WelcomePage/Header";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
 	return (
-		<main className="registration">
-			<img
-				className="registration__logo"
-				src={logo}
-				alt="Le logo de PawPlanner"
-			/>
+		<>
+			<Header />
+			<main className="registration">
+				{!role ? (
+					<>
+						<section className="registration__section--choice">
+							<h2>Vous êtes ...</h2>
+							<div className="registration__div--choice">
+								<div className="registration__div--card">
+									<h3 className="registration__div--choice-title">
+										🙋🏻‍♂️ Éducateur
+									</h3>
+									<Button
+										type="role-select-left"
+										onClick={() => setRole("trainer")}
+									>
+										Je suis éducateur•trice canin
+									</Button>
+								</div>
+								<div className="registration__div--card">
+									<h3 className="registration__div--choice-title">
+										🐶 Propriétaire
+									</h3>
+									<Button
+										type="role-select-right"
+										onClick={() => setRole("owner")}
+									>
+										Je suis un•e propriétaire de chien
+									</Button>
+								</div>
+							</div>
+						</section>
+					</>
+				) : (
+					<Form className="registration__form" title="Inscription">
+						{role === "trainer" && <TextInput type="SIRET" required />}
 
-			{!role ? (
-				<div className="registration__roleSelection">
-					<h1>Vous êtes ...</h1>
-					<Button type="role-select" onClick={() => setRole("trainer")}>
-						Je suis éducateur•trice canin
-					</Button>
-					<Button type="role-select" onClick={() => setRole("owner")}>
-						Je suis un•e propriétaire de chien
-					</Button>
-				</div>
-			) : (
-				<Form className="registration__form" title="Inscription">
-					{role === "trainer" && <TextInput type="SIRET" required />}
+						{role === "trainer" && <TextInput type="companyName" required />}
 
-					{role === "trainer" && <TextInput type="companyName" required />}
+						<TextInput type="lastname" required />
+						<TextInput type="firstname" required />
+						<TextInput type="email" required />
+						<TextInput type="password" required />
+						<TextInput type="city" required />
+						<TextInput type="postcode" required />
+						<TextInput type="telephone" />
+						<input type="hidden" name="role" value={role} />
 
-					<TextInput type="lastname" required />
-					<TextInput type="firstname" required />
-					<TextInput type="email" required />
-					<TextInput type="password" required />
-					<TextInput type="city" required />
-					<TextInput type="postcode" required />
-					<TextInput type="telephone" />
-					<input type="hidden" name="role" value={role} />
+						<Button type="form-deny" href="/registration">
+							Retour
+						</Button>
 
-					<Button type="form-deny" href="/">
-						Retour
-					</Button>
-
-					<Button type="submit">S'inscrire</Button>
-
-					<p className="registration__bottomLinks">
-						Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.
-					</p>
-					<p className="registration__bottomLinks">
-						Si vous avez déjà un compte vous pouvez{" "}
-						<a href="/login"> vous connecter ici</a>.
-					</p>
-				</Form>
-			)}
-		</main>
+						<Button type="submit">S'inscrire</Button>
+						<p>
+							Si vous avez déjà un compte vous pouvez{" "}
+							<a href="/login"> vous connecter ici</a>.
+						</p>
+					</Form>
+				)}
+			</main>
+		</>
 	);
 }
 
