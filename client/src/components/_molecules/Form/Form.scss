@@ -10,7 +10,7 @@
     padding: 2rem;
     width: fit-content;
     margin: auto;
-    
+
     h2 {
         color: $font-light;
         font-weight: $semiBold;
@@ -18,14 +18,14 @@
         margin: 0;
         padding: 0;
     }
-    
+
     .form__buttons {
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
         justify-content: flex-end;
     }
-    
+
     .form__otherFields {
         color: $font-light;
         & * {
