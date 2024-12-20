@@ -6,9 +6,9 @@ export default function WelcomePageLayout() {
 	return (
 		<>
 			<Header />
-			<main>
+			<section>
 				<Outlet />
-			</main>
+			</section>
 			<Footer />
 		</>
 	);
