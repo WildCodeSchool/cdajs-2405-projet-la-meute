@@ -1,6 +1,12 @@
 import "./Button.scss";
 
-type ButtonTypes = "submit" | "form-deny" | "invite" | "button" | "role-select-left" | "role-select-right";
+type ButtonTypes =
+	| "submit"
+	| "form-deny"
+	| "invite"
+	| "button"
+	| "role-select-left"
+	| "role-select-right";
 
 export default function Button({
 	type,
@@ -26,7 +32,6 @@ export default function Button({
 						: type === "role-select-right"
 							? "btn-role-select-right"
 							: "btn-default";
-
 
 	if (href) {
 		return (

@@ -11,21 +11,30 @@ function Registration() {
 		<>
 			<Header />
 			<main className="registration">
-
 				{!role ? (
 					<>
 						<section className="registration__section--choice">
 							<h2>Vous êtes ...</h2>
 							<div className="registration__div--choice">
 								<div className="registration__div--card">
-									<h3 className="registration__div--choice-title">🙋🏻‍♂️ Éducateur</h3>
-									<Button type="role-select-left" onClick={() => setRole("trainer")}>
+									<h3 className="registration__div--choice-title">
+										🙋🏻‍♂️ Éducateur
+									</h3>
+									<Button
+										type="role-select-left"
+										onClick={() => setRole("trainer")}
+									>
 										Je suis éducateur•trice canin
 									</Button>
 								</div>
 								<div className="registration__div--card">
-									<h3 className="registration__div--choice-title">🐶 Propriétaire</h3>
-									<Button type="role-select-right" onClick={() => setRole("owner")}>
+									<h3 className="registration__div--choice-title">
+										🐶 Propriétaire
+									</h3>
+									<Button
+										type="role-select-right"
+										onClick={() => setRole("owner")}
+									>
 										Je suis un•e propriétaire de chien
 									</Button>
 								</div>
@@ -52,10 +61,10 @@ function Registration() {
 						</Button>
 
 						<Button type="submit">S'inscrire</Button>
-							<p>
-								Si vous avez déjà un compte vous pouvez{" "}
-								<a href="/login"> vous connecter ici</a>.
-							</p>
+						<p>
+							Si vous avez déjà un compte vous pouvez{" "}
+							<a href="/login"> vous connecter ici</a>.
+						</p>
 					</Form>
 				)}
 			</main>
