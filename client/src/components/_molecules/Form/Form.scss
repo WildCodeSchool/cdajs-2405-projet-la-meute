@@ -35,8 +35,14 @@
     }
 }
 
+.introductiveText {
+    margin: 0;
+    padding: 0;
+    color: $font-light;
+}
 
-@media screen and (max-width: 470px) {
+
+@media screen and (max-width: 600px) {
     .form  {
         width: 90%;
         

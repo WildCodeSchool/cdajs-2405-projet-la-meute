@@ -1,6 +1,6 @@
 @import "@style";
 
-.button button {
+.button {
     all: unset;
     min-height: $btn-height;
     color: $primary-light;
@@ -12,6 +12,7 @@
     font-size: $s;
     background-color: $blue-200;
     text-align: center;
+    cursor: pointer;
 
     &.btn-submit {
         $background-color: $blue-200;
@@ -45,4 +46,12 @@
         }
     }
 
+    &.btn-role-select {
+        $background-color: $blue-500;
+        background-color: $background-color;
+        cursor: pointer;
+        &:hover {
+          background-color: lighten($background-color, 5%);
+        }
+      }     
 }
