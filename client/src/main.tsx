@@ -12,6 +12,9 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import Login from "@/pages/Login/Login.tsx";
+import ResetPassword from "./pages/Login/ResetPassword.tsx";
+import ResetLink from "./pages/Login/ResetLink.tsx";
+import NewPassword from "./pages/Login/NewPassword.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -39,6 +42,18 @@ const router = createBrowserRouter([
 	{
 		path: "/login",
 		element: <Login />,
+	},
+	{
+		path: "/reset-password",
+		element: <ResetPassword />,
+	},
+	{
+		path: "/reset-link",
+		element: <ResetLink />,
+	},
+	{
+		path: "/new-password",
+		element: <NewPassword />,
 	},
 	{
 		path: "/registration",

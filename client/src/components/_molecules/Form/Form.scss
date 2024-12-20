@@ -36,13 +36,20 @@
 }
 
 .introductiveText {
-    margin: 0;
-    padding: 0;
     color: $font-light;
+
+    &__emoji {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        margin-bottom: 5vh !important;
+    }
 }
 
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
     .form  {
         width: 90%;
         
