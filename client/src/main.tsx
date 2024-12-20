@@ -1,18 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/global.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphQL/apolloClient.ts";
-import Registration from "./pages/Registration/Registration.tsx";
+import "./styles/global.scss";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 import WelcomePageHeaderLayout from "./layouts/WelcomePage/WelcomePageHeaderLayout.tsx";
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import Login from "@/pages/Login/Login.tsx";
+import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
@@ -63,8 +65,14 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: "/designsystem",
-		element: <DesignSystem />,
+		path: "/",
+		element: <DashLayout />,
+		children: [
+			{
+				path: "/designsystem",
+				element: <DesignSystem />,
+			},
+		],
 	},
 ]);
 
