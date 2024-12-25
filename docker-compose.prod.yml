@@ -4,7 +4,7 @@ services:
     command: sh -c "npm run build && npm run preview"
     restart: unless-stopped
     ports:
-      - 4200:4200
+      - 4201:4200
     volumes:
       - web-client-build:/client/dist
       - node_modules:/client/node_modules
@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     ports:
-      - 3200:3200
+      - 3201:3200
     environment:
       - DBNAME=${DBNAME}
       - DBUSERNAME=${DBUSERNAME}
@@ -41,7 +41,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5433:5432
+      - 5434:5432
     container_name: pawplanner-db-1
     environment:
       - POSTGRES_USER=${DBUSERNAME}
@@ -51,7 +51,7 @@ services:
     image: adminer
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 8081:8080
 
   nginx:
     image: nginx:1.21.3
@@ -60,7 +60,7 @@ services:
       - client
     restart: always
     ports:
-      - ${GATEWAY_PORT:-8060}:81
+      - ${GATEWAY_PORT:-8060}:82
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - web-client-build:/web-client-build
