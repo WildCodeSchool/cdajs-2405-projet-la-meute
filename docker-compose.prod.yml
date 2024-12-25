@@ -3,7 +3,7 @@ services:
     image: dolpheus89/prod_client_pawplanner
     command: sh -c "npm run build && npm run preview"
     restart: unless-stopped
-    ports: 
+    ports:
       - 4200:4200
     volumes:
       - web-client-build:/client/dist
@@ -21,8 +21,6 @@ services:
       - db
     ports:
       - 3200:3200
-    volumes:
-      - ./server:/server
     environment:
       - DBNAME=${DBNAME}
       - DBUSERNAME=${DBUSERNAME}
@@ -31,7 +29,7 @@ services:
       - SMTP_PORT=${SMTP_PORT}
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASS=${SMTP_PASS}
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV="production"
       - FRONTEND_URL=${FRONTEND_URL}
 
   db:
@@ -46,8 +44,9 @@ services:
       - 5433:5432
     container_name: pawplanner-db-1
     environment:
+      - POSTGRES_USER=${DBUSERNAME}
       - POSTGRES_PASSWORD=${DBPASS}
-
+      - POSTGRES_DB=${DBNAME}
   adminer:
     image: adminer
     restart: unless-stopped
@@ -70,3 +69,4 @@ services:
 volumes:
   web-client-build:
   node_modules:
+  db_data:
