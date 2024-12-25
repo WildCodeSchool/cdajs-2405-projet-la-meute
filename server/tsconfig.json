@@ -11,9 +11,7 @@
 		// "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
 		/* Language and Environment */
-		"target": "es2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-		// "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-		// "jsx": "preserve",                                /* Specify what JSX code is generated. */
+		"target": "ES2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,                                   /* Specify a set of bundled library declaration files that describe the target runtime environment. */		// "jsx": "preserve",                                /* Specify what JSX code is generated. */
 		"experimentalDecorators": true /* Enable experimental support for legacy experimental decorators. */,
 		"emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
 		// "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h'. */
@@ -22,12 +20,12 @@
 		// "reactNamespace": "",                             /* Specify the object invoked for 'createElement'. This only applies when targeting 'react' JSX emit. */
 		// "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
 		// "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
-		// "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
+		// "moduleDetection":"auto",                         /* Control what method is used to detect module-format JS files. */
 
 		/* Modules */
 		"module": "commonjs" /* Specify what module code is generated. */,
 		"rootDir": "./src" /* Specify the root folder within your source files. */,
-		// "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
+		// "moduleResolution": "node10",                      /* Specify how TypeScript looks up a file from a given module specifier. */
 		// "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
 		// "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
 		// "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
@@ -105,5 +103,5 @@
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-  "exclude": ["src/**/*.test.ts"]
+    "exclude": ["src/**/*.test.ts","node_modules", "test", "dist", "**/*spec.ts"]
 }

@@ -4,15 +4,15 @@ import { server } from "@/__tests__/mocks/loginHandler";
 
 import "@testing-library/jest-dom";
 
-import LoginForm from "@/components/LoginForm/LoginForm";
+import Login from "@/pages/Login/Login";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
-describe("LoginForm", () => {
-	it("renders the LoginForm component", async () => {
-		render(<LoginForm />);
+describe("Login", () => {
+	it("renders the Login component", async () => {
+		render(<Login />);
 
 		const title = await screen.findByRole("heading", {
 			name: "Connectez-vous ici",
@@ -32,7 +32,7 @@ describe("LoginForm", () => {
 	});
 
 	it("should have password input of type 'password'", async () => {
-		render(<LoginForm />);
+		render(<Login />);
 
 		const passwordField = await screen.findByLabelText("Mot de passe");
 
@@ -40,7 +40,7 @@ describe("LoginForm", () => {
 	});
 
 	it("should send error message when fields are empty", async () => {
-		render(<LoginForm />);
+		render(<Login />);
 
 		const loginButton = await screen.findByRole("button", {
 			name: "Me connecter",
@@ -57,7 +57,7 @@ describe("LoginForm", () => {
 	});
 
 	it("sends a login request with wrong credentials and handle errors", async () => {
-		render(<LoginForm />);
+		render(<Login />);
 
 		const emailField = await screen.findByLabelText("Email");
 		const passwordField = await screen.findByLabelText("Mot de passe");
@@ -74,7 +74,7 @@ describe("LoginForm", () => {
 	});
 
 	it("JWT is stored in cookie after successful login", async () => {
-		render(<LoginForm />);
+		render(<Login />);
 
 		const emailField = await screen.findByLabelText("Email");
 		const passwordField = await screen.findByLabelText("Mot de passe");

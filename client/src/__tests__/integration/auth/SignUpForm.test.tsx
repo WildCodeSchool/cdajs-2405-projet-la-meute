@@ -3,9 +3,9 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom";
 
-import SignUpForm from "@/components/SignUpForm/SignUpForm";
+import Registration from "@/pages/Registration/Registration";
 
-describe("SignUpForm", () => {
+describe("Registration", () => {
 	const fieldLabels = [
 		{ label: "Noms", error: /Le nom est requis/i },
 		{ label: "Prénom", error: /Le prénom est requis/i },
@@ -21,8 +21,8 @@ describe("SignUpForm", () => {
 
 	const optionalFields = ["Téléphone"];
 
-	it("renders all fields in the SignUpForm", async () => {
-		render(<SignUpForm />);
+	it("renders all fields in the Registration", async () => {
+		render(<Registration />);
 
 		for (const { label } of fieldLabels) {
 			const field = await screen.findByLabelText(label);
@@ -42,7 +42,7 @@ describe("SignUpForm", () => {
 	});
 
 	it("should have password fields of type 'password'", async () => {
-		render(<SignUpForm />);
+		render(<Registration />);
 
 		const passwordField = await screen.findByLabelText("Mot de passe");
 		const confirmPasswordField = await screen.findByLabelText(
@@ -54,7 +54,7 @@ describe("SignUpForm", () => {
 	});
 
 	it("should show error messages for all empty required fields", async () => {
-		render(<SignUpForm />);
+		render(<Registration />);
 
 		const signUpButton = await screen.findByRole("button", {
 			name: "S'inscrire",
@@ -69,7 +69,7 @@ describe("SignUpForm", () => {
 	});
 
 	it("should show error message if passwords do not match", async () => {
-		render(<SignUpForm />);
+		render(<Registration />);
 
 		const emailField = await screen.findByLabelText("Email");
 		const passwordField = await screen.findByLabelText("Mot de passe");
@@ -93,7 +93,7 @@ describe("SignUpForm", () => {
 	});
 
 	it("should send a signup request and show success message", async () => {
-		render(<SignUpForm />);
+		render(<Registration />);
 
 		const signUpButton = await screen.findByRole("button", {
 			name: "S'inscrire",
