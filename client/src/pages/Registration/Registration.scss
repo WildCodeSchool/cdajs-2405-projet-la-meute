@@ -1,7 +1,6 @@
 @import "@style";
 
 .registration {
-    min-height: 100vh;
     background-image: url("@/assets/illustrations/promeneur-proprietaire-se-baladant-avec-son-chien-au-parc.png");
     background-size: 45%;
     background-position: bottom right;
@@ -9,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .registration__section--choice {

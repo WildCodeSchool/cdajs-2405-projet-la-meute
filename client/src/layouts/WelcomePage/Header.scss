@@ -76,3 +76,8 @@
         color: $primary-light;
     }
 }
+
+.welcomePageHeaderLayout__main main {
+    margin-block-start: $welcomePageHeaderHeight;
+    height: calc(100vh - #{$welcomePageHeaderHeight}); // #{} shows the calculation in developer tools
+}
