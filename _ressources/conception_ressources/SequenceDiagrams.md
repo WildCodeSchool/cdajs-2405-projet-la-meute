@@ -7,6 +7,7 @@
 1. [Registration Sequence](#registration-sequence)
 2. [Login Sequence](#login-sequence)
 3. [Logout Sequence](#logout-sequence)
+4. [Forgot password](#forgot-password-sequence)
 
 ### Visitor functions
 
@@ -39,6 +40,13 @@
 [Back to Top](#table-of-contents)
 
 ![UML Diagram Use Case of PawPlanner](./assets/sequences/logout.svg)
+
+
+## Forgot Password Sequence
+
+[Back to Top](#table-of-contents)
+
+![UML Diagram Use Case of PawPlanner](./assets/sequences/ForgotPassword.svg)
 
 ---
 ---
