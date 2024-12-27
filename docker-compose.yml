@@ -1,11 +1,12 @@
 services:
   client:
     build: ./client
+    command: sh -c "npm run dev"
     restart: unless-stopped
-    ports: 
+    ports:
       - 4200:4200
     volumes:
-      - ./client:/client
+      - web-client-build:/client/dist
       - node_modules:/client/node_modules
     # Fixit for HR in Windows
     environment:
@@ -52,4 +53,5 @@ services:
       - 8080:8080
 
 volumes:
+  web-client-build:
   node_modules:
