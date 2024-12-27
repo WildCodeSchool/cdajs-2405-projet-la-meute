@@ -2,7 +2,6 @@ import Form from "@/components/_molecules/Form/Form";
 import "./Login.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-import Header from "@/layouts/WelcomePage/Header";
 import { useSearchParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
@@ -58,29 +57,26 @@ function NewPassword() {
 	};
 
 	return (
-		<>
-			<Header />
-			<main className="login">
-				<Form
-					className="login__form"
-					title="Renseignez un nouveau mot de passe"
-					onSubmit={onFormSubmit}
-				>
-					<p className="introductiveText">
-						Ajoutez un nouveau mot de passe puis valider votre nouveau mot de
-						passe.
-					</p>
-					<TextInput type="password" ref={passwordRef} required />
-					<TextInput type="password" ref={confirmPasswordRef} required />
-					{message && <p className="message">{message}</p>}
-					<Button type="submit" href="/login">
-						{loading
-							? "Validation en cours..."
-							: "Valider mon nouveau mot de passe"}
-					</Button>
-				</Form>
-			</main>
-		</>
+		<main className="login">
+			<Form
+				className="login__form"
+				title="Renseignez un nouveau mot de passe"
+				onSubmit={onFormSubmit}
+			>
+				<p className="introductiveText">
+					Ajoutez un nouveau mot de passe puis valider votre nouveau mot de
+					passe.
+				</p>
+				<TextInput type="password" ref={passwordRef} required />
+				<TextInput type="password" ref={confirmPasswordRef} required />
+				{message && <p className="message">{message}</p>}
+				<Button type="submit" href="/login">
+					{loading
+						? "Validation en cours..."
+						: "Valider mon nouveau mot de passe"}
+				</Button>
+			</Form>
+		</main>
 	);
 }
 

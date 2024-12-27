@@ -1,15 +1,13 @@
-import Footer from "@/layouts/WelcomePage/Footer";
 import Header from "@/layouts/WelcomePage/Header";
 import { Outlet } from "react-router-dom";
 
-export default function WelcomePageLayout() {
+export default function WelcomePageHeaderLayout() {
 	return (
 		<>
 			<Header />
-			<section>
+			<section className="welcomePageHeaderLayout__main">
 				<Outlet />
 			</section>
-			<Footer />
 		</>
 	);
 }
