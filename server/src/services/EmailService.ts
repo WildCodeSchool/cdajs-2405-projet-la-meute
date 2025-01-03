@@ -134,7 +134,7 @@ export class EmailService {
           >Réinitialiser mon mot de passe</a
         >
       </div>
-      <p style="color: #8cc871; font-size: 14px; text-align: center">
+      <p style="color: #04272f; font-size: 14px; text-align: center">
         Ce lien expire dans 15 minutes.
       </p>
       <div
@@ -148,7 +148,7 @@ export class EmailService {
         <p style="color: #04272f; font-size: 14px">
           Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.
         </p>
-        <p style="color: #ffa84e; margin-top: 20px">L'équipe PawPlanner</p>
+        <p style="color:#04272f; margin-top: 20px">L'équipe PawPlanner</p>
       </div>
     </div>
   </body>
