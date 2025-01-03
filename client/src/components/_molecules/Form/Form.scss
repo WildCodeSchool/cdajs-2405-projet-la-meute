@@ -49,7 +49,7 @@
     }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: $mobile) {
     .form  {
         width: 90%;
         

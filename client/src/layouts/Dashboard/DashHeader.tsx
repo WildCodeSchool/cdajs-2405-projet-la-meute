@@ -4,7 +4,10 @@ export default function DashHeader() {
 	return (
 		<>
 			<header className="dashHeader">
-				<h1>Header</h1>
+				<h1 className="hidden__mobile">Header</h1>
+				<a className="hidden__desktop" href="/">
+					Retour
+				</a>
 				<span className="dashHeader__right-corner">
 					<img
 						className="dashHeader__notification"

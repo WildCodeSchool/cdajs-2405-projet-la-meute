@@ -16,3 +16,18 @@
     font-weight: $semiBold;
     text-align: center;
 }
+
+.hidden__ {
+    &mobile {
+        @media screen and (max-width: $mobile) {
+            display: none;
+        }
+    }
+
+    &desktop {
+        @media screen and (min-width: $mobile) {
+            display: none;
+        }
+    }
+}
+
