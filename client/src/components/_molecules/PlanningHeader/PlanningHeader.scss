@@ -10,3 +10,19 @@
     margin: 1rem;
     border-radius: $windows-radius;
 }
+
+.planningHeader__title {
+    @include title;
+    letter-spacing: 0.15ch;
+}
+
+@media screen and (max-width: $mobile) {
+    .planningHeader {
+        flex-direction: column;
+        gap: 0;
+        &__title {
+            margin-block-start: 0;
+            margin-block-end: 0.5rem;
+        }
+    }
+}

@@ -25,15 +25,15 @@ const router = createBrowserRouter([
 		element: <WelcomePageLayout />,
 		children: [
 			{
-				path: "/",
+				path: "",
 				element: <Homepage />,
 			},
 			{
-				path: "/services",
+				path: "services",
 				element: <Services />,
 			},
 			{
-				path: "/contact",
+				path: "contact",
 				element: <Contact />,
 			},
 		],
@@ -43,34 +43,46 @@ const router = createBrowserRouter([
 		element: <WelcomePageHeaderLayout />,
 		children: [
 			{
-				path: "/login",
+				path: "login",
 				element: <Login />,
 			},
 			{
-				path: "/registration",
+				path: "registration",
 				element: <Registration />,
 			},
 			{
-				path: "/reset-password",
+				path: "reset-password",
 				element: <ResetPassword />,
 			},
 			{
-				path: "/reset-link",
+				path: "reset-link",
 				element: <ResetLink />,
 			},
 			{
-				path: "/new-password",
+				path: "new-password",
 				element: <NewPassword />,
 			},
 		],
 	},
 	{
-		path: "/",
+		path: "/dash",
 		element: <DashLayout />,
 		children: [
 			{
-				path: "/designsystem",
+				path: "designsystem", // FIXME: test page, to delete
 				element: <DesignSystem />,
+			},
+			{
+				path: "add-event",
+				element: <Homepage />,
+			},
+			{
+				path: "planning",
+				element: <Homepage />,
+			},
+			{
+				path: "user",
+				element: <Homepage />,
 			},
 		],
 	},

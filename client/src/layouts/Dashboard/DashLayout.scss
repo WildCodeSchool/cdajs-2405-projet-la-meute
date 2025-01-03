@@ -1,8 +1,8 @@
 @import "@style";
 
 $dashHeaderHeight: 10vh;
-$dashSideBarWidth: 10vw;
-$dashMobileSideBarHeight: 10vh;
+$dashSideBarWidth: 8vw;
+$dashMobileSideBarHeight: 8vh;
 $dashInlinePadding: 1vw;
 
 // HEADER DESKTOP
@@ -23,6 +23,10 @@ $dashInlinePadding: 1vw;
 
     & h1 {
         color: $green-400;
+    }
+
+    & img {
+        fill: lime;
     }
 
     &__right-corner {
@@ -58,9 +62,6 @@ $dashInlinePadding: 1vw;
     justify-content: space-between;
     align-items: center;
     padding: $dashInlinePadding;
-
-    //TODO: delete
-    background-color: $blue-200;
 
     &__nav {
         display: flex;
@@ -134,7 +135,7 @@ $dashInlinePadding: 1vw;
 
     // CONTENT MOBILE
     .dashLayout__content {
-        padding-block-end: $dashMobileSideBarHeight;
+        padding-block-end: calc($dashMobileSideBarHeight + 1vh);
         padding-inline: $dashInlinePadding;
     }
 }
