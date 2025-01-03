@@ -1,10 +1,11 @@
 import { useLocation } from "react-router-dom";
 import Logo from "@/assets/logo/beige/symbol/logo-pawplanner-symbol-beige.svg";
-import Calendrier from "@/assets/icons/calendrier.svg";
-import Check from "@/assets/icons/add-event.svg";
-import Patoune from "@/assets/icons/pattes.svg";
-import Utilisateur from "@/assets/icons/ajout-dutilisateur.svg"; // TODO: Pas la bonne icône
-import Exit from "@/assets/icons/sortir.svg";
+
+import { Calendar } from "@/assets/icons/calendar";
+import { AddUser } from "@/assets/icons/add-user"; // TODO: Pas la bonne icône
+import { Checkmark } from "@/assets/icons/checkmark";
+import { Paw } from "@/assets/icons/paw";
+import { Exit } from "@/assets/icons/exit";
 
 export default function DashSideBar() {
 	const location = useLocation();
@@ -17,7 +18,7 @@ export default function DashSideBar() {
 	return (
 		<aside className="dashSideBar" aria-label="Navigation principale">
 			<img
-				className="dashSideBar__icon--main hidden__mobile"
+				className="dashSideBar__logo hidden__mobile"
 				src={Logo}
 				alt="Logo Paw Planner"
 			/>
@@ -25,41 +26,29 @@ export default function DashSideBar() {
 				<ul className="dashSideBar__list">
 					<li className={isActive("planning")}>
 						<a href="/dash/planning" className="dashSideBar__link">
-							<img
-								className="dashSideBar__icon"
-								src={Calendrier}
-								alt="Calendrier"
-							/>
+							<Calendar className="dashSideBar__icon" />
 						</a>
 					</li>
 					<li className={isActive("add-event")}>
 						<a href="/dash/add-event" className="dashSideBar__link">
-							<img
-								className="dashSideBar__icon"
-								src={Check}
-								alt="Ajouter un événement"
-							/>
+							<Checkmark className="dashSideBar__icon" />
 						</a>
 					</li>
 					{/* FIXME: designsystem n'est qu'un exemple en attendant les pages */}
 					<li className={isActive("designsystem")}>
 						<a href="/dash/designsystem" className="dashSideBar__link">
-							<img className="dashSideBar__icon" src={Patoune} alt="Pattes" />
+							<Paw className="dashSideBar__icon" />
 						</a>
 					</li>
 					<li className={isActive("user")}>
 						<a href="/dash/user" className="dashSideBar__link">
-							<img
-								className="dashSideBar__icon"
-								src={Utilisateur}
-								alt="Ajouter un utilisateur"
-							/>
+							<AddUser className="dashSideBar__icon" />
 						</a>
 					</li>
 				</ul>
 			</nav>
 			<a href="/logout" className="dashSideBar__logout hidden__mobile">
-				<img className="dashSideBar__icon" src={Exit} alt="Déconnexion" />
+				<Exit className="dashSideBar__icon" />
 			</a>
 		</aside>
 	);
