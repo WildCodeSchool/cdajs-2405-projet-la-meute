@@ -7,7 +7,6 @@ export default function DashHeader() {
 			<header className="dashHeader">
 				<h1 className="hidden__mobile">Header</h1>
 				<a className=" dashHeader__back hidden__desktop" href="/">
-					{/* TODO: insérer un logo de chevron ici */}
 					<img src={Chevron} alt="Retour" className="dashHeader__back--icon" />
 					Retour
 				</a>

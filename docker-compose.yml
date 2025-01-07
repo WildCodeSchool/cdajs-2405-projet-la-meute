@@ -6,6 +6,8 @@ services:
       - 4200:4200
     volumes:
       - ./client:/client
+      # Windows needs this
+      - node_modules:/server/node_modules 
     # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1

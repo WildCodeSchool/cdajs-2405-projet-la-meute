@@ -17,11 +17,9 @@ export default function DashSideBar() {
 
 	return (
 		<aside className="dashSideBar" aria-label="Navigation principale">
-			<img
-				className="dashSideBar__logo hidden__mobile"
-				src={Logo}
-				alt="Logo Paw Planner"
-			/>
+			<a href="/" className="dashSideBar__logo hidden__mobile">
+				<img src={Logo} alt="Logo Paw Planner" />
+			</a>
 			<nav className="dashSideBar__nav">
 				<ul className="dashSideBar__list">
 					<li className={isActive("planning")}>

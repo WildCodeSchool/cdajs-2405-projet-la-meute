@@ -65,7 +65,7 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: "/dash",
+		path: "/dashboard",
 		element: <DashLayout />,
 		children: [
 			{
