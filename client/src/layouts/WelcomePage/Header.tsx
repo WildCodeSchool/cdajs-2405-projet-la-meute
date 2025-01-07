@@ -1,5 +1,6 @@
 import "./Header.scss";
-import Logo from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
+import LogoDesktop from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
+import LogoMobile from "@/assets/logo/night-blue/symbol/logo-pawplanner-symbol-night-blue.svg";
 
 function Header() {
 	return (
@@ -7,16 +8,16 @@ function Header() {
 			<header className="welcomepage__header--all">
 				<a className="welcomepage__header--logo" href="/">
 					<img
-						src={Logo}
-						className="welcomepage__header--logo"
+						src={LogoDesktop}
+						className="welcomepage__header--logo hidden__mobile"
+						alt="Logo Paw Planner"
+					/>
+					<img
+						src={LogoMobile}
+						className="welcomepage__header--logo hidden__desktop"
 						alt="Logo Paw Planner"
 					/>
 				</a>
-				<div className="welcomepage__header--links">
-					<a href="/">Accueil</a>
-					<a href="/services">Services</a>
-					<a href="/contact">Contact</a>
-				</div>
 				<div>
 					<a href="/registration" className="welcomepage__header--button-sign">
 						S’inscrire
@@ -26,6 +27,13 @@ function Header() {
 					</a>
 				</div>
 			</header>
+			<nav>
+				<div className="welcomepage__header--links ">
+					<a href="/">Accueil</a>
+					<a href="/services">Services</a>
+					<a href="/contact">Contact</a>
+				</div>
+			</nav>
 		</>
 	);
 }

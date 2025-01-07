@@ -1,13 +1,14 @@
 @import "@style";
 
+$welcomePageHeaderHeight: 10vh;
+
 .welcomepage__header--all {
     position: fixed;
     z-index: 9000;
-    width: 100%;
-    top: 0;
-    background-color: $background-color;
-    height: 10vh;
     display: flex;
+    width: 100%;
+    background-color: $background-color;
+    height: $welcomePageHeaderHeight;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +22,11 @@
 
 .welcomepage__header--links {
     position: fixed;
+    z-index: 9001;
     display: flex;
+    height: $welcomePageHeaderHeight;
+    align-items: center;
+
     column-gap: 3vw;
     justify-content: space-between;
     left: 50%;
@@ -80,4 +85,23 @@
 .welcomePageHeaderLayout__main main {
     margin-block-start: $welcomePageHeaderHeight;
     height: calc(100vh - #{$welcomePageHeaderHeight}); // #{} shows the calculation in developer tools
+}
+
+@media screen and (max-width: $mobile) {
+    .welcomepage {
+        &__header {
+            &--all {
+                width: 100%;
+                border: none;
+            }
+            &--links {
+                width: 100%;
+                justify-content: space-around;
+                margin-block-start: $welcomePageHeaderHeight;
+                border: 2px solid $beige-300;
+                height: fit-content;
+                padding-block: 1vh;
+            }
+        }
+    }
 }
