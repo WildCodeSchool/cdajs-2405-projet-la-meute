@@ -1,6 +1,5 @@
 import Footer from "@/layouts/WelcomePage/Footer";
 import Header from "@/layouts/WelcomePage/Header";
-import { loadavg } from "os";
 import { Outlet, useLocation } from "react-router-dom";
 
 export default function WelcomePageLayout() {
