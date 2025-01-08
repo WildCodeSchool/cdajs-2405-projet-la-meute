@@ -1,0 +1,28 @@
+@import "@style";
+
+.planningHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: $beige-200;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: $windows-radius;
+}
+
+.planningHeader__title {
+    @include title;
+    letter-spacing: 0.15ch;
+}
+
+@media screen and (max-width: $mobile) {
+    .planningHeader {
+        flex-direction: column;
+        gap: 0;
+        &__title {
+            margin-block-start: 0;
+            margin-block-end: 0.5rem;
+        }
+    }
+}
