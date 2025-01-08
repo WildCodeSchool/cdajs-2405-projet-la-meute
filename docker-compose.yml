@@ -7,7 +7,7 @@ services:
     volumes:
       - ./client:/client
       # Windows needs this
-      - node_modules:/server/node_modules 
+      - node_modules:/client/node_modules 
     # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
