@@ -1,11 +1,11 @@
-import "./Header.scss";
+import "./HeaderAndMain.scss";
 import LogoDesktop from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
 import LogoMobile from "@/assets/logo/night-blue/symbol/logo-pawplanner-symbol-night-blue.svg";
 
 function Header() {
 	return (
-		<>
-			<header className="welcomepage__header--all">
+		<header className="welcomepage__header">
+			<nav className="welcomepage__header--all">
 				<a className="welcomepage__header--logo" href="/">
 					<img
 						src={LogoDesktop}
@@ -26,7 +26,7 @@ function Header() {
 						Se connecter
 					</a>
 				</div>
-			</header>
+			</nav>
 			<nav>
 				<div className="welcomepage__header--links ">
 					<a href="/">Accueil</a>
@@ -34,7 +34,7 @@ function Header() {
 					<a href="/contact">Contact</a>
 				</div>
 			</nav>
-		</>
+		</header>
 	);
 }
 
