@@ -77,7 +77,7 @@
     }
 }
 
-.welcomePageHeaderLayout__main main {
+.welcomePageLayout__main main {
     margin-block-start: $welcomePageHeaderHeight;
     height: calc(100vh - #{$welcomePageHeaderHeight}); // #{} shows the calculation in developer tools
 }

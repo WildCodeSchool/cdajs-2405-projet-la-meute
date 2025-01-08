@@ -7,7 +7,6 @@ import client from "./graphQL/apolloClient.ts";
 import Registration from "./pages/Registration/Registration.tsx";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
-import WelcomePageHeaderLayout from "./layouts/WelcomePage/WelcomePageHeaderLayout.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
@@ -34,12 +33,6 @@ const router = createBrowserRouter([
 				path: "/contact",
 				element: <Contact />,
 			},
-		],
-	},
-	{
-		path: "/",
-		element: <WelcomePageHeaderLayout />,
-		children: [
 			{
 				path: "/login",
 				element: <Login />,
