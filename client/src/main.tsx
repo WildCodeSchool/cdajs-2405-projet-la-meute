@@ -1,7 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/global.scss";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+	createBrowserRouter,
+	RouterProvider,
+	Outlet,
+	Navigate,
+} from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphQL/apolloClient.ts";
 import Registration from "./pages/Registration/Registration.tsx";
@@ -22,47 +27,183 @@ const router = createBrowserRouter([
 		element: <WelcomePageLayout />,
 		children: [
 			{
-				path: "/",
+				path: "",
 				element: <Homepage />,
 			},
 			{
-				path: "/services",
+				path: "services",
 				element: <Services />,
 			},
 			{
-				path: "/contact",
+				path: "contact",
 				element: <Contact />,
 			},
 			{
-				path: "/login",
+				path: "login",
 				element: <Login />,
 			},
 			{
-				path: "/registration",
+				path: "registration",
 				element: <Registration />,
 			},
 			{
-				path: "/reset-password",
+				path: "reset-password",
 				element: <ResetPassword />,
 			},
 			{
-				path: "/reset-link",
+				path: "reset-link",
 				element: <ResetLink />,
 			},
 			{
-				path: "/new-password",
+				path: "new-password",
 				element: <NewPassword />,
 			},
 		],
 	},
 	{
-		path: "/designsystem",
+		path: "dashboard",
+		element: (
+			<>
+				<p>Dashboard user=trainer|owner </p> <Outlet />
+			</>
+		),
+		children: [
+			{
+				path: "owner",
+				children: [
+					{
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						element: <p>Owner planning</p>,
+					},
+					{
+						path: "search",
+						children: [
+							{
+								index: true,
+								element: <p>search List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>customers/:id</p>,
+							},
+						],
+					},
+					{
+						path: "my-dogs",
+						children: [
+							{
+								index: true,
+								element: <p>my-dogs List</p>,
+							},
+							{
+								path: "create",
+								element: <p>my-dogs/create</p>,
+							},
+							{
+								path: "profile/:id",
+								element: <p>my-dogs/profile/:id</p>,
+							},
+						],
+					},
+				],
+			},
+			{
+				path: "trainer",
+				children: [
+					{
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						children: [
+							{
+								index: true,
+								element: <p>Trainer planning</p>,
+							},
+							{
+								path: "create",
+								element: <p>planning/create</p>,
+							},
+							{
+								path: "my-events",
+								children: [
+									{
+										index: true,
+										element: <p>planning/events</p>,
+									},
+									{
+										path: ":id",
+										element: <p>planning/events/:id</p>,
+									},
+								],
+							},
+						],
+					},
+					{
+						path: "customers",
+						children: [
+							{
+								index: true,
+								element: <p>customers List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>customers/:id</p>,
+							},
+						],
+					},
+					{
+						path: "dogs",
+						children: [
+							{
+								index: true,
+								element: <p>dogs List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>dogs/:id</p>,
+							},
+						],
+					},
+				],
+			},
+			{
+				path: "my-profile",
+				children: [
+					{
+						index: true,
+						element: <p>Mon profil</p>,
+					},
+					{
+						path: "personal-information",
+						element: <p>Informations personnelles</p>,
+					},
+					{
+						path: "preferences",
+						element: <p>Paramètres de l’application</p>,
+					},
+				],
+			},
+		],
+	},
+	{
+		path: "designsystem",
 		element: <DesignSystem />,
 	},
 ]);
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root");
+
+if (rootElement == null) {
+	throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
+}
+
+createRoot(rootElement).render(
 	<StrictMode>
 		<ApolloProvider client={client}>
 			<RouterProvider router={router} />
