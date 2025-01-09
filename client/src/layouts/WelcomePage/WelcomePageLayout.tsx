@@ -17,13 +17,13 @@ export default function WelcomePageLayout() {
 	return (
 		<>
 			<Header />
-			<section className="welcomePageLayout__main">
+			<section className="welcomePageHeaderLayout__main">
 				<Outlet />
 			</section>
 			{!hideFooter && (
 				<>
-					<Footer />
 					<FillerContent />
+					<Footer />
 				</>
 			)}
 		</>
