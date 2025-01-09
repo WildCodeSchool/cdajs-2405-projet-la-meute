@@ -77,19 +77,81 @@ export class EmailService {
           L'équipe PawPlanner
         `,
 				html: `
-          <h2>Réinitialisation de mot de passe</h2>
-          <p>Bonjour,</p>
-          <p>Vous avez demandé la réinitialisation de votre mot de passe PawPlanner.</p>
-          <p>Pour réinitialiser votre mot de passe, cliquez sur le bouton ci-dessous :</p>
-          <p>
-            <a href="${resetUrl}"
-               style="background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 4px;">
-              Réinitialiser mon mot de passe
-            </a>
-          </p>
-          <p>Ce lien est valable pendant 15 minutes.</p>
-          <p>Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email.</p>
-          <p>L'équipe PawPlanner</p>
+  <body
+    style="
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 30px 20px;
+      max-width: 650px;
+    "
+  >
+    <div
+      style="
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        outline: 20px solid #04272f;
+      "
+    >
+      <div style="text-align: center; margin-bottom: 30px">
+        <img
+          src="https://i.postimg.cc/D0JT9J81/logo-pawplanner-symbole-cote-bleu-nuit-1.png"
+          alt="PawPlanner"
+          style="width: 250px"
+        />
+      </div>
+      <h2
+        style="
+          color: #04272f;
+          text-align: center;
+          font-size: 28px;
+          margin-bottom: 30px;
+        "
+      >
+        Réinitialisation de mot de passe
+      </h2>
+      <p style="color: #04272f; font-size: 16px; line-height: 1.6">Bonjour,</p>
+      <p style="color: #04272f; font-size: 16px; line-height: 1.6">
+        Une demande de réinitialisation de mot de passe a été effectuée pour
+        votre compte PawPlanner.
+      </p>
+      <div style="text-align: center; margin: 40px 0">
+        <a
+          href="${resetUrl}"
+          style="
+            background-color: #ffa84e;
+            color: #04272f;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          "
+          >Réinitialiser mon mot de passe</a
+        >
+      </div>
+      <p style="color: #04272f; font-size: 14px; text-align: center">
+        Ce lien expire dans 15 minutes.
+      </p>
+      <div
+        style="
+          margin-top: 40px;
+          padding-top: 20px;
+          border-top: 1px solid #04272f;
+          text-align: center;
+        "
+      >
+        <p style="color: #04272f; font-size: 14px">
+          Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.
+        </p>
+        <p style="color:#04272f; margin-top: 20px">L'équipe PawPlanner</p>
+      </div>
+    </div>
+  </body>
         `,
 			};
 
