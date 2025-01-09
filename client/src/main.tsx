@@ -18,6 +18,7 @@ import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
+import Planning from "./pages/Planning/Planning.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -78,7 +79,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "planning",
-				element: <Homepage />,
+				element: <Planning />,
 			},
 			{
 				path: "user",
