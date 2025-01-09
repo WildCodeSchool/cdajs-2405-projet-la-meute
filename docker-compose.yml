@@ -30,6 +30,7 @@ services:
       - SMTP_PASS=${SMTP_PASS}
       - NODE_ENV=${NODE_ENV}
       - FRONTEND_URL=${FRONTEND_URL}
+      - JWTSECRETKEY=${JWTSECRETKEY}
 
   db:
     image: postgres:16

@@ -6,7 +6,6 @@ export const GET_ALL_OWNERS = gql`
             id
             name
             email
-            password_hashed
             phone_number
             city
             postal_code
@@ -21,11 +20,24 @@ export const GET_USER_BY_EMAIL = gql`
             id
             name
             email
-            password_hashed
             phone_number
             city
             postal_code
             role
         }
     }
+`;
+
+export const ME = gql`
+query Me {
+    me {
+      id
+      name
+      email
+      phone_number
+      city
+      postal_code
+      role
+    }
+  }
 `;

@@ -87,7 +87,7 @@ export class UserResolvers {
 		}
 
 		const user = await this.findUserByEmail(email, {
-			select: ["id", "password_hashed"],
+			select: ["id", "password_hashed", "role"],
 		});
 
 		if (!user) {
@@ -103,8 +103,11 @@ export class UserResolvers {
 
 		// JWT creation
 		const token = jwt.sign(
-			{ userId: user.id },
-			process.env.JWTSECRETKEY || "default secret",
+			{
+				userId: user.id,
+				role: user.role,
+			},
+			process.env.JWTSECRETKEY || "default secret", //delete "default secret" in production
 			{ expiresIn: "1h" },
 		);
 

@@ -8,6 +8,8 @@ import {
 	Navigate,
 } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
+import { AuthProvider } from "./context/AuthContext.tsx";
+
 import client from "./graphQL/apolloClient.ts";
 import Registration from "./pages/Registration/Registration.tsx";
 
@@ -88,7 +90,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: ":id",
-								element: <p>customers/:id</p>,
+								element: <p>search/:id</p>,
 							},
 						],
 					},
@@ -100,8 +102,8 @@ const router = createBrowserRouter([
 								element: <p>my-dogs List</p>,
 							},
 							{
-								path: "create",
-								element: <p>my-dogs/create</p>,
+								path: "new",
+								element: <p>my-dogs/new</p>,
 							},
 							{
 								path: "profile/:id",
@@ -126,8 +128,8 @@ const router = createBrowserRouter([
 								element: <p>Trainer planning</p>,
 							},
 							{
-								path: "create",
-								element: <p>planning/create</p>,
+								path: "new",
+								element: <p>planning/new</p>,
 							},
 							{
 								path: "my-events",
@@ -206,7 +208,9 @@ if (rootElement == null) {
 createRoot(rootElement).render(
 	<StrictMode>
 		<ApolloProvider client={client}>
-			<RouterProvider router={router} />
+			<AuthProvider>
+				<RouterProvider router={router} />
+			</AuthProvider>
 		</ApolloProvider>
 	</StrictMode>,
 );
