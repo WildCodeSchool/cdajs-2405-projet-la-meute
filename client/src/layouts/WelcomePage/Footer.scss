@@ -1,103 +1,67 @@
 @import "@style";
 
 .welcomepage__footer {
-    background-color: $background-color;
-    min-height: 10vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: start;
     padding: 3vh 7vw;
 }
 
 .welcomepage__footer--logo {
-    height: 7vh;
-    margin-top: 2vh;
+    img {
+        min-height: 10vh;
+        margin-top: 5vh;
+    }
 }
 
-.welcomepage__footer--pages {
+.welcomepage__footer--lists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-inline: auto;
+}
+
+.welcomepage__footer--list {
     display: flex;
     flex-direction: column;
     justify-content: left;
     margin-bottom: 3vh;
+    padding: 0;
+    width: 49%;
 
     a {
         color: $primary-dark;
-        font-size: $s;
-        font-weight: $regular;
         margin-bottom: 2vh;
     }
 }
 
-.welcomepage__footer--navigation {
+.welcomepage__footer--title {
     font-size: $l;
     font-weight: $semiBold;
 }
 
-.welcomepage__footer--support {
+.welcomepage__footer--contact {
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    margin-bottom: 3vh;
+    justify-content: center;
 }
 
-.welcomepage__footer--button {
-    background-color: $blue-300;
-    color: $primary-light;
-    font-size: $s;
-    font-weight: $medium;
-    font-style: normal;
-    padding: 1.5vh 3vw;
-    border-radius: 5px;
-    text-align: center;
-
-    &:hover {
-        background-color: $blue-100;
-        color: $primary-light;
+@media screen and (max-width: $mobile) {
+    .welcomepage__footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        padding: 3vh 7vw;
+        &--lists {
+            width: 90%;
+        }
+        &--title {
+            font-size: $m;
+        }
+        &--contact {
+            margin-inline: auto;
+        }
     }
-}
-
-.welcomepage__footer--bottom {
-    background-color: $orange-300;
-    min-height: 90vh;
-    padding: 10vh 7vw 10vh 7vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.welcomepage__footer--bottom-text {
-    margin-top: 10vh;
-    width: 50%;
-    align-content: start;
-
-    p {
-        width: 90%;
-        color: $primary-dark;
-        font-size: $m;
-        font-weight: $regular;
-        font-style: normal;
-        line-height: 2.5rem;
-        margin-bottom: 10vh;
-    }
-}
-
-.welcomepage__footer--bottom-title {
-    color: $primary-dark;
-    font-size: 4.75rem;
-    font-weight: $bold;
-    font-style: normal;
-    letter-spacing: 1px;
-}
-
-.welcomepage__footer--bottom-img {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    img {
-        height: auto;
-        width: auto;
-    }
+    
 }
