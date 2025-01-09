@@ -6,8 +6,6 @@ export const Bell = ({ fill = "currentColor", className = "" }: IconsProps) => {
 			xmlns="http://www.w3.org/2000/svg"
 			id="Isolation_Mode"
 			viewBox="0 0 24 24"
-			width="512"
-			height="512"
 			fill={fill}
 			className={className}
 		>
