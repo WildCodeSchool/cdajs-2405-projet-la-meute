@@ -85,7 +85,7 @@ $welcomePageHeaderHeight: 10vh;
     min-height: 99vh;
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: $tablet) {
     .welcomepage {
         &__header {
             &--all {

@@ -46,7 +46,6 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
 }
 
 .homepage__div--top-img {
-
     img {
         width: auto;
     }
@@ -63,7 +62,6 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
     gap: 2vw;
     padding-bottom: 6vh;
     align-items: stretch;
@@ -146,7 +144,7 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
     }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: $tablet) {
     .homepage__features--card {
         width: 45%;
     }
