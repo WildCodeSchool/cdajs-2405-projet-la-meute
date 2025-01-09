@@ -1,14 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./styles/global.scss";
+import {
+	createBrowserRouter,
+	RouterProvider,
+	Navigate,
+} from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
+import { AuthProvider } from "./context/AuthContext.tsx";
+
 import client from "./graphQL/apolloClient.ts";
 import "./styles/global.scss";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
-import WelcomePageHeaderLayout from "./layouts/WelcomePage/WelcomePageHeaderLayout.tsx";
-import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
-
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
@@ -18,6 +22,7 @@ import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -36,12 +41,6 @@ const router = createBrowserRouter([
 				path: "contact",
 				element: <Contact />,
 			},
-		],
-	},
-	{
-		path: "/",
-		element: <WelcomePageHeaderLayout />,
-		children: [
 			{
 				path: "login",
 				element: <Login />,
@@ -65,34 +64,150 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: "/dashboard",
+		path: "dashboard",
 		element: <DashLayout />,
 		children: [
 			{
-				path: "designsystem", // FIXME: test page, to delete
-				element: <DesignSystem />,
+				path: "owner",
+				children: [
+					{
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						element: <p>Owner planning</p>,
+					},
+					{
+						path: "search",
+						children: [
+							{
+								index: true,
+								element: <p>search List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>search/:id</p>,
+							},
+						],
+					},
+					{
+						path: "my-dogs",
+						children: [
+							{
+								index: true,
+								element: <p>my-dogs List</p>,
+							},
+							{
+								path: "new",
+								element: <p>my-dogs/new</p>,
+							},
+							{
+								path: "profile/:id",
+								element: <p>my-dogs/profile/:id</p>,
+							},
+						],
+					},
+				],
 			},
 			{
-				path: "add-event",
-				element: <Homepage />,
+				path: "trainer",
+				children: [
+					{
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						children: [
+							{
+								index: true,
+								element: <p>Trainer planning</p>,
+							},
+							{
+								path: "new",
+								element: <p>planning/new</p>,
+							},
+							{
+								path: "my-events",
+								children: [
+									{
+										index: true,
+										element: <p>planning/events</p>,
+									},
+									{
+										path: ":id",
+										element: <p>planning/events/:id</p>,
+									},
+								],
+							},
+						],
+					},
+					{
+						path: "customers",
+						children: [
+							{
+								index: true,
+								element: <p>customers List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>customers/:id</p>,
+							},
+						],
+					},
+					{
+						path: "dogs",
+						children: [
+							{
+								index: true,
+								element: <p>dogs List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>dogs/:id</p>,
+							},
+						],
+					},
+				],
 			},
 			{
-				path: "planning",
-				element: <Homepage />,
-			},
-			{
-				path: "user",
-				element: <Homepage />,
+				path: "my-profile",
+				children: [
+					{
+						index: true,
+						element: <p>Mon profil</p>,
+					},
+					{
+						path: "personal-information",
+						element: <p>Informations personnelles</p>,
+					},
+					{
+						path: "preferences",
+						element: <p>Paramètres de l’application</p>,
+					},
+				],
 			},
 		],
 	},
+	{
+		path: "designsystem",
+		element: <DesignSystem />,
+	},
 ]);
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root");
+
+if (rootElement == null) {
+	throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
+}
+
+createRoot(rootElement).render(
 	<StrictMode>
 		<ApolloProvider client={client}>
-			<RouterProvider router={router} />
+			<AuthProvider>
+				<RouterProvider router={router} />
+			</AuthProvider>
 		</ApolloProvider>
 	</StrictMode>,
 );

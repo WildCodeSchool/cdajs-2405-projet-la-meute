@@ -7,8 +7,11 @@ import { Checkmark } from "@/assets/icons/checkmark";
 import { Paw } from "@/assets/icons/paw";
 import { Exit } from "@/assets/icons/exit";
 
+import { useAuth } from "@/hooks/useAuth";
+
 export default function DashSideBar() {
 	const location = useLocation();
+	const { logout } = useAuth();
 
 	const isActive = (path: string) =>
 		location.pathname.includes(path)
@@ -45,9 +48,14 @@ export default function DashSideBar() {
 					</li>
 				</ul>
 			</nav>
-			<a href="/logout" className="dashSideBar__logout hidden__mobile">
+			<button
+				onClick={logout}
+				type="button"
+				className="dashSideBar__logout hidden__mobile"
+				aria-label="Se déconnecter"
+			>
 				<Exit className="dashSideBar__icon" />
-			</a>
+			</button>
 		</aside>
 	);
 }
