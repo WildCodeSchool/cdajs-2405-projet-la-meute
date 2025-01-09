@@ -1,6 +1,7 @@
 import Footer from "@/layouts/WelcomePage/Footer";
 import Header from "@/layouts/WelcomePage/Header";
 import { Outlet, useLocation } from "react-router-dom";
+import FillerContent from "./FillerContent/FillerContent";
 
 export default function WelcomePageLayout() {
 	const location = useLocation();
@@ -19,7 +20,12 @@ export default function WelcomePageLayout() {
 			<section className="welcomePageLayout__main">
 				<Outlet />
 			</section>
-			{!hideFooter && <Footer />}
+			{!hideFooter && (
+				<>
+					<Footer />
+					<FillerContent />
+				</>
+			)}
 		</>
 	);
 }

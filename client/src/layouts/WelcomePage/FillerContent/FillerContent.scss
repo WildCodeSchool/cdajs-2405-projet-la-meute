@@ -1,0 +1,69 @@
+@import "@style";
+
+.welcomepage__filler {
+    background-color: $orange-300;
+    padding-block-start: 5vh;
+    padding-block-end: 10vh;
+    padding-inline: $minHomepagePaddingInline;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.welcomepage__filler--article {
+    width: 50%;
+    font-weight: $bold;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        width: 90%;
+        font-size: $m;
+        font-weight: $regular;
+        font-style: normal;
+        margin-block-end: 3rem;
+    }
+    button {
+        margin-inline: auto;
+    }
+}
+
+.welcomepage__filler--title {
+    color: $primary-dark;
+    font-size: 4.75rem;
+    font-weight: $bold;
+    font-style: normal;
+    letter-spacing: 1px;
+}
+
+.welcomepage__filler--img {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    img {
+        height: auto;
+        width: auto;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .homepage__title {
+        font-size: $xxxl;
+        margin-block: 1rem;
+    }
+    .welcomepage__filler {
+        flex-direction: column;
+        align-items: center;
+        article {
+            width: 100%;
+        }
+        &--img {
+            margin: auto;
+            margin-block: 1rem;
+            width: 100%;
+        }
+    }
+}

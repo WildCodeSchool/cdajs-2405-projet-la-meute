@@ -3,7 +3,7 @@
 $dashHeaderHeight: 10vh;
 $dashSideBarWidth: 8vw;
 $dashMobileSideBarHeight: 9vh;
-$dashInlinePadding: 1vw;
+$dashInlinePadding: $minPaddingInline;
 
 // HEADER DESKTOP
 .dashHeader {
