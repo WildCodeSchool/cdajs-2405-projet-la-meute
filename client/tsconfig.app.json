@@ -26,5 +26,5 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest", "jest"]
   },
-  "include": ["src"]
+  "include": ["src"],
 }

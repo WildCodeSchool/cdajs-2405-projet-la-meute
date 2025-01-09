@@ -53,7 +53,7 @@ export default function DesignSystem() {
 					<h2>Buttons</h2>
 					<div>
 						<div>
-							<Button type="form-submit" href="/">
+							<Button type="submit" href="/">
 								Form Submit
 							</Button>
 						</div>
@@ -98,7 +98,7 @@ export default function DesignSystem() {
 						<Button type="form-deny" href="">
 							Annuler
 						</Button>
-						<Button type="form-submit" href="">
+						<Button type="submit" href="">
 							Me connecter
 						</Button>
 						<p>

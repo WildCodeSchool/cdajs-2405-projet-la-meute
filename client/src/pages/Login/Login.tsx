@@ -3,14 +3,12 @@ import Form from "@/components/_molecules/Form/Form";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useRef } from "react";
-import { useMutation } from "@apollo/client";
-import { LOGIN } from "@/graphQL/mutations/user";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
-
-	const [login, { data, loading, error }] = useMutation(LOGIN);
+	const { login, loading, error } = useAuth();
 
 	const onFormSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -18,22 +16,16 @@ export default function Login() {
 		const email = emailRef.current?.value;
 		const password = passwordRef.current?.value;
 
-		try {
-			await login({
-				variables: { email, password },
-			});
-		} catch (err) {
+		if (!email || !password) {
 			// TODO: handle error
-			console.error("Login error:", err);
+			return;
 		}
+
+		login(email, password);
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
-	if (data) {
-		// TODO: rediction
-		console.info(data);
-	}
 
 	return (
 		<main className="login">
@@ -46,7 +38,8 @@ export default function Login() {
 				<TextInput type="password" ref={passwordRef} required />
 				<Button type="submit">Me connecter</Button>
 				<p className="login__bottomLinks">
-					Si vous avez oublié votre mot de passe <a href="/">cliquez ici</a>.
+					Si vous avez oublié votre mot de passe{" "}
+					<a href="/reset-password">cliquez ici</a>.
 				</p>
 				<p className="login__bottomLinks">
 					Si vous n'êtes pas inscrit, vous pouvez{" "}

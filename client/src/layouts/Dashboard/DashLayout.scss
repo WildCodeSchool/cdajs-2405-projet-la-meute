@@ -122,6 +122,9 @@ $dashInlinePadding: $minPaddingInline;
     }
 
     &__logout {
+        background: transparent;
+        border: none;
+        cursor: pointer;
         svg {
             fill: $blue-100;
         }

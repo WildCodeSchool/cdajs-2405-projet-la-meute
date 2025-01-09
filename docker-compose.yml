@@ -1,11 +1,12 @@
 services:
   client:
     build: ./client
+    command: sh -c "npm run dev"
     restart: unless-stopped
-    ports: 
+    ports:
       - 4200:4200
     volumes:
-      - ./client:/client
+      - web-client-build:/client/dist
       # Windows needs this
       - node_modules:/client/node_modules 
     # Fixit for HR in Windows
@@ -31,6 +32,7 @@ services:
       - SMTP_PASS=${SMTP_PASS}
       - NODE_ENV=${NODE_ENV}
       - FRONTEND_URL=${FRONTEND_URL}
+      - JWTSECRETKEY=${JWTSECRETKEY}
 
   db:
     image: postgres:16
@@ -53,4 +55,5 @@ services:
       - 8080:8080
 
 volumes:
+  web-client-build:
   node_modules:
