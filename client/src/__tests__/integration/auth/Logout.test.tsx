@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom";
 
-import Logout from "@/components/Logout/Logout";
+import Logout from "@/pages/Login/Login"; // change path when logout be created
 
 describe("LogoutButton", () => {
 	it("renders the LogoutButton component", async () => {

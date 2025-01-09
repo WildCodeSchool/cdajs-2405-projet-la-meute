@@ -1,14 +1,13 @@
 services:
   client:
-    build: ./client
-    command: sh -c "npm run dev"
+    image: dolpheus89/staging_client_pawplanner
+    command: sh -c "npm run build && npm run preview"
     restart: unless-stopped
     ports:
       - 4200:4200
     volumes:
       - web-client-build:/client/dist
-      # Windows needs this
-      - node_modules:/client/node_modules 
+      - node_modules:/client/node_modules
     # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
@@ -16,12 +15,12 @@ services:
       - WATCHPACK_POLLING=true
 
   server:
-    build: ./server
+    image: dolpheus89/staging_server_pawplanner
     restart: unless-stopped
+    depends_on:
+      - db
     ports:
       - 3200:3200
-    volumes:
-      - ./server:/server
     environment:
       - DBNAME=${DBNAME}
       - DBUSERNAME=${DBUSERNAME}
@@ -30,7 +29,7 @@ services:
       - SMTP_PORT=${SMTP_PORT}
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASS=${SMTP_PASS}
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV="production"
       - FRONTEND_URL=${FRONTEND_URL}
 
   db:
@@ -45,14 +44,29 @@ services:
       - 5433:5432
     container_name: pawplanner-db-1
     environment:
+      - POSTGRES_USER=${DBUSERNAME}
       - POSTGRES_PASSWORD=${DBPASS}
-
+      - POSTGRES_DB=${DBNAME}
   adminer:
     image: adminer
     restart: unless-stopped
     ports:
       - 8080:8080
 
+  nginx:
+    image: nginx:1.21.3
+    depends_on:
+      - server
+      - client
+    restart: always
+    ports:
+      - ${GATEWAY_PORT:-8060}:81
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - web-client-build:/web-client-build
+      - ./logs:/var/log/nginx
+
 volumes:
   web-client-build:
   node_modules:
+  db_data:
