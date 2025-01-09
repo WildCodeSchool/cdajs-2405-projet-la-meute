@@ -11,16 +11,7 @@
 }
 
 .registration__section--choice {
-
     width: 60%;
-
-    h2 {
-        color: $primary-dark;
-        font-size: 3.75rem;
-        font-weight: $bold;
-        font-style: normal;
-        letter-spacing: 1px;
-    }
 }
 
 .registration__div--choice {
@@ -28,19 +19,24 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    align-items: stretch;
     padding-bottom: 7vh;
     gap: 2vw;
 }
 
 .registration__div--card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     background-color: $blue-500;
-    padding: 2%;
+    padding-inline: 3vw;
+    padding-block-end: 2vh;
     width: 100%;
     border-radius: $atoms-radius;
 }
 
 .registration__div--choice-title {
-    margin-top: 1vh;
     color: $primary-light;
     font-size: $xl;
     font-weight: $bold;
@@ -54,9 +50,14 @@
 }
 
 .registration__form {
-    margin-top: 15vh;
+    margin-block-start: 3vh;
     margin-bottom: 15vh;
-    width: 50%;
+}
+
+@media screen and (max-width: $tablet) {
+    .registration__section--choice {
+        width: 80%;
+    }
 }
 
 @media screen and (max-width: $mobile) {
@@ -64,4 +65,13 @@
         background-size: contain;
     }
 
+    .homepage__title {
+        font-size: $xxxl;
+        margin-block: 1rem;
+    }
+
+    .registration__div--choice {
+        display: flex;
+        flex-direction: column;
+    }
 }
