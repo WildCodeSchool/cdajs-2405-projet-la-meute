@@ -11,28 +11,28 @@ function Registration() {
 			{!role ? (
 				<>
 					<section className="registration__section--choice">
-						<h2>Vous êtes ...</h2>
+						<h2 className="homepage__title">Vous êtes ...</h2>
 						<div className="registration__div--choice">
 							<div className="registration__div--card">
 								<h3 className="registration__div--choice-title">
-									🙋🏻‍♂️ Éducateur
+									🙋🏻‍♂️&nbsp;Éducateur · rice
 								</h3>
 								<Button
 									type="role-select-left"
 									onClick={() => setRole("trainer")}
 								>
-									Je suis éducateur•trice canin
+									Je suis éducateur·trice canin·e
 								</Button>
 							</div>
 							<div className="registration__div--card">
 								<h3 className="registration__div--choice-title">
-									🐶 Propriétaire
+									🐶&nbsp;Propriétaire
 								</h3>
 								<Button
 									type="role-select-right"
 									onClick={() => setRole("owner")}
 								>
-									Je suis un•e propriétaire de chien
+									Je suis un·e propriétaire de chien
 								</Button>
 							</div>
 						</div>

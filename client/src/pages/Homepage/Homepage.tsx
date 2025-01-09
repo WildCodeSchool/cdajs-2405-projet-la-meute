@@ -13,14 +13,6 @@ function Homepage() {
 							de mise en relation et de prise de rendez-vous entre les
 							éducateur·rices canin·es et leurs clients.
 						</h2>
-						<p>
-							<strong>Éducateur·rices</strong>, gérez vos plannings et suivez
-							facilement l'historique de chaque chien dont vous vous occupez.
-						</p>
-						<p>
-							<strong>Propriétaires</strong>, prenez rendez-vous en ligne avec
-							vos éducateur·rices préférés et gérez l'éducation de votre chien.
-						</p>
 					</article>
 				</div>
 				<div className="homepage__div--top-img">

@@ -60,6 +60,8 @@ $blocks-margin: 2rem;
 $btn-height: 2rem;
 $welcomePageHeaderHeight: 10vh;
 $minPaddingInline: 2vw;
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+
 
 // Transparent variables renaming
 $background-color: $primary-light;
@@ -90,4 +92,5 @@ $xxl: 2.5rem;
 $xxxl: 3rem;
 
 // Breakpoints
+$tablet: 1150px;
 $mobile: 850px;

@@ -9,17 +9,24 @@
     max-width: 100%;
 }
 
+@mixin HomepageSectionHeight {
+    height: 90vh;
+    align-items: center;
+}
+
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+
 /* Votre temps est précieux... */
 .homepage__section--top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-block: 4vh;
+    padding-inline: $minHomepagePaddingInline;
+    @include HomepageSectionHeight;
 }
 
 .homepage__div--top-text {
     width: 50%;
-    padding-inline-start: $minPaddingInline;
     p {
         color: $primary-dark;
         font-size: $s;
@@ -30,6 +37,7 @@
     h2 {
         line-height: 2rem;
         margin-block-end: 3rem;
+        font-size: $m;
     }
 }
 
@@ -38,11 +46,6 @@
 }
 
 .homepage__div--top-img {
-    width: 80%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-
     img {
         width: auto;
     }
@@ -52,14 +55,13 @@
 .homepage__section--choice {
     background-color: $beige-200;
     padding-block: 4vh;
-    padding-inline: $minPaddingInline;
+    padding-inline: $minHomepagePaddingInline;
 }
 
 .homepage__div--choice {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
     gap: 2vw;
     padding-bottom: 6vh;
     align-items: stretch;
@@ -83,6 +85,7 @@
 }
 
 .homepage__div--choice-title {
+    padding-inline: 0;
     margin-top: 1vh;
     color: $blue-300;
     font-size: $xl;
@@ -99,7 +102,7 @@
 /* Fonctionnalités principales */
 .homepage__features {
     padding-block: 5vh;
-    padding-inline: calc(#{$minPaddingInline} + 5vw);
+    padding-inline: $minHomepagePaddingInline;
     background-color: $blue-300;
     display: flex;
     flex-direction: column;
@@ -141,8 +144,7 @@
     }
 }
 
-
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: $tablet) {
     .homepage__features--card {
         width: 45%;
     }
@@ -157,7 +159,7 @@
     /* Votre temps est précieux... */
     .homepage__section--top {
         flex-direction: column;
-        padding-inline: $minPaddingInline;
+        padding-inline: $minHomepagePaddingInline;
     }
     .homepage__div--top-text {
         padding-inline-start: 0;
@@ -168,7 +170,6 @@
     }
     .homepage__div--top-img {
         margin: auto;
-        margin-block: 1rem;
         width: 100%;
     }
 
@@ -184,6 +185,7 @@
     .homepage__div--choice {
         flex-direction: column;
         gap: 2rem;
+        padding-inline: 0;
     }
     .homepage__div--choice-left {
         width: 100%;
@@ -199,9 +201,9 @@
     }
     .homepage__features--card {
         width: 100%;
-        h3, p {
+        h3,
+        p {
             text-align: center;
         }
     }
-
 }
