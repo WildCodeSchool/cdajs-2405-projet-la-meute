@@ -9,16 +9,20 @@
     max-width: 100%;
 }
 
-$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+@mixin HomepageSectionHeight {
+    height: 90vh;
+    align-items: center;
+}
 
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
 
 /* Votre temps est précieux... */
 .homepage__section--top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-block: 4vh;
     padding-inline: $minHomepagePaddingInline;
+    @include HomepageSectionHeight;
 }
 
 .homepage__div--top-text {
@@ -42,10 +46,6 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
 }
 
 .homepage__div--top-img {
-    width: 80%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
 
     img {
         width: auto;
@@ -146,7 +146,6 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
     }
 }
 
-
 @media screen and (max-width: 1150px) {
     .homepage__features--card {
         width: 45%;
@@ -173,7 +172,6 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
     }
     .homepage__div--top-img {
         margin: auto;
-        margin-block: 1rem;
         width: 100%;
     }
 
@@ -205,9 +203,9 @@ $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
     }
     .homepage__features--card {
         width: 100%;
-        h3, p {
+        h3,
+        p {
             text-align: center;
         }
     }
-
 }
