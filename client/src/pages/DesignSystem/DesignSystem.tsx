@@ -2,7 +2,7 @@ import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import NewTag from "@/components/_atoms/Tag/NewTag";
 import Tag from "@/components/_atoms/Tag/Tag";
-import DashHeader from "@/components/_molecules/DashHeader/DashHeader";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Form from "@/components/_molecules/Form/Form";
 
 export default function DesignSystem() {
@@ -40,7 +40,7 @@ export default function DesignSystem() {
 				</div>
 				<div>
 					<h2>Dashboard header</h2>
-					<DashHeader title="Planning" />
+					<PlanningHeader title="Planning" />
 				</div>
 				<div>
 					<h2>Image</h2>

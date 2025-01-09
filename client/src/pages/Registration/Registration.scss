@@ -59,7 +59,7 @@
     width: 50%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $mobile) {
     .registration {
         background-size: contain;
     }

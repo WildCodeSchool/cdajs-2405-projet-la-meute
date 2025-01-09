@@ -4,14 +4,13 @@ import "./styles/global.scss";
 import {
 	createBrowserRouter,
 	RouterProvider,
-	Outlet,
 	Navigate,
 } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
 import client from "./graphQL/apolloClient.ts";
-import Registration from "./pages/Registration/Registration.tsx";
+import "./styles/global.scss";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
@@ -19,9 +18,11 @@ import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import Login from "@/pages/Login/Login.tsx";
+import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -64,11 +65,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "dashboard",
-		element: (
-			<>
-				<p>Dashboard user=trainer|owner </p> <Outlet />
-			</>
-		),
+		element: <DashLayout />,
 		children: [
 			{
 				path: "owner",
