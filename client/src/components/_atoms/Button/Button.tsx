@@ -12,11 +12,13 @@ export default function Button({
 	type,
 	children,
 	href,
+	className,
 	onClick,
 }: {
 	type: ButtonTypes;
 	children?: string;
 	href?: string;
+	className?: string;
 	onClick?: () => void;
 }) {
 	const buttonType = type === "submit" ? "submit" : "button";
@@ -52,7 +54,7 @@ export default function Button({
 	return (
 		<button
 			type={buttonType}
-			className={`button ${buttonClassName}`}
+			className={`button ${buttonClassName} ${className}`}
 			onClick={onClick}
 		>
 			{type === "invite" && !children

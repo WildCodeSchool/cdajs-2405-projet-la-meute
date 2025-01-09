@@ -59,6 +59,9 @@ $windows-radius: 20px;
 $blocks-margin: 2rem;
 $btn-height: 2rem;
 $welcomePageHeaderHeight: 10vh;
+$minPaddingInline: 2vw;
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+
 
 // Transparent variables renaming
 $background-color: $primary-light;
@@ -87,3 +90,6 @@ $l: 1.75rem;
 $xl: 2rem;
 $xxl: 2.5rem;
 $xxxl: 3rem;
+
+// Breakpoints
+$mobile: 850px;

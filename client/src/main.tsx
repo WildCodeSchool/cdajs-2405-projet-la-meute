@@ -1,18 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/global.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphQL/apolloClient.ts";
-import Registration from "./pages/Registration/Registration.tsx";
+import "./styles/global.scss";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 import WelcomePageHeaderLayout from "./layouts/WelcomePage/WelcomePageHeaderLayout.tsx";
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import Login from "@/pages/Login/Login.tsx";
+import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
@@ -23,15 +25,15 @@ const router = createBrowserRouter([
 		element: <WelcomePageLayout />,
 		children: [
 			{
-				path: "/",
+				path: "",
 				element: <Homepage />,
 			},
 			{
-				path: "/services",
+				path: "services",
 				element: <Services />,
 			},
 			{
-				path: "/contact",
+				path: "contact",
 				element: <Contact />,
 			},
 		],
@@ -41,30 +43,48 @@ const router = createBrowserRouter([
 		element: <WelcomePageHeaderLayout />,
 		children: [
 			{
-				path: "/login",
+				path: "login",
 				element: <Login />,
 			},
 			{
-				path: "/registration",
+				path: "registration",
 				element: <Registration />,
 			},
 			{
-				path: "/reset-password",
+				path: "reset-password",
 				element: <ResetPassword />,
 			},
 			{
-				path: "/reset-link",
+				path: "reset-link",
 				element: <ResetLink />,
 			},
 			{
-				path: "/new-password",
+				path: "new-password",
 				element: <NewPassword />,
 			},
 		],
 	},
 	{
-		path: "/designsystem",
-		element: <DesignSystem />,
+		path: "/dashboard",
+		element: <DashLayout />,
+		children: [
+			{
+				path: "designsystem", // FIXME: test page, to delete
+				element: <DesignSystem />,
+			},
+			{
+				path: "add-event",
+				element: <Homepage />,
+			},
+			{
+				path: "planning",
+				element: <Homepage />,
+			},
+			{
+				path: "user",
+				element: <Homepage />,
+			},
+		],
 	},
 ]);
 
