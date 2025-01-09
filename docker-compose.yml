@@ -6,7 +6,7 @@ services:
     ports:
       - 4200:4200
     volumes:
-      - web-client-build:/client/dist
+      - ./client:/client
       # Windows needs this
       - node_modules:/client/node_modules 
     # Fixit for HR in Windows
@@ -55,5 +55,4 @@ services:
       - 8080:8080
 
 volumes:
-  web-client-build:
   node_modules:
