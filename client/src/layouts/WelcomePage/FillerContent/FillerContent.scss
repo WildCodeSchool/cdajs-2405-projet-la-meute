@@ -2,9 +2,9 @@
 
 .welcomepage__filler {
     background-color: $orange-300;
-    padding-inline: $minPaddingInline;
     padding-block-start: 5vh;
     padding-block-end: 10vh;
+    padding-inline: $minHomepagePaddingInline;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

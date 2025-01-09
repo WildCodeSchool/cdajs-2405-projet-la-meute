@@ -9,17 +9,20 @@
     max-width: 100%;
 }
 
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+
+
 /* Votre temps est précieux... */
 .homepage__section--top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-block: 4vh;
+    padding-inline: $minHomepagePaddingInline;
 }
 
 .homepage__div--top-text {
     width: 50%;
-    padding-inline-start: $minPaddingInline;
     p {
         color: $primary-dark;
         font-size: $s;
@@ -30,6 +33,7 @@
     h2 {
         line-height: 2rem;
         margin-block-end: 3rem;
+        font-size: $m;
     }
 }
 
@@ -52,7 +56,7 @@
 .homepage__section--choice {
     background-color: $beige-200;
     padding-block: 4vh;
-    padding-inline: $minPaddingInline;
+    padding-inline: $minHomepagePaddingInline;
 }
 
 .homepage__div--choice {
@@ -83,6 +87,7 @@
 }
 
 .homepage__div--choice-title {
+    padding-inline: 0;
     margin-top: 1vh;
     color: $blue-300;
     font-size: $xl;
@@ -99,7 +104,7 @@
 /* Fonctionnalités principales */
 .homepage__features {
     padding-block: 5vh;
-    padding-inline: calc(#{$minPaddingInline} + 5vw);
+    padding-inline: $minHomepagePaddingInline;
     background-color: $blue-300;
     display: flex;
     flex-direction: column;
@@ -157,7 +162,7 @@
     /* Votre temps est précieux... */
     .homepage__section--top {
         flex-direction: column;
-        padding-inline: $minPaddingInline;
+        padding-inline: $minHomepagePaddingInline;
     }
     .homepage__div--top-text {
         padding-inline-start: 0;
@@ -184,6 +189,7 @@
     .homepage__div--choice {
         flex-direction: column;
         gap: 2rem;
+        padding-inline: 0;
     }
     .homepage__div--choice-left {
         width: 100%;
