@@ -42,22 +42,24 @@ function Registration() {
 				<Form className="registration__form" title="Inscription">
 					{role === "trainer" && <TextInput type="SIRET" required />}
 
-					{role === "trainer" && <TextInput type="companyName" required />}
+					{role === "trainer" && <TextInput type="company_name" required />}
 
 					<TextInput type="lastname" required />
 					<TextInput type="firstname" required />
 					<TextInput type="email" required />
 					<TextInput type="password" required />
 					<TextInput type="city" required />
-					<TextInput type="postcode" required />
+					<TextInput type="postal_code" required />
 					<TextInput type="telephone" />
 					<input type="hidden" name="role" value={role} />
-
 					<Button type="form-deny" href="/registration">
 						Retour
 					</Button>
 
 					<Button type="submit">S'inscrire</Button>
+					<p>
+						<i>Les champs comportants une * sont obligatoires.</i>
+					</p>
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
 						<a href="/login"> vous connecter ici</a>.
