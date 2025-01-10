@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Eye } from "@/assets/icons/eye.tsx";
+import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
 
 type TextInputTypes =
@@ -17,6 +19,8 @@ const TextInput = React.forwardRef<
 	HTMLInputElement,
 	{ type: TextInputTypes; required?: boolean; widthInPercentage?: number }
 >(({ type, required }, ref) => {
+	const [showPassword, setShowPassword] = useState(false);
+
 	let label = "";
 	let placeholder = "";
 
@@ -72,10 +76,31 @@ const TextInput = React.forwardRef<
 			{fieldRequired}
 			<input
 				ref={ref}
-				type={type}
+				type={type === "password" ? (showPassword ? "text" : "password") : type}
 				placeholder={placeholder}
 				required={required}
 			/>
+			{type === "password" && (
+				<button
+					type="button"
+					onMouseDown={(e) => {
+						e.preventDefault();
+						setShowPassword(!showPassword);
+					}}
+					className="password-toggle"
+					aria-label={
+						showPassword
+							? "Masquer le mot de passe"
+							: "Afficher le mot de passe"
+					}
+				>
+					{showPassword ? (
+						<EyeOff className="eyes" fill="none" />
+					) : (
+						<Eye className="eyes" fill="none" />
+					)}
+				</button>
+			)}
 		</label>
 	);
 });
