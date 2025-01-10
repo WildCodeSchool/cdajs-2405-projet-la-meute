@@ -1,14 +1,12 @@
 services:
   client:
     image: dolpheus89/prod_client_pawplanner
-    command: sh -c "npm run build && npm run preview"
+    command: sh -c "npm run preview"
     restart: unless-stopped
     ports:
       - 4201:4200
     volumes:
       - web-client-build:/client/dist
-      - node_modules:/client/node_modules
-    # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -31,6 +29,7 @@ services:
       - SMTP_PASS=${SMTP_PASS}
       - NODE_ENV="production"
       - FRONTEND_URL=${FRONTEND_URL}
+      - JWTSECRETKEY=${JWTSECRETKEY}
 
   db:
     image: postgres:16
@@ -68,5 +67,4 @@ services:
 
 volumes:
   web-client-build:
-  node_modules:
   db_data:
