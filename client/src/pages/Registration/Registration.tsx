@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -6,6 +7,14 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+
+	const navigate = useNavigate();
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	e.preventDefault();
+	navigate("/login");
+};
+
 	return (
 		<main className="registration">
 			{!role ? (
@@ -39,7 +48,10 @@ function Registration() {
 					</section>
 				</>
 			) : (
-				<Form className="registration__form" title="Inscription">
+				<Form className="registration__form" 
+					  title="Inscription"
+					  onSubmit={handleSubmit}
+					>
 					{role === "trainer" && <TextInput type="SIRET" required />}
 
 					{role === "trainer" && <TextInput type="company_name" required />}
