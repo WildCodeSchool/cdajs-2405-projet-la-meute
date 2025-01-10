@@ -17,7 +17,16 @@ export abstract class User {
 		length: 255,
 	})
 	@Field()
-	name: string;
+	lastname: string;
+
+	@Column({
+		type: "varchar",
+		length: 255,
+		unique: true,
+		select: false,
+	})
+	@Field()
+	firstname: string;
 
 	@Column({
 		type: "varchar",
@@ -65,7 +74,8 @@ export abstract class User {
 	role: string;
 
 	constructor(
-		name = "",
+		lastname = "",
+		firstname = "",
 		email = "",
 		password_hashed = "",
 		phone_number = "",
@@ -73,7 +83,8 @@ export abstract class User {
 		postal_code = "",
 		role = "",
 	) {
-		this.name = name;
+		this.lastname = lastname;
+		this.firstname = firstname;
 		this.email = email;
 		this.password_hashed = password_hashed;
 		this.phone_number = phone_number;

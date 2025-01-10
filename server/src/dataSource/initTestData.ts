@@ -37,7 +37,8 @@ async function createData() {
 		const dogRepository = dataSource.getRepository(Dog);
 
 		const owner = new Owner();
-		owner.name = "John Doe";
+		owner.lastname = "Doe";
+		owner.firstname = "John";
 		owner.email = "john@example.com";
 		owner.password_hashed = "pulseform";
 		owner.phone_number = "0123456789";
@@ -49,8 +50,9 @@ async function createData() {
 		//2. Create trainers
 
 		const trainerRepository = dataSource.getRepository(Trainer);
-		const trainer = new Trainer("12345678901234");
-		trainer.name = "Jane Smith";
+		const trainer = new Trainer("12345678901234", "educ de Lyon");
+		trainer.lastname = "Smith";
+		trainer.firstname = "Jane";
 		trainer.email = "jane@example.com";
 		trainer.password_hashed = "mdpdefou";
 		trainer.phone_number = "0987654321";

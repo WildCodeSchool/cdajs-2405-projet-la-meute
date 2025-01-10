@@ -15,6 +15,12 @@ export class Trainer extends User {
 	})
 	@Field()
 	siret: string;
+	@Column({
+		type: "varchar",
+		length: 255,
+	})
+	@Field()
+	company_name: string;
 
 	@OneToMany(
 		() => Service,
@@ -32,9 +38,10 @@ export class Trainer extends User {
 	@Field(() => [Event], { nullable: true })
 	event?: Event[];
 
-	constructor(siret: string) {
+	constructor(siret: string, company_name: string) {
 		super();
 		this.role = "trainer";
 		this.siret = siret;
+		this.company_name = company_name;
 	}
 }

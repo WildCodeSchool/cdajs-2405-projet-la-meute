@@ -71,7 +71,7 @@ export class UserResolvers {
 	}
 
 	// Login
-	// User logs in with name/email and password
+	// User logs in with email and password
 	@Mutation(() => String, { nullable: true })
 	/**
 	 * Authenticates a user by verifying the password and returns a JWT token if successful.

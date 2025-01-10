@@ -15,7 +15,7 @@ import { Participation } from "./Participation";
 export class Dog {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	dog_id?: number;
+	id?: number;
 
 	@Column({
 		type: "varchar",
