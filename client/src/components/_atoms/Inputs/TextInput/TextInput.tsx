@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Eye from "@/assets/icons/eye.svg";
-import EyeOff from "@/assets/icons/eye-off.svg";
+import { Eye } from "@/assets/icons/eye.tsx";
+import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
 
 type TextInputTypes =
@@ -95,9 +95,9 @@ const TextInput = React.forwardRef<
 					}
 				>
 					{showPassword ? (
-						<img src={EyeOff} alt="Masquer le mot de passe" />
+						<EyeOff className="eyes" fill="none" />
 					) : (
-						<img src={Eye} alt="Afficher le mot de passe" />
+						<Eye className="eyes" fill="none" />
 					)}
 				</button>
 			)}
