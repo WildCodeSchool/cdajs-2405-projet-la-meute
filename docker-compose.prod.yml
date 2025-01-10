@@ -1,7 +1,7 @@
 services:
   client:
     image: dolpheus89/prod_client_pawplanner
-    command: sh -c "npm install && npm run preview"
+    command: sh -c "npm ci && npm run build && npm run preview"
     restart: unless-stopped
     ports:
       - 4201:4200
