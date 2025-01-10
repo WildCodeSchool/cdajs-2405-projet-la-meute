@@ -19,6 +19,7 @@
 		"@fullcalendar/list": "^6.1.15",
 		"@fullcalendar/react": "^6.1.15",
 		"@fullcalendar/timegrid": "^6.1.15",
+		"@gsap/react": "^2.1.1",
 		"@types/jest": "^29.5.13",
 		"graphql": "^16.9.0",
 		"gsap": "^3.12.5",
