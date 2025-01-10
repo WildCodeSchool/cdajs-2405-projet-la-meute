@@ -59,8 +59,11 @@ $dashInlinePadding: $minPaddingInline;
     }
 
     &__avatar {
-        border-radius: 50%;
-        padding-block: 1.2vh;
+        height: 100%;
+        & img {
+            border-radius: 50%;
+            padding-block: 1.2vh;
+        }
     }
 }
 
