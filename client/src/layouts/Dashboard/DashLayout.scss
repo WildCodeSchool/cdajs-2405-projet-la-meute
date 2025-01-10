@@ -9,7 +9,9 @@ $dashInlinePadding: $minPaddingInline;
 .dashHeader {
     height: $dashHeaderHeight;
     padding-inline-end: $dashInlinePadding;
-    padding-inline-start: calc(#{$dashSideBarWidth} + #{$dashInlinePadding}); // #{} shows the calculation in developer tools
+    padding-inline-start: calc(
+        #{$dashSideBarWidth} + #{$dashInlinePadding}
+    ); // #{} shows the calculation in developer tools
     position: fixed;
     top: 0;
     left: 0;
@@ -36,7 +38,7 @@ $dashInlinePadding: $minPaddingInline;
         font-size: $m;
         cursor: pointer;
         &:hover {
-            color: $font-dark
+            color: $font-dark;
         }
 
         &--icon {
@@ -74,15 +76,19 @@ $dashInlinePadding: $minPaddingInline;
     bottom: 0;
     left: 0;
     width: $dashSideBarWidth;
+    max-width: $dashHeaderHeight;
     background-color: $blue-500;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: $dashInlinePadding;
+    padding-inline: $dashInlinePadding;
+    padding-block: 1vh;
 
-    &__logo {
+    &__logo img {
+        padding: 5px;
         min-width: $dashSideBarWidth;
+        max-height: calc(#{$dashHeaderHeight} - 1vh);
     }
 
     &__list {
@@ -93,7 +99,7 @@ $dashInlinePadding: $minPaddingInline;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 5vh;
+        gap: 4vh;
     }
 
     &__item {
@@ -119,7 +125,7 @@ $dashInlinePadding: $minPaddingInline;
     }
 
     &__icon {
-        height: calc(#{$dashSideBarWidth} / 3);
+        height: calc(5vw / 3);
         min-height: 30px;
         fill: $beige-300;
     }
@@ -143,7 +149,6 @@ $dashInlinePadding: $minPaddingInline;
 
 // MEDIA QUERY
 @media screen and (max-width: $mobile) {
-
     // HEADER MOBILE
     .dashHeader {
         padding-inline: $dashInlinePadding;
@@ -152,13 +157,11 @@ $dashInlinePadding: $minPaddingInline;
     // SIDEBAR MOBILE (FOOTER)
     .dashSideBar {
         padding-inline: $dashInlinePadding;
-      //  padding-block: 5vh;
         height: $dashMobileSideBarHeight;
-       // height: calc($dashMobileSideBarHeight + 1vh);
         top: unset;
         right: 0;
         left: 0;
-        width: 100%;
+        min-width: 100%;
         justify-content: center;
 
         &__list {
