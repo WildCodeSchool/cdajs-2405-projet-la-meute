@@ -1,7 +1,7 @@
 @import "@style";
 
 $dashHeaderHeight: 10vh;
-$dashSideBarWidth: 8vw;
+$dashSideBarWidth: 8vw; // maximum $dashHeaderHeight minimum dashSideBarWidth
 $dashMobileSideBarHeight: 9vh;
 $dashInlinePadding: $minPaddingInline;
 
@@ -10,7 +10,7 @@ $dashInlinePadding: $minPaddingInline;
     height: $dashHeaderHeight;
     padding-inline-end: $dashInlinePadding;
     padding-inline-start: calc(
-        #{$dashSideBarWidth} + #{$dashInlinePadding}
+        #{$dashHeaderHeight} + #{$dashInlinePadding}
     ); // #{} shows the calculation in developer tools
     position: fixed;
     top: 0;
@@ -21,7 +21,6 @@ $dashInlinePadding: $minPaddingInline;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-block: 2%;
 
     & h1 {
         color: $green-400;
@@ -75,8 +74,7 @@ $dashInlinePadding: $minPaddingInline;
     top: 0;
     bottom: 0;
     left: 0;
-    width: $dashSideBarWidth;
-    max-width: $dashHeaderHeight;
+    width: $dashHeaderHeight;
     background-color: $blue-500;
     display: flex;
     flex-direction: column;
@@ -87,7 +85,7 @@ $dashInlinePadding: $minPaddingInline;
 
     &__logo img {
         padding: 5px;
-        min-width: $dashSideBarWidth;
+        min-width: $dashHeaderHeight;
         max-height: calc(#{$dashHeaderHeight} - 1vh);
     }
 
@@ -144,7 +142,7 @@ $dashInlinePadding: $minPaddingInline;
 .dashLayout__content {
     padding: $dashInlinePadding;
     padding-block-start: $dashHeaderHeight;
-    padding-inline-start: calc(#{$dashSideBarWidth} + #{$dashInlinePadding});
+    padding-inline-start: calc(#{$dashHeaderHeight} + #{$dashInlinePadding});
 }
 
 // MEDIA QUERY
