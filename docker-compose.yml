@@ -1,15 +1,12 @@
 services:
   client:
     build: ./client
-    command: sh -c "npm run dev"
+    command: sh -c "npm install && npm run dev"
     restart: unless-stopped
     ports:
       - 4200:4200
     volumes:
       - ./client:/client
-      # Windows needs this
-      - node_modules:/client/node_modules 
-    # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -53,6 +50,3 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
-
-volumes:
-  node_modules:
