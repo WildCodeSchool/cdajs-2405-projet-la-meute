@@ -13,6 +13,7 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.11.8",
+		"@gsap/react": "^2.1.1",
 		"@fullcalendar/core": "^6.1.15",
 		"@fullcalendar/daygrid": "^6.1.15",
 		"@fullcalendar/interaction": "^6.1.15",
