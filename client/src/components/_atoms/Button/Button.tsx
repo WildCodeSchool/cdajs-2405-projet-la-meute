@@ -43,9 +43,7 @@ export default function Button({
 					className={`button ${buttonClassName}`}
 					onClick={onClick}
 				>
-					{type === "invite" && !children
-						? "+ Inviter un client à s'inscrire"
-						: children}
+					{type === "invite" && !children ? "+ Ajouter un événement" : children}
 				</button>
 			</a>
 		);
@@ -57,9 +55,7 @@ export default function Button({
 			className={`button ${buttonClassName} ${className}`}
 			onClick={onClick}
 		>
-			{type === "invite" && !children
-				? "+ Inviter un client à s'inscrire"
-				: children}
+			{type === "invite" && !children ? "+ Ajouter un événement" : children}
 		</button>
 	);
 }

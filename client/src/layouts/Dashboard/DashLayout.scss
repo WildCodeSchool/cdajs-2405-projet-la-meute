@@ -20,6 +20,7 @@ $dashInlinePadding: $minPaddingInline;
     justify-content: space-between;
     align-items: center;
     padding-block: 2%;
+    z-index: 998;
 
     & h1 {
         color: $green-400;
@@ -77,6 +78,7 @@ $dashInlinePadding: $minPaddingInline;
     justify-content: space-between;
     align-items: center;
     padding: $dashInlinePadding;
+    z-index: 999;
 
     &__logo {
         min-width: $dashSideBarWidth;

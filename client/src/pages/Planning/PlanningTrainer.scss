@@ -1,0 +1,219 @@
+@import '@style';
+
+/* Container général */
+
+.calendar-container {
+    margin: 20px;
+    margin-top: 30px;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border: 0px;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: 0px;
+}
+
+.fc th {
+    border: none !important;
+}
+
+.fc-scroller-harness {
+    border: 0 !important;
+    background-color: $primary-light !important;
+}
+
+.fc-dayGridMonth-view {
+    border: 0px !important;
+    box-shadow: none !important;
+}
+
+/* Boutons et éléments récurrents */
+
+.fc .fc-button-primary {
+    background-color: $blue-500;
+    border: 0px;
+    box-shadow: none !important;
+
+    &:hover {
+        background-color: $blue-200 !important;
+    }
+}
+
+
+/* Header - Toolbar */
+
+.fc .fc-timegrid-slot,
+.fc .fc-timegrid-slot-lane {
+    background: none;
+    border: none !important;
+}
+
+.fc .fc-col-header-cell-cushion,
+.fc .fc-col-header-cell {
+    background-color: $primary-light;
+    color: $beige-400;
+    height: 5vh !important;
+    padding: 10px 0;
+    border: 0px;
+    letter-spacing: 1px;
+}
+
+.fc-col-header {
+    background-color: none;
+    border: 0px !important;
+}
+
+.fc-col-header-cell {
+    background-color: none;
+    border: 0px !important;
+}
+
+.fc-scrollgrid-section-header {
+    background-color: none;
+    border: 0px !important;
+}
+
+
+.fc-header-toolbar fc-toolbar fc-toolbar-ltr:nth-last-child {
+    background-color: $orange-300;
+}
+
+/* -- Toolbar - left --*/
+
+.fc-toolbar-chunk {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+}
+
+.fc .fc-toolbar-title {
+    color: $green-500;
+    font-size: $l !important;
+}
+
+.fc-today-button {
+    background-color: $blue-500 !important;
+    color: $primary-light !important;
+    font-weight: $light !important;
+    padding: 1.5vh 2vw !important;
+    border-radius: $atoms-radius !important;
+    letter-spacing: 1px;
+}
+
+.fc-today-button:disabled {
+    opacity: 1 !important;
+}
+
+.fc-next-button {
+    padding: 1.5vh 1vw !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    border-radius: $atoms-radius !important;
+}
+
+.fc-prev-button {
+    padding: 1vh 1vw !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    border-radius: $atoms-radius !important;
+}
+
+/* Toolbar - right */
+
+.fc .fc-listWeek-button {
+    background-color: $blue-500 !important;
+    color: $orange-300 !important;
+    font-weight: $medium;
+    padding: 1.5vh 2vw !important;
+    margin-right: 1vw !important;
+    border-radius: $atoms-radius !important;
+}
+
+.fc-timeGridWeek-button {
+    background-color: $blue-500 !important;
+    color: $primary-light !important;
+    font-weight: $light !important;
+    padding: 1.5vh 2vw !important;
+    margin-right: 1vw !important;
+    border-radius: $atoms-radius !important;
+}
+
+.fc-dayGridMonth-button {
+    background-color: $blue-400 !important;
+    color: $green-200 !important;
+    font-weight: $regular !important;
+    padding: 1.5vh 2vw !important;
+    border-radius: $atoms-radius !important;
+}
+
+/* Grid des jours */
+
+.fc-day {
+    padding: 0.75rem !important;
+}
+
+.fc-daygrid {
+    color: $primary-light !important;
+}
+
+.fc-day-past,
+.fc-daygrid-day {
+    background-color: $blue-400;
+    height: 15vh;
+    border: 2px solid $blue-600 !important;
+}
+
+.fc-day-other {
+    background-color: $blue-300;
+}
+
+.fc-daygrid-day-number {
+    color: $primary-light;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: $orange-400;
+}
+
+/* Liste des événements - View */
+
+.fc-theme-standard .fc-list {
+    background-color: $beige-200;
+    color: $primary-dark;
+}
+
+.fc-listWeek-view {
+    background-color: $beige-300 !important;
+    border: 0px !important;
+    border-radius: $atoms-radius !important;
+}
+
+.fc .fc-list-empty {
+    background-color: $beige-200 !important;
+}
+
+/* Semaine - View */
+
+.fc-timegrid-axis {
+    background-color: $primary-light;
+    border: 0px;
+}
+
+.fc-scrollgrid-section,
+.fc-scrollgrid-section-body,
+.fc-timegrid-body {
+    background-color: $blue-500;
+    border: 0px;
+}
+
+/* --- Responsive - Mobile --- */
+
+@media screen and (max-width: $mobile) {
+
+    /* Ajouter le css pour la version mobile */
+
+}
