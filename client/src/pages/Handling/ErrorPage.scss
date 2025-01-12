@@ -8,10 +8,10 @@
         align-items: flex-start;
         gap: 2rem;
         max-width: fit-content;
-        margin: 10% auto;
+        margin: 10vh auto;
 
         h1 {
-            font-size: clamp(5rem ,10vw ,8rem );
+            font-size: clamp(4.5rem ,10vw ,8rem );
         }
 
         p {
@@ -35,10 +35,19 @@
     }
 
     img {
-        position: sticky;
-        bottom: 0;
+        position: fixed;
+        bottom: calc(10px + 5vh);
         z-index: -1;
         max-height: 80vh;
         aspect-ratio: 58/41;
+        transition: 0.3s;
+
+        @media (height <= $mobile) {
+            max-height: 45vh;
+        }
+
+        @media (height <= 500px) {
+            display: none
+        }
     }
 }
