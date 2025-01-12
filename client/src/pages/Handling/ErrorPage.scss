@@ -42,7 +42,7 @@
         aspect-ratio: 58/41;
         transition: 0.3s;
 
-        @media (height <= $mobile) {
+        @media (height <= 750px) {
             max-height: 45vh;
         }
 
