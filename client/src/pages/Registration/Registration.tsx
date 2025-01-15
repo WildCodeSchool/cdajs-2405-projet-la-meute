@@ -11,9 +11,9 @@ function Registration() {
 	const navigate = useNavigate();
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-	e.preventDefault();
-	navigate("/login");
-};
+		e.preventDefault();
+		navigate("/login");
+	};
 
 	return (
 		<main className="registration">
@@ -48,10 +48,11 @@ function Registration() {
 					</section>
 				</>
 			) : (
-				<Form className="registration__form" 
-					  title="Inscription"
-					  onSubmit={handleSubmit}
-					>
+				<Form
+					className="registration__form"
+					title="Inscription"
+					onSubmit={handleSubmit}
+				>
 					{role === "trainer" && <TextInput type="SIRET" required />}
 
 					{role === "trainer" && <TextInput type="company_name" required />}
@@ -72,6 +73,7 @@ function Registration() {
 					<p>
 						<i>Les champs comportants une * sont obligatoires.</i>
 					</p>
+					<br />
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
 						<a href="/login"> vous connecter ici</a>.

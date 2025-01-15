@@ -29,7 +29,7 @@ class ResetPasswordResponse {
 export class UserResolvers {
 	private async findUserByEmail(
 		/**
-		 * This function centralizes the logic to retrirve user by email
+		 * This function centralizes the logic to retrieve user by email
 		 * @param email - The email of the user to search for.
 		 * @param options - Additional options (select fields or relations) to customize the query.
 		 */
