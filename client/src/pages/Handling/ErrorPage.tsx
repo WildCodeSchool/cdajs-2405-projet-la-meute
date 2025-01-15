@@ -1,7 +1,7 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
-import { Link } from "react-router-dom";
 import dog404 from "@/assets/illustrations/dog404.png";
 import "./ErrorPage.scss";
+import Button from "@/components/_atoms/Button/Button";
 
 export default function ErrorPage() {
 	const error = useRouteError();
@@ -27,7 +27,7 @@ export default function ErrorPage() {
 						Une erreur inattendue <br /> s'est produite
 					</p>
 				)}
-				<Link to="/">Retour à l'accueil</Link>
+				<Button href="/" type="btn-dark">Retour à l'accueil</Button>
 			</hgroup>
 			<img src={dog404} alt="Chien débranchant une prise" />
 		</main>

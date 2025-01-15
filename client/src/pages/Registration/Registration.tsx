@@ -53,7 +53,7 @@ function Registration() {
 					<TextInput type="telephone" />
 					<input type="hidden" name="role" value={role} />
 
-					<Button type="form-deny" href="/registration">
+					<Button type="btn-dark" href="/registration">
 						Retour
 					</Button>
 
