@@ -13,7 +13,7 @@ import { useState } from "react";
 const DashSideBar = () => {
 	const location = useLocation();
 	const { logout } = useAuth();
-	const [userRole, setUserRole] = useState<"trainer" | "owner">("owner");
+	const [userRole, setUserRole] = useState<"trainer" | "owner">("trainer");
 
 	const isActive = (path: string) =>
 		location.pathname.includes(path)
@@ -30,7 +30,6 @@ const DashSideBar = () => {
 			{ path: "planning", icon: <Calendar className="dashSideBar__icon" /> },
 			{ path: "search", icon: <Search className="dashSideBar__icon" /> },
 			{ path: "my-dogs", icon: <Paw className="dashSideBar__icon" /> },
-			{ path: "user", icon: <Users className="dashSideBar__icon" /> },
 		],
 	};
 
