@@ -13,7 +13,7 @@ import { useState } from "react";
 const DashSideBar = () => {
 	const location = useLocation();
 	const { logout } = useAuth();
-	const [userRole, setUserRole] = useState<"trainer" | "owner">("trainer");
+	const [userRole] = useState<"trainer" | "owner">("trainer");
 
 	const isActive = (path: string) =>
 		location.pathname.includes(path)
