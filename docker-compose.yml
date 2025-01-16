@@ -1,4 +1,15 @@
 services:
+  solr:
+    image: solr:9.7.0-slim
+    volumes:
+      - ./solr_data:/var/solr  # Assure-toi que ./solr/solr_data est bien ton dossier local
+    ports:
+      - 8983:8983
+    user: root  # Utiliser root pour changer les permissions de /var/solr
+    command: bash -c "
+      chown -R solr:solr /var/solr
+      && runuser -u solr -- solr-precreate paw-planner"  # Créer le core paw-planner avec les bonnes permissions
+
   client:
     build: ./client
     command: sh -c "npm install && npm run dev"
