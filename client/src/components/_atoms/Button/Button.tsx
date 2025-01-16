@@ -8,12 +8,12 @@ type ButtonTypes =
 	| "button"
 	| "role-select-left"
 	| "role-select-right";
-/** For adding a new type: 
+/** To add a new type:
  * 1. Add the type in ButtonTypes up above
  * 2. Add the type in Button.scss (list $btn-types)
  * 3. Add the type in buttonClassName in Button.tsx
  * The new className must start with btn-
-*/
+ */
 
 export default function Button({
 	type,

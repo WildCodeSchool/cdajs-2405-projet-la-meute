@@ -27,7 +27,9 @@ export default function ErrorPage() {
 						Une erreur inattendue <br /> s'est produite
 					</p>
 				)}
-				<Button href="/" type="btn-dark">Retour à l'accueil</Button>
+				<Button href="/" type="btn-dark">
+					Retour à l'accueil
+				</Button>
 			</hgroup>
 			<img src={dog404} alt="Chien débranchant une prise" />
 		</main>

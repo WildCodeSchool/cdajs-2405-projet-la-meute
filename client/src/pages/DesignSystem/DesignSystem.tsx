@@ -56,27 +56,20 @@ export default function DesignSystem() {
 							<Button type="btn-light" href="/">
 								Link light
 							</Button>
-							<Button type="btn-light">
-								Button light
-							</Button>
+							<Button type="btn-light">Button light</Button>
 						</div>
 						<div>
 							<Button type="btn-dark" href="/">
 								Link dark
 							</Button>
-							<Button type="btn-dark">
-								Button dark
-							</Button>
+							<Button type="btn-dark">Button dark</Button>
 						</div>
 						<div>
 							<Button type="invite" href="/" />
 							<Button type="invite" />
-
 						</div>
 						<div>
-							<Button type="button">
-								Actual button
-							</Button>
+							<Button type="button">Actual button</Button>
 						</div>
 
 						<div>
