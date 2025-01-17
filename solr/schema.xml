@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- the version attribute is associated with the format the schema should have, it is not the project's version -->
 <schema name="pawplanner" version="1.6">
 
     <!-- Field Types -->
-    <!-- Describe how each field type should be analyzed -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
     <fieldType name="text_general" class="solr.TextField" omitNorms="true">
         <analyzer type="index">
@@ -13,36 +11,38 @@
             <tokenizer class="solr.KeywordTokenizerFactory" />
         </analyzer>
     </fieldType>
+    <fieldType name="location" class="solr.SpatialRecursivePrefixTreeFieldType"
+        spatialContextFactory="com.spatial4j.core.context.jts.JtsSpatialContextFactory"
+        geo="true" distErrPct="0.025" />
 
     <!-- Fields -->
-    <field name="id" type="string" indexed="true" stored="true" required="true" />
-    <field name="name" type="text_general" indexed="true" stored="true" />
+    <field name="user_id" type="string" indexed="true" stored="true" required="true" />
+    <field name="event_id" type="string" indexed="true" stored="true" required="true" />
+    <field name="service_id" type="string" indexed="true" stored="true" required="true" />
+    <field name="firstname" type="text_general" indexed="true" stored="true" />
+    <field name="lastname" type="text_general" indexed="true" stored="true" />
     <field name="email" type="string" indexed="true" stored="true" />
     <field name="phone_number" type="string" indexed="true" stored="true" />
     <field name="city" type="string" indexed="true" stored="true" />
     <field name="postal_code" type="string" indexed="true" stored="true" />
     <field name="role" type="string" indexed="true" stored="true" />
     <field name="siret" type="string" indexed="true" stored="true" />
-    <field name="picture" type="string" indexed="true" stored="true" />
-    <field name="age" type="string" indexed="true" stored="true" />
-    <field name="breed" type="string" indexed="true" stored="true" />
-    <field name="location" type="string" indexed="true" stored="true" />
-    <field name="date" type="string" indexed="true" stored="true" />
+    <field name="location" type="location" indexed="true" stored="true" />
+    <field name="date" type="date" indexed="true" stored="true" />
     <field name="groupSizeMax" type="string" indexed="true" stored="true" />
 
     <!-- Dynamic Fields -->
     <dynamicField name="*_txt" type="text_general" indexed="true" stored="true" />
     <dynamicField name="*_str" type="string" indexed="true" stored="true" />
 
-    <!-- Copy Fields (to enable full-text search on all text fields) -->
-    <copyField source="name" dest="text" />
+    <!-- Copy Fields for enabling full-text search across multiple fields -->
+    <copyField source="firstname" dest="text" />
+    <copyField source="lastname" dest="text" />
     <copyField source="email" dest="text" />
     <copyField source="city" dest="text" />
     <copyField source="postal_code" dest="text" />
     <copyField source="role" dest="text" />
     <copyField source="siret" dest="text" />
-    <copyField source="picture" dest="text" />
-    <copyField source="breed" dest="text" />
     <copyField source="location" dest="text" />
     <copyField source="date" dest="text" />
     <copyField source="groupSizeMax" dest="text" />
