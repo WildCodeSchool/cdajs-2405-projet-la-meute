@@ -2,7 +2,7 @@
 
 .notfound {
     
-    hgroup {
+    section {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -32,7 +32,7 @@
         aspect-ratio: 58/41;
         transition: 0.3s;
 
-        @media (height <= 750px) {
+        @media (height <= 800px) {
             max-height: 45vh;
         }
 

@@ -15,7 +15,7 @@ export default function ErrorPage() {
 
 	return (
 		<main className="notfound">
-			<hgroup>
+			<section>
 				<h1>Oups !</h1>
 				{title && <p>{title}</p>}
 				{is404 ? (
@@ -30,7 +30,7 @@ export default function ErrorPage() {
 				<Button href="/" type="btn-dark">
 					Retour à l'accueil
 				</Button>
-			</hgroup>
+			</section>
 			<img src={dog404} alt="Chien débranchant une prise" />
 		</main>
 	);
