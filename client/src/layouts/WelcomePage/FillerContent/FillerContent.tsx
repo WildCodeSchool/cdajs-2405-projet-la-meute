@@ -18,7 +18,7 @@ function FillerContent() {
 			<article className="welcomepage__filler--article">
 				<h2 className="homepage__title">Envie d’essayer&nbsp;?</h2>
 				<p>Une question&nbsp;? Besoin d'une précision&nbsp;? N'hésitez plus.</p>
-				<Button href="/contact" type="btn-dark">
+				<Button href="mailto:contact@pawplanner.com" type="btn-dark">
 					Contactez-nous
 				</Button>
 			</article>

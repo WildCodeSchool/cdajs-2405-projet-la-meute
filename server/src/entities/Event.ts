@@ -17,7 +17,7 @@ import { Coordinates } from "./Coordinates";
 export class Event {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	event_id?: number;
+	id?: number;
 
 	@Column()
 	@Field()

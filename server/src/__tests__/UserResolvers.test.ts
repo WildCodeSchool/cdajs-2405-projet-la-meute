@@ -22,7 +22,8 @@ describe("UserResolvers", () => {
 	const owners: Owner[] = [
 		{
 			id: 1,
-			name: "John Doe",
+			lastname: "Doe",
+			firstname: "John",
 			email: "john.doe@example.com",
 			password_hashed: "hashedpassword123",
 			phone_number: "123456789",
@@ -36,7 +37,8 @@ describe("UserResolvers", () => {
 	const trainers: Trainer[] = [
 		{
 			id: 2,
-			name: "Jane Doe",
+			lastname: "Doe",
+			firstname: "Jane",
 			email: "jane.doe@example.com",
 			password_hashed: "hashedpassword456",
 			phone_number: "987654321",
@@ -44,6 +46,7 @@ describe("UserResolvers", () => {
 			postal_code: "69000",
 			role: "trainer",
 			siret: "12345678901234",
+			company_name: "educ de Lyon",
 			service: [],
 			event: [],
 		},
