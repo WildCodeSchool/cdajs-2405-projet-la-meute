@@ -18,18 +18,8 @@
             font-size: clamp(1.3rem ,4vw ,2rem );
             text-wrap: balance;
         }
-        
-        a {
-            display: inline-block;
-            background-color: $primary-dark;
-            color: $primary-light;
-            font-weight: $medium;
-            padding: 1.5vh 3vw;
-            border-radius: 5px;
-            letter-spacing: 1px;
-        }
 
-        > * {
+        h1, p {
             margin: 0
         }
     }
