@@ -23,6 +23,14 @@ export class Event {
 	@Field()
 	date: Date;
 
+	@Column()
+	@Field()
+	title: string;
+
+	@Column()
+	@Field()
+	description: string;
+
 	@Column("simple-json")
 	@Field(() => Coordinates)
 	location: Coordinates;
@@ -61,12 +69,16 @@ export class Event {
 		trainer: Trainer,
 		service: Service,
 		date: Date,
+		title: string,
+		description: string,
 		location: Coordinates,
 		groupSizeMax = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
 		this.date = date;
+		this.title = title;
+		this.description = description;
 		this.location = location;
 		this.groupSizeMax = groupSizeMax;
 	}
