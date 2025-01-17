@@ -10,6 +10,7 @@ import {
 import { Trainer } from "./Trainer";
 import { Service } from "./Service";
 import { Participation } from "./Participation";
+import { Coordinates } from "./Coordinates";
 
 @Entity()
 @ObjectType()
@@ -22,12 +23,9 @@ export class Event {
 	@Field()
 	date: Date;
 
-	@Column({
-		type: "varchar",
-		length: 255,
-	})
-	@Field()
-	location: string;
+	@Column("simple-json")
+	@Field(() => Coordinates)
+	location: Coordinates;
 
 	@Column("int")
 	@Field()
@@ -63,7 +61,7 @@ export class Event {
 		trainer: Trainer,
 		service: Service,
 		date: Date,
-		location = "",
+		location: Coordinates,
 		groupSizeMax = 0,
 	) {
 		this.trainer = trainer;
