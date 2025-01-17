@@ -27,7 +27,7 @@ export class Event {
 		length: 255,
 	})
 	@Field()
-	localization: string;
+	location: string;
 
 	@Column("int")
 	@Field()
@@ -63,13 +63,13 @@ export class Event {
 		trainer: Trainer,
 		service: Service,
 		date: Date,
-		localization = "",
+		location = "",
 		groupSizeMax = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
 		this.date = date;
-		this.localization = localization;
+		this.location = location;
 		this.groupSizeMax = groupSizeMax;
 	}
 }
