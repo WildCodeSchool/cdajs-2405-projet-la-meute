@@ -121,6 +121,9 @@ PawPlanner/
 |   │   └── resolvers/
 |   ├── index.ts          
 |   └── -- Other server side config files
+├── solr/                     -- BACKEND
+|   ├── solr_data/
+|   └── Dockerfile
 ├── .env                        -- ❗ create this before first launch
 ├── .env.sample
 ├── docker-compose.yml
