@@ -26,3 +26,4 @@ dist-ssr
 .env
 */node_modules
 /db_data
+solr/

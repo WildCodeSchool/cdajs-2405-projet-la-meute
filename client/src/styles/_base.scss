@@ -8,7 +8,20 @@ html {
     color: $primary-dark;
     & * {
         box-sizing: border-box;
+
+        &:focus {
+            border-radius: $atoms-radius;
+        }
     }
+}
+
+/* uniformizing focus styles */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+    outline: 2px solid red;
+    border-radius: $atoms-radius;
 }
 
 // -- alphabetical order

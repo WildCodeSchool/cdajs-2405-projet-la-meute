@@ -24,6 +24,8 @@ import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+import List from "./pages/Trainer/Customers/List/List.tsx";
+import Id from "./pages/Trainer/Customers/:id/Id.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -152,11 +154,11 @@ const router = createBrowserRouter([
 								children: [
 									{
 										index: true,
-										element: <p>customers List</p>,
+										element: <List />,
 									},
 									{
 										path: ":id",
-										element: <p>customers/:id</p>,
+										element: <Id />,
 									},
 								],
 							},

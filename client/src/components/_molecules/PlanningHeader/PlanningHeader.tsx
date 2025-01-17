@@ -6,7 +6,7 @@ export default function PlanningHeader({ title }: { title: string }) {
 		<>
 			<header className="planningHeader">
 				<h1 className="planningHeader__title">{title}</h1>
-				<Button type="invite" href="" />
+				<Button type="invite" />
 			</header>
 		</>
 	);
