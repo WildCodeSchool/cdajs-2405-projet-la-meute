@@ -13,6 +13,7 @@ services:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+      - VITE_NODE_ENV="production"
 
   server:
     image: dolpheus89/prod_server_pawplanner
@@ -31,6 +32,7 @@ services:
       - SMTP_PASS=${SMTP_PASS}
       - NODE_ENV="production"
       - FRONTEND_URL=${FRONTEND_URL}
+      - JWTSECRETKEY=${JWTSECRETKEY}
 
   db:
     image: postgres:16

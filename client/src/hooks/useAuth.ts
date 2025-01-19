@@ -12,8 +12,6 @@ export const useAuth = () => {
 	const [loginMutation, { data, loading, error }] = useMutation(LOGIN);
 	const navigate = useNavigate();
 
-	const isAuthenticated = Boolean(localStorage.getItem("authToken"));
-
 	const login = async (email: string, password: string) => {
 		try {
 			const response = await loginMutation({
@@ -39,7 +37,6 @@ export const useAuth = () => {
 	};
 
 	return {
-		isAuthenticated,
 		login,
 		logout,
 		loading,

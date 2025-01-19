@@ -29,13 +29,11 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const ME = gql`
-query Me {
-    me {
-      id
-      name
-      email
-      phone_number
+  query ME($token: String!) {
+    me: ME(token: $token) {
       city
+      name
+      phone_number
       postal_code
       role
     }
