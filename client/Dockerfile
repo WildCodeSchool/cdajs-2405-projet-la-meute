@@ -1,4 +1,4 @@
-FROM node:18-bookworm
+FROM node:18-alpine
 
 WORKDIR /client
 
@@ -10,5 +10,3 @@ RUN npm ci
 COPY . .
 # Build is needed for build in github action
 RUN npm run build
-
-CMD npm run preview
