@@ -7,10 +7,11 @@ services:
     ports:
       - 8983:8983
     # Fixit for known issue "cannot create directory: Permission denied" where root user must be used to create a directory
-    # First we force the root user then we swicth to solr
+    # First we force the root user then we switch to solr
     user: root
     command: bash -c "
       chown -R solr:solr /var/solr
+      && bash /var/solr/data/paw_planner/scripts/solr_driver.sh
       && runuser -u solr -- solr-precreate paw-planner"
     env_file:
       - .env
