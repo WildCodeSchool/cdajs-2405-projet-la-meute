@@ -1,14 +1,12 @@
 services:
   client:
     image: dolpheus89/staging_client_pawplanner
-    command: sh -c "npm run build && npm run preview"
+    command: sh -c "npm ci && npm run build && npm run preview"
     restart: unless-stopped
     ports:
       - 4200:4200
     volumes:
       - web-client-build:/client/dist
-      - node_modules:/client/node_modules
-    # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -70,5 +68,4 @@ services:
 
 volumes:
   web-client-build:
-  node_modules:
   db_data:
