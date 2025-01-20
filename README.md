@@ -121,10 +121,15 @@ PawPlanner/
 |   │   └── resolvers/
 |   ├── index.ts          
 |   └── -- Other server side config files
-├── solr/                     -- SOLR
-|   ├── data/
-|   ├── logs/
-|   └── log4j2.xml
+├── solr/                       -- SOLR
+|   ├── solr_data/              -- SolR runtime data
+|   │   ├── data/
+|   │   ├── logs/
+|   │   └── log4j2.xml
+|   └── paw_planner/            -- SolR static configuration
+|       └── conf
+|           ├── schema.xml
+|           └── solrconfig.xml
 ├── .env                        -- ❗ create this before first launch
 ├── .env.sample
 ├── docker-compose.yml

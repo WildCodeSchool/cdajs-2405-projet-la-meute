@@ -29,7 +29,7 @@
     <field name="siret" type="string" indexed="true" stored="true" />
     <field name="location" type="location" indexed="true" stored="true" />
     <field name="date" type="date" indexed="true" stored="true" />
-    <field name="groupSizeMax" type="string" indexed="true" stored="true" />
+    <field name="group_max_size" type="string" indexed="true" stored="true" />
 
     <!-- Dynamic Fields -->
     <dynamicField name="*_txt" type="text_general" indexed="true" stored="true" />
@@ -45,6 +45,6 @@
     <copyField source="siret" dest="text" />
     <copyField source="location" dest="text" />
     <copyField source="date" dest="text" />
-    <copyField source="groupSizeMax" dest="text" />
+    <copyField source="group_max_size" dest="text" />
 
 </schema>

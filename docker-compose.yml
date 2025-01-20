@@ -3,6 +3,7 @@ services:
     image: solr:9.7.0-slim
     volumes:
       - ./solr/solr_data:/var/solr
+      - ./solr/paw_planner:/var/solr/data/paw_planner
     ports:
       - 8983:8983
     # Fixit for known issue "cannot create directory: Permission denied" where root user must be used to create a directory
@@ -11,6 +12,8 @@ services:
     command: bash -c "
       chown -R solr:solr /var/solr
       && runuser -u solr -- solr-precreate paw-planner"
+    env_file:
+      - .env
 
   client:
     build: ./client
@@ -25,6 +28,8 @@ services:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+    env_file:
+      - .env
 
   server:
     build: ./server
@@ -33,17 +38,8 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
-    environment:
-      - DBNAME=${DBNAME}
-      - DBUSERNAME=${DBUSERNAME}
-      - DBPASS=${DBPASS}
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SMTP_USER=${SMTP_USER}
-      - SMTP_PASS=${SMTP_PASS}
-      - NODE_ENV=${NODE_ENV}
-      - FRONTEND_URL=${FRONTEND_URL}
-      - JWTSECRETKEY=${JWTSECRETKEY}
+    env_file:
+      - .env
 
   db:
     image: postgres:16
@@ -51,13 +47,11 @@ services:
     shm_size: 128mb
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    env_file:
-      - .env
     ports:
       - 5433:5432
     container_name: pawplanner-db-1
-    environment:
-      - POSTGRES_PASSWORD=${DBPASS}
+    env_file:
+      - .env
 
   adminer:
     image: adminer

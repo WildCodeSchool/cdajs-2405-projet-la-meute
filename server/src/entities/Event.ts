@@ -37,7 +37,7 @@ export class Event {
 
 	@Column("int")
 	@Field()
-	groupSizeMax: number;
+	group_max_size: number;
 
 	@ManyToOne(
 		() => Trainer,
@@ -72,7 +72,7 @@ export class Event {
 		title: string,
 		description: string,
 		location: Coordinates,
-		groupSizeMax = 0,
+		group_max_size = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
@@ -80,6 +80,6 @@ export class Event {
 		this.title = title;
 		this.description = description;
 		this.location = location;
-		this.groupSizeMax = groupSizeMax;
+		this.group_max_size = group_max_size;
 	}
 }
