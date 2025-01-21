@@ -4,7 +4,8 @@
     "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
-    "prepare": "husky"
+    "prepare": "husky",
+    "client-package": "./client-package.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
