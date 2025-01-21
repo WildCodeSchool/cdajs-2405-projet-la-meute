@@ -27,11 +27,11 @@ export class Event {
 		length: 255,
 	})
 	@Field()
-	localization: string;
+	location: string;
 
 	@Column("int")
 	@Field()
-	groupSizeMax: number;
+	group_max_size: number;
 
 	@ManyToOne(
 		() => Trainer,
@@ -63,13 +63,13 @@ export class Event {
 		trainer: Trainer,
 		service: Service,
 		date: Date,
-		localization = "",
-		groupSizeMax = 0,
+		location = "",
+		group_max_size = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
 		this.date = date;
-		this.localization = localization;
-		this.groupSizeMax = groupSizeMax;
+		this.location = location;
+		this.group_max_size = group_max_size;
 	}
 }
