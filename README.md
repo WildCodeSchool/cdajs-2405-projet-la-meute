@@ -127,9 +127,11 @@ PawPlanner/
 |   │   ├── logs/
 |   │   └── log4j2.xml
 |   └── paw_planner/            -- SolR static configuration
-|       └── conf
-|           ├── schema.xml
-|           └── solrconfig.xml
+|       ├── conf
+|       |   ├── schema.xml
+|       |   └── solrconfig.xml
+|       └── scripts
+|           └── solrdriver.sh
 ├── .env                        -- ❗ create this before first launch
 ├── .env.sample
 ├── docker-compose.yml

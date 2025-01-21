@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataConfig>
+    <!-- Configuration de la source de données -->
     <dataSource
         type="JdbcDataSource"
         driver="org.postgresql.Driver"
@@ -7,8 +8,9 @@
         user="${env.DBUSERNAME}"
         password="${env.DBPASS}" />
 
+    <!-- Configuration des documents à indexer -->
     <document>
-        <!-- Trainer Data -->
+        <!-- Données du formateur (trainer) -->
         <entity name="trainer"
             query="
                 SELECT id AS trainer_id,
@@ -30,7 +32,7 @@
             <field column="company_name" name="company_name" />
         </entity>
 
-        <!-- Owner Data -->
+        <!-- Données du propriétaire (owner) -->
         <entity name="owner"
             query="
                 SELECT owner.id AS owner_id,
@@ -55,7 +57,7 @@
             <field column="dog_count" name="dog_count" />
         </entity>
 
-        <!-- Event Data -->
+        <!-- Données des événements (event) -->
         <entity name="event"
             query="
                 SELECT event.id AS event_id,

@@ -1,3 +1,5 @@
+/* This file lists the queries used to extract data from the database */
+
 /* Trainer data */
 SELECT id AS trainer_id,
     lastname,
@@ -9,6 +11,7 @@ SELECT id AS trainer_id,
     siret,
     company_name
 FROM trainer;
+
 /* Owner data */
 SELECT owner.id AS owner_id,
     owner.lastname,
@@ -22,6 +25,7 @@ FROM owner
     INNER JOIN dog ON dog.owner_id = owner_id
 GROUP BY 
     owner.id;
+
 /* Event data */
 SELECT event.id as event_id,
     event.date,

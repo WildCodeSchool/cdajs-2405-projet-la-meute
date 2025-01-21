@@ -1,20 +1,13 @@
 services:
   solr:
-    image: solr:9.7.0-slim
-    volumes:
-      - ./solr/solr_data:/var/solr
-      - ./solr/paw_planner:/var/solr/data/paw_planner
+    image: solr:9-slim
     ports:
-      - 8983:8983
-    # Fixit for known issue "cannot create directory: Permission denied" where root user must be used to create a directory
-    # First we force the root user then we switch to solr
-    user: root
-    command: bash -c "
-      chown -R solr:solr /var/solr
-      && bash /var/solr/data/paw_planner/scripts/solr_driver.sh
-      && runuser -u solr -- solr-precreate paw-planner"
-    env_file:
-      - .env
+      - "8983:8983"
+    volumes:
+      - solr:/var/solr
+    command:
+      - solr-precreate
+      - gettingstarted
 
   client:
     build: ./client
@@ -59,3 +52,6 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+
+volumes:
+  solr:

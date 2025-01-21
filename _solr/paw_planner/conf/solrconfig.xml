@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!-- Configuration of the request handler for data import -->
+    <requestHandler name="/dataimport" class="solr.DataImportHandler">
+        <lst name="defaults">
+            <str name="dataConfig">../../var/solr/data/paw_planner/conf/</str>
+        </lst>
+    </requestHandler>
+
+    <!-- Other Solr configurations here -->
+
+</config>
