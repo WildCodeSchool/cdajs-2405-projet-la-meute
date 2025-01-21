@@ -1,11 +1,11 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const isProd = import.meta.env.VITE_NODE_ENV === "production";
+const useCredentials = import.meta.env.VITE_API_URL === "/grahql";
 
 const client = new ApolloClient({
-	uri: isProd ? "/graphql" : "http://localhost:3200",
+	uri: import.meta.env.VITE_API_URL || "http://localhost:3200",
 	cache: new InMemoryCache(),
-	credentials: isProd ? "include" : "omit",
+	credentials: useCredentials ? "include" : "omit",
 });
 
 export default client;
