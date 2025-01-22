@@ -1,12 +1,15 @@
 import "./PlanningHeader.scss";
 import Button from "@/components/_atoms/Button/Button";
 
-export default function PlanningHeader({ title }: { title: string }) {
+export default function PlanningHeader({
+	title,
+	button = true,
+}: { title: string; button?: boolean }) {
 	return (
 		<>
 			<header className="planningHeader">
 				<h1 className="planningHeader__title">{title}</h1>
-				<Button type="invite" />
+				{button && <Button type="invite" />}
 			</header>
 		</>
 	);

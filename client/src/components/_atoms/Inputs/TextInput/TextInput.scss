@@ -5,21 +5,34 @@
     flex-direction: column;
     gap: 0.5rem;
     padding-block: 0.5rem;
-    color: $blue-100;
     position: relative;
 
-    input {
+    input, textarea {
         border-radius: 7px;
-        border: 2px solid $blue-300;
-        background-color: $blue-500;
         padding: 0.8rem;
         padding-inline: 2rem;
-        color: $font-light;
         font-weight: $light;
-
     }
 
-    .password-toggle{
+    &__dark {
+        color: $blue-100;
+        input, textarea {
+            border: 2px solid $blue-300;
+            background-color: $blue-500;
+            color: $font-light;
+        }
+    }
+
+    &__light {
+        input, textarea {
+            border: 2px solid $beige-300;
+            background-color: $beige-300;
+            color: $blue-300;
+        }
+    }
+
+
+    .password-toggle {
         position: absolute;
         right: 1rem;
         bottom: 1.5rem;
@@ -30,10 +43,8 @@
         line-height: 0;
         padding: 0;
 
-
-    .eyes{
-        mix-blend-mode: difference;
-    }
-
+        .eyes {
+            mix-blend-mode: difference;
+        }
     }
 }

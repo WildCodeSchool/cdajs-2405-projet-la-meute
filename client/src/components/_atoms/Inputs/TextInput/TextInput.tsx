@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
@@ -12,78 +12,103 @@ type TextInputTypes =
 	| "postal_code"
 	| "SIRET"
 	| "company_name"
-	| "telephone";
+	| "telephone"
+	| "description";
 
-// forwardRef allows us to use useRef in the component calling this one
+const TEXT_INPUT_CONFIG: Record<
+	TextInputTypes,
+	{ label: string; placeholder: string }
+> = {
+	email: {
+		label: "Email",
+		placeholder: "Entrez votre email",
+	},
+	password: {
+		label: "Mot de passe",
+		placeholder: "Entrez votre mot de passe",
+	},
+	lastname: {
+		label: "Nom",
+		placeholder: "Entrez votre nom",
+	},
+	firstname: {
+		label: "Prénom",
+		placeholder: "Entrez votre prénom",
+	},
+	city: {
+		label: "Ville",
+		placeholder: "Entrez votre ville",
+	},
+	postal_code: {
+		label: "Code Postal",
+		placeholder: "Entrez votre code postal",
+	},
+	SIRET: {
+		label: "SIRET",
+		placeholder: "Entrez votre SIRET",
+	},
+	company_name: {
+		label: "Nom de l'entreprise",
+		placeholder: "Entrez le nom de votre entreprise",
+	},
+	telephone: {
+		label: "Numéro de téléphone",
+		placeholder: "Entrez votre numéro de téléphone",
+	},
+	description: {
+		label: "Description",
+		placeholder: "Entrez votre description",
+	},
+};
+
 const TextInput = React.forwardRef<
-	HTMLInputElement,
-	{ type: TextInputTypes; required?: boolean; widthInPercentage?: number }
->(({ type, required }, ref) => {
+	HTMLInputElement | HTMLTextAreaElement,
+	{
+		type: TextInputTypes;
+		required?: boolean;
+		inputType?: "input" | "textarea";
+		color?: "dark" | "light";
+	}
+>(({ type, required, inputType = "input", color = "light" }, ref) => {
 	const [showPassword, setShowPassword] = useState(false);
 
-	let label = "";
-	let placeholder = "";
-
-	if (type === "email") {
-		label = "Email";
-		placeholder = "Entrez votre email";
-	}
-	if (type === "password") {
-		label = "Mot de passe";
-		placeholder = "Entrez votre mot de passe";
-	}
-
-	if (type === "lastname") {
-		label = "Nom";
-		placeholder = "Entrez votre nom";
-	}
-
-	if (type === "firstname") {
-		label = "Prénom";
-		placeholder = "Entrez votre prénom";
-	}
-
-	if (type === "city") {
-		label = "Ville";
-		placeholder = "Entrez votre ville";
-	}
-
-	if (type === "postal_code") {
-		label = "Code Postal";
-		placeholder = "Entrez votre code postal";
-	}
-
-	if (type === "SIRET") {
-		label = "SIRET";
-		placeholder = "Entrez votre SIRET";
-	}
-
-	if (type === "company_name") {
-		label = "Nom de l'entreprise";
-		placeholder = "Entrez le nom de votre entreprise";
-	}
-
-	if (type === "telephone") {
-		label = "Numéro de téléphone";
-		placeholder = "Entrez votre numéro de téléphone";
-	}
-
+	const { label, placeholder } = TEXT_INPUT_CONFIG[type];
 	const fieldRequired = required ? " *" : "";
 
+	// Dynamic ref based on inputType
+	const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+	useImperativeHandle(ref, () => inputRef.current!);
+
+	const inputId = `textInput-${type}`; // Unique ID for the input
+
 	return (
-		<label className="textInput">
-			{label}
-			{fieldRequired}
-			<input
-				ref={ref}
-				type={type === "password" ? (showPassword ? "text" : "password") : type}
-				placeholder={placeholder}
-				required={required}
-			/>
+		<div className={`textInput textInput__${color}`}>
+			<label htmlFor={inputId}>
+				{label}
+				{fieldRequired}
+			</label>
+			{inputType === "textarea" ? (
+				<textarea
+					id={inputId}
+					ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+					placeholder={placeholder}
+					required={required}
+				/>
+			) : (
+				<input
+					id={inputId}
+					ref={inputRef as React.RefObject<HTMLInputElement>}
+					type={
+						type === "password" ? (showPassword ? "text" : "password") : type
+					}
+					placeholder={placeholder}
+					required={required}
+				/>
+			)}
 			{type === "password" && (
 				<button
 					type="button"
-					onMouseDown={(e) => {
+					onClick={(e) => {
 						e.preventDefault();
 						setShowPassword(!showPassword);
 					}}
@@ -101,7 +126,7 @@ const TextInput = React.forwardRef<
 					)}
 				</button>
 			)}
-		</label>
+		</div>
 	);
 });
 

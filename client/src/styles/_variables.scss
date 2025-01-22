@@ -61,7 +61,10 @@ $btn-height: 2rem;
 $welcomePageHeaderHeight: 10vh;
 $minPaddingInline: 2vw;
 $minHomepagePaddingInline: calc($minPaddingInline + 5vw);
-
+$dashHeaderHeight: 10vh;
+$dashSideBarWidth: 8vw; // maximum $dashHeaderHeight minimum $dashSideBarWidth
+$dashMobileSideBarHeight: 9vh;
+$dashInlinePadding: $minPaddingInline;
 
 // Transparent variables renaming
 $background-color: $primary-light;

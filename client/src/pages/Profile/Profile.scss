@@ -1,0 +1,77 @@
+@import "@style";
+
+.profile {
+    background-color: $beige-200;
+    border-radius: $windows-radius;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 1rem;
+
+    & label {
+        font-weight: $bold;
+    }
+
+    & input, textarea {
+        padding-inline: 1rem;
+    }
+    & textarea {
+        resize: none;
+        height: 10rem;
+        overflow: auto;
+        overflow-wrap: break-word;
+        width: 100%;
+    }
+
+    &__title, &__names {
+        display: flex;
+    }
+
+    &__title {
+        align-items: center;
+        gap: 1rem;
+        & h2 {
+            font-size: $xxl;
+        }
+        & img {
+            max-height: 11vh;
+        }
+    }
+
+    &__names {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 1rem;
+        & .textInput {
+            width: 50%;
+        }
+    }
+
+    &__button {
+        margin-block: 3rem;
+        width: fit-content;
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .profile {
+        &__title {
+            justify-content: space-between;
+            & h2 {
+                width: 70%;
+                font-size: $xl;
+            }
+        }
+        &__names {
+            flex-direction: column;
+            & .textInput {
+                width: 100%;
+            }
+        }
+        &__button {
+            width: 100%;
+        }
+    }
+}

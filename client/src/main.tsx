@@ -10,22 +10,25 @@ import { ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
 import client from "./graphQL/apolloClient.ts";
-import "./styles/global.scss";
 
-import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
-import Homepage from "@/pages/Homepage/Homepage.tsx";
-import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
-import Contact from "@/pages/WelcomePage/Contact.tsx";
-import Login from "@/pages/Login/Login.tsx";
-import Registration from "./pages/Registration/Registration.tsx";
-import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import ResetLink from "./pages/Login/ResetLink.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
+// All layouts in alphabetical order
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
-import ErrorPage from "./pages/Handling/ErrorPage.tsx";
-import List from "./pages/Trainer/Customers/List/List.tsx";
-import Id from "./pages/Trainer/Customers/:id/Id.tsx";
+import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
+
+// All pages in alphabetical order
+import Contact from "@/pages/WelcomePage/Contact.tsx";
+import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
+import ErrorPage from "@/pages/Handling/ErrorPage.tsx";
+import Homepage from "@/pages/Homepage/Homepage.tsx";
+import Id from "@/pages/Trainer/Customers/:id/Id.tsx";
+import List from "@/pages/Trainer/Customers/List/List.tsx";
+import Login from "@/pages/Login/Login.tsx";
+import NewPassword from "@/pages/Login/NewPassword.tsx";
+import Profile from "@/pages/Profile/Profile.tsx";
+import Registration from "@/pages/Registration/Registration.tsx";
+import ResetPassword from "@/pages/Login/ResetPassword.tsx";
+import ResetLink from "@/pages/Login/ResetLink.tsx";
+import Services from "@/pages/WelcomePage/Services.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -182,7 +185,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>Mon profil</p>,
+								element: <Profile />,
 							},
 							{
 								path: "personal-information",
