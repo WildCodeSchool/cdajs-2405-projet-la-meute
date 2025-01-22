@@ -91,7 +91,12 @@ async function createData() {
 			savedTrainer,
 			savedService,
 			new Date("2024-12-20"),
-			"Parc Canin de Lyon",
+			"Formation Super spéciale du jour",
+			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
+			{
+				latitude: 45.7771392,
+				longitude: 4.8560401,
+			},
 			5,
 		);
 		const savedEvent = await eventRepository.save(event);
