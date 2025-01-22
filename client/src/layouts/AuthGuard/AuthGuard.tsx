@@ -25,7 +25,10 @@ const AuthGuard = ({ allowedRoles, children }: AuthGuardProps) => {
 
 		if (isLoading) return;
 
-		if (!isAuthenticated || (allowedRoles && !allowedRoles.includes(role))) {
+		if (
+			!isAuthenticated ||
+			(allowedRoles && (!role || !allowedRoles.includes(role)))
+		) {
 			navigate("/login");
 		}
 	}, [isAuthenticated, isLoading, navigate, role, allowedRoles]);
