@@ -67,8 +67,13 @@ function NewPassword() {
 					Ajoutez un nouveau mot de passe puis valider votre nouveau mot de
 					passe.
 				</p>
-				<TextInput type="password" ref={passwordRef} required />
-				<TextInput type="password" ref={confirmPasswordRef} required />
+				<TextInput color="dark" type="password" ref={passwordRef} required />
+				<TextInput
+					color="dark"
+					type="password"
+					ref={confirmPasswordRef}
+					required
+				/>
 				{message && <p className="message">{message}</p>}
 				<Button type="submit" href="/login">
 					{loading

@@ -1,13 +1,16 @@
 import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
+import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
 
 export default function DashHeader() {
+	const { user } = useUser();
+
 	const navigate = useNavigate();
 	return (
 		<>
 			<header className="dashHeader">
-				<h1 className="hidden__mobile">Header</h1>
+				<h1 className="hidden__mobile">Bonjour {user?.firstname} !</h1>
 				<button
 					type="button"
 					className="dashHeader__back hidden__desktop"

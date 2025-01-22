@@ -49,7 +49,7 @@ function ResetPassword() {
 					Saisissez votre adresse e-mail et nous vous enverrons des instructions
 					pour réinitialiser votre mot de passe.
 				</p>
-				<TextInput type="email" ref={emailRef} required />
+				<TextInput color="dark" type="email" ref={emailRef} required />
 				<Button type="submit">
 					{loading ? "Envoi en cours..." : "Envoyer à cette adresse email"}
 				</Button>

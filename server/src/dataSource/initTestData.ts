@@ -58,6 +58,7 @@ async function createData() {
 		trainer.phone_number = "0987654321";
 		trainer.city = "Lyon";
 		trainer.postal_code = "69000";
+		trainer.description = "Je suis un très bon éducateur et je sens bon.";
 
 		const savedTrainer = await trainerRepository.save(trainer);
 

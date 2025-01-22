@@ -10,6 +10,7 @@ import { ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
 import client from "./graphQL/apolloClient.ts";
+import AuthGuard from "./layouts/AuthGuard/AuthGuard.tsx";
 
 // All layouts in alphabetical order
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
@@ -74,10 +75,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "dashboard",
-				element: <DashLayout />,
+				element: (
+					<AuthGuard allowedRoles={["owner", "trainer"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
 				children: [
 					{
 						path: "owner",
+						element: <AuthGuard allowedRoles={["owner"]} />,
 						children: [
 							{
 								index: true,
@@ -121,6 +127,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "trainer",
+						element: <AuthGuard allowedRoles={["trainer"]} />,
 						children: [
 							{
 								index: true,

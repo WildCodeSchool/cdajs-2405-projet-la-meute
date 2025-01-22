@@ -7,4 +7,5 @@ export interface User {
 	phone_number: string;
 	city: string;
 	postal_code: string;
+	description?: string;
 }

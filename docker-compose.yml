@@ -11,6 +11,7 @@ services:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+      - VITE_NODE_ENV=${VITE_NODE_ENV}
 
   server:
     build: ./server

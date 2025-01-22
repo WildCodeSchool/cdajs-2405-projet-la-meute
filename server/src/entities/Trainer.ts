@@ -23,6 +23,10 @@ export class Trainer extends User {
 	@Field()
 	company_name: string;
 
+	@Column()
+	@Field()
+	description: string;
+
 	@OneToMany(
 		() => Service,
 		(service) => service.trainer,
@@ -44,5 +48,6 @@ export class Trainer extends User {
 		this.role = "trainer";
 		this.siret = siret;
 		this.company_name = company_name;
+		this.description = "";
 	}
 }

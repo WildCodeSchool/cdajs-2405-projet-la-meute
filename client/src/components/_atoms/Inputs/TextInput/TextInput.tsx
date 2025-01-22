@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle, useEffect } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
@@ -77,9 +77,13 @@ const TextInput = React.forwardRef<
 
 	// Dynamic ref based on inputType
 	const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-	useImperativeHandle(ref, () => inputRef.current!);
+	useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
 	const inputId = `textInput-${type}`; // Unique ID for the input
+
+	useEffect(() => {
+		console.log("ref", ref?.current?.value);
+	}, []);
 
 	return (
 		<div className={`textInput textInput__${color}`}>

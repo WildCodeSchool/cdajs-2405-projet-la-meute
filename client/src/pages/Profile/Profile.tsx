@@ -2,8 +2,27 @@ import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeade
 import "./Profile.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import { useUser } from "@/hooks/useUser";
+import { useEffect, useRef } from "react";
 
 function Profile() {
+	const { user } = useUser();
+
+	const firstnameRef = useRef<HTMLInputElement>(null);
+	const lastnameRef = useRef<HTMLInputElement>(null);
+	const cityRef = useRef<HTMLInputElement>(null);
+	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+	useEffect(() => {
+		if (user) {
+			console.log("user.description in profile", user.description);
+			firstnameRef.current.value = user.firstname || "";
+			lastnameRef.current.value = user.lastname || "";
+			cityRef.current.value = user.city || "";
+			descriptionRef.current.value = user.description || "";
+		}
+	}, [user]);
+
 	return (
 		<>
 			<PlanningHeader title="Mon profil" button={false} />
@@ -12,17 +31,24 @@ function Profile() {
 					<a className="dashHeader__avatar" href="/dashboard/my-profile">
 						<img src="https://placehold.co/400" alt="avatar de l'utilisateur" />
 					</a>
-					<h2>firstname lastname</h2>
+					<h2>
+						{user?.firstname} {user?.lastname}
+					</h2>
 				</span>
 				<span className="profile__names">
-					<TextInput type="firstname" />
-					<TextInput type="lastname" />
+					<TextInput color="light" type="firstname" ref={firstnameRef} />
+					<TextInput color="light" type="lastname" ref={lastnameRef} />
 				</span>
-				<TextInput type="city" />
+				<TextInput color="light" type="city" ref={cityRef} />
 				<p>
 					Indiquez une adresse générale pour donner un périmètre à vos clients.
 				</p>
-				<TextInput type="description" inputType="textarea" />
+				<TextInput
+					color="light"
+					type="description"
+					inputType="textarea"
+					ref={descriptionRef}
+				/>
 				<Button className="profile__button" type="btn-dark">
 					Sauvegarder le profil
 				</Button>
