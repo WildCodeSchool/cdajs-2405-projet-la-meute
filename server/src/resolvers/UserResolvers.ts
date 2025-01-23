@@ -56,7 +56,7 @@ export class UserResolvers {
 		return this.findUserByEmail(email);
 	}
 
-	//Get user with token
+	// Get user with token
 	@Query(() => Trainer || Owner || null)
 	async ME(@Arg("token") token: string): Promise<Trainer | Owner | null> {
 		if (!token) {
@@ -257,5 +257,56 @@ export class UserResolvers {
 				message: "Une erreur est survenue lors du changement de mot de passe",
 			};
 		}
+	}
+
+	// Update User
+	@Mutation(() => Trainer || Owner)
+	async updateUser(
+		@Arg("data") data: Trainer | Owner,
+	): Promise<Trainer | Owner> {
+		const {
+			id,
+			firstname,
+			lastname,
+			email,
+			phone_number,
+			city,
+			postal_code,
+			avatar,
+		} = data;
+		const role = data.role === "owner" ? Owner : Trainer;
+		const user: Trainer | Owner | null = await dataSource.manager.findOne(
+			role,
+			{
+				where: { id },
+			},
+		);
+
+		if (role === Owner && user) {
+			if (firstname !== user.firstname) user.firstname = firstname;
+			if (lastname !== user.lastname) user.lastname = lastname;
+			if (email !== user.email) user.email = email;
+			if (phone_number !== user.phone_number) user.phone_number = phone_number;
+			if (city !== user.city) user.city = city;
+			if (postal_code !== user.postal_code) user.postal_code = postal_code;
+			if (avatar !== user.avatar) user.avatar = avatar;
+		}
+
+		if (role === Trainer && user) {
+			const { description, siret } = data;
+			if (firstname !== user.firstname) user.firstname = firstname;
+			if (lastname !== user.lastname) user.lastname = lastname;
+			if (email !== user.email) user.email = email;
+			if (phone_number !== user.phone_number) user.phone_number = phone_number;
+			if (city !== user.city) user.city = city;
+			if (postal_code !== user.postal_code) user.postal_code = postal_code;
+			if (avatar !== user.avatar) user.avatar = avatar;
+			if (description !== user.description) user.description = description;
+			if (siret !== user.siret) user.siret = siret;
+		}
+
+		await dataSource.manager.save(user);
+
+		return user;
 	}
 }
