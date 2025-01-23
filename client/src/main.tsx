@@ -31,6 +31,8 @@ import ResetPassword from "@/pages/Login/ResetPassword.tsx";
 import ResetLink from "@/pages/Login/ResetLink.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 
+import TestME from "./components/TestME.tsx";
+
 const router = createBrowserRouter([
 	{
 		errorElement: <ErrorPage />,
@@ -196,7 +198,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: "personal-information",
-								element: <p>Informations personnelles</p>,
+								element: <TestME />,
 							},
 							{
 								path: "preferences",
