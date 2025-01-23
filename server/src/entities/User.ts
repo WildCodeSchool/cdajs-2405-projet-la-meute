@@ -65,6 +65,13 @@ export abstract class User {
 
 	@Column({
 		type: "varchar",
+		length: 255,
+	})
+	@Field()
+	avatar: string;
+
+	@Column({
+		type: "varchar",
 		length: 10,
 	})
 	@Field()
@@ -79,6 +86,7 @@ export abstract class User {
 		city = "",
 		postal_code = "",
 		role = "",
+		avatar = "https://placehold.co/400",
 	) {
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -88,5 +96,6 @@ export abstract class User {
 		this.city = city;
 		this.postal_code = postal_code;
 		this.role = role;
+		this.avatar = avatar;
 	}
 }

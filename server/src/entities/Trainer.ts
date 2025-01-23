@@ -1,5 +1,5 @@
-import { Field, ObjectType, ID } from "type-graphql";
-import { Column, Entity, OneToMany, ChildEntity, PrimaryColumn } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { Column, Entity, OneToMany } from "typeorm";
 import { User } from "./User";
 import { Service } from "./Service";
 import { Event } from "./Event";
@@ -34,13 +34,6 @@ export class Trainer extends User {
 	)
 	@Field(() => [Service], { nullable: true })
 	service?: Service[];
-
-	@Column({
-		type: "varchar",
-		length: 255,
-	})
-	@Field()
-	company_name: string;
 
 	@OneToMany(
 		() => Event,

@@ -38,10 +38,12 @@ export const ME = gql`
             phone_number
             city
             postal_code
+            avatar
             role
             ... @include(if: $isTrainer) {
                 siret
                 company_name
+                description
             }
         }
     }

@@ -4,9 +4,11 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
 	const { user } = useUser();
+	const navigate = useNavigate();
 
 	const firstnameRef = useRef<HTMLInputElement>(null);
 	const lastnameRef = useRef<HTMLInputElement>(null);
@@ -14,14 +16,21 @@ function Profile() {
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		if (user) {
-			console.log("user.description in profile", user.description);
+		if (
+			user &&
+			firstnameRef.current &&
+			lastnameRef.current &&
+			cityRef.current &&
+			descriptionRef.current
+		) {
 			firstnameRef.current.value = user.firstname || "";
 			lastnameRef.current.value = user.lastname || "";
 			cityRef.current.value = user.city || "";
 			descriptionRef.current.value = user.description || "";
+		} else {
+			navigate("/login");
 		}
-	}, [user]);
+	}, [user, navigate]);
 
 	return (
 		<>
@@ -29,7 +38,7 @@ function Profile() {
 			<form className="profile">
 				<span className="profile__title">
 					<a className="dashHeader__avatar" href="/dashboard/my-profile">
-						<img src="https://placehold.co/400" alt="avatar de l'utilisateur" />
+						<img src={user?.avatar} alt="avatar de l'utilisateur" />
 					</a>
 					<h2>
 						{user?.firstname} {user?.lastname}

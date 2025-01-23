@@ -81,10 +81,6 @@ const TextInput = React.forwardRef<
 
 	const inputId = `textInput-${type}`; // Unique ID for the input
 
-	useEffect(() => {
-		console.log("ref", ref?.current?.value);
-	}, []);
-
 	return (
 		<div className={`textInput textInput__${color}`}>
 			<label htmlFor={inputId}>
