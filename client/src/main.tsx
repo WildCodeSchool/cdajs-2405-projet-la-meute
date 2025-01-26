@@ -24,6 +24,7 @@ import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+import TestFileUpload from "./components/TestFileUpload.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -197,6 +198,10 @@ const router = createBrowserRouter([
 			{
 				path: "designsystem",
 				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestFileUpload />,
 			},
 		],
 	},
