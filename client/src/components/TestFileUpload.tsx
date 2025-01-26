@@ -25,7 +25,7 @@ function TestFileUpload() {
 					dogId: 1, // Static id for testing
 				},
 			});
-			console.info("Uploaded Photo URL:", data.uploadDogProfilePicture);
+			console.info("Uploaded Photo URL:", data.uploadDogProfilePicture); // you got an URL , use http://localhost:3200 + URL ans see the magic
 		} catch (error) {
 			console.error("Error uploading file:", error);
 		}
