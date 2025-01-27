@@ -1,5 +1,14 @@
 @import "@style";
 
+$btn-types: (
+    "submit",
+    "dark",
+    "light",
+    "invite",
+    "role-select-left",
+    "role-select-right"
+);
+
 .button {
     all: inherit;
     min-height: $btn-height;
@@ -14,6 +23,13 @@
     text-align: center;
     cursor: pointer;
     border: none;
+    display: inline-block;
+
+    @each $btn-type in $btn-types {
+        &.btn-#{$btn-type} {
+            color: $font-light;
+        }
+    }
 
     &.btn-submit {
         $background-color: $blue-200;
@@ -24,8 +40,17 @@
         }
     }
 
-    &.btn-deny {
+    &.btn-dark {
         $background-color: $blue-500;
+        background-color: $background-color;
+
+        &:hover {
+            background-color: lighten($background-color, 10%);
+        }
+    }
+
+    &.btn-light {
+        $background-color: $blue-200;
         background-color: $background-color;
 
         &:hover {
@@ -42,18 +67,9 @@
         }
     }
 
-    &.btn-default {
-        $background-color: $blue-200;
-
-        &:hover {
-            background-color: lighten($background-color, 10%);
-        }
-    }
-
     &.btn-role-select-left {
         $background-color: $green-400;
         background-color: $background-color;
-        color: $primary-light;
 
         &:hover {
             background-color: $green-300;
@@ -63,7 +79,6 @@
     &.btn-role-select-right {
         $background-color: $orange-500;
         background-color: $background-color;
-        color: $primary-light;
 
         &:hover {
             background-color: $orange-400;
