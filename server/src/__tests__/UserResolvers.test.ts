@@ -1,5 +1,6 @@
 import type { Owner } from "../entities/Owner";
 import type { Trainer } from "../entities/Trainer";
+import type { UpdateUserInput } from "../resolvers/inputTypes";
 import { UserResolvers } from "../resolvers/UserResolvers";
 import { MockTypeORM } from "mock-typeorm";
 
@@ -30,6 +31,7 @@ describe("UserResolvers", () => {
 			city: "Paris",
 			postal_code: "75000",
 			role: "owner",
+			avatar: "https://placehold.co/400",
 			dogs: [],
 		},
 	];
@@ -47,6 +49,8 @@ describe("UserResolvers", () => {
 			role: "trainer",
 			siret: "12345678901234",
 			company_name: "educ de Lyon",
+			description: "Lorem ipsum dolor sit amet",
+			avatar: "https://placehold.co/400",
 			service: [],
 			event: [],
 		},
@@ -82,6 +86,49 @@ describe("UserResolvers", () => {
 			await expect(
 				userResolvers.login("", "john.doe@example.com"),
 			).rejects.toThrow("Password and email are required");
+		});
+	});
+
+	// FIXME: test works when login test is commented, not when it's there.
+	describe("updateUser", () => {
+		beforeEach(() => {
+			const owners: Owner[] = [
+				{
+					id: 1,
+					lastname: "Doe",
+					firstname: "John",
+					email: "john.doe@example.com",
+					password_hashed: "hashedpassword123",
+					phone_number: "123456789",
+					city: "Paris",
+					postal_code: "75000",
+					role: "owner",
+					avatar: "https://placehold.co/400",
+					dogs: [],
+				},
+			];
+			typeorm.onMock("Owner").toReturn(owners[0], "findOne");
+		});
+
+		it("should update a user", async () => {
+			const data = {
+				id: 1,
+				lastname: "Doe",
+				firstname: "JohnChangement",
+				email: "john@example.com",
+				phone_number: "0123456789",
+				city: "Paris",
+				postal_code: "75000",
+				avatar: "https://placehold.co/400",
+				role: "owner",
+			};
+			const updatedUser = await userResolvers.updateUser(
+				data as UpdateUserInput,
+			);
+			expect(updatedUser).not.toBeNull();
+			expect(updatedUser.lastname).toEqual("Doe");
+			expect(updatedUser.firstname).toEqual("JohnChangement");
+			expect(updatedUser).not.toEqual(owners[0]);
 		});
 	});
 });
