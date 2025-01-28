@@ -27,7 +27,8 @@ function Registration() {
 									🙋🏻‍♂️&nbsp;Éducateur · rice
 								</h3>
 								<Button
-									type="role-select-left"
+									type="button"
+									style="role-select-left"
 									onClick={() => setRole("trainer")}
 								>
 									Je suis éducateur·trice canin·e
@@ -38,7 +39,8 @@ function Registration() {
 									🐶&nbsp;Propriétaire
 								</h3>
 								<Button
-									type="role-select-right"
+									type="button"
+									style="role-select-right"
 									onClick={() => setRole("owner")}
 								>
 									Je suis un·e propriétaire de chien
@@ -69,11 +71,13 @@ function Registration() {
 					<TextInput color="dark" type="postal_code" required />
 					<TextInput color="dark" type="telephone" />
 					<input type="hidden" name="role" value={role} />
-					<Button type="btn-dark" href="/registration">
+					<Button type="button" style="btn-dark" href="/registration">
 						Retour
 					</Button>
 
-					<Button type="submit">S'inscrire</Button>
+					<Button style="submit" type="submit">
+						S'inscrire
+					</Button>
 					<p>
 						<i>Les champs comportants une * sont obligatoires.</i>
 					</p>

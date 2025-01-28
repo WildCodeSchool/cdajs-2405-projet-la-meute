@@ -53,23 +53,29 @@ export default function DesignSystem() {
 					<h2>Buttons</h2>
 					<div>
 						<div>
-							<Button type="btn-light" href="/">
+							<Button type="button" style="btn-light" href="/">
 								Link light
 							</Button>
-							<Button type="btn-light">Button light</Button>
+							<Button type="button" style="btn-light">
+								Button light
+							</Button>
 						</div>
 						<div>
-							<Button type="btn-dark" href="/">
+							<Button type="button" style="btn-dark" href="/">
 								Link dark
 							</Button>
-							<Button type="btn-dark">Button dark</Button>
+							<Button type="button" style="btn-dark">
+								Button dark
+							</Button>
 						</div>
 						<div>
-							<Button type="invite" href="/" />
-							<Button type="invite" />
+							<Button type="button" style="invite" href="/" />
+							<Button type="button" style="invite" />
 						</div>
 						<div>
-							<Button type="button">Actual button</Button>
+							<Button type="button" style="button">
+								Actual button
+							</Button>
 						</div>
 
 						<div>
@@ -96,10 +102,10 @@ export default function DesignSystem() {
 					<Form title="Connectez-vous ici">
 						<TextInput type="email" />
 						<TextInput type="password" />
-						<Button type="btn-dark" href="">
+						<Button type="submit" style="btn-dark" href="">
 							Annuler
 						</Button>
-						<Button type="submit" href="">
+						<Button type="submit" style="btn-light" href="">
 							Me connecter
 						</Button>
 						<p>

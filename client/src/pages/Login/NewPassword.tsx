@@ -75,7 +75,7 @@ function NewPassword() {
 					required
 				/>
 				{message && <p className="message">{message}</p>}
-				<Button type="submit" href="/login">
+				<Button style="submit" type="submit" href="/login">
 					{loading
 						? "Validation en cours..."
 						: "Valider mon nouveau mot de passe"}

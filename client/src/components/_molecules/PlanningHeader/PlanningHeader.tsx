@@ -9,7 +9,7 @@ export default function PlanningHeader({
 		<>
 			<header className="planningHeader">
 				<h1 className="planningHeader__title">{title}</h1>
-				{button && <Button type="invite" />}
+				{button && <Button style="invite" type="button" />}
 			</header>
 		</>
 	);

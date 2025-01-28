@@ -93,7 +93,7 @@ function Profile() {
 					inputType="textarea"
 					ref={descriptionRef}
 				/>
-				<Button className="profile__button" type="btn-dark">
+				<Button className="profile__button" type="button" style="btn-dark">
 					Sauvegarder le profil
 				</Button>
 			</form>
