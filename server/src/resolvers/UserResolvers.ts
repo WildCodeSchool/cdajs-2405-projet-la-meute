@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { UpdateUserInput } from "./inputTypes";
 
 @Resolver()
 export class UserResolvers {
@@ -261,8 +262,17 @@ export class UserResolvers {
 
 	// Update User
 	@Mutation(() => Trainer || Owner)
+	/**
+	 * Updates a user.
+	 * @param data - The data to update the user.
+	 * First, data is destructured.
+	 * Then, we get the user from the database (from id).
+	 * If the database user's informations are different from data, the user is updated.
+	 * @returns The updated user.
+	 * @throws {Error} If the user is not found.
+	 */
 	async updateUser(
-		@Arg("data") data: Trainer | Owner,
+		@Arg("data", () => UpdateUserInput) data: UpdateUserInput,
 	): Promise<Trainer | Owner> {
 		const {
 			id,
@@ -273,36 +283,32 @@ export class UserResolvers {
 			city,
 			postal_code,
 			avatar,
-		} = data;
-		const role = data.role === "owner" ? Owner : Trainer;
-		const user: Trainer | Owner | null = await dataSource.manager.findOne(
 			role,
-			{
-				where: { id },
-			},
-		);
+		} = data;
 
-		if (role === Owner && user) {
-			if (firstname !== user.firstname) user.firstname = firstname;
-			if (lastname !== user.lastname) user.lastname = lastname;
-			if (email !== user.email) user.email = email;
-			if (phone_number !== user.phone_number) user.phone_number = phone_number;
-			if (city !== user.city) user.city = city;
-			if (postal_code !== user.postal_code) user.postal_code = postal_code;
-			if (avatar !== user.avatar) user.avatar = avatar;
+		const userRole = role === "owner" ? Owner : Trainer;
+
+		const user = await dataSource.manager.findOne(userRole, { where: { id } });
+
+		if (!user) {
+			throw new Error("User not found");
 		}
 
-		if (role === Trainer && user) {
-			const { description, siret } = data;
-			if (firstname !== user.firstname) user.firstname = firstname;
-			if (lastname !== user.lastname) user.lastname = lastname;
-			if (email !== user.email) user.email = email;
-			if (phone_number !== user.phone_number) user.phone_number = phone_number;
-			if (city !== user.city) user.city = city;
-			if (postal_code !== user.postal_code) user.postal_code = postal_code;
-			if (avatar !== user.avatar) user.avatar = avatar;
+		// Mise à jour des champs communs
+		if (firstname !== user.firstname) user.firstname = firstname;
+		if (lastname !== user.lastname) user.lastname = lastname;
+		if (email !== user.email) user.email = email;
+		if (phone_number !== user.phone_number) user.phone_number = phone_number;
+		if (city !== user.city) user.city = city;
+		if (postal_code !== user.postal_code) user.postal_code = postal_code;
+		if (avatar !== user.avatar) user.avatar = avatar;
+
+		// Mise à jour des champs spécifiques pour Trainer
+		if (user instanceof Trainer) {
+			const { description, siret, company_name } = data as Trainer;
 			if (description !== user.description) user.description = description;
 			if (siret !== user.siret) user.siret = siret;
+			if (company_name !== user.company_name) user.company_name = company_name;
 		}
 
 		await dataSource.manager.save(user);
