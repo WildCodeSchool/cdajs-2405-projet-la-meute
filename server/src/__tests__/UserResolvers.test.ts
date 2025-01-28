@@ -89,7 +89,10 @@ describe("UserResolvers", () => {
 		});
 	});
 
-	// FIXME: test works when login test is commented, not when it's there.
+	/**
+	 * FIXME: updateUser test works when login test is commented, not when it's there.
+	 * Not sure mocking the save method is very useful
+	 */
 	describe("updateUser", () => {
 		beforeEach(() => {
 			const owners: Owner[] = [
@@ -108,6 +111,10 @@ describe("UserResolvers", () => {
 				},
 			];
 			typeorm.onMock("Owner").toReturn(owners[0], "findOne");
+			typeorm.onMock("Owner").toReturn(
+				jest.fn((user) => user),
+				"save",
+			);
 		});
 
 		it("should update a user", async () => {
