@@ -5,26 +5,26 @@ export class UpdateUserInput {
 	@Field()
 	id!: number;
 
-	@Field()
-	firstname!: string;
+	@Field({ nullable: true })
+	firstname?: string;
 
-	@Field()
-	lastname!: string;
+	@Field({ nullable: true })
+	lastname?: string;
 
-	@Field()
-	email!: string;
+	@Field({ nullable: true })
+	email?: string;
 
 	@Field({ nullable: true })
 	phone_number?: string;
 
 	@Field({ nullable: true })
-	city!: string;
+	city?: string;
 
 	@Field({ nullable: true })
-	postal_code!: string;
+	postal_code?: string;
 
 	@Field({ nullable: true })
-	avatar!: string;
+	avatar?: string;
 
 	@Field()
 	role!: "trainer" | "owner";

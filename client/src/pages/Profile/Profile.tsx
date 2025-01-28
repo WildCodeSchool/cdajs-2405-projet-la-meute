@@ -5,6 +5,8 @@ import Button from "@/components/_atoms/Button/Button";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { UPDATE_USER } from "@/graphQL/mutations/user";
 
 function Profile() {
 	const { user } = useUser();
@@ -14,6 +16,8 @@ function Profile() {
 	const lastnameRef = useRef<HTMLInputElement>(null);
 	const cityRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+	const [updateUserMutation] = useMutation(UPDATE_USER); // Hook pour la mutation
 
 	useEffect(() => {
 		if (
@@ -32,10 +36,41 @@ function Profile() {
 		}
 	}, [user, navigate]);
 
+	const handleUpdateFormSubmit = async (
+		e: React.FormEvent<HTMLFormElement>,
+	) => {
+		console.log("submitted i guess");
+		e.preventDefault();
+
+		const updatedUser = {
+			id: Number(user?.id),
+			role: user?.role,
+			firstname: firstnameRef.current?.value,
+			lastname: lastnameRef.current?.value,
+			city: cityRef.current?.value,
+			description: descriptionRef.current?.value,
+		};
+
+		try {
+			const response = await updateUserMutation({
+				variables: { updatedUser },
+			});
+
+			if (response.data.updateUser.message === "User updated successfully") {
+				alert("Profil sauvegardé avec succès !");
+			} else {
+				alert("Erreur lors de la mise à jour du profil.");
+			}
+		} catch (error) {
+			console.error("Erreur lors de la sauvegarde :", error);
+			alert("Une erreur est survenue lors de la sauvegarde.");
+		}
+	};
+
 	return (
 		<>
 			<PlanningHeader title="Mon profil" button={false} />
-			<form className="profile">
+			<form className="profile" onSubmit={handleUpdateFormSubmit}>
 				<span className="profile__title">
 					<a className="dashHeader__avatar" href="/dashboard/my-profile">
 						<img src={user?.avatar} alt="avatar de l'utilisateur" />

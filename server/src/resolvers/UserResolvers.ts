@@ -11,6 +11,7 @@ import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { UpdateUserInput } from "./inputTypes";
+import { MessageAndUserResponse } from "./responseType";
 
 @Resolver()
 export class UserResolvers {
@@ -261,58 +262,48 @@ export class UserResolvers {
 	}
 
 	// Update User
-	@Mutation(() => Trainer || Owner)
+	@Mutation(() => MessageAndUserResponse)
 	/**
 	 * Updates a user.
-	 * @param data - The data to update the user.
-	 * First, data is destructured.
-	 * Then, we get the user from the database (from id).
-	 * If the database user's informations are different from data, the user is updated.
+	 * @param updatedUser - Partial data to update the user.
+	 * Extract id, role and the rest of the fields to update (as fieldsToUpdate).
+	 * Updates only the provided fields in the database.
 	 * @returns The updated user.
 	 * @throws {Error} If the user is not found.
 	 */
 	async updateUser(
-		@Arg("data", () => UpdateUserInput) data: UpdateUserInput,
-	): Promise<Trainer | Owner> {
-		const {
-			id,
-			firstname,
-			lastname,
-			email,
-			phone_number,
-			city,
-			postal_code,
-			avatar,
-			role,
-		} = data;
-
+		@Arg("updatedUser", () => UpdateUserInput) updatedUser: UpdateUserInput,
+	): Promise<MessageAndUserResponse> {
+		const { id, role, ...fieldsToUpdate } = updatedUser;
 		const userRole = role === "owner" ? Owner : Trainer;
 
+		// Fetch user from database
 		const user = await dataSource.manager.findOne(userRole, { where: { id } });
 
 		if (!user) {
 			throw new Error("User not found");
 		}
 
-		// Mise à jour des champs communs
-		if (firstname !== user.firstname) user.firstname = firstname;
-		if (lastname !== user.lastname) user.lastname = lastname;
-		if (email !== user.email) user.email = email;
-		if (phone_number !== user.phone_number) user.phone_number = phone_number;
-		if (city !== user.city) user.city = city;
-		if (postal_code !== user.postal_code) user.postal_code = postal_code;
-		if (avatar !== user.avatar) user.avatar = avatar;
-
-		// Mise à jour des champs spécifiques pour Trainer
-		if (user instanceof Trainer) {
-			const { description, siret, company_name } = data as Trainer;
-			if (description !== user.description) user.description = description;
-			if (siret !== user.siret) user.siret = siret;
-			if (company_name !== user.company_name) user.company_name = company_name;
+		// Take each key of fieldsToUpdate and update the user if the value is different
+		for (const key of Object.keys(
+			fieldsToUpdate,
+		) as (keyof typeof fieldsToUpdate)[]) {
+			if (
+				fieldsToUpdate[key] !== undefined &&
+				user[key as keyof typeof user] !== fieldsToUpdate[key]
+			) {
+				(user[key as keyof typeof user] as any) = fieldsToUpdate[key];
+			}
 		}
 
+		// Sauvegarde l'utilisateur mis à jour
 		await dataSource.manager.save(user);
 
-		return user;
+		// TODO: if there's no change, message = "There was no field to update"
+
+		return {
+			message: "User updated successfully",
+			user,
+		};
 	}
 }

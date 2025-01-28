@@ -1,6 +1,6 @@
 import "./Button.scss";
 
-type ButtonTypes =
+type ButtonStyles =
 	| "submit"
 	| "btn-dark"
 	| "btn-light"
@@ -9,43 +9,45 @@ type ButtonTypes =
 	| "role-select-left"
 	| "role-select-right";
 /** To add a new type:
- * 1. Add the type in ButtonTypes up above
+ * 1. Add the type in ButtonStyles up above
  * 2. Add the type in Button.scss (list $btn-types)
  * 3. Add the type in buttonClassName in Button.tsx
  * The new className must start with btn-
  */
 
 export default function Button({
+	style,
 	type,
 	children,
 	href,
 	className,
 	onClick,
 }: {
-	type: ButtonTypes;
+	style: ButtonStyles;
+	type?: "submit" | "button" | "reset" | undefined;
 	children?: string;
 	href?: string;
 	className?: string;
 	onClick?: () => void;
 }) {
-	const buttonType = type === "submit" ? "submit" : "button";
+	const buttonType = style === "submit" ? "submit" : "button";
 	const buttonClassName =
-		type === "submit"
+		style === "submit"
 			? "btn-submit"
-			: type === "btn-dark"
+			: style === "btn-dark"
 				? "btn-dark"
-				: type === "invite"
+				: style === "invite"
 					? "btn-invite"
-					: type === "role-select-left"
+					: style === "role-select-left"
 						? "btn-role-select-left"
-						: type === "role-select-right"
+						: style === "role-select-right"
 							? "btn-role-select-right"
 							: "btn-light";
 
 	if (href) {
 		return (
 			<a href={href} className={`button ${buttonClassName}`} onClick={onClick}>
-				{type === "invite" && !children
+				{style === "invite" && !children
 					? "+ Inviter un client à s'inscrire"
 					: children}
 			</a>
@@ -54,13 +56,15 @@ export default function Button({
 
 	return (
 		<button
-			type={buttonType}
+			type={type || buttonType}
 			className={`button ${buttonClassName} ${className}`}
 			onClick={onClick}
 		>
-			{type === "invite" && !children
+			{style === "invite" && !children
 				? "+ Inviter un client à s'inscrire"
 				: children}
 		</button>
 	);
 }
+
+// TODO: repenser les boutons pour que le formulaires se soumette
