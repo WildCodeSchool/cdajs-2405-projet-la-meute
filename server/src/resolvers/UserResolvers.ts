@@ -271,11 +271,13 @@ export class UserResolvers {
 	 * @returns The updated user.
 	 * @throws {Error} If the user is not found.
 	 */
-	async updateUser(
+	async UpdateUser(
 		@Arg("updatedUser", () => UpdateUserInput) updatedUser: UpdateUserInput,
 	): Promise<MessageAndUserResponse> {
 		const { id, role, ...fieldsToUpdate } = updatedUser;
 		const userRole = role === "owner" ? Owner : Trainer;
+
+		console.log("👉👉 updatedUser", updatedUser);
 
 		// Fetch user from database
 		const user = await dataSource.manager.findOne(userRole, { where: { id } });
@@ -292,7 +294,7 @@ export class UserResolvers {
 				fieldsToUpdate[key] !== undefined &&
 				user[key as keyof typeof user] !== fieldsToUpdate[key]
 			) {
-				(user[key as keyof typeof user] as any) = fieldsToUpdate[key];
+				(user[key as keyof typeof user] as string) = fieldsToUpdate[key];
 			}
 		}
 

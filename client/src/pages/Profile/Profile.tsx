@@ -17,7 +17,7 @@ function Profile() {
 	const cityRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
-	const [updateUserMutation] = useMutation(UPDATE_USER); // Hook pour la mutation
+	const [updateUserMutation] = useMutation(UPDATE_USER);
 
 	useEffect(() => {
 		if (
@@ -39,7 +39,6 @@ function Profile() {
 	const handleUpdateFormSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
 	) => {
-		console.log("submitted i guess");
 		e.preventDefault();
 
 		const updatedUser = {
@@ -56,7 +55,7 @@ function Profile() {
 				variables: { updatedUser },
 			});
 
-			if (response.data.updateUser.message === "User updated successfully") {
+			if (response.data.UpdateUser.message === "User updated successfully") {
 				alert("Profil sauvegardé avec succès !");
 			} else {
 				alert("Erreur lors de la mise à jour du profil.");
@@ -93,7 +92,7 @@ function Profile() {
 					inputType="textarea"
 					ref={descriptionRef}
 				/>
-				<Button className="profile__button" type="button" style="btn-dark">
+				<Button className="profile__button" type="submit" style="btn-dark">
 					Sauvegarder le profil
 				</Button>
 			</form>
