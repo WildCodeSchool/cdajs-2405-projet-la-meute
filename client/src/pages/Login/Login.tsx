@@ -2,30 +2,37 @@ import "./Login.scss";
 import Form from "@/components/_molecules/Form/Form";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const { login, loading, error } = useAuth();
+
+	const { login, loading } = useAuth();
+	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const onFormSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
+		setErrorMessage("");
 
 		const email = emailRef.current?.value;
 		const password = passwordRef.current?.value;
 
 		if (!email || !password) {
-			// TODO: handle error
+			setErrorMessage("Veuillez remplir tous les champs");
 			return;
 		}
 
-		login(email, password);
+		const result = await login(email, password);
+
+		if (!result.success && result.message) {
+			setErrorMessage(result.message);
+		}
 	};
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<main className="login">
@@ -45,6 +52,7 @@ export default function Login() {
 					Si vous n'êtes pas inscrit, vous pouvez{" "}
 					<a href="/registration">vous inscrire ici</a>.
 				</p>
+				{errorMessage && <p className="login__errorMessage">{errorMessage}</p>}
 			</Form>
 		</main>
 	);
