@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -6,6 +6,10 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const confirmPasswordRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
+
 	return (
 		<main className="registration">
 			{!role ? (
@@ -46,8 +50,14 @@ function Registration() {
 
 					<TextInput type="lastname" required />
 					<TextInput type="firstname" required />
-					<TextInput type="email" required />
-					<TextInput type="password" required />
+					<TextInput type="email" ref={emailRef} required />
+					<TextInput type="password" ref={passwordRef} required />
+					<TextInput
+						type="confirmPassword"
+						ref={confirmPasswordRef}
+						passwordRef={passwordRef}
+						required
+					/>
 					<TextInput type="city" required />
 					<TextInput type="postcode" required />
 					<TextInput type="telephone" />

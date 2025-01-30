@@ -34,8 +34,8 @@ export default function Login() {
 				title="Connectez-vous ici"
 				onSubmit={onFormSubmit}
 			>
-				<TextInput type="email" ref={emailRef} required />
-				<TextInput type="password" ref={passwordRef} required />
+				<TextInput type="email" ref={emailRef} required isLogin />
+				<TextInput type="password" ref={passwordRef} required isLogin />
 				<Button type="submit">Me connecter</Button>
 				<p className="login__bottomLinks">
 					Si vous avez oublié votre mot de passe{" "}

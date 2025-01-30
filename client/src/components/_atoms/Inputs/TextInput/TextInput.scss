@@ -4,9 +4,17 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding-block: 0.5rem;
+    padding-block: 0.6rem;
     color: $blue-100;
     position: relative;
+
+    &.has-error {
+        &::after {
+            content: attr(data-error);
+            color: red;
+            font-size: 0.8rem;
+        }
+    }
 
     input {
         border-radius: 7px;
@@ -17,12 +25,15 @@
         color: $font-light;
         font-weight: $light;
 
+        &.error-border{
+            border-color: red;
+        }
     }
 
     .password-toggle{
         position: absolute;
         right: 1rem;
-        bottom: 1.5rem;
+        top: 3.4rem;
         background: none;
         border: none;
         cursor: pointer;
@@ -30,10 +41,8 @@
         line-height: 0;
         padding: 0;
 
-
-    .eyes{
-        mix-blend-mode: difference;
-    }
-
+        .eyes{
+            mix-blend-mode: difference;
+        }
     }
 }

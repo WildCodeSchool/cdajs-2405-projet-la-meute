@@ -68,7 +68,12 @@ function NewPassword() {
 					passe.
 				</p>
 				<TextInput type="password" ref={passwordRef} required />
-				<TextInput type="password" ref={confirmPasswordRef} required />
+				<TextInput
+					type="confirmPassword"
+					ref={confirmPasswordRef}
+					passwordRef={passwordRef}
+					required
+				/>
 				{message && <p className="message">{message}</p>}
 				<Button type="submit" href="/login">
 					{loading
