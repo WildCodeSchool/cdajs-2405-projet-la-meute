@@ -197,10 +197,6 @@ const router = createBrowserRouter([
 								element: <Profile />,
 							},
 							{
-								path: "personal-information",
-								element: <TestME />,
-							},
-							{
 								path: "preferences",
 								element: <p>Paramètres de l’application</p>,
 							},

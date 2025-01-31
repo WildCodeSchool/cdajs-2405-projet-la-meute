@@ -3,7 +3,7 @@ import "./Profile.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useUser } from "@/hooks/useUser";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
@@ -11,15 +11,24 @@ import { UPDATE_USER } from "@/graphQL/mutations/user";
 function Profile() {
 	const { user } = useUser();
 	const navigate = useNavigate();
+	const [view, setView] = useState<"profile" | "personal" | "preferences">(
+		"profile",
+	);
 
 	const firstnameRef = useRef<HTMLInputElement>(null);
 	const lastnameRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
+	const phoneRef = useRef<HTMLInputElement>(null);
 	const cityRef = useRef<HTMLInputElement>(null);
+	const postalCodeRef = useRef<HTMLInputElement>(null);
+	const siretRef = useRef<HTMLInputElement>(null);
+	const companyNameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	const [updateUserMutation] = useMutation(UPDATE_USER);
 
 	useEffect(() => {
+		console.log(view);
 		if (
 			user &&
 			firstnameRef.current &&
@@ -34,7 +43,7 @@ function Profile() {
 		} else {
 			navigate("/login");
 		}
-	}, [user, navigate]);
+	}, [user, navigate, view]);
 
 	const handleUpdateFormSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
@@ -75,59 +84,76 @@ function Profile() {
 	return (
 		<>
 			<PlanningHeader title="Mon profil" button={false} />
-			<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
-				<span className="profile__form--title">
-					<a className="dashHeader__avatar" href="/dashboard/my-profile">
-						<img src={user?.avatar} alt="avatar de l'utilisateur" />
-					</a>
-					<h2>
-						{user?.firstname} {user?.lastname}
-					</h2>
-				</span>
-				<span className="profile__form--names">
-					<TextInput color="light" type="firstname" ref={firstnameRef} />
-					<TextInput color="light" type="lastname" ref={lastnameRef} />
-				</span>
-				<TextInput color="light" type="city" ref={cityRef} />
-				<p>
-					Indiquez une adresse générale pour donner un périmètre à vos clients.
-				</p>
-				<TextInput
-					color="light"
-					type="description"
-					inputType="textarea"
-					ref={descriptionRef}
-				/>
-				<Button
-					className="profile__form--button"
-					type="submit"
-					style="btn-dark"
-				>
-					Sauvegarder le profil
-				</Button>
-			</form>
-			<nav className="profile__menu">
-				<h3>Menu de mon profil</h3>
-				<Button
-					className="profile__menu--button"
-					style="btn-dark"
-					href="/dashboard/my-profile"
-				>
-					Mon profil éducateur
-				</Button>
-				<Button
-					className="profile__menu--button"
-					style="btn-light"
-					href="/dashboard/my-profile"
-				>
-					Informations personnelles
-				</Button>
-				<p>
-					Modifiez les informations visibles par vos clients dans votre Profil
-					Educateur et les informations non-visibles dans Informations
-					personnelles.
-				</p>
-			</nav>
+
+			<main className="profile">
+				<nav className="profile__nav">
+					<h3>Menu de mon profil</h3>
+					<Button
+						className="profile__nav--button"
+						style="btn-dark"
+						onClick={() => setView("profile")}
+					>
+						Mon profil éducateur
+					</Button>
+					<Button
+						className="profile__nav--button"
+						style="btn-light"
+						onClick={() => setView("personal")}
+					>
+						Informations personnelles
+					</Button>
+					<p>
+						Modifiez les informations visibles par vos clients dans votre Profil
+						Educateur et les informations non-visibles dans Informations
+						personnelles.
+					</p>
+				</nav>
+
+				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
+					<span className="profile__form--title">
+						<a className="dashHeader__avatar" href="/dashboard/my-profile">
+							<img src={user?.avatar} alt="avatar de l'utilisateur" />
+						</a>
+						<h2>
+							{user?.firstname} {user?.lastname}
+						</h2>
+					</span>
+					{view === "profile" && (
+						<>
+							<span className="profile__form--names">
+								<TextInput color="light" type="firstname" ref={firstnameRef} />
+								<TextInput color="light" type="lastname" ref={lastnameRef} />
+							</span>
+							<TextInput color="light" type="city" ref={cityRef} />
+							<p>
+								Indiquez une adresse générale pour donner un périmètre à vos
+								clients.
+							</p>
+							<TextInput
+								color="light"
+								type="description"
+								inputType="textarea"
+								ref={descriptionRef}
+							/>
+						</>
+					)}
+					{view === "personal" && (
+						<>
+							<TextInput color="light" type="email" ref={emailRef} />
+							<TextInput color="light" type="email" ref={phoneRef} />
+							<TextInput color="light" type="email" ref={siretRef} />
+							<TextInput color="light" type="email" ref={companyNameRef} />
+						</>
+					)}
+					<Button
+						className="profile__form--button"
+						type="submit"
+						style="btn-dark"
+					>
+						Sauvegarder le profil
+					</Button>
+				</form>
+			</main>
 		</>
 	);
 }

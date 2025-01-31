@@ -56,7 +56,7 @@ $welcomePageHeaderHeight: 10vh;
     font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
-    border-radius: 5px;
+    border-radius: $atoms-radius;
     letter-spacing: 1px;
 
     &:hover {
@@ -72,7 +72,7 @@ $welcomePageHeaderHeight: 10vh;
     font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
-    border-radius: 5px;
+    border-radius: $atoms-radius;
     letter-spacing: 1px;
     margin-left: $s;
 

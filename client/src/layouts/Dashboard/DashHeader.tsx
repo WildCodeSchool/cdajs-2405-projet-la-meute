@@ -25,7 +25,7 @@ export default function DashHeader() {
 					<Bell className="dashHeader__notification" />
 					<a className="dashHeader__avatar" href="/dashboard/my-profile">
 						<img
-							src={user?.avatar}
+							src={user ? user.avatar : "https://placehold.co/400"}
 							alt="avatar de l'utilisateur"
 							title="Mon profil"
 						/>
