@@ -8,5 +8,5 @@ export class MessageAndUserResponse {
 	message!: string;
 
 	@Field(() => Trainer || Owner)
-	user!: Trainer | Owner;
+	user?: Trainer | Owner;
 }

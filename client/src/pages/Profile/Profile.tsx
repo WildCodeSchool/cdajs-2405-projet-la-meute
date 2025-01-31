@@ -57,6 +57,12 @@ function Profile() {
 
 			if (response.data.UpdateUser.message === "User updated successfully") {
 				alert("Profil sauvegardé avec succès !");
+			} else if (response.data.UpdateUser.message === "User not found") {
+				alert("Utilisateur non trouvé.");
+			} else if (
+				response.data.UpdateUser.message === "There was no field to update"
+			) {
+				alert("Aucun champ à mettre à jour.");
 			} else {
 				alert("Erreur lors de la mise à jour du profil.");
 			}
@@ -69,8 +75,8 @@ function Profile() {
 	return (
 		<>
 			<PlanningHeader title="Mon profil" button={false} />
-			<form className="profile" onSubmit={handleUpdateFormSubmit}>
-				<span className="profile__title">
+			<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
+				<span className="profile__form--title">
 					<a className="dashHeader__avatar" href="/dashboard/my-profile">
 						<img src={user?.avatar} alt="avatar de l'utilisateur" />
 					</a>
@@ -78,7 +84,7 @@ function Profile() {
 						{user?.firstname} {user?.lastname}
 					</h2>
 				</span>
-				<span className="profile__names">
+				<span className="profile__form--names">
 					<TextInput color="light" type="firstname" ref={firstnameRef} />
 					<TextInput color="light" type="lastname" ref={lastnameRef} />
 				</span>
@@ -92,10 +98,36 @@ function Profile() {
 					inputType="textarea"
 					ref={descriptionRef}
 				/>
-				<Button className="profile__button" type="submit" style="btn-dark">
+				<Button
+					className="profile__form--button"
+					type="submit"
+					style="btn-dark"
+				>
 					Sauvegarder le profil
 				</Button>
 			</form>
+			<nav className="profile__menu">
+				<h3>Menu de mon profil</h3>
+				<Button
+					className="profile__menu--button"
+					style="btn-dark"
+					href="/dashboard/my-profile"
+				>
+					Mon profil éducateur
+				</Button>
+				<Button
+					className="profile__menu--button"
+					style="btn-light"
+					href="/dashboard/my-profile"
+				>
+					Informations personnelles
+				</Button>
+				<p>
+					Modifiez les informations visibles par vos clients dans votre Profil
+					Educateur et les informations non-visibles dans Informations
+					personnelles.
+				</p>
+			</nav>
 		</>
 	);
 }

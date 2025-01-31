@@ -275,16 +275,18 @@ export class UserResolvers {
 		@Arg("updatedUser", () => UpdateUserInput) updatedUser: UpdateUserInput,
 	): Promise<MessageAndUserResponse> {
 		const { id, role, ...fieldsToUpdate } = updatedUser;
-		const userRole = role === "owner" ? Owner : Trainer;
-
-		console.log("👉👉 updatedUser", updatedUser);
+		const userRole = role.toLowerCase() === "owner" ? Owner : Trainer;
 
 		// Fetch user from database
 		const user = await dataSource.manager.findOne(userRole, { where: { id } });
 
 		if (!user) {
-			throw new Error("User not found");
+			return {
+				message: "User not found",
+			};
 		}
+
+		let hasChanges = false;
 
 		// Take each key of fieldsToUpdate and update the user if the value is different
 		for (const key of Object.keys(
@@ -294,14 +296,21 @@ export class UserResolvers {
 				fieldsToUpdate[key] !== undefined &&
 				user[key as keyof typeof user] !== fieldsToUpdate[key]
 			) {
+				hasChanges = true;
 				(user[key as keyof typeof user] as string) = fieldsToUpdate[key];
 			}
 		}
 
-		// Sauvegarde l'utilisateur mis à jour
-		await dataSource.manager.save(user);
+		// If there's no change, message = "There was no field to update"
+		if (!hasChanges) {
+			return {
+				message: "There was no field to update",
+				user,
+			};
+		}
 
-		// TODO: if there's no change, message = "There was no field to update"
+		// Save updated user
+		await dataSource.manager.save(user);
 
 		return {
 			message: "User updated successfully",
