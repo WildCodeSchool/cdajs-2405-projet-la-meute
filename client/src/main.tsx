@@ -77,7 +77,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <Navigate to="planning" replace />,
+								element: <PlanningTrainer />,
 							},
 							{
 								path: "planning",
