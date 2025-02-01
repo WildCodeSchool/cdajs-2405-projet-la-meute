@@ -1,0 +1,43 @@
+@import "@style";
+
+.notfound {
+    
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        max-width: fit-content;
+        margin: 10vh auto;
+
+        h1 {
+            font-size: clamp(4.5rem ,10vw ,8rem );
+        }
+
+        p {
+            font-size: clamp(1.3rem ,4vw ,2rem );
+            text-wrap: balance;
+        }
+
+        h1, p {
+            margin: 0
+        }
+    }
+
+    img {
+        position: fixed;
+        bottom: calc(10px + 5vh);
+        z-index: -1;
+        max-height: 80vh;
+        aspect-ratio: 58/41;
+        transition: 0.3s;
+
+        @media (height <= 800px) {
+            max-height: 45vh;
+        }
+
+        @media (height <= 500px) {
+            display: none
+        }
+    }
+}

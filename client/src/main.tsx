@@ -24,176 +24,182 @@ import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 import PlanningTrainer from "./pages/Planning/PlanningTrainer.tsx";
+import ErrorPage from "./pages/Handling/ErrorPage.tsx";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <WelcomePageLayout />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
-				path: "",
-				element: <Homepage />,
-			},
-			{
-				path: "services",
-				element: <Services />,
-			},
-			{
-				path: "contact",
-				element: <Contact />,
-			},
-			{
-				path: "login",
-				element: <Login />,
-			},
-			{
-				path: "registration",
-				element: <Registration />,
-			},
-			{
-				path: "reset-password",
-				element: <ResetPassword />,
-			},
-			{
-				path: "reset-link",
-				element: <ResetLink />,
-			},
-			{
-				path: "new-password",
-				element: <NewPassword />,
-			},
-		],
-	},
-	{
-		path: "dashboard",
-		element: <DashLayout />,
-		children: [
-			{
-				path: "owner",
+				path: "/",
+				element: <WelcomePageLayout />,
 				children: [
 					{
-						index: true,
-						element: <Navigate to="planning" replace />,
+						path: "",
+						element: <Homepage />,
 					},
 					{
-						path: "planning",
-						element: <PlanningTrainer />,
+						path: "services",
+						element: <Services />,
 					},
 					{
-						path: "search",
-						children: [
-							{
-								index: true,
-								element: <p>search List</p>,
-							},
-							{
-								path: ":id",
-								element: <p>search/:id</p>,
-							},
-						],
+						path: "contact",
+						element: <Contact />,
 					},
 					{
-						path: "my-dogs",
-						children: [
-							{
-								index: true,
-								element: <p>my-dogs List</p>,
-							},
-							{
-								path: "new",
-								element: <p>my-dogs/new</p>,
-							},
-							{
-								path: "profile/:id",
-								element: <p>my-dogs/profile/:id</p>,
-							},
-						],
+						path: "login",
+						element: <Login />,
+					},
+					{
+						path: "registration",
+						element: <Registration />,
+					},
+					{
+						path: "reset-password",
+						element: <ResetPassword />,
+					},
+					{
+						path: "reset-link",
+						element: <ResetLink />,
+					},
+					{
+						path: "new-password",
+						element: <NewPassword />,
 					},
 				],
 			},
 			{
-				path: "trainer",
+				path: "dashboard",
+				element: <DashLayout />,
 				children: [
 					{
-						index: true,
-						element: <Navigate to="planning" replace />,
-					},
-					{
-						path: "planning",
+						path: "owner",
 						children: [
 							{
 								index: true,
-								element: <PlanningTrainer />,
+								element: <Navigate to="planning" replace />,
 							},
 							{
-								path: "new",
-								element: <p>planning/new</p>,
+								path: "planning",
+								element: <p>Owner planning</p>,
 							},
 							{
-								path: "my-events",
+								path: "search",
 								children: [
 									{
 										index: true,
-										element: <p>planning/events</p>,
+										element: <p>search List</p>,
 									},
 									{
 										path: ":id",
-										element: <p>planning/events/:id</p>,
+										element: <p>search/:id</p>,
+									},
+								],
+							},
+							{
+								path: "my-dogs",
+								children: [
+									{
+										index: true,
+										element: <p>my-dogs List</p>,
+									},
+									{
+										path: "new",
+										element: <p>my-dogs/new</p>,
+									},
+									{
+										path: "profile/:id",
+										element: <p>my-dogs/profile/:id</p>,
 									},
 								],
 							},
 						],
 					},
 					{
-						path: "customers",
+						path: "trainer",
 						children: [
 							{
 								index: true,
-								element: <p>customers List</p>,
+								element: <Navigate to="planning" replace />,
 							},
 							{
-								path: ":id",
-								element: <p>customers/:id</p>,
+								path: "planning",
+								children: [
+									{
+										index: true,
+										element: <p>Trainer planning</p>,
+									},
+									{
+										path: "new",
+										element: <p>planning/new</p>,
+									},
+									{
+										path: "my-events",
+										children: [
+											{
+												index: true,
+												element: <p>planning/events</p>,
+											},
+											{
+												path: ":id",
+												element: <p>planning/events/:id</p>,
+											},
+										],
+									},
+								],
+							},
+							{
+								path: "customers",
+								children: [
+									{
+										index: true,
+										element: <p>customers List</p>,
+									},
+									{
+										path: ":id",
+										element: <p>customers/:id</p>,
+									},
+								],
+							},
+							{
+								path: "dogs",
+								children: [
+									{
+										index: true,
+										element: <p>dogs List</p>,
+									},
+									{
+										path: ":id",
+										element: <p>dogs/:id</p>,
+									},
+								],
 							},
 						],
 					},
 					{
-						path: "dogs",
+						path: "my-profile",
 						children: [
 							{
 								index: true,
-								element: <p>dogs List</p>,
+								element: <p>Mon profil</p>,
 							},
 							{
-								path: ":id",
-								element: <p>dogs/:id</p>,
+								path: "personal-information",
+								element: <p>Informations personnelles</p>,
+							},
+							{
+								path: "preferences",
+								element: <p>Paramètres de l’application</p>,
 							},
 						],
 					},
 				],
 			},
 			{
-				path: "my-profile",
-				children: [
-					{
-						index: true,
-						element: <p>Mon profil</p>,
-					},
-					{
-						path: "personal-information",
-						element: <p>Informations personnelles</p>,
-					},
-					{
-						path: "preferences",
-						element: <p>Paramètres de l’application</p>,
-					},
-				],
+				path: "designsystem",
+				element: <DesignSystem />,
 			},
 		],
-	},
-	{
-		path: "designsystem",
-		element: <DesignSystem />,
 	},
 ]);
 
