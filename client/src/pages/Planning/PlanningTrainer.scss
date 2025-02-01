@@ -16,18 +16,13 @@
     border: 0px;
 }
 
-.fc th {
-    border: none !important;
-}
-
 .fc-scroller-harness {
-    border: 0 !important;
-    background-color: $primary-light !important;
+    border: 0;
+    background-color: $primary-light;
 }
 
 .fc-dayGridMonth-view {
-    border: 0px !important;
-    box-shadow: none !important;
+    border: 0px;
 }
 
 /* Boutons et éléments récurrents */
@@ -55,7 +50,7 @@
 .fc .fc-col-header-cell {
     background-color: $primary-light;
     color: $beige-400;
-    height: 5vh !important;
+    height: 5vh;
     padding: 10px 0;
     border: 0px;
     letter-spacing: 1px;
@@ -63,21 +58,18 @@
 
 .fc-col-header {
     background-color: none;
-    border: 0px !important;
 }
 
 .fc-col-header-cell {
     background-color: none;
-    border: 0px !important;
 }
 
 .fc-scrollgrid-section-header {
     background-color: none;
-    border: 0px !important;
 }
 
 
-.fc-header-toolbar fc-toolbar fc-toolbar-ltr:nth-last-child {
+.fc-header-toolbar .fc-toolbar .fc-toolbar-ltr:nth-last-child {
     background-color: $orange-300;
 }
 
@@ -98,7 +90,7 @@
 .fc-today-button {
     background-color: $blue-500 !important;
     color: $primary-light !important;
-    font-weight: $light !important;
+    font-weight: $light;
     padding: 1.5vh 2vw !important;
     border-radius: $atoms-radius !important;
     letter-spacing: 1px;
@@ -124,28 +116,30 @@
 
 /* Toolbar - right */
 
+.fc .fc-toolbar-chunk:nth-child(3) .fc-button-group {
+    gap: 1vw;
+}
+
 .fc .fc-listWeek-button {
     background-color: $blue-500 !important;
     color: $orange-300 !important;
     font-weight: $medium;
     padding: 1.5vh 2vw !important;
-    margin-right: 1vw !important;
     border-radius: $atoms-radius !important;
 }
 
 .fc-timeGridWeek-button {
     background-color: $blue-500 !important;
     color: $primary-light !important;
-    font-weight: $light !important;
+    font-weight: $light;
     padding: 1.5vh 2vw !important;
-    margin-right: 1vw !important;
     border-radius: $atoms-radius !important;
 }
 
 .fc-dayGridMonth-button {
     background-color: $blue-400 !important;
     color: $green-200 !important;
-    font-weight: $regular !important;
+    font-weight: $regular;
     padding: 1.5vh 2vw !important;
     border-radius: $atoms-radius !important;
 }
@@ -210,10 +204,148 @@
     border: 0px;
 }
 
+/* ... (tout le CSS précédent reste identique jusqu'à la section responsive) ... */
+
 /* --- Responsive - Mobile --- */
 
 @media screen and (max-width: $mobile) {
 
-    /* Ajouter le css pour la version mobile */
+    /* Réorganisation générale de la toolbar */
+    .fc .fc-toolbar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Configuration de la ligne left (listWeek) */
+    .fc .fc-toolbar-chunk:first-child {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+
+    .fc .fc-toolbar-chunk:first-child .fc-button {
+        width: 100%;
+        text-align: center;
+        background-color: $blue-100 !important;
+        color: $primary-light !important;
+        font-size: $m;
+
+        &:hover {
+            background-color: $blue-200 !important;
+            transition: all ease-in-out 0.3s;
+        }
+    }
+
+    /* Ajustement pour que les boutons s'étirent */
+    .fc .fc-toolbar-chunk:nth-child(2) {
+        display: flex;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .fc .fc-toolbar-chunk:nth-child(2) .fc-button-group {
+        display: flex;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .fc .fc-toolbar-chunk:nth-child(2) .fc-button {
+        width: 100%;
+        text-align: center;
+        background-color: $blue-400 !important;
+        color: $primary-light !important;
+        font-weight: $regular;
+
+        &:hover {
+            background-color: $blue-500 !important;
+            transition: all ease-in-out 0.3s;
+        }
+    }
+
+    /* Configuration de la ligne right */
+    .fc .fc-toolbar-chunk:last-child {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    /* Style des boutons prev/next */
+    .fc .fc-prev-button,
+    .fc .fc-next-button {
+        background-color: $beige-300 !important;
+        color: $beige-400 !important;
+        margin: 0 !important;
+        border: 2px solid $beige-300;
+
+        &:hover {
+            border: 2px solid $beige-500;
+            background-color: $beige-300 !important;
+            transition: all ease-in-out 0.3s;
+        }
+    }
+
+    /* Style du titre */
+    .fc .fc-toolbar-title {
+        font-size: $m !important;
+        font-weight: $semiBold !important;
+        color: $green-400 !important;
+        margin: 0 1rem !important;
+    }
+
+    /* Ajustements supplémentaires pour la cohérence mobile */
+    .fc .fc-button {
+        padding: 0.8rem !important;
+    }
+
+    .fc .fc-today-button {
+        padding: 0.8rem !important;
+        margin: 0 !important;
+    }
+
+    /* Nouvelles modifications pour le calendrier responsive */
+    .fc {
+        border-radius: $atoms-radius;
+        overflow: hidden;
+    }
+
+    .fc-scrollgrid {
+        background-color: $beige-200 !important;
+        color: $blue-300 !important;
+    }
+
+    .fc-col-header,
+    .fc-col-header-cell,
+    .fc-scrollgrid-section-header {
+        background: none !important;
+        border: 0 !important;
+    }
+
+    .fc .fc-col-header-cell-cushion {
+        background: none !important;
+        color: $blue-300;
+    }
+
+    .fc-event,
+    .fc-event-main,
+    .fc-daygrid-event {
+        background-color: $orange-300 !important;
+        border-color: $orange-300 !important;
+    }
+
+    .fc-day-past,
+    .fc-daygrid-day {
+        background-color: $beige-200;
+        height: 5vh !important;
+        border: 2px solid $beige-200 !important;
+    }
+
+    .fc-daygrid-day-number {
+        color: $primary-dark;
+    }
+
+    .fc-day {
+        padding: 0.5rem !important;
+    }
 
 }
