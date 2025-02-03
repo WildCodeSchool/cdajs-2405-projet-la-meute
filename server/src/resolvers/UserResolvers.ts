@@ -118,8 +118,7 @@ export class UserResolvers {
 		}
 
 		// Using bcrypt to compare submitted password with hashed password
-		//const validPassword = await bcrypt.compare(password, user.password_hashed);
-		const validPassword = password === user.password_hashed;
+		const validPassword = await user.checkPassword(password);
 		if (!validPassword) {
 			throw new Error("Invalid password");
 		}
@@ -203,46 +202,50 @@ export class UserResolvers {
 			const tokenRepository = dataSource.getRepository(PasswordResetToken);
 			const resetToken = await tokenRepository.findOne({
 				where: {
-					token: token,
+					token,
 					used: false,
 					expires_at: MoreThan(new Date()),
 				},
 			});
 
-			if (!resetToken || !resetToken.token) {
+			if (!resetToken || token !== resetToken.token) {
 				return {
 					success: false,
 					message: "Ce lien de réinitialisation est invalide ou a expiré",
 				};
 			}
 
-			const isValidToken = token === resetToken.token;
-			if (!isValidToken) {
-				return {
-					success: false,
-					message: "Ce lien de réinitialisation est invalide ou a expiré",
-				};
+			if (resetToken.user_role === "owner") {
+				const ownerRepository = dataSource.getRepository(Owner);
+				const owner = await ownerRepository.findOne({
+					where: { id: resetToken.user_id },
+				});
+
+				if (!owner) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await owner.resetPassword(newPassword);
+				await ownerRepository.save(owner);
+			} else {
+				const trainerRepository = dataSource.getRepository(Trainer);
+				const trainer = await trainerRepository.findOne({
+					where: { id: resetToken.user_id },
+				});
+
+				if (!trainer) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await trainer.resetPassword(newPassword);
+				await trainerRepository.save(trainer);
 			}
-
-			// Change this when we choose the format
-			if (newPassword.length < 8) {
-				return {
-					success: false,
-					message: "Le mot de passe doit faire au moins 8 caractères",
-				};
-			}
-
-			const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-			const userRepository =
-				resetToken.user_role === "owner"
-					? dataSource.getRepository(Owner)
-					: dataSource.getRepository(Trainer);
-
-			await userRepository.update(
-				{ id: resetToken.user_id },
-				{ password_hashed: hashedPassword },
-			);
 
 			await tokenRepository.update({ id: resetToken.id }, { used: true });
 
@@ -254,7 +257,10 @@ export class UserResolvers {
 			console.error("Erreur changement mot de passe:", error);
 			return {
 				success: false,
-				message: "Une erreur est survenue lors du changement de mot de passe",
+				message:
+					error instanceof Error
+						? error.message
+						: "Une erreur est survenue lors du changement de mot de passe",
 			};
 		}
 	}
