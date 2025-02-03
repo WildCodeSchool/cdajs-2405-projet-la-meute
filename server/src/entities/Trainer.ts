@@ -16,6 +16,13 @@ export class Trainer extends User {
 	@Field()
 	siret: string;
 
+	@Column({
+		type: "varchar",
+		length: 255,
+	})
+	@Field()
+	company_name: string;
+
 	@OneToMany(
 		() => Service,
 		(service) => service.trainer,
@@ -23,13 +30,6 @@ export class Trainer extends User {
 	)
 	@Field(() => [Service], { nullable: true })
 	service?: Service[];
-
-	@Column({
-		type: "varchar",
-		length: 255,
-	})
-	@Field()
-	company_name: string;
 
 	@OneToMany(
 		() => Event,
