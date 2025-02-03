@@ -7,11 +7,25 @@
     padding-block: 0.5rem;
     position: relative;
 
+    &.has-error {
+        &::after {
+            content: attr(data-error);
+            color: $error-color;
+            font-size: $s;
+        }
+    }
+
     input, textarea {
         border-radius: 7px;
         padding: 0.8rem;
         padding-inline: 2rem;
         font-weight: $light;
+    }
+
+    input {
+        &.error-border{
+            border-color: $error-color;
+        }
     }
 
     &__dark {

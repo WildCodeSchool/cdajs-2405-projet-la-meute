@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useEffect } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
@@ -6,6 +6,7 @@ import "./TextInput.scss";
 type TextInputTypes =
 	| "email"
 	| "password"
+	| "confirmPassword"
 	| "lastname"
 	| "firstname"
 	| "city"
@@ -26,6 +27,10 @@ const TEXT_INPUT_CONFIG: Record<
 	password: {
 		label: "Mot de passe",
 		placeholder: "Entrez votre mot de passe",
+	},
+	confirmPassword: {
+		label: "Confirmation mot de passe",
+		placeholder: "Confirmer le mot de passe",
 	},
 	lastname: {
 		label: "Nom",
@@ -68,66 +73,105 @@ const TextInput = React.forwardRef<
 		required?: boolean;
 		inputType?: "input" | "textarea";
 		color?: "dark" | "light";
+		passwordRef?: React.RefObject<HTMLInputElement>;
+		isLogin?: boolean;
 	}
->(({ type, required, inputType = "input", color = "light" }, ref) => {
-	const [showPassword, setShowPassword] = useState(false);
+>(
+	(
+		{
+			type,
+			required,
+			inputType = "input",
+			color = "light",
+			passwordRef,
+			isLogin,
+		},
+		ref,
+	) => {
+		const [showPassword, setShowPassword] = useState(false);
+		const [error, setError] = useState<string>("");
 
-	const { label, placeholder } = TEXT_INPUT_CONFIG[type];
-	const fieldRequired = required ? " *" : "";
+		const { label, placeholder } = TEXT_INPUT_CONFIG[type];
+		const fieldRequired = required ? " *" : "";
 
-	// Dynamic ref based on inputType
-	const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-	useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
+		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+		useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
-	const inputId = `textInput-${type}`; // Unique ID for the input
+		const inputId = `textInput-${type}`;
+		const isPasswordField = type === "password" || type === "confirmPassword";
 
-	return (
-		<div className={`textInput textInput__${color}`}>
-			<label htmlFor={inputId}>
-				{label}
-				{fieldRequired}
-			</label>
-			{inputType === "textarea" ? (
-				<textarea
-					id={inputId}
-					ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-					placeholder={placeholder}
-					required={required}
-				/>
-			) : (
-				<input
-					id={inputId}
-					ref={inputRef as React.RefObject<HTMLInputElement>}
-					type={
-						type === "password" ? (showPassword ? "text" : "password") : type
-					}
-					placeholder={placeholder}
-					required={required}
-				/>
-			)}
-			{type === "password" && (
-				<button
-					type="button"
-					onClick={(e) => {
-						e.preventDefault();
-						setShowPassword(!showPassword);
-					}}
-					className="password-toggle"
-					aria-label={
-						showPassword
-							? "Masquer le mot de passe"
-							: "Afficher le mot de passe"
-					}
-				>
-					{showPassword ? (
-						<EyeOff className="eyes" fill="none" />
-					) : (
-						<Eye className="eyes" fill="none" />
-					)}
-				</button>
-			)}
-		</div>
-	);
-});
+		const validateInput = () => {
+			if (isLogin) return;
+
+			const value = inputRef.current?.value.trim() || "";
+			let errorMessage = "";
+
+			if (type === "email" && !/\S+@\S+\.\S+/.test(value)) {
+				errorMessage = "Format d'email invalide.";
+			} else if (type === "password" && value.length < 8) {
+				errorMessage = "Le mot de passe doit contenir au moins 8 caractères.";
+			} else if (
+				type === "confirmPassword" &&
+				passwordRef?.current &&
+				passwordRef.current.value !== value
+			) {
+				errorMessage = "Les mots de passe ne correspondent pas.";
+			}
+
+			setError(errorMessage);
+		};
+
+		return (
+			<div
+				className={`textInput textInput__${color} ${!isLogin && error ? "has-error" : ""}`}
+				data-error={error}
+			>
+				<label htmlFor={inputId}>
+					{label}
+					{fieldRequired}
+				</label>
+				{inputType === "textarea" ? (
+					<textarea
+						id={inputId}
+						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+						placeholder={placeholder}
+						required={required}
+					/>
+				) : (
+					<input
+						id={inputId}
+						ref={inputRef as React.RefObject<HTMLInputElement>}
+						type={isPasswordField ? (showPassword ? "text" : "password") : type}
+						placeholder={placeholder}
+						required={required}
+						onBlur={validateInput}
+						className={error ? "error-border" : ""}
+					/>
+				)}
+				{isPasswordField && (
+					<button
+						type="button"
+						onMouseDown={(e) => {
+							e.preventDefault();
+							setShowPassword(!showPassword);
+						}}
+						className="password-toggle"
+						aria-label={
+							showPassword
+								? "Masquer le mot de passe"
+								: "Afficher le mot de passe"
+						}
+					>
+						{showPassword ? (
+							<EyeOff className="eyes" fill="none" />
+						) : (
+							<Eye className="eyes" fill="none" />
+						)}
+					</button>
+				)}
+			</div>
+		);
+	},
+);
 
 export default TextInput;
