@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
@@ -7,6 +7,9 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const confirmPasswordRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
 
 	const navigate = useNavigate();
 
@@ -59,8 +62,14 @@ function Registration() {
 
 					<TextInput type="lastname" required />
 					<TextInput type="firstname" required />
-					<TextInput type="email" required />
-					<TextInput type="password" required />
+					<TextInput type="email" ref={emailRef} required />
+					<TextInput type="password" ref={passwordRef} required />
+					<TextInput
+						type="confirmPassword"
+						ref={confirmPasswordRef}
+						passwordRef={passwordRef}
+						required
+					/>
 					<TextInput type="city" required />
 					<TextInput type="postal_code" required />
 					<TextInput type="telephone" />
