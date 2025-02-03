@@ -70,8 +70,9 @@ function NewPassword() {
 				<TextInput color="dark" type="password" ref={passwordRef} required />
 				<TextInput
 					color="dark"
-					type="password"
+					type="confirmPassword"
 					ref={confirmPasswordRef}
+					passwordRef={passwordRef}
 					required
 				/>
 				{message && <p className="message">{message}</p>}

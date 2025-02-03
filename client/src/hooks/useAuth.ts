@@ -8,26 +8,44 @@ export interface DecodedToken {
 	userId: number;
 }
 
+interface LoginResponse {
+	success: boolean;
+	message?: string;
+}
+
 export const useAuth = () => {
-	const [loginMutation, { data, loading, error }] = useMutation(LOGIN);
+	const [loginMutation, { data, loading }] = useMutation(LOGIN);
 	const navigate = useNavigate();
 
-	const login = async (email: string, password: string) => {
+	const login = async (
+		email: string,
+		password: string,
+	): Promise<LoginResponse> => {
 		try {
 			const response = await loginMutation({
 				variables: { email, password },
 			});
 
-			const token = response.data.login;
+			const token = response.data?.login;
+			if (!token) {
+				return {
+					success: false,
+					message: "Identifiants invalides",
+				};
+			}
 
 			localStorage.setItem("authToken", token);
-
 			const decoded = jwtDecode<DecodedToken>(token);
 			navigate(`/dashboard/${decoded.role.toLowerCase()}`);
 
-			return { success: true };
+			return {
+				success: true,
+			};
 		} catch (error) {
-			return { success: false, error };
+			return {
+				success: false,
+				message: "Identifiants invalides",
+			};
 		}
 	};
 
@@ -40,7 +58,6 @@ export const useAuth = () => {
 		login,
 		logout,
 		loading,
-		error,
 		data,
 	};
 };

@@ -20,8 +20,13 @@
         margin-block-start: 3vh;
     }
 
-    &__bottomLinks:first-child {
+    &__bottomLinks:nth-child(-n + 2) {
         margin-block-end: 1rem;
+    }
+
+    &__errorMessage{
+        color: red;
+        text-align: center;
     }
 }
 
