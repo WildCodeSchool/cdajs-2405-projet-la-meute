@@ -30,8 +30,7 @@ import Registration from "@/pages/Registration/Registration.tsx";
 import ResetPassword from "@/pages/Login/ResetPassword.tsx";
 import ResetLink from "@/pages/Login/ResetLink.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
-
-import TestME from "./components/TestME.tsx";
+import TestFileUpload from "./components/TestFileUpload.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -207,6 +206,10 @@ const router = createBrowserRouter([
 			{
 				path: "designsystem",
 				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestFileUpload />,
 			},
 		],
 	},

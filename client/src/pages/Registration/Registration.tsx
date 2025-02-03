@@ -79,7 +79,9 @@ function Registration() {
 						S'inscrire
 					</Button>
 					<p>
-						<i>Les champs comportants une * sont obligatoires.</i>
+						<p className="userMessage">
+							Les champs comportants une * sont obligatoires.
+						</p>
 					</p>
 					<br />
 					<p>

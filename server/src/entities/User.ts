@@ -1,5 +1,12 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	PrimaryGeneratedColumn,
+	BeforeInsert,
+	BeforeUpdate,
+} from "typeorm";
+import bcrypt from "bcryptjs";
 
 // The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
 // If the role is "Owner," TypeORM loads an instance of the Owner class.
@@ -8,6 +15,39 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 @ObjectType()
 export abstract class User {
+	private static readonly PASSWORD_REGEX = /^.{8,}$/;
+
+	private async hashPassword(password: string): Promise<string> {
+		return bcrypt.hash(password, 10);
+	}
+
+	@BeforeInsert()
+	@BeforeUpdate()
+	private async validateAndHashPassword() {
+		if (!this.password_hashed.startsWith("$2b$")) {
+			if (!User.PASSWORD_REGEX.test(this.password_hashed)) {
+				throw new Error("Le mot de passe doit contenir au moins 8 caractères");
+			}
+			this.password_hashed = await this.hashPassword(this.password_hashed);
+		}
+	}
+
+	private async verifyPassword(plainPassword: string): Promise<boolean> {
+		return bcrypt.compare(plainPassword, this.password_hashed);
+	}
+
+	public async checkPassword(password: string): Promise<boolean> {
+		return this.verifyPassword(password);
+	}
+
+	public async resetPassword(newPassword: string): Promise<void> {
+		if (!User.PASSWORD_REGEX.test(newPassword)) {
+			throw new Error("Le mot de passe doit contenir au moins 8 caractères");
+		}
+		// BeforeInsert hash the password
+		this.password_hashed = newPassword;
+	}
+
 	@PrimaryGeneratedColumn()
 	@Field(() => ID)
 	id?: number;

@@ -1,22 +1,34 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { GraphQLError } from "graphql";
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import dotenv from "dotenv";
+import path from "node:path";
+import cors from "cors";
+
+import express from "express";
+import { expressMiddleware } from "@apollo/server/express4";
+
+import { graphqlUploadExpress } from "graphql-upload-ts";
 import { dataSource } from "./dataSource/dataSource";
 import { initTestData } from "./dataSource/initTestData";
-import dotenv from "dotenv";
-import { UserResolvers } from "./resolvers/UserResolvers";
-dotenv.config();
 
+import { UserResolvers } from "./resolvers/UserResolvers";
+import { DogResolver } from "./resolvers/DogResolver";
+
+dotenv.config();
 const port = 3200;
 
 export async function startServerApollo() {
 	const schema = await buildSchema({
-		resolvers: [UserResolvers],
+		resolvers: [UserResolvers, DogResolver],
 	});
 
-	const server = new ApolloServer({ schema, introspection: true });
+	const server = new ApolloServer({ schema });
+	const app = express();
+
+	app.use(cors());
+	app.use("/upload", express.static(path.join(__dirname, "../upload")));
+	app.use(graphqlUploadExpress({ maxFileSize: 5000000, maxFiles: 10 }));
 
 	try {
 		await dataSource.initialize();
@@ -28,16 +40,13 @@ export async function startServerApollo() {
 	// FIXME: Comment this after first launch to avoid doubles
 	// initTestData() Drop table and reload data test in every launch
 	await initTestData();
+	await server.start();
 
-	try {
-		const { url } = await startStandaloneServer(server, {
-			listen: { port },
-		});
+	app.use("/", express.json(), expressMiddleware(server));
 
-		console.info(`🚀 Server running at ${url}`);
-	} catch (error) {
-		console.error("Server failed to start:", error);
-	}
+	app.listen(port, () => {
+		console.info(`🚀🚀 Server running at http://localhost:${port}`);
+	});
 }
 
 startServerApollo();
