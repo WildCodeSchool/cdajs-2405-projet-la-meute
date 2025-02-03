@@ -59,27 +59,27 @@ function Registration() {
 					onSubmit={handleSubmit}
 				>
 					{role === "trainer" && (
-						<TextInput color="dark" type="SIRET" required />
+						<TextInput style="dark" type="SIRET" required />
 					)}
 
 					{role === "trainer" && (
-						<TextInput color="dark" type="company_name" required />
+						<TextInput style="dark" type="company_name" required />
 					)}
 
-					<TextInput color="dark" type="lastname" required />
-					<TextInput color="dark" type="firstname" required />
-					<TextInput color="dark" type="email" ref={emailRef} required />
-					<TextInput color="dark" type="password" ref={passwordRef} required />
+					<TextInput style="dark" type="lastname" required />
+					<TextInput style="dark" type="firstname" required />
+					<TextInput style="dark" type="email" ref={emailRef} required />
+					<TextInput style="dark" type="password" ref={passwordRef} required />
 					<TextInput
-						color="dark"
+						style="dark"
 						type="confirmPassword"
 						ref={confirmPasswordRef}
 						passwordRef={passwordRef}
 						required
 					/>
-					<TextInput color="dark" type="city" required />
-					<TextInput color="dark" type="postal_code" required />
-					<TextInput color="dark" type="telephone" />
+					<TextInput style="dark" type="city" required />
+					<TextInput style="dark" type="postal_code" required />
+					<TextInput style="dark" type="telephone" />
 					<input type="hidden" name="role" value={role} />
 					<Button type="button" style="btn-dark" href="/registration">
 						Retour

@@ -22,7 +22,7 @@ interface TextInputProps {
 	passwordRef?: React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea";
-	color?: "dark" | "light";
+	style?: "dark" | "light";
 }
 
 const TEXT_INPUT_CONFIG: Record<
@@ -85,7 +85,7 @@ const TextInput = React.forwardRef<
 			type,
 			required,
 			inputType = "input",
-			color = "light",
+			style = "light",
 			passwordRef,
 			isLogin,
 		},
@@ -125,7 +125,7 @@ const TextInput = React.forwardRef<
 
 		return (
 			<div
-				className={`textInput textInput__${color} ${!isLogin && error ? "has-error" : ""}`}
+				className={`textInput textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
 				data-error={error}
 			>
 				<label htmlFor={inputId}>
