@@ -31,16 +31,20 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const ME = gql`
-    query Me {
-        me {
-            id
-            lastname
-            firstname
-            email
-            phone_number
-            city
-            postal_code
-            role
-        }
+  query ME($token: String!, $isTrainer: Boolean!) {
+    me: ME(token: $token) {
+      id
+      lastname
+      firstname
+      email
+      phone_number
+      city
+      postal_code
+      role
+      ... @include(if: $isTrainer) {
+        siret
+        company_name
+      }
     }
+}  
 `;

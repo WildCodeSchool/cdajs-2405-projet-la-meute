@@ -22,7 +22,6 @@ export abstract class User {
 	@Column({
 		type: "varchar",
 		length: 255,
-		select: false,
 	})
 	@Field()
 	firstname: string;
@@ -30,7 +29,7 @@ export abstract class User {
 	@Column({
 		type: "varchar",
 		length: 255,
-		select: false,
+		unique: true,
 	})
 	@Field()
 	email: string;

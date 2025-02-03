@@ -13,6 +13,9 @@ import client from "./graphQL/apolloClient.ts";
 import "./styles/global.scss";
 
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+import AuthGuard from "./layouts/AuthGuard/AuthGuard.tsx";
+
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
@@ -22,8 +25,9 @@ import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
-import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+
+import TestME from "./components/TestME.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -69,10 +73,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "dashboard",
-				element: <DashLayout />,
+				element: (
+					<AuthGuard allowedRoles={["owner", "trainer"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
 				children: [
 					{
 						path: "owner",
+						element: <AuthGuard allowedRoles={["owner"]} />,
 						children: [
 							{
 								index: true,
@@ -116,6 +125,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "trainer",
+						element: <AuthGuard allowedRoles={["trainer"]} />,
 						children: [
 							{
 								index: true,
@@ -180,7 +190,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>Mon profil</p>,
+								element: <TestME />,
 							},
 							{
 								path: "personal-information",
