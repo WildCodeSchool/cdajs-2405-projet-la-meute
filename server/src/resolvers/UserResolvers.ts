@@ -1,35 +1,21 @@
-import {
-	Arg,
-	Mutation,
-	Query,
-	Resolver,
-	Field,
-	ObjectType,
-} from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
 import { Owner } from "../entities/Owner";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
 import { EmailService } from "../services/EmailService";
+import * as authTypes from "../types/authTypes";
 import bcrypt from "bcryptjs";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
-
-@ObjectType()
-class ResetPasswordResponse {
-	@Field()
-	success?: boolean;
-
-	@Field(() => String, { nullable: true })
-	message?: string;
-}
+import "dotenv/config";
 
 @Resolver()
 export class UserResolvers {
 	private async findUserByEmail(
 		/**
-		 * This function centralizes the logic to retrirve user by email
+		 * This function centralizes the logic to retrieve user by email
 		 * @param email - The email of the user to search for.
 		 * @param options - Additional options (select fields or relations) to customize the query.
 		 */
@@ -70,8 +56,41 @@ export class UserResolvers {
 		return this.findUserByEmail(email);
 	}
 
+	//Get user with token
+	@Query(() => Trainer || Owner || null)
+	async ME(@Arg("token") token: string): Promise<Trainer | Owner | null> {
+		if (!token) {
+			throw new Error("Token is required");
+		}
+		const secretKey = process.env.JWTSECRETKEY;
+		if (!secretKey) {
+			throw new Error("JWT secret key is not defined");
+		}
+
+		try {
+			const payload = jwt.verify(token, secretKey) as authTypes.UserPayload;
+
+			const user =
+				(await dataSource.manager.findOne(Owner, {
+					where: { id: payload.id, role: payload.role },
+				})) ||
+				(await dataSource.manager.findOne(Trainer, {
+					where: { id: payload.id, role: payload.role },
+				}));
+
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			return user;
+		} catch (err) {
+			console.error("Failed to verify token:", err);
+			throw new Error("Invalid token");
+		}
+	}
+
 	// Login
-	// User logs in with name/email and password
+	// User logs in with email and password
 	@Mutation(() => String, { nullable: true })
 	/**
 	 * Authenticates a user by verifying the password and returns a JWT token if successful.
@@ -84,6 +103,10 @@ export class UserResolvers {
 	): Promise<string | null> {
 		if (!password || !email) {
 			throw new Error("Password and email are required");
+		}
+		const secretKey = process.env.JWTSECRETKEY;
+		if (!secretKey) {
+			throw new Error("JWT secret key is not defined");
 		}
 
 		const user = await this.findUserByEmail(email, {
@@ -107,7 +130,7 @@ export class UserResolvers {
 				userId: user.id,
 				role: user.role,
 			},
-			process.env.JWTSECRETKEY || "default secret", //delete "default secret" in production
+			secretKey,
 			{ expiresIn: "1h" },
 		);
 
@@ -116,10 +139,10 @@ export class UserResolvers {
 
 	// request password reset
 	// User requests a password reset with their email and receives a token for reinitialization.
-	@Mutation(() => ResetPasswordResponse)
+	@Mutation(() => authTypes.ResetPasswordResponse)
 	async RequestPasswordReset(
 		@Arg("email") email: string,
-	): Promise<ResetPasswordResponse> {
+	): Promise<authTypes.ResetPasswordResponse> {
 		try {
 			if (!email) {
 				throw new Error("Email are required");
@@ -171,11 +194,11 @@ export class UserResolvers {
 
 	// request password reset
 	// User have a valid token and reset password.
-	@Mutation(() => ResetPasswordResponse)
+	@Mutation(() => authTypes.ResetPasswordResponse)
 	async PasswordReset(
 		@Arg("token") token: string,
 		@Arg("newPassword") newPassword: string,
-	): Promise<ResetPasswordResponse> {
+	): Promise<authTypes.ResetPasswordResponse> {
 		try {
 			const tokenRepository = dataSource.getRepository(PasswordResetToken);
 			const resetToken = await tokenRepository.findOne({

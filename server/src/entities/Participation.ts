@@ -12,7 +12,7 @@ export class Participation {
 
 	@ManyToOne(
 		() => Event,
-		(event) => event.event_id,
+		(event) => event.id,
 		{ onDelete: "CASCADE" },
 	)
 	@JoinColumn({ name: "event_id" })
