@@ -41,12 +41,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 			lastname: { label: "Nom", placeholder: "Entrez votre nom" },
 			firstname: { label: "Prénom", placeholder: "Entrez votre prénom" },
 			city: { label: "Ville", placeholder: "Entrez votre ville" },
-			postcode: {
+			postal_code: {
 				label: "Code Postal",
 				placeholder: "Entrez votre code postal",
 			},
 			SIRET: { label: "SIRET", placeholder: "Entrez votre SIRET" },
-			companyName: {
+			company_name: {
 				label: "Nom de l'entreprise",
 				placeholder: "Entrez le nom de votre entreprise",
 			},
