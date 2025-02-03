@@ -20,13 +20,13 @@
 .hidden__ {
     &mobile {
         @media screen and (max-width: $mobile) {
-            display: none;
+            display: none !important;
         }
     }
 
     &desktop {
         @media screen and (min-width: $mobile) {
-            display: none;
+            display: none !important;
         }
     }
 }
