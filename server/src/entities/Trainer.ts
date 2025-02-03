@@ -31,13 +31,6 @@ export class Trainer extends User {
 	@Field(() => [Service], { nullable: true })
 	service?: Service[];
 
-	@Column({
-		type: "varchar",
-		length: 255,
-	})
-	@Field()
-	company_name: string;
-
 	@OneToMany(
 		() => Event,
 		(event) => event.trainer,
