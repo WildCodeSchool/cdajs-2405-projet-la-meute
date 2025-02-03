@@ -15,7 +15,7 @@ import "dotenv/config";
 export class UserResolvers {
 	private async findUserByEmail(
 		/**
-		 * This function centralizes the logic to retrirve user by email
+		 * This function centralizes the logic to retrieve user by email
 		 * @param email - The email of the user to search for.
 		 * @param options - Additional options (select fields or relations) to customize the query.
 		 */
@@ -90,7 +90,7 @@ export class UserResolvers {
 	}
 
 	// Login
-	// User logs in with name/email and password
+	// User logs in with email and password
 	@Mutation(() => String, { nullable: true })
 	/**
 	 * Authenticates a user by verifying the password and returns a JWT token if successful.

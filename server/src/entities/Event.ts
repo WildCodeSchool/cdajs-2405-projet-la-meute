@@ -16,7 +16,7 @@ import { Participation } from "./Participation";
 export class Event {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	event_id?: number;
+	id?: number;
 
 	@Column()
 	@Field()
