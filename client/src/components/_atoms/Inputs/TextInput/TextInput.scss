@@ -11,8 +11,8 @@
     &.has-error {
         &::after {
             content: attr(data-error);
-            color: red;
-            font-size: 0.8rem;
+            color: #c74c4c;
+            font-size: $s;
         }
     }
 
@@ -26,7 +26,7 @@
         font-weight: $light;
 
         &.error-border{
-            border-color: red;
+            border-color: #c74c4c;
         }
     }
 
