@@ -10,9 +10,9 @@ type TextInputTypes =
 	| "lastname"
 	| "firstname"
 	| "city"
-	| "postcode"
+	| "postal_code"
 	| "SIRET"
-	| "companyName"
+	| "company_name"
 	| "telephone";
 
 interface TextInputProps {

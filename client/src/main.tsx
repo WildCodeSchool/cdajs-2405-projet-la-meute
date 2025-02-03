@@ -26,6 +26,7 @@ import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+import TestFileUpload from "./components/TestFileUpload.tsx";
 
 import TestME from "./components/TestME.tsx";
 
@@ -207,6 +208,10 @@ const router = createBrowserRouter([
 			{
 				path: "designsystem",
 				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestFileUpload />,
 			},
 		],
 	},
