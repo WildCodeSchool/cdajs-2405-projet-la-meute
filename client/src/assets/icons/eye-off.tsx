@@ -13,9 +13,9 @@ export const EyeOff = ({
 			viewBox="0 0 24 24"
 			fill={fill}
 			stroke="#FAF4E6"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		>
 			<title>Eye-off</title>
 			<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />

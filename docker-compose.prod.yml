@@ -11,6 +11,8 @@ services:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+    env_file:
+      - .env
 
   server:
     image: dolpheus89/prod_server_pawplanner
@@ -19,17 +21,8 @@ services:
       - db
     ports:
       - 3201:3200
-    environment:
-      - DBNAME=${DBNAME}
-      - DBUSERNAME=${DBUSERNAME}
-      - DBPASS=${DBPASS}
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SMTP_USER=${SMTP_USER}
-      - SMTP_PASS=${SMTP_PASS}
-      - NODE_ENV="production"
-      - FRONTEND_URL=${FRONTEND_URL}
-      - JWTSECRETKEY=${JWTSECRETKEY}
+    env_file:
+      - .env
 
   db:
     image: postgres:16
@@ -42,10 +35,6 @@ services:
     ports:
       - 5434:5432
     container_name: pawplanner-db-1
-    environment:
-      - POSTGRES_USER=${DBUSERNAME}
-      - POSTGRES_PASSWORD=${DBPASS}
-      - POSTGRES_DB=${DBNAME}
   adminer:
     image: adminer
     restart: unless-stopped

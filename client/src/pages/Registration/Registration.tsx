@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -6,6 +7,14 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+
+	const navigate = useNavigate();
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		navigate("/login");
+	};
+
 	return (
 		<main className="registration">
 			{!role ? (
@@ -39,25 +48,34 @@ function Registration() {
 					</section>
 				</>
 			) : (
-				<Form className="registration__form" title="Inscription">
+				<Form
+					className="registration__form"
+					title="Inscription"
+					onSubmit={handleSubmit}
+				>
 					{role === "trainer" && <TextInput type="SIRET" required />}
 
-					{role === "trainer" && <TextInput type="companyName" required />}
+					{role === "trainer" && <TextInput type="company_name" required />}
 
 					<TextInput type="lastname" required />
 					<TextInput type="firstname" required />
 					<TextInput type="email" required />
 					<TextInput type="password" required />
 					<TextInput type="city" required />
-					<TextInput type="postcode" required />
+					<TextInput type="postal_code" required />
 					<TextInput type="telephone" />
 					<input type="hidden" name="role" value={role} />
-
 					<Button type="btn-dark" href="/registration">
 						Retour
 					</Button>
 
 					<Button type="submit">S'inscrire</Button>
+					<p>
+						<p className="userMessage">
+							Les champs comportants une * sont obligatoires.
+						</p>
+					</p>
+					<br />
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
 						<a href="/login"> vous connecter ici</a>.

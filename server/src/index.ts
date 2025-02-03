@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import { GraphQLError } from "graphql";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./dataSource/dataSource";
@@ -15,7 +16,7 @@ export async function startServerApollo() {
 		resolvers: [UserResolvers],
 	});
 
-	const server = new ApolloServer({ schema });
+	const server = new ApolloServer({ schema, introspection: true });
 
 	try {
 		await dataSource.initialize();
@@ -28,11 +29,15 @@ export async function startServerApollo() {
 	// initTestData() Drop table and reload data test in every launch
 	await initTestData();
 
-	const { url } = await startStandaloneServer(server, {
-		listen: { port },
-	});
+	try {
+		const { url } = await startStandaloneServer(server, {
+			listen: { port },
+		});
 
-	console.info(`🚀🚀 Server running at ${url}`);
+		console.info(`🚀 Server running at ${url}`);
+	} catch (error) {
+		console.error("Server failed to start:", error);
+	}
 }
 
 startServerApollo();
