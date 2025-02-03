@@ -31,16 +31,16 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const ME = gql`
-query Me {
-    me {
-      id
-      lastname
-      firstname
-      email
-      phone_number
-      city
-      postal_code
-      role
+    query Me {
+        me {
+            id
+            lastname
+            firstname
+            email
+            phone_number
+            city
+            postal_code
+            role
+        }
     }
-  }
 `;

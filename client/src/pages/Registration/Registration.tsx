@@ -75,6 +75,7 @@ function Registration() {
 							Les champs comportants une * sont obligatoires.
 						</p>
 					</p>
+					<br />
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
 						<a href="/login"> vous connecter ici</a>.

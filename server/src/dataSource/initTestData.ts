@@ -68,7 +68,7 @@ async function createData() {
 			"Rex",
 			3,
 			"Caniche de Siberie",
-			"rex.jpg",
+			"https://placehold.co/600x400",
 		);
 		const savedDog1 = await dogRepository.save(dog1);
 

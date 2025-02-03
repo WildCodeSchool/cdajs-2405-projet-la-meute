@@ -1,22 +1,28 @@
 import { Bell } from "@/assets/icons/bell";
-import Chevron from "@/assets/icons/left-chevron.png";
+import { LeftChevron } from "@/assets/icons/left-chevron";
+import { useNavigate } from "react-router-dom";
 
 export default function DashHeader() {
+	const navigate = useNavigate();
 	return (
 		<>
 			<header className="dashHeader">
 				<h1 className="hidden__mobile">Header</h1>
-				<a className=" dashHeader__back hidden__desktop" href="/">
-					<img src={Chevron} alt="Retour" className="dashHeader__back--icon" />
+				<button
+					type="button"
+					className="dashHeader__back hidden__desktop"
+					onClick={() => {
+						navigate(-1);
+					}}
+				>
+					<LeftChevron className="dashHeader__back--icon" />
 					Retour
-				</a>
+				</button>
 				<span className="dashHeader__right-corner">
 					<Bell className="dashHeader__notification" />
-					<img
-						className="dashHeader__avatar"
-						src="https://placehold.co/400"
-						alt="avatar de l'utilisateur"
-					/>
+					<a className="dashHeader__avatar" href="/dashboard/my-profile">
+						<img src="https://placehold.co/400" alt="avatar de l'utilisateur" />
+					</a>
 				</span>
 			</header>
 		</>

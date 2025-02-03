@@ -41,6 +41,8 @@ ___
 2. **Any other launch**
     - Run `docker compose up`
 
+Every new dependency asks for a rebuild (`docker compose down` then `docker compose up --build`).
+
 **Client**: http://localhost:4200/ </br>
 **Server**: http://localhost:3200/
 
