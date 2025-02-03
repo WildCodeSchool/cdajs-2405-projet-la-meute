@@ -9,9 +9,9 @@ type TextInputTypes =
 	| "lastname"
 	| "firstname"
 	| "city"
-	| "postcode"
+	| "postal_code"
 	| "SIRET"
-	| "companyName"
+	| "company_name"
 	| "telephone";
 
 // forwardRef allows us to use useRef in the component calling this one
@@ -48,7 +48,7 @@ const TextInput = React.forwardRef<
 		placeholder = "Entrez votre ville";
 	}
 
-	if (type === "postcode") {
+	if (type === "postal_code") {
 		label = "Code Postal";
 		placeholder = "Entrez votre code postal";
 	}
@@ -58,7 +58,7 @@ const TextInput = React.forwardRef<
 		placeholder = "Entrez votre SIRET";
 	}
 
-	if (type === "companyName") {
+	if (type === "company_name") {
 		label = "Nom de l'entreprise";
 		placeholder = "Entrez le nom de votre entreprise";
 	}
