@@ -21,7 +21,7 @@ import Contact from "@/pages/WelcomePage/Contact.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "@/pages/Handling/ErrorPage.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
-import Id from "@/pages/Trainer/Customers/:id/Id.tsx";
+import Id from "@/pages/Trainer/Customers/id/Id.tsx";
 import List from "@/pages/Trainer/Customers/List/List.tsx";
 import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "@/pages/Login/NewPassword.tsx";
