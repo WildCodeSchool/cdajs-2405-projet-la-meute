@@ -71,7 +71,7 @@ function Registration() {
 
 					<Button type="submit">S'inscrire</Button>
 					<p>
-						<i>Les champs comportants une * sont obligatoires.</i>
+						<p className="userMessage">Les champs comportants une * sont obligatoires.</p>
 					</p>
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
