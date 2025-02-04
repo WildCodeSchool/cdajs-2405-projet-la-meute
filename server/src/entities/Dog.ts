@@ -62,7 +62,13 @@ export class Dog {
 	@Field(() => [Participation], { nullable: true })
 	participation?: Participation[];
 
-	constructor(owner: Owner, name = "", age = 0, breed = "", picture = "") {
+	constructor(
+		owner: Owner,
+		name = "",
+		age = 0,
+		breed = "",
+		picture = "/upload/images/defaultdog.jpg",
+	) {
 		this.owner = owner;
 		this.name = name;
 		this.age = age;
