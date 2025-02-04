@@ -1,5 +1,8 @@
 import "@/pages/Planning/Planning.scss";
 
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
+
+import { useUser } from "@/hooks/useUser";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
@@ -9,8 +12,10 @@ import listPlugin from "@fullcalendar/list";
 import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
 
-function PlanningOwner() {
+function PlanningTrainer() {
 	const [currentView] = useState("dayGridMonth");
+
+	const { user } = useUser();
 
 	const isMobile = useIsMobile();
 
@@ -27,6 +32,7 @@ function PlanningOwner() {
 
 	return (
 		<>
+			{user?.role === "trainer" && <PlanningHeader title="Planning" />}
 			<div className="calendar-container">
 				<FullCalendar
 					plugins={[
@@ -53,4 +59,4 @@ function PlanningOwner() {
 	);
 }
 
-export default PlanningOwner;
+export default PlanningTrainer;
