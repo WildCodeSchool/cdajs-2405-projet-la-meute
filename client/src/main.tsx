@@ -24,6 +24,7 @@ import Login from "@/pages/Login/Login.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
+import Planning from "./pages/Planning/Planning.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
@@ -86,7 +87,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "planning",
-						element: <p>Owner planning</p>,
+						element: <Planning />,
 					},
 					{
 						path: "search",
@@ -137,7 +138,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>Trainer planning</p>,
+								element: <Planning />,
 							},
 							{
 								path: "new",
