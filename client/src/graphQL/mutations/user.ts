@@ -39,6 +39,8 @@ export const UPDATE_USER = gql`
         email
         phone_number
         postal_code
+        siret
+        company_name
       }
     }
   }
