@@ -10,6 +10,7 @@ export interface AuthContextType {
 	error: ApolloError | null;
 	isAuthenticated: boolean;
 	role: "owner" | "trainer" | null;
+	refetch: () => void;
 }
 
 interface TokenPayload {
@@ -25,6 +26,7 @@ export const AuthContext = createContext<AuthContextType>({
 	error: null,
 	isAuthenticated: false,
 	role: null,
+	refetch: () => {},
 });
 
 interface AuthProviderProps {
@@ -51,7 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		}
 	}, []);
 
-	const { data, loading, error } = useQuery(ME, {
+	const { data, refetch, loading, error } = useQuery(ME, {
 		variables: {
 			token: token ?? "",
 			isTrainer: tokenRole === "trainer",
@@ -82,6 +84,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		error: error ?? null,
 		isAuthenticated,
 		role,
+		refetch,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -271,8 +271,6 @@ export class UserResolvers {
 	/**
 	 * Updates a user.
 	 * @param updatedUser - Partial data to update the user.
-	 * Extract id, role and the rest of the fields to update (as fieldsToUpdate).
-	 * Updates only the provided fields in the database.
 	 * @returns The updated user.
 	 * @throws {Error} If the user is not found.
 	 */
@@ -303,6 +301,7 @@ export class UserResolvers {
 			) {
 				hasChanges = true;
 				(user[key as keyof typeof user] as string) = fieldsToUpdate[key];
+			} else {
 			}
 		}
 

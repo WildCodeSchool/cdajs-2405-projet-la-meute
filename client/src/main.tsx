@@ -194,6 +194,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "my-profile",
+				element: (
+					<AuthGuard allowedRoles={["trainer", "owner"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
 				children: [
 					{
 						index: true,
