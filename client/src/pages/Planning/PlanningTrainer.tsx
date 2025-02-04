@@ -2,7 +2,7 @@ import "@/pages/Planning/Planning.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 
-import { useIsMobile } from '@/hooks/checkIsMobile';
+import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";

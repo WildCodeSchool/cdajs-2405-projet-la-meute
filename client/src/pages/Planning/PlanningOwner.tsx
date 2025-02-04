@@ -1,6 +1,6 @@
 import "@/pages/Planning/Planning.scss";
 
-import { useIsMobile } from '@/hooks/checkIsMobile';
+import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
