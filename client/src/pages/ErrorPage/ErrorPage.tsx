@@ -24,10 +24,10 @@ export default function ErrorPage() {
 					</p>
 				) : (
 					<p>
-						Une erreur inattendue <br /> s'est produite
+						Une erreur inattendue <br /> s'est produite.
 					</p>
 				)}
-				<Button href="/" type="btn-dark">
+				<Button href="/" type="button" style="btn-dark">
 					Retour à l'accueil
 				</Button>
 			</section>

@@ -24,10 +24,10 @@ import Login from "@/pages/Login/Login.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
 import PlanningTrainer from "./pages/Planning/PlanningTrainer.tsx";
 import PlanningOwner from "./pages/Planning/PlanningOwner.tsx";
-import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+import NewPassword from "./pages/Login/NewPassword.tsx";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
 
 import TestME from "./components/TestME.tsx";
@@ -75,147 +75,145 @@ const router = createBrowserRouter([
 				],
 			},
 			{
-				path: "dashboard",
+				path: "owner",
 				element: (
-					<AuthGuard allowedRoles={["owner", "trainer"]}>
+					<AuthGuard allowedRoles={["owner"]}>
 						<DashLayout />
 					</AuthGuard>
 				),
 				children: [
 					{
-						path: "owner",
-						element: <AuthGuard allowedRoles={["owner"]} />,
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						element: <PlanningOwner />,
+					},
+					{
+						path: "search",
 						children: [
 							{
 								index: true,
-								element: <PlanningOwner />,
+								element: <p>search List</p>,
 							},
 							{
-								path: "planning",
-								element: <p>Owner planning</p>,
-							},
-							{
-								path: "search",
-								children: [
-									{
-										index: true,
-										element: <p>search List</p>,
-									},
-									{
-										path: ":id",
-										element: <p>search/:id</p>,
-									},
-								],
-							},
-							{
-								path: "my-dogs",
-								children: [
-									{
-										index: true,
-										element: <p>my-dogs List</p>,
-									},
-									{
-										path: "new",
-										element: <p>my-dogs/new</p>,
-									},
-									{
-										path: "profile/:id",
-										element: <p>my-dogs/profile/:id</p>,
-									},
-								],
+								path: ":id",
+								element: <p>search/:id</p>,
 							},
 						],
 					},
 					{
-						path: "trainer",
-						element: <AuthGuard allowedRoles={["trainer"]} />,
+						path: "my-dogs",
 						children: [
 							{
 								index: true,
-								element: <Navigate to="planning" replace />,
+								element: <p>my-dogs List</p>,
 							},
 							{
-								path: "planning",
-								children: [
-									{
-										index: true,
-										element: <PlanningTrainer />,
-									},
-									{
-										path: "new",
-										element: <p>planning/new</p>,
-									},
-									{
-										path: "my-events",
-										children: [
-											{
-												index: true,
-												element: <p>planning/events</p>,
-											},
-											{
-												path: ":id",
-												element: <p>planning/events/:id</p>,
-											},
-										],
-									},
-								],
+								path: "new",
+								element: <p>my-dogs/new</p>,
 							},
 							{
-								path: "customers",
-								children: [
-									{
-										index: true,
-										element: <p>customers List</p>,
-									},
-									{
-										path: ":id",
-										element: <p>customers/:id</p>,
-									},
-								],
-							},
-							{
-								path: "dogs",
-								children: [
-									{
-										index: true,
-										element: <p>dogs List</p>,
-									},
-									{
-										path: ":id",
-										element: <p>dogs/:id</p>,
-									},
-								],
-							},
-						],
-					},
-					{
-						path: "my-profile",
-						children: [
-							{
-								index: true,
-								element: <TestME />,
-							},
-							{
-								path: "personal-information",
-								element: <p>Informations personnelles</p>,
-							},
-							{
-								path: "preferences",
-								element: <p>Paramètres de l’application</p>,
+								path: "profile/:id",
+								element: <p>my-dogs/profile/:id</p>,
 							},
 						],
 					},
 				],
 			},
 			{
-				path: "designsystem",
-				element: <DesignSystem />,
+				path: "trainer",
+				element: (
+					<AuthGuard allowedRoles={["trainer"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
+				children: [
+					{
+						index: true,
+						element: <Navigate to="planning" replace />,
+					},
+					{
+						path: "planning",
+						children: [
+							{
+								index: true,
+								element: <PlanningTrainer />,
+							},
+							{
+								path: "new",
+								element: <p>planning/new</p>,
+							},
+							{
+								path: "my-events",
+								children: [
+									{
+										index: true,
+										element: <p>planning/events</p>,
+									},
+									{
+										path: ":id",
+										element: <p>planning/events/:id</p>,
+									},
+								],
+							},
+						],
+					},
+					{
+						path: "customers",
+						children: [
+							{
+								index: true,
+								element: <p>customers List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>customers/:id</p>,
+							},
+						],
+					},
+					{
+						path: "dogs",
+						children: [
+							{
+								index: true,
+								element: <p>dogs List</p>,
+							},
+							{
+								path: ":id",
+								element: <p>dogs/:id</p>,
+							},
+						],
+					},
+				],
 			},
 			{
-				path: "test",
-				element: <TestFileUpload />,
+				path: "my-profile",
+				children: [
+					{
+						index: true,
+						element: <TestME />,
+					},
+					{
+						path: "personal-information",
+						element: <p>Informations personnelles</p>,
+					},
+					{
+						path: "preferences",
+						element: <p>Paramètres de l’application</p>,
+					},
+				],
 			},
 		],
+	},
+	{
+		path: "designsystem",
+		element: <DesignSystem />,
+	},
+	{
+		path: "test",
+		element: <TestFileUpload />,
 	},
 ]);
 
