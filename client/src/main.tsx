@@ -28,6 +28,7 @@ import NewPassword from "./pages/Login/NewPassword.tsx";
 import PlanningTrainer from "./pages/Planning/PlanningTrainer.tsx";
 import PlanningOwner from "./pages/Planning/PlanningOwner.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
+import TestFileUpload from "./components/TestFileUpload.tsx";
 
 import TestME from "./components/TestME.tsx";
 
@@ -209,6 +210,10 @@ const router = createBrowserRouter([
 			{
 				path: "designsystem",
 				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestFileUpload />,
 			},
 		],
 	},

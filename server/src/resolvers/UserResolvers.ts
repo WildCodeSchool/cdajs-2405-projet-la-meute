@@ -6,7 +6,6 @@ import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
 import { EmailService } from "../services/EmailService";
 import * as authTypes from "../types/authTypes";
-import bcrypt from "bcryptjs";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
