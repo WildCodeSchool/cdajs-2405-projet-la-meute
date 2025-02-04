@@ -26,6 +26,7 @@ import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import PlanningTrainer from "./pages/Planning/PlanningTrainer.tsx";
+import PlanningOwner from "./pages/Planning/PlanningOwner.tsx";
 import ErrorPage from "./pages/Handling/ErrorPage.tsx";
 
 import TestME from "./components/TestME.tsx";
@@ -86,7 +87,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <PlanningTrainer />,
+								element: <PlanningOwner />,
 							},
 							{
 								path: "planning",
@@ -137,7 +138,7 @@ const router = createBrowserRouter([
 								children: [
 									{
 										index: true,
-										element: <p>Trainer planning</p>,
+										element: <PlanningTrainer />,
 									},
 									{
 										path: "new",

@@ -21,7 +21,6 @@ $dashInlinePadding: $minPaddingInline;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-block: 2%;
     z-index: 998;
 
     & h1 {
@@ -82,7 +81,8 @@ $dashInlinePadding: $minPaddingInline;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: $dashInlinePadding;
+    padding-inline: $dashInlinePadding;
+    padding-block: 1vh;
     z-index: 999;
     
     &__logo img {
