@@ -36,7 +36,7 @@ export const useAuth = () => {
 
 			localStorage.setItem("authToken", token);
 			const decoded = jwtDecode<DecodedToken>(token);
-			navigate(`/dashboard/${decoded.role.toLowerCase()}`);
+			navigate(`/${decoded.role.toLowerCase()}`);
 
 			return {
 				success: true,
