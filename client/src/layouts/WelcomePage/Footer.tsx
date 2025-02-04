@@ -27,6 +27,7 @@ function Footer() {
 					<Button
 						style="button"
 						type="button"
+						style="button"
 						className="welcomepage__footer--button"
 						href="mailto:contact@pawplanner.com"
 					>

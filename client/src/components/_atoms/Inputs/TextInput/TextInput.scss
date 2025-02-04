@@ -11,40 +11,42 @@
         &::after {
             content: attr(data-error);
             color: $error-color;
+            color: $error-color;
             font-size: $s;
         }
     }
 
-    input, textarea {
+    input,
+    textarea {
         border-radius: 7px;
         padding: 0.8rem;
         padding-inline: 2rem;
         font-weight: $light;
     }
 
-    input {
-        &.error-border{
+        &.error-border {
             border-color: $error-color;
         }
     }
 
-    &__dark {
-        color: $blue-100;
-        input, textarea {
-            border: 2px solid $blue-300;
-            background-color: $blue-500;
-            color: $font-light;
+        &__dark {
+            color: $blue-100;
+            input,
+            textarea {
+                border: 2px solid $blue-300;
+                background-color: $blue-500;
+                color: $font-light;
+            }
         }
-    }
 
-    &__light {
-        input, textarea {
-            border: 2px solid $beige-300;
-            background-color: $beige-300;
-            color: $blue-300;
+        &__light {
+            input,
+            textarea {
+                border: 2px solid $beige-300;
+                background-color: $beige-300;
+                color: $blue-300;
+            }
         }
-    }
-
 
     .password-toggle {
         position: absolute;

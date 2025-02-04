@@ -41,11 +41,11 @@ export default function Login() {
 				title="Connectez-vous ici"
 				onSubmit={onFormSubmit}
 			>
-				<TextInput type="email" ref={emailRef} color="dark" required isLogin />
+				<TextInput type="email" ref={emailRef} style="dark" required isLogin />
 				<TextInput
 					type="password"
 					ref={passwordRef}
-					color="dark"
+					style="dark"
 					required
 					isLogin
 				/>

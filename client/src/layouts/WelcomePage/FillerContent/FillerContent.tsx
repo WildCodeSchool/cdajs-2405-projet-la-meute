@@ -20,8 +20,8 @@ function FillerContent() {
 				<p>Une question&nbsp;? Besoin d'une précision&nbsp;? N'hésitez plus.</p>
 				<Button
 					href="mailto:contact@pawplanner.com"
-					style="btn-dark"
 					type="button"
+					style="btn-dark"
 				>
 					Contactez-nous
 				</Button>

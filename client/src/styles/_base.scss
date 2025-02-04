@@ -8,7 +8,6 @@ html {
     color: $primary-dark;
     & * {
         box-sizing: border-box;
-
         &:focus {
             border-radius: $atoms-radius;
         }
@@ -20,7 +19,7 @@ button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-    outline: 2px solid red;
+    outline: 2px solid $error-color;
     border-radius: $atoms-radius;
 }
 
@@ -52,7 +51,7 @@ h3,
 h4,
 h5 {
     @include title;
-    
+
     &.h1 {
         color: none;
     }
@@ -62,3 +61,4 @@ img {
     max-width: 100%;
     max-height: 100%;
 }
+

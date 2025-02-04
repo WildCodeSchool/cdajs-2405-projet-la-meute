@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle, useRef, useImperativeHandle } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
@@ -16,6 +16,15 @@ type TextInputTypes =
 	| "company_name"
 	| "telephone"
 	| "description";
+
+interface TextInputProps {
+	type: TextInputTypes;
+	required?: boolean;
+	passwordRef?: React.RefObject<HTMLInputElement>;
+	isLogin?: boolean;
+	inputType?: "input" | "textarea";
+	style?: "dark" | "light";
+}
 
 const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
@@ -67,23 +76,17 @@ const TEXT_INPUT_CONFIG: Record<
 	},
 };
 
+// forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement | HTMLTextAreaElement,
-	{
-		type: TextInputTypes;
-		required?: boolean;
-		inputType?: "input" | "textarea";
-		color?: "dark" | "light";
-		passwordRef?: React.RefObject<HTMLInputElement>;
-		isLogin?: boolean;
-	}
+	TextInputProps
 >(
 	(
 		{
 			type,
 			required,
 			inputType = "input",
-			color = "light",
+			style = "light",
 			passwordRef,
 			isLogin,
 		},
@@ -94,7 +97,6 @@ const TextInput = React.forwardRef<
 
 		const { label, placeholder } = TEXT_INPUT_CONFIG[type];
 		const fieldRequired = required ? " *" : "";
-
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 		useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
@@ -124,7 +126,7 @@ const TextInput = React.forwardRef<
 
 		return (
 			<div
-				className={`textInput textInput__${color} ${!isLogin && error ? "has-error" : ""}`}
+				className={`textInput textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
 				data-error={error}
 			>
 				<label htmlFor={inputId}>
