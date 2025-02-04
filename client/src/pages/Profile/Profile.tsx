@@ -121,16 +121,16 @@ function Profile() {
 					{view === "profile" && (
 						<>
 							<span className="profile__form--names">
-								<TextInput color="light" type="firstname" ref={firstnameRef} />
-								<TextInput color="light" type="lastname" ref={lastnameRef} />
+								<TextInput style="light" type="firstname" ref={firstnameRef} />
+								<TextInput style="light" type="lastname" ref={lastnameRef} />
 							</span>
-							<TextInput color="light" type="city" ref={cityRef} />
+							<TextInput style="light" type="city" ref={cityRef} />
 							<p>
 								Indiquez une adresse générale pour donner un périmètre à vos
 								clients.
 							</p>
 							<TextInput
-								color="light"
+								style="light"
 								type="description"
 								inputType="textarea"
 								ref={descriptionRef}
@@ -139,10 +139,10 @@ function Profile() {
 					)}
 					{view === "personal" && (
 						<>
-							<TextInput color="light" type="email" ref={emailRef} />
-							<TextInput color="light" type="email" ref={phoneRef} />
-							<TextInput color="light" type="email" ref={siretRef} />
-							<TextInput color="light" type="email" ref={companyNameRef} />
+							<TextInput style="light" type="email" ref={emailRef} />
+							<TextInput style="light" type="email" ref={phoneRef} />
+							<TextInput style="light" type="email" ref={siretRef} />
+							<TextInput style="light" type="email" ref={companyNameRef} />
 						</>
 					)}
 					<Button
