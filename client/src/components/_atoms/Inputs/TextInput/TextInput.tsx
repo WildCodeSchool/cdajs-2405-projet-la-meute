@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
