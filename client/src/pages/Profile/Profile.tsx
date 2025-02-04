@@ -20,7 +20,7 @@ function Profile() {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const phoneRef = useRef<HTMLInputElement>(null);
 	const cityRef = useRef<HTMLInputElement>(null);
-	const postalCodeRef = useRef<HTMLInputElement>(null);
+	//	const postalCodeRef = useRef<HTMLInputElement>(null);
 	const siretRef = useRef<HTMLInputElement>(null);
 	const companyNameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
