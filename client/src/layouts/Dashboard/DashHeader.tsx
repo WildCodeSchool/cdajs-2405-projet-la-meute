@@ -20,7 +20,7 @@ export default function DashHeader() {
 				</button>
 				<span className="dashHeader__right-corner">
 					<Bell className="dashHeader__notification" />
-					<a className="dashHeader__avatar" href="/dashboard/my-profile">
+					<a className="dashHeader__avatar" href="/my-profile">
 						<img src="https://placehold.co/400" alt="avatar de l'utilisateur" />
 					</a>
 				</span>

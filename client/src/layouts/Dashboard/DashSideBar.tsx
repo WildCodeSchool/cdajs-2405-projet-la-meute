@@ -35,20 +35,14 @@ const DashSideBar = () => {
 
 	return (
 		<aside className="dashSideBar" aria-label="Navigation principale">
-			<a
-				href={`/dashboard/${userRole}`}
-				className="dashSideBar__logo hidden__mobile"
-			>
+			<a href={`/${userRole}`} className="dashSideBar__logo hidden__mobile">
 				<img src={Logo} alt="Logo Paw Planner" />
 			</a>
 			<nav className="dashSideBar__nav">
 				<ul className="dashSideBar__list">
 					{navItems[userRole]?.map(({ path, icon }) => (
 						<li key={path} className={isActive(path)}>
-							<a
-								href={`/dashboard/${userRole}/${path}`}
-								className="dashSideBar__link"
-							>
+							<a href={`/${userRole}/${path}`} className="dashSideBar__link">
 								{icon}
 							</a>
 						</li>
