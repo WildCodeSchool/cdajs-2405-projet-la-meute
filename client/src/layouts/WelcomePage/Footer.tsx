@@ -26,6 +26,7 @@ function Footer() {
 				<div className="welcomepage__footer--contact">
 					<Button
 						type="button"
+						style="button"
 						className="welcomepage__footer--button"
 						href="mailto:contact@pawplanner.com"
 					>
