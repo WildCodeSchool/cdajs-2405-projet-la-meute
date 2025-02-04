@@ -7,7 +7,6 @@ type TextInputTypes =
 	| "email"
 	| "password"
 	| "confirmPassword"
-	| "confirmPassword"
 	| "lastname"
 	| "firstname"
 	| "city"
