@@ -9,6 +9,8 @@ import * as authTypes from "../types/authTypes";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { UpdateUserInput } from "./inputTypes";
+import { MessageAndUserResponse } from "./responseType";
 
 @Resolver()
 export class UserResolvers {
@@ -55,7 +57,7 @@ export class UserResolvers {
 		return this.findUserByEmail(email);
 	}
 
-	//Get user with token
+	// Get user with token
 	@Query(() => Trainer || Owner || null)
 	async ME(@Arg("token") token: string): Promise<Trainer | Owner | null> {
 		if (!token) {
@@ -262,5 +264,62 @@ export class UserResolvers {
 						: "Une erreur est survenue lors du changement de mot de passe",
 			};
 		}
+	}
+
+	// Update User
+	@Mutation(() => MessageAndUserResponse)
+	/**
+	 * Updates a user.
+	 * @param updatedUser - Partial data to update the user.
+	 * Extract id, role and the rest of the fields to update (as fieldsToUpdate).
+	 * Updates only the provided fields in the database.
+	 * @returns The updated user.
+	 * @throws {Error} If the user is not found.
+	 */
+	async UpdateUser(
+		@Arg("updatedUser", () => UpdateUserInput) updatedUser: UpdateUserInput,
+	): Promise<MessageAndUserResponse> {
+		const { id, role, ...fieldsToUpdate } = updatedUser;
+		const userRole = role.toLowerCase() === "owner" ? Owner : Trainer;
+
+		// Fetch user from database
+		const user = await dataSource.manager.findOne(userRole, { where: { id } });
+
+		if (!user) {
+			return {
+				message: "User not found",
+			};
+		}
+
+		let hasChanges = false;
+
+		// Take each key of fieldsToUpdate and update the user if the value is different
+		for (const key of Object.keys(
+			fieldsToUpdate,
+		) as (keyof typeof fieldsToUpdate)[]) {
+			if (
+				fieldsToUpdate[key] !== undefined &&
+				user[key as keyof typeof user] !== fieldsToUpdate[key]
+			) {
+				hasChanges = true;
+				(user[key as keyof typeof user] as string) = fieldsToUpdate[key];
+			}
+		}
+
+		// If there's no change, message = "There was no field to update"
+		if (!hasChanges) {
+			return {
+				message: "There was no field to update",
+				user,
+			};
+		}
+
+		// Save updated user
+		await dataSource.manager.save(user);
+
+		return {
+			message: "User updated successfully",
+			user,
+		};
 	}
 }

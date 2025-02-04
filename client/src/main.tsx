@@ -1,33 +1,39 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/global.scss";
 import {
 	createBrowserRouter,
 	RouterProvider,
 	Navigate,
 } from "react-router-dom";
-import { ApolloProvider } from "@apollo/client";
-import { AuthProvider } from "./context/AuthContext.tsx";
-
 import client from "./graphQL/apolloClient.ts";
+
+// Style
 import "./styles/global.scss";
 
-import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
-import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+// Providers
+import { ApolloProvider } from "@apollo/client";
+import { AuthProvider } from "./context/AuthContext.tsx";
 import AuthGuard from "./layouts/AuthGuard/AuthGuard.tsx";
 
-import Homepage from "@/pages/Homepage/Homepage.tsx";
-import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
+// Layouts
+import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
+
+// Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
-import Login from "@/pages/Login/Login.tsx";
-import Registration from "./pages/Registration/Registration.tsx";
-import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import ResetLink from "./pages/Login/ResetLink.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
+import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
+import Homepage from "@/pages/Homepage/Homepage.tsx";
+import Login from "@/pages/Login/Login.tsx";
+import NewPassword from "./pages/Login/NewPassword.tsx";
+import Profile from "@/pages/Profile/Profile.tsx";
+import Registration from "./pages/Registration/Registration.tsx";
+import ResetLink from "./pages/Login/ResetLink.tsx";
+import ResetPassword from "./pages/Login/ResetPassword.tsx";
+import Services from "@/pages/WelcomePage/Services.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
 
+// FIXME: delete
 import TestME from "./components/TestME.tsx";
 
 const router = createBrowserRouter([
@@ -191,7 +197,7 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						element: <TestME />,
+						element: <Profile />,
 					},
 					{
 						path: "personal-information",
@@ -205,6 +211,7 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+	// FIXME: delete -----------------------
 	{
 		path: "designsystem",
 		element: <DesignSystem />,
@@ -213,6 +220,11 @@ const router = createBrowserRouter([
 		path: "test",
 		element: <TestFileUpload />,
 	},
+	{
+		path: "testme",
+		element: <TestME />,
+	},
+	// -------------------------------------
 ]);
 
 const rootElement = document.getElementById("root");

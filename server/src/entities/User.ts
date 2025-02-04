@@ -24,6 +24,7 @@ export abstract class User {
 	@BeforeInsert()
 	@BeforeUpdate()
 	private async validateAndHashPassword() {
+		// FIXME: reinforce that regex
 		if (!this.password_hashed.startsWith("$2b$")) {
 			if (!User.PASSWORD_REGEX.test(this.password_hashed)) {
 				throw new Error("Le mot de passe doit contenir au moins 8 caractères");
@@ -105,6 +106,13 @@ export abstract class User {
 
 	@Column({
 		type: "varchar",
+		length: 255,
+	})
+	@Field()
+	avatar: string;
+
+	@Column({
+		type: "varchar",
 		length: 10,
 	})
 	@Field()
@@ -119,6 +127,7 @@ export abstract class User {
 		city = "",
 		postal_code = "",
 		role = "",
+		avatar = "https://placehold.co/400",
 	) {
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -128,5 +137,6 @@ export abstract class User {
 		this.city = city;
 		this.postal_code = postal_code;
 		this.role = role;
+		this.avatar = avatar;
 	}
 }
