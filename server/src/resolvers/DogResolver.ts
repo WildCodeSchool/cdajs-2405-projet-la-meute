@@ -32,7 +32,7 @@ export class DogResolver {
 	async createDog(
 		@Arg("ownerId") ownerId: number,
 		@Arg("name", { nullable: true }) name?: string,
-		@Arg("age", { nullable: true }) birthDate?: Date,
+		@Arg("birthDate", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
 		@Arg("picture", () => GraphQLUpload, { nullable: true })
 		picture?: Promise<FileUpload>,
