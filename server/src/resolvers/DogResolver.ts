@@ -29,6 +29,30 @@ export class DogResolver {
 	}
 
 	@Mutation(() => Dog)
+	async createDog(
+		@Arg("ownerId") ownerId: number,
+		@Arg("name", { nullable: true }) name?: string,
+		@Arg("age", { nullable: true }) age?: number,
+		@Arg("breed", { nullable: true }) breed?: string,
+		@Arg("picture", () => GraphQLUpload) picture?: Promise<FileUpload>,
+	): Promise<Dog> {
+		const owner = await ownerRepository.findOneBy({ id: ownerId });
+		if (!owner) {
+			throw new Error(`Owner with ID ${ownerId} not found`);
+		}
+
+		let picturePath = "/upload/images/defaultdog.jpg";
+
+		if (picture) {
+			const fileUploader = new FileUploadResolver();
+			picturePath = await fileUploader.addProfilePicture(picture);
+		}
+
+		const dog = new Dog(owner, name, age, breed, picturePath);
+		return await dogRepository.save(dog);
+	}
+
+	@Mutation(() => Dog)
 	async updateDog(
 		@Arg("dogId") dogId: number,
 		@Arg("ownerId") ownerId: number,
@@ -45,9 +69,7 @@ export class DogResolver {
 		});
 
 		if (!dog) {
-			throw new Error(
-				"Chien non trouvé ou vous n'êtes pas autorisé à le modifier",
-			);
+			throw new Error(`Dog with ID ${dogId} not found`);
 		}
 
 		if (name) dog.name = name;
@@ -71,9 +93,7 @@ export class DogResolver {
 		});
 
 		if (!dog) {
-			throw new Error(
-				"Chien non trouvé ou vous n'êtes pas autorisé à le supprimer",
-			);
+			throw new Error(`Dog with ID ${dogId} not found`);
 		}
 
 		const result = await dogRepository.delete(dogId);
