@@ -1,25 +1,28 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/global.scss";
 import {
 	createBrowserRouter,
 	RouterProvider,
 	Navigate,
 } from "react-router-dom";
+import client from "./graphQL/apolloClient.ts";
+
+// Style
+import "./styles/global.scss";
+
+// Providers
 import { ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/AuthContext.tsx";
-
-import client from "./graphQL/apolloClient.ts";
 import AuthGuard from "./layouts/AuthGuard/AuthGuard.tsx";
 
-// All layouts in alphabetical order
+// Layouts
 import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
-// All pages in alphabetical order
+// Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
-import ErrorPage from "@/pages/Handling/ErrorPage.tsx";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Id from "@/pages/Trainer/Customers/id/Id.tsx";
 import List from "@/pages/Trainer/Customers/List/List.tsx";
@@ -29,16 +32,12 @@ import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "@/pages/Registration/Registration.tsx";
 import ResetPassword from "@/pages/Login/ResetPassword.tsx";
 import ResetLink from "@/pages/Login/ResetLink.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
-import Contact from "@/pages/WelcomePage/Contact.tsx";
-import Login from "@/pages/Login/Login.tsx";
-import Registration from "./pages/Registration/Registration.tsx";
-import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import ResetLink from "./pages/Login/ResetLink.tsx";
 import Planning from "./pages/Planning/Planning.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
-import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
+import Services from "@/pages/WelcomePage/Services.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
+
+// FIXME: delete
+import TestME from "./components/TestME.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -173,11 +172,11 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>customers List</p>,
+								element: <List />,
 							},
 							{
 								path: ":id",
-								element: <p>customers/:id</p>,
+								element: <Id />,
 							},
 						],
 					},
@@ -198,10 +197,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "my-profile",
+				element: (
+					<AuthGuard allowedRoles={["trainer", "owner"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
 				children: [
 					{
 						index: true,
-						element: <TestME />,
+						element: <Profile />,
 					},
 					{
 						path: "personal-information",
@@ -215,6 +219,7 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+	// FIXME: delete -----------------------
 	{
 		path: "designsystem",
 		element: <DesignSystem />,
@@ -223,6 +228,11 @@ const router = createBrowserRouter([
 		path: "test",
 		element: <TestFileUpload />,
 	},
+	{
+		path: "testme",
+		element: <TestME />,
+	},
+	// -------------------------------------
 ]);
 
 const rootElement = document.getElementById("root");

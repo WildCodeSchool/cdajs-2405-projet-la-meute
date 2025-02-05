@@ -97,7 +97,10 @@ const TextInput = React.forwardRef<
 		const { label, placeholder } = TEXT_INPUT_CONFIG[type];
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-		useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
+		useImperativeHandle(
+			ref,
+			() => inputRef.current as HTMLInputElement | HTMLTextAreaElement,
+		);
 
 		const inputId = `textInput-${type}`;
 		const isPasswordField = type === "password" || type === "confirmPassword";

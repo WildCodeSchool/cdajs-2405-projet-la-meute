@@ -65,6 +65,8 @@ Isolated basic commands for debugging purpose:
 - client side: `npm run dev`
 - server side: `npm start`
 
+// FIXME: add doc design pattern
+
 ### Folder Structure
 
 ```lua (aesthetic use, not actual lua)

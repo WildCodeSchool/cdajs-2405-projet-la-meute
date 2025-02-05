@@ -9,7 +9,7 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 
 function Profile() {
-	const { user } = useUser();
+	const { user, refetch } = useUser();
 	const navigate = useNavigate();
 	const [view, setView] = useState<"profile" | "personal" | "preferences">(
 		"profile",
@@ -20,7 +20,6 @@ function Profile() {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const phoneRef = useRef<HTMLInputElement>(null);
 	const cityRef = useRef<HTMLInputElement>(null);
-	const postalCodeRef = useRef<HTMLInputElement>(null);
 	const siretRef = useRef<HTMLInputElement>(null);
 	const companyNameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -28,20 +27,26 @@ function Profile() {
 	const [updateUserMutation] = useMutation(UPDATE_USER);
 
 	useEffect(() => {
-		console.log(view);
-		if (
-			user &&
-			firstnameRef.current &&
-			lastnameRef.current &&
-			cityRef.current &&
-			descriptionRef.current
-		) {
-			firstnameRef.current.value = user.firstname || "";
-			lastnameRef.current.value = user.lastname || "";
-			cityRef.current.value = user.city || "";
-			descriptionRef.current.value = user.description || "";
-		} else {
+		if (!user) {
 			navigate("/login");
+			return;
+		}
+
+		if (view === "profile") {
+			if (firstnameRef.current)
+				firstnameRef.current.value = user.firstname || "";
+			if (lastnameRef.current) lastnameRef.current.value = user.lastname || "";
+			if (cityRef.current) cityRef.current.value = user.city || "";
+			if (descriptionRef.current)
+				descriptionRef.current.value = user.description || "";
+		}
+
+		if (view === "personal") {
+			if (emailRef.current) emailRef.current.value = user.email || "";
+			if (phoneRef.current) phoneRef.current.value = user.phone_number || "";
+			if (siretRef.current) siretRef.current.value = user.siret || "";
+			if (companyNameRef.current)
+				companyNameRef.current.value = user.company_name || "";
 		}
 	}, [user, navigate, view]);
 
@@ -50,22 +55,35 @@ function Profile() {
 	) => {
 		e.preventDefault();
 
-		const updatedUser = {
-			id: Number(user?.id),
-			role: user?.role,
-			firstname: firstnameRef.current?.value,
-			lastname: lastnameRef.current?.value,
-			city: cityRef.current?.value,
-			description: descriptionRef.current?.value,
-		};
+		let updatedUser = {};
+
+		if (view === "profile") {
+			updatedUser = {
+				id: Number(user?.id),
+				role: user?.role,
+				firstname: firstnameRef.current?.value,
+				lastname: lastnameRef.current?.value,
+				city: cityRef.current?.value,
+				description: descriptionRef.current?.value,
+			};
+		} else {
+			updatedUser = {
+				id: Number(user?.id),
+				role: user?.role,
+				email: emailRef.current?.value,
+				phone_number: phoneRef.current?.value,
+				siret: siretRef.current?.value,
+				company_name: companyNameRef.current?.value,
+			};
+		}
 
 		try {
 			const response = await updateUserMutation({
 				variables: { updatedUser },
 			});
-
 			if (response.data.UpdateUser.message === "User updated successfully") {
 				alert("Profil sauvegardé avec succès !");
+				await refetch();
 			} else if (response.data.UpdateUser.message === "User not found") {
 				alert("Utilisateur non trouvé.");
 			} else if (
@@ -76,7 +94,6 @@ function Profile() {
 				alert("Erreur lors de la mise à jour du profil.");
 			}
 		} catch (error) {
-			console.error("Erreur lors de la sauvegarde :", error);
 			alert("Une erreur est survenue lors de la sauvegarde.");
 		}
 	};
@@ -91,14 +108,18 @@ function Profile() {
 					<Button
 						className="profile__nav--button"
 						style="btn-dark"
-						onClick={() => setView("profile")}
+						onClick={() => {
+							setView("profile");
+						}}
 					>
 						Mon profil éducateur
 					</Button>
 					<Button
 						className="profile__nav--button"
 						style="btn-light"
-						onClick={() => setView("personal")}
+						onClick={() => {
+							setView("personal");
+						}}
 					>
 						Informations personnelles
 					</Button>
@@ -121,16 +142,16 @@ function Profile() {
 					{view === "profile" && (
 						<>
 							<span className="profile__form--names">
-								<TextInput color="light" type="firstname" ref={firstnameRef} />
-								<TextInput color="light" type="lastname" ref={lastnameRef} />
+								<TextInput style="light" type="firstname" ref={firstnameRef} />
+								<TextInput style="light" type="lastname" ref={lastnameRef} />
 							</span>
-							<TextInput color="light" type="city" ref={cityRef} />
+							<TextInput style="light" type="city" ref={cityRef} />
 							<p>
 								Indiquez une adresse générale pour donner un périmètre à vos
 								clients.
 							</p>
 							<TextInput
-								color="light"
+								style="light"
 								type="description"
 								inputType="textarea"
 								ref={descriptionRef}
@@ -139,10 +160,14 @@ function Profile() {
 					)}
 					{view === "personal" && (
 						<>
-							<TextInput color="light" type="email" ref={emailRef} />
-							<TextInput color="light" type="email" ref={phoneRef} />
-							<TextInput color="light" type="email" ref={siretRef} />
-							<TextInput color="light" type="email" ref={companyNameRef} />
+							<TextInput style="light" type="email" ref={emailRef} />
+							<TextInput style="light" type="telephone" ref={phoneRef} />
+							<TextInput style="light" type="SIRET" ref={siretRef} />
+							<TextInput
+								style="light"
+								type="company_name"
+								ref={companyNameRef}
+							/>
 						</>
 					)}
 					<Button
