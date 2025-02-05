@@ -1,5 +1,5 @@
-import { Field, ObjectType, ID } from "type-graphql";
-import { Column, Entity, OneToMany, ChildEntity, PrimaryColumn } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { Column, Entity, OneToMany } from "typeorm";
 import { User } from "./User";
 import { Service } from "./Service";
 import { Event } from "./Event";
@@ -23,6 +23,10 @@ export class Trainer extends User {
 	@Field()
 	company_name: string;
 
+	@Column()
+	@Field()
+	description: string;
+
 	@OneToMany(
 		() => Service,
 		(service) => service.trainer,
@@ -44,5 +48,6 @@ export class Trainer extends User {
 		this.role = "trainer";
 		this.siret = siret;
 		this.company_name = company_name;
+		this.description = "";
 	}
 }

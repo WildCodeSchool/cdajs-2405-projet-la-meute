@@ -23,3 +23,25 @@ export const PASSWORDRESET = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($updatedUser: UpdateUserInput!) {
+    UpdateUser(updatedUser: $updatedUser) {
+      message
+      user {
+        id
+        role
+        firstname
+        lastname
+        city
+        description
+        avatar
+        email
+        phone_number
+        postal_code
+        siret
+        company_name
+      }
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "install:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
     "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
