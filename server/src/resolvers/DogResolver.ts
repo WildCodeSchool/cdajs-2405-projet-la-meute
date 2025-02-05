@@ -34,7 +34,8 @@ export class DogResolver {
 		@Arg("name", { nullable: true }) name?: string,
 		@Arg("age", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
-		@Arg("picture", () => GraphQLUpload) picture?: Promise<FileUpload>,
+		@Arg("picture", () => GraphQLUpload, { nullable: true })
+		picture?: Promise<FileUpload>,
 	): Promise<Dog> {
 		const owner = await ownerRepository.findOneBy({ id: ownerId });
 		if (!owner) {
@@ -57,7 +58,7 @@ export class DogResolver {
 		@Arg("dogId") dogId: number,
 		@Arg("ownerId") ownerId: number,
 		@Arg("name", { nullable: true }) name?: string,
-		@Arg("age", { nullable: true }) birthDate?: Date,
+		@Arg("birthDate", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
 	): Promise<Dog> {
 		const dog = await dogRepository.findOne({
