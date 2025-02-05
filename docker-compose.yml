@@ -35,6 +35,10 @@ services:
     ports:
       - 5433:5432
     container_name: pawplanner-db-1
+    environment:
+      - POSTGRES_USER=${DBUSERNAME}
+      - POSTGRES_PASSWORD=${DBPASS}
+      - POSTGRES_DB=${DBNAME}
 
   adminer:
     image: adminer

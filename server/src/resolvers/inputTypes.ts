@@ -38,3 +38,12 @@ export class UpdateUserInput {
 	@Field({ nullable: true })
 	company_name?: string;
 }
+
+@InputType()
+export class LocationInput {
+	@Field()
+	latitude?: number;
+
+	@Field()
+	longitude?: number;
+}

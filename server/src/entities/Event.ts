@@ -39,6 +39,10 @@ export class Event {
 	@Field()
 	group_max_size: number;
 
+	@Column("decimal", { precision: 6, scale: 2 })
+	@Field()
+	price: number;
+
 	@ManyToOne(
 		() => Trainer,
 		(trainer) => trainer.event,
@@ -56,7 +60,7 @@ export class Event {
 		(service) => service.event,
 		{ onDelete: "CASCADE" },
 	)
-	@JoinColumn({ name: "service_id" })
+	@JoinColumn({ name: "id" })
 	service: Service;
 
 	@OneToMany(
@@ -73,6 +77,7 @@ export class Event {
 		description: string,
 		location: Coordinates,
 		group_max_size = 0,
+		price = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
@@ -81,5 +86,6 @@ export class Event {
 		this.description = description;
 		this.location = location;
 		this.group_max_size = group_max_size;
+		this.price = price;
 	}
 }
