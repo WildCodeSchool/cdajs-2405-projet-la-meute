@@ -1,0 +1,28 @@
+@import "@style";
+
+.ownerCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    border-radius: $windows-radius;
+    background-color: $orange-300;
+    color: $primary-light;
+    padding: 1rem;
+
+    &__name {
+        font-weight: $bold;
+        font-size: $m;
+        margin-bottom: 1rem;
+    }
+
+    &__infos {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+}

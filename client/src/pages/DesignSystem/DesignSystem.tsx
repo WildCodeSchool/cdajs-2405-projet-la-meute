@@ -4,6 +4,8 @@ import NewTag from "@/components/_atoms/Tag/NewTag";
 import Tag from "@/components/_atoms/Tag/Tag";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Form from "@/components/_molecules/Form/Form";
+import OwnerCard from "@/components/_atoms/Cards/OwnerCard/OwnerCard";
+import Dogcard from "@/components/_atoms/Cards/DogCard/DogCard";
 
 export default function DesignSystem() {
 	return (
@@ -100,8 +102,8 @@ export default function DesignSystem() {
 				<div>
 					<h2>Form</h2>
 					<Form title="Connectez-vous ici">
-						<TextInput type="email" />
-						<TextInput type="password" />
+						<TextInput style="dark" type="email" />
+						<TextInput style="dark" type="password" />
 						<Button type="submit" style="btn-dark" href="">
 							Annuler
 						</Button>
@@ -113,6 +115,11 @@ export default function DesignSystem() {
 							<a href="/">Un lien par exemple</a>.
 						</p>
 					</Form>
+				</div>
+				<div>
+					<h2>Cards</h2>
+					<OwnerCard />
+					<Dogcard />
 				</div>
 			</div>
 		</div>
