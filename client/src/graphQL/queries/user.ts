@@ -4,8 +4,7 @@ export const GET_ALL_OWNERS = gql`
     query GetAllOwners {
         getAllOwners {
             id
-            lastname
-            firstname
+            name
             email
             phone_number
             city
@@ -19,8 +18,7 @@ export const GET_USER_BY_EMAIL = gql`
     query GetUserByEmail($email: String!) {
         getUserByEmail(email: $email) {
             id
-            lastname
-            firstname
+            name
             email
             phone_number
             city

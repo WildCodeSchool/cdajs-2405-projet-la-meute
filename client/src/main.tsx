@@ -24,13 +24,15 @@ import Contact from "@/pages/WelcomePage/Contact.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
+import Id from "@/pages/Trainer/Customers/id/Id.tsx";
+import List from "@/pages/Trainer/Customers/List/List.tsx";
 import Login from "@/pages/Login/Login.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
-import Planning from "./pages/Planning/Planning.tsx";
+import NewPassword from "@/pages/Login/NewPassword.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
-import Registration from "./pages/Registration/Registration.tsx";
-import ResetLink from "./pages/Login/ResetLink.tsx";
-import ResetPassword from "./pages/Login/ResetPassword.tsx";
+import Registration from "@/pages/Registration/Registration.tsx";
+import ResetPassword from "@/pages/Login/ResetPassword.tsx";
+import ResetLink from "@/pages/Login/ResetLink.tsx";
+import Planning from "./pages/Planning/Planning.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
 
@@ -170,11 +172,11 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>customers List</p>,
+								element: <List />,
 							},
 							{
 								path: ":id",
-								element: <p>customers/:id</p>,
+								element: <Id />,
 							},
 						],
 					},

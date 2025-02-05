@@ -1,0 +1,44 @@
+@import "@style";
+
+.searchbar {
+    background-color: $primary-dark;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: $atoms-radius;
+    font-size: $s;
+
+    & * {
+        color: $font-light;
+        background-color: inherit;
+    }
+
+    &__label {
+        display: none;
+    }
+
+    &__button {
+        border: none;
+        cursor: pointer;
+        line-height: 0;
+
+        &--icon {
+            height: 1rem;
+            width: 1rem;
+            margin-inline-start: 1rem;
+        }
+    }
+
+    &__input {
+        border: none;
+        width: 100%;
+        border-radius: $atoms-radius;
+
+        &:focus {
+            outline: $primary-dark solid 1px;
+            outline-offset: 1px;
+        }
+    }
+}

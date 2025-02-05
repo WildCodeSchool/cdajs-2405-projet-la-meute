@@ -66,3 +66,5 @@ export default function Button({
 		</button>
 	);
 }
+
+// TODO: repenser les boutons pour que le formulaires se soumette
