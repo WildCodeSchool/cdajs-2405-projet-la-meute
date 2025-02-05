@@ -11,11 +11,10 @@ import bcrypt from "bcryptjs";
 // The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
 // If the role is "Owner," TypeORM loads an instance of the Owner class.
 // If the role is "Trainer," TypeORM loads an instance of the Trainer class.
-
 @Entity()
 @ObjectType()
 export abstract class User {
-	private static readonly PASSWORD_REGEX = /^.{8,}$/;
+	private static readonly PASSWORD_REGEX = /^.{8,}$/; // FIXME: reinforce that regex
 
 	private async hashPassword(password: string): Promise<string> {
 		return bcrypt.hash(password, 10);
@@ -24,12 +23,16 @@ export abstract class User {
 	@BeforeInsert()
 	@BeforeUpdate()
 	private async validateAndHashPassword() {
-		if (!this.password_hashed.startsWith("$2b$")) {
+		if (this.password_hashed && !this.isPasswordAlreadyHashed()) {
 			if (!User.PASSWORD_REGEX.test(this.password_hashed)) {
 				throw new Error("Le mot de passe doit contenir au moins 8 caractères");
 			}
 			this.password_hashed = await this.hashPassword(this.password_hashed);
 		}
+	}
+
+	private isPasswordAlreadyHashed(): boolean {
+		return this.password_hashed.startsWith("$2b$");
 	}
 
 	private async verifyPassword(plainPassword: string): Promise<boolean> {
@@ -105,6 +108,13 @@ export abstract class User {
 
 	@Column({
 		type: "varchar",
+		length: 255,
+	})
+	@Field()
+	avatar: string;
+
+	@Column({
+		type: "varchar",
 		length: 10,
 	})
 	@Field()
@@ -119,6 +129,7 @@ export abstract class User {
 		city = "",
 		postal_code = "",
 		role = "",
+		avatar = "https://placehold.co/400",
 	) {
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -128,5 +139,6 @@ export abstract class User {
 		this.city = city;
 		this.postal_code = postal_code;
 		this.role = role;
+		this.avatar = avatar;
 	}
 }

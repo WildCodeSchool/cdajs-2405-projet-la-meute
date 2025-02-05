@@ -1,5 +1,5 @@
-import { Field, ObjectType, ID } from "type-graphql";
-import { Entity, OneToMany, ChildEntity, PrimaryColumn } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { Entity, OneToMany } from "typeorm";
 import { User } from "./User";
 import { Dog } from "./Dog";
 
