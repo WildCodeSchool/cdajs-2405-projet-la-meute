@@ -9,8 +9,8 @@ import * as authTypes from "../types/authTypes";
 import * as crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { UpdateUserInput } from "./inputTypes";
-import { MessageAndUserResponse } from "./responseType";
+import { UpdateUserInput } from "../types/inputTypes";
+import { MessageAndUserResponse } from "../types/responseType";
 
 @Resolver()
 export class UserResolvers {
