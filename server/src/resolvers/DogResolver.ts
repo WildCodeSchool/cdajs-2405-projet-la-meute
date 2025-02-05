@@ -32,7 +32,7 @@ export class DogResolver {
 	async createDog(
 		@Arg("ownerId") ownerId: number,
 		@Arg("name", { nullable: true }) name?: string,
-		@Arg("age", { nullable: true }) age?: number,
+		@Arg("age", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
 		@Arg("picture", () => GraphQLUpload) picture?: Promise<FileUpload>,
 	): Promise<Dog> {
@@ -48,7 +48,7 @@ export class DogResolver {
 			picturePath = await fileUploader.addProfilePicture(picture);
 		}
 
-		const dog = new Dog(owner, name, age, breed, picturePath);
+		const dog = new Dog(owner, name, birthDate, breed, picturePath);
 		return await dogRepository.save(dog);
 	}
 
@@ -57,7 +57,7 @@ export class DogResolver {
 		@Arg("dogId") dogId: number,
 		@Arg("ownerId") ownerId: number,
 		@Arg("name", { nullable: true }) name?: string,
-		@Arg("age", { nullable: true }) age?: number,
+		@Arg("age", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
 	): Promise<Dog> {
 		const dog = await dogRepository.findOne({
@@ -73,7 +73,7 @@ export class DogResolver {
 		}
 
 		if (name) dog.name = name;
-		if (age) dog.age = age;
+		if (birthDate) dog.birthDate = birthDate;
 		if (breed) dog.breed = breed;
 
 		return await dogRepository.save(dog);

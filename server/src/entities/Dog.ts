@@ -24,9 +24,9 @@ export class Dog {
 	@Field()
 	name: string;
 
-	@Column("int")
+	@Column("date")
 	@Field()
-	age: number;
+	birthDate: Date;
 
 	@Column({
 		type: "varchar",
@@ -65,13 +65,13 @@ export class Dog {
 	constructor(
 		owner: Owner,
 		name = "",
-		age = 0,
+		birthDate = new Date(),
 		breed = "",
 		picture = "/upload/images/defaultdog.jpg",
 	) {
 		this.owner = owner;
 		this.name = name;
-		this.age = age;
+		this.birthDate = birthDate;
 		this.breed = breed;
 		this.picture = picture;
 	}
