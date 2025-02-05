@@ -67,13 +67,17 @@ async function createData() {
 		const dog1 = new Dog(
 			savedOwner1,
 			"Rex",
-			3,
+			new Date("2020-01-01"),
 			"Caniche de Siberie",
-			"https://placehold.co/600x400",
 		);
 		const savedDog1 = await dogRepository.save(dog1);
 
-		const dog2 = new Dog(savedOwner1, "Luna", 2, "Golden Retriever");
+		const dog2 = new Dog(
+			savedOwner1,
+			"Luna",
+			new Date("2023-04-15"),
+			"Golden Retriever",
+		);
 		const savedDog2 = await dogRepository.save(dog2);
 
 		// 4. Create Service
