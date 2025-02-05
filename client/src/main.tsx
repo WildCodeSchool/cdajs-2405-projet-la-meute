@@ -21,6 +21,8 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
 // Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
+import CustomerId from "./pages/Trainer/Customers/CustomerId/CustomerId.tsx";
+import CustomerList from "./pages/Trainer/Customers/CustomerList/CustomerList.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
@@ -170,11 +172,11 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>customers List</p>,
+								element: <CustomerList />,
 							},
 							{
 								path: ":id",
-								element: <p>customers/:id</p>,
+								element: <CustomerId />,
 							},
 						],
 					},
