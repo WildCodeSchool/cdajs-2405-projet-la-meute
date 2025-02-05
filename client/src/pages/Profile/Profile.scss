@@ -33,6 +33,10 @@
             width: 100%;
         }
 
+        &--avatar {
+            @include avatar;
+        }
+
         &--title,
         &--names {
             display: flex;
