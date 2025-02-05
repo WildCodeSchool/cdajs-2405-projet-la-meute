@@ -24,7 +24,7 @@ export class Dog {
 	@Field()
 	name: string;
 
-	@Column("date")
+	@Column("timestamp")
 	@Field()
 	birthDate: Date;
 
@@ -61,6 +61,12 @@ export class Dog {
 	)
 	@Field(() => [Participation], { nullable: true })
 	participation?: Participation[];
+
+	@Field()
+	getAge(): number {
+		const diff = new Date().getTime() - new Date(this.birthDate).getTime();
+		return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+	}
 
 	constructor(
 		owner: Owner,
