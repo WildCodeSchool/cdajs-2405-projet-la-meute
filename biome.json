@@ -19,6 +19,9 @@
 		"quoteProperties": "asNeeded",
 		"semicolons": "always",
 		"trailingCommas": "all"
+	  },
+	  "parser": {
+		"unsafeParameterDecoratorsEnabled": true
 	  }
 	},
 	"organizeImports": { "enabled": true },

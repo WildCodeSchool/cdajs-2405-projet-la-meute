@@ -1,13 +1,33 @@
 {
   "scripts": {
     "install:all": "npm install && npm install --prefix client && npm install --prefix server",
-    "init:db": "ts-node ./_ressources/scripts/init_db_user.ts"
+    "ci:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
+    "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
+    "check-format": "npx @biomejs/biome format ./server/src ./client/src",
+    "format": "npx @biomejs/biome format --write ./server/src ./client/src",
+    "prepare": "husky",
+    "client-package": "./client-package.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@biomejs/biome": "^1.9.4",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.5.5",
+    "@types/sinon": "^17.0.3",
     "dotenv": "^16.4.5",
+    "husky": "^9.1.7",
+    "mock-typeorm": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0"
   }
 }

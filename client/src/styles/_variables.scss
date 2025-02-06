@@ -1,25 +1,101 @@
+// Fonts - Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// Colors palette
+$beige-600: #64503C;
+$beige-500: #AD9985;
+$beige-400: #B8A694;
+$beige-300: #E5D7C8;
+$beige-200: #F1E6DA;
+$beige-100: #FAF4E6;
+
+$blue-600: #021418;
+$blue-500: #04272f;
+$blue-400: #063b46;
+$blue-300: #0a6375;
+$blue-200: #0c778d;
+$blue-100: #43A6BA;
+
+$green-600: #355C24;
+$green-500: #559339;
+$green-400: #6AB847;
+$green-300: #8CC871;
+$green-200: #A0DB86;
+$green-100: #BDF2A4;
+
+$orange-500: #ee9033;
+$orange-400: #FFA84E;
+$orange-300: #FFBF80;
+$orange-200: #FFDEBD;
+$orange-100: #FFF2E5;
+
+$error-color: #c74c4c;
+
 // Main colors
-$primary-dark: #0C343D;
-$primary-light: #F9F4E5;
+$primary-dark: #0c343d;
+$primary-light: $beige-100;
 
-$secondary-dark: #8CC871;
-$secondary-light: #ECEC59;
+$secondary-dark: #8cc871;
+$secondary-light: #ecec59;
 
-$accent-color: #FFA84D;
+$accent-color: $orange-400;
 
 // Links
 $base-link: $accent-color;
-$visited-link: darken($accent-color, 20%);
 $active-link: blue;
 $hovered-link: lighten($accent-color, 10%);
-$focused-link: red;
+$focused-link: $accent-color;
 
 // Debug
 $border-debug: 5px solid lime;
 .debug {
     border: $border-debug;
 }
+@mixin debug {
+    border: $border-debug;
+}
 
-// Transparent variables renaming 
+// Fixed values
+$atoms-radius: 10px;
+$windows-radius: 20px;
+$blocks-margin: 2rem;
+$btn-height: 2rem;
+$welcomePageHeaderHeight: 10vh;
+$minPaddingInline: 2vw;
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+$dashHeaderHeight: 10vh;
+$dashSideBarWidth: 8vw; // maximum $dashHeaderHeight minimum $dashSideBarWidth
+$dashMobileSideBarHeight: 9vh;
+$dashInlinePadding: $minPaddingInline;
+
+// Transparent variables renaming
 $background-color: $primary-light;
 $aside-color: $primary-dark;
+
+// Fonts
+$font: "Poppins", sans-serif;
+// -- colors
+$font-light: $primary-light;
+$font-dark: $primary-dark;
+// -- weights
+$extraBold: 800;
+$bold: 700;
+$semiBold: 600;
+$medium: 500;
+$regular: 400;
+$light: 300;
+$extraLight: 200;
+$thin: 100;
+// -- sizes
+$xxs: 0.5rem;
+$xs: 0.75rem;
+$s: 1rem;
+$m: 1.25rem;
+$l: 1.75rem;
+$xl: 2rem;
+$xxl: 2.5rem;
+$xxxl: 3rem;
+
+// Breakpoints
+$tablet: 1150px;
+$mobile: 850px;

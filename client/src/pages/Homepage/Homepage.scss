@@ -1,2 +1,209 @@
 @import "@style";
 
+@mixin HomepageTitle {
+    font-size: 4rem;
+    font-weight: $bold;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+@mixin HomepageSectionHeight {
+    height: 90vh;
+    align-items: center;
+}
+
+$minHomepagePaddingInline: calc($minPaddingInline + 5vw);
+
+/* Votre temps est précieux... */
+.homepage__section--top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: $minHomepagePaddingInline;
+    @include HomepageSectionHeight;
+}
+
+.homepage__div--top-text {
+    width: 50%;
+    p {
+        color: $primary-dark;
+        font-size: $s;
+        font-weight: $regular;
+        font-style: normal;
+        line-height: 1.5rem;
+    }
+    h2 {
+        line-height: 2rem;
+        margin-block-end: 3rem;
+        font-size: $m;
+    }
+}
+
+.homepage__title {
+    @include HomepageTitle;
+}
+
+.homepage__div--top-img {
+    img {
+        width: auto;
+    }
+}
+
+/* De quel côté êtes-vous ? */
+.homepage__section--choice {
+    background-color: $beige-200;
+    padding-block: 4vh;
+    padding-inline: $minHomepagePaddingInline;
+}
+
+.homepage__div--choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vw;
+    padding-bottom: 6vh;
+    align-items: stretch;
+    padding-inline: 5vw;
+}
+
+@mixin ChoiceCard {
+    padding-inline: 3vh;
+    padding-block: 2vw;
+    border-radius: $atoms-radius;
+}
+
+.homepage__div--choice-left {
+    background-color: $green-100;
+    @include ChoiceCard;
+}
+
+.homepage__div--choice-right {
+    background-color: $orange-300;
+    @include ChoiceCard;
+}
+
+.homepage__div--choice-title {
+    padding-inline: 0;
+    margin-top: 1vh;
+    color: $blue-300;
+    font-size: $xl;
+    font-weight: $bold;
+}
+
+.homepage__div--choice-text {
+    color: $blue-300;
+    font-size: $s;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+/* Fonctionnalités principales */
+.homepage__features {
+    padding-block: 5vh;
+    padding-inline: $minHomepagePaddingInline;
+    background-color: $blue-300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        text-align: center;
+        color: $primary-light;
+        @include HomepageTitle;
+    }
+}
+
+.homepage__features--cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 4vh;
+    column-gap: 2vw;
+    flex-wrap: wrap;
+}
+
+.homepage__features--card {
+    background-color: $blue-500;
+    padding: 1.5vh 3vw;
+    margin-block: 2vh;
+    width: 30%;
+    border-radius: $atoms-radius;
+    h3 {
+        margin-top: 1vh;
+        color: $blue-100;
+        font-size: $l;
+        font-weight: $bold;
+    }
+    p {
+        color: $primary-light;
+        font-size: $s;
+        line-height: 1.75rem;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .homepage__features--card {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .homepage__title {
+        font-size: $xxxl;
+        margin-block: 1rem;
+    }
+
+    /* Votre temps est précieux... */
+    .homepage__section--top {
+        flex-direction: column;
+        padding-inline: $minHomepagePaddingInline;
+    }
+    .homepage__div--top-text {
+        padding-inline-start: 0;
+        width: 100%;
+        h2 {
+            margin-block-end: 1rem;
+        }
+    }
+    .homepage__div--top-img {
+        margin: auto;
+        width: 100%;
+    }
+
+    /* De quel côté êtes-vous ? */
+    .homepage__section--choice {
+        h2 {
+            margin-block-end: 2rem;
+        }
+        h3 {
+            text-align: center;
+        }
+    }
+    .homepage__div--choice {
+        flex-direction: column;
+        gap: 2rem;
+        padding-inline: 0;
+    }
+    .homepage__div--choice-left {
+        width: 100%;
+    }
+    .homepage__div--choice-right {
+        width: 100%;
+    }
+
+    /* Fonctionnalités principales */
+    .homepage__features h2 {
+        font-size: $xxxl;
+        margin-block: 1rem;
+    }
+    .homepage__features--card {
+        width: 100%;
+        h3,
+        p {
+            text-align: center;
+        }
+    }
+}

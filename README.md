@@ -23,10 +23,12 @@ ___
     - **Apollo Server**
     - **TypeGraphQL**
     - **PostegreSQL**
+    - **Jest**
 - Client side:
     - **React** (through ViteJS)
     - **Apollo Client** (via Vite)
     - **Sass**
+    - **Vitest**
 
 ## Launch
 
@@ -39,6 +41,13 @@ ___
 2. **Any other launch**
     - Run `docker compose up`
 
+Every new dependency asks for a rebuild (`npm run ci:all`, `docker compose down` then `docker compose up --build`).
+
+**Client**: http://localhost:4200/ </br>
+**Server**: http://localhost:3200/
+
+**Adminer**: http://localhost:8080/
+
 ### Explanations
 
 First of all, copy and edit the `.env.sample` in a `.env` file. <br>
@@ -48,13 +57,15 @@ Then run `npm run install:all` to run the `npm install` commands in the /root, /
 
 On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
 
-You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME).
+You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME - replace the variables).
 
 Run `docker compose up`.
 
 Isolated basic commands for debugging purpose: 
 - client side: `npm run dev`
 - server side: `npm start`
+
+// FIXME: add doc design pattern
 
 ### Folder Structure
 
@@ -68,12 +79,14 @@ PawPlanner/
 ├── client/                     -- FRONTEND
 │   ├── public/
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── assets/
 |   │   ├── components/
 |   │   |   ├── _atoms/
 |   │   |   ├── _molecules/
 |   │   |   ├── _organisms/
-|   │   |   └── ComponentName/  -- TODO: sort and clean
+|   │   |   └── ComponentName/
 |   |   │       ├── ComponentName.tsx
 |   |   │       └── ComponentName.scss
 |   │   ├── graphQL/
@@ -101,6 +114,8 @@ PawPlanner/
 |   └── -- Other client side config files
 ├── server/                     -- BACKEND
 |   ├── src/
+|   │   ├── __tests__/
+|   │   |   └── ...
 |   │   ├── dataSource/
 |   │   |   ├── dataSource.ts
 |   │   |   └── initTestData.ts

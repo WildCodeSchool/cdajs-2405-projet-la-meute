@@ -1,10 +1,11 @@
-FROM node:18-bookworm
+FROM node:18-alpine
 
-RUN mkdir /server
 WORKDIR /server
 
+RUN rm -rf node_modules
+
 COPY package*.json ./
-RUN npm i
+RUN npm ci
 # Fix for Windows - sh: ts-node-dev not found
 RUN npm i -g ts-node-dev
 

@@ -1,17 +1,18 @@
 services:
   client:
     build: ./client
+    command: sh -c "npm install && npm run dev"
     restart: unless-stopped
-    ports: 
+    ports:
       - 4200:4200
     volumes:
       - ./client:/client
-      - node_modules:/client/node_modules
-    # Fixit for HR in Windows
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+    env_file:
+      - .env
 
   server:
     build: ./server
@@ -20,10 +21,8 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
-    environment:
-      - DBNAME=${DBNAME}
-      - DBUSERNAME=${DBUSERNAME}
-      - DBPASS=${DBPASS}
+    env_file:
+      - .env
 
   db:
     image: postgres:16
@@ -31,19 +30,16 @@ services:
     shm_size: 128mb
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    env_file:
-      - .env
     ports:
       - 5433:5432
     container_name: pawplanner-db-1
     environment:
+      - POSTGRES_USER=${DBUSERNAME}
       - POSTGRES_PASSWORD=${DBPASS}
+      - POSTGRES_DB=${DBNAME}
 
   adminer:
     image: adminer
     restart: unless-stopped
     ports:
       - 8080:8080
-
-volumes:
-  node_modules:

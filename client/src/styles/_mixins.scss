@@ -1,26 +1,38 @@
 // All mixins must be gathered in this file
 
+@mixin avatar {
+    border-radius: 50%;
+    padding: 1.2vh 1.5vw;
+}
+
 @mixin title {
-    color: $secondary-dark;
-    padding-inline: 1rem;
+    color: $blue-400;
+    font-weight: $semiBold;
+}
 
-    &::first-letter {
-        color: darken($secondary-dark, 30%);
+@mixin tag {
+    color: $primary-light;
+    min-width: 15ch;
+    padding-inline: 2rem;
+    padding-block: 0.6rem;
+    border-radius: $atoms-radius;
+    margin: 0.2rem;
+    display: inline-block;
+    font-weight: $semiBold;
+    text-align: center;
+}
+
+.hidden__ {
+    &mobile {
+        @media screen and (max-width: $mobile) {
+            display: none !important;
+        }
+    }
+
+    &desktop {
+        @media screen and (min-width: $mobile) {
+            display: none !important;
+        }
     }
 }
 
-@mixin quote {
-    color: $accent-color;
-    font-style: italic;
-    margin: 0.5rem;
-    padding-inline: 0;
-
-    &::before {
-        content: '⸙';
-        color: lighten($accent-color, 20%);
-        padding: 0;
-        margin: 0;
-        line-height: 0;
-    }
-
-}

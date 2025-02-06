@@ -1,0 +1,112 @@
+@import "@style";
+
+$welcomePageHeaderHeight: 10vh;
+
+.welcomepage__header--all {
+    position: fixed;
+    display: flex;
+    height: $welcomePageHeaderHeight;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0vh 3vw;
+    border-bottom: 2px solid $beige-300;
+    background-color: $beige-100;
+    z-index: 10;
+}
+
+.welcomepage__header--logo {
+    min-height: 6vh;
+}
+
+.welcomepage__header--links {
+    position: fixed;
+    display: flex;
+    height: $welcomePageHeaderHeight;
+    align-items: center;
+    column-gap: 3vw;
+    justify-content: center;
+    font-size: $s;
+    font-weight: $semiBold;
+    font-style: normal;
+    letter-spacing: 1px;
+    z-index: 11;
+    // This centering method allows all elements to stay clickable without overlays
+    left: 50%;
+    transform: translateX(-50%);
+
+    a {
+        color: $primary-dark;
+
+        &:hover {
+            color: lighten($primary-dark, 15%);
+        }
+
+        &:active {
+            color: $blue-100;
+        }
+    }
+}
+
+.welcomepage__header--button-sign {
+    background-color: $beige-200;
+    color: $beige-500;
+    font-size: $s;
+    font-weight: $medium;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: $atoms-radius;
+    letter-spacing: 1px;
+
+    &:hover {
+        background-color: $beige-300;
+        color: $beige-500;
+    }
+}
+
+.welcomepage__header--button-login {
+    background-color: $primary-dark;
+    color: $primary-light;
+    font-size: $s;
+    font-weight: $medium;
+    font-style: normal;
+    padding: 1.5vh 3vw;
+    border-radius: $atoms-radius;
+    letter-spacing: 1px;
+    margin-left: $s;
+
+    &:hover {
+        background-color: $blue-100;
+        color: $primary-light;
+    }
+}
+
+.welcomePageHeaderLayout__main main {
+    padding-block-start: $welcomePageHeaderHeight;
+    min-height: 99vh;
+}
+
+@media screen and (max-width: $tablet) {
+    .welcomepage {
+        &__header {
+            &--all {
+                width: 100vw;
+                border: none;
+            }
+            &--links {
+                justify-content: space-around;
+                margin-block-start: $welcomePageHeaderHeight;
+                height: fit-content;
+                padding-block: 1.2vh;
+                background-color: $beige-300;
+                width: 100vw;
+                left: unset;
+                transform: none;
+            }
+        }
+    }
+    .welcomePageHeaderLayout__main main {
+        padding-block-start: calc($welcomePageHeaderHeight + 5vh);
+    }
+}

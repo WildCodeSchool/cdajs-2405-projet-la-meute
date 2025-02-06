@@ -1,0 +1,81 @@
+@import "@style";
+
+.registration {
+    background-image: url("@/assets/illustrations/promeneur-proprietaire-se-baladant-avec-son-chien-au-parc.png");
+    background-size: 45%;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registration__section--choice {
+    width: 60%;
+}
+
+.registration__div--choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-items: stretch;
+    padding-bottom: 7vh;
+    gap: 2vw;
+}
+
+.registration__div--card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $blue-500;
+    padding-inline: 3vw;
+    padding-block-end: 2vh;
+    width: 100%;
+    border-radius: $atoms-radius;
+}
+
+.registration__div--choice-title {
+    color: $primary-light;
+    font-size: $xl;
+    font-weight: $bold;
+}
+
+.registration__div--choice-text {
+    color: $blue-300;
+    font-size: $s;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+.registration__form {
+    margin-block-start: 3vh;
+    margin-bottom: 15vh;
+}
+
+.userMessage {
+    font-style: italic;
+}
+
+@media screen and (max-width: $tablet) {
+    .registration__section--choice {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .registration {
+        background-size: contain;
+    }
+
+    .homepage__title {
+        font-size: $xxxl;
+        margin-block: 1rem;
+    }
+
+    .registration__div--choice {
+        display: flex;
+        flex-direction: column;
+    }
+}

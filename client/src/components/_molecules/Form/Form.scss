@@ -1,0 +1,67 @@
+@import "@style";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: auto;
+    background-color: $blue-400;
+    border-radius: $windows-radius;
+    padding: 2rem;
+    width: fit-content;
+    margin: auto;
+
+    h2 {
+        color: $font-light;
+        font-weight: $semiBold;
+        font-size: $xl;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form__buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    .form__otherFields {
+        color: $font-light;
+        & * {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+.introductiveText {
+    color: $font-light;
+
+    &__emoji {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        margin-bottom: 5vh !important;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .form  {
+        width: 90%;
+        
+        .form__buttons {
+            display: flex;
+            flex-direction: column-reverse;
+            & button {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                padding-block: 0.8rem;
+            }
+        }
+    }
+}

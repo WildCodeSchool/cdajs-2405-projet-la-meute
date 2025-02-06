@@ -1,0 +1,37 @@
+@import "@style";
+
+.login {
+    background-image: url("@/assets/illustrations/chien-attendant-sages-restaurant-proprietaires.png");
+    background-size: 50%;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__logo {
+        width: 30rem;
+        margin-inline: auto;
+        max-width: 80%;
+        margin-block: 3rem;
+    }
+
+    &__form {
+        margin-block-start: 3vh;
+    }
+
+    &__bottomLinks:nth-child(-n + 2) {
+        margin-block-end: 1rem;
+    }
+
+    &__errorMessage{
+        color: red;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .login {
+        background-size: contain;
+    }
+}

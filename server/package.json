@@ -1,30 +1,46 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev --respawn ./src/index.ts",
-    "lint": "../node_modules/@biomejs/biome/bin/biome lint --write ./src",
-    "format": "../node_modules/@biomejs/biome/bin/biome format --write ./src"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@apollo/server": "^4.10.5",
-    "argon2": "^0.41.1",
-    "express": "^4.21.0",
-    "graphql": "^16.9.0",
-    "graphql-scalars": "^1.23.0",
-    "pg": "^8.12.0",
-    "reflect-metadata": "^0.2.2",
-    "type-graphql": "^2.0.0-rc.2",
-    "typeorm": "^0.3.20"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "ts-node-dev": "^2.0.0"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest --watchAll",
+		"start": "ts-node-dev --respawn --poll ./src/index.ts",
+		"lint": "biome lint --write ./src",
+		"format": "biome format --write ./src"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@apollo/server": "^4.10.5",
+		"argon2": "^0.41.1",
+		"bcryptjs": "^2.4.3",
+		"express": "^4.21.0",
+		"graphql": "^16.10.0",
+		"graphql-scalars": "^1.23.0",
+		"graphql-upload": "^17.0.0",
+		"graphql-upload-ts": "^2.1.2",
+		"jsonwebtoken": "^9.0.2",
+		"nodemailer": "^6.9.16",
+		"pg": "^8.12.0",
+		"reflect-metadata": "^0.2.2",
+		"type-graphql": "^2.0.0-rc.2",
+		"typeorm": "^0.3.20"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/bcryptjs": "^2.4.6",
+		"@types/cors": "^2.8.17",
+		"@types/graphql-upload": "^17.0.0",
+		"@types/jsonwebtoken": "^9.0.7",
+		"@types/node": "^22.10.1",
+		"@types/nodemailer": "^6.4.17",
+		"jest": "^29.7.0",
+		"mock-typeorm": "^1.0.1",
+		"sinon": "^19.0.2",
+		"ts-jest": "^29.2.5",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.6.3"
+	}
 }

@@ -1,11 +1,12 @@
-FROM node:18-bookworm
+FROM node:18-alpine
 
-RUN mkdir /client
 WORKDIR /client
 
+RUN rm -rf node_modules
+
 COPY package*.json ./
-RUN npm i
+RUN npm ci
 
 COPY . .
-
-CMD npm run dev
+# Build is needed for build in github action
+RUN npm run build
