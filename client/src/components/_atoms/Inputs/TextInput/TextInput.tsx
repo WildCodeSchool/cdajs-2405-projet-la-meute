@@ -17,61 +17,63 @@ type TextInputTypes =
 	| "description";
 
 interface TextInputProps {
-	type: TextInputTypes;
+	type?: TextInputTypes;
 	required?: boolean;
 	passwordRef?: React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea";
 	style?: "dark" | "light";
+	label?: string;
+	placeholder?: string;
 }
 
 const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
-	{ label: string; placeholder: string }
+	{ mappedLabel: string; mappedPlaceholder: string }
 > = {
 	email: {
-		label: "Email",
-		placeholder: "Entrez votre email",
+		mappedLabel: "Email",
+		mappedPlaceholder: "Entrez votre email",
 	},
 	password: {
-		label: "Mot de passe",
-		placeholder: "Entrez votre mot de passe",
+		mappedLabel: "Mot de passe",
+		mappedPlaceholder: "Entrez votre mot de passe",
 	},
 	confirmPassword: {
-		label: "Confirmation mot de passe",
-		placeholder: "Confirmer le mot de passe",
+		mappedLabel: "Confirmation mot de passe",
+		mappedPlaceholder: "Confirmer le mot de passe",
 	},
 	lastname: {
-		label: "Nom",
-		placeholder: "Entrez votre nom",
+		mappedLabel: "Nom",
+		mappedPlaceholder: "Entrez votre nom",
 	},
 	firstname: {
-		label: "Prénom",
-		placeholder: "Entrez votre prénom",
+		mappedLabel: "Prénom",
+		mappedPlaceholder: "Entrez votre prénom",
 	},
 	city: {
-		label: "Ville",
-		placeholder: "Entrez votre ville",
+		mappedLabel: "Ville",
+		mappedPlaceholder: "Entrez votre ville",
 	},
 	postal_code: {
-		label: "Code Postal",
-		placeholder: "Entrez votre code postal",
+		mappedLabel: "Code Postal",
+		mappedPlaceholder: "Entrez votre code postal",
 	},
 	SIRET: {
-		label: "SIRET",
-		placeholder: "Entrez votre SIRET",
+		mappedLabel: "SIRET",
+		mappedPlaceholder: "Entrez votre SIRET",
 	},
 	company_name: {
-		label: "Nom de l'entreprise",
-		placeholder: "Entrez le nom de votre entreprise",
+		mappedLabel: "Nom de l'entreprise",
+		mappedPlaceholder: "Entrez le nom de votre entreprise",
 	},
 	telephone: {
-		label: "Numéro de téléphone",
-		placeholder: "Entrez votre numéro de téléphone",
+		mappedLabel: "Numéro de téléphone",
+		mappedPlaceholder: "Entrez votre numéro de téléphone",
 	},
 	description: {
-		label: "Description",
-		placeholder: "Entrez votre description",
+		mappedLabel: "Description",
+		mappedPlaceholder: "Entrez votre description",
 	},
 };
 
@@ -88,13 +90,17 @@ const TextInput = React.forwardRef<
 			style = "light",
 			passwordRef,
 			isLogin,
+			label,
+			placeholder,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
 
-		const { label, placeholder } = TEXT_INPUT_CONFIG[type];
+		const { mappedLabel = label, mappedPlaceholder = placeholder } = type
+			? TEXT_INPUT_CONFIG[type]
+			: {};
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 		useImperativeHandle(
@@ -103,7 +109,8 @@ const TextInput = React.forwardRef<
 		);
 
 		const inputId = `textInput-${type}`;
-		const isPasswordField = type === "password" || type === "confirmPassword";
+		const isPasswordField: boolean =
+			type === "password" || type === "confirmPassword";
 
 		const validateInput = () => {
 			if (isLogin) return;
@@ -132,14 +139,14 @@ const TextInput = React.forwardRef<
 				data-error={error}
 			>
 				<label htmlFor={inputId}>
-					{label}
+					{mappedLabel}
 					{fieldRequired}
 				</label>
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
 						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-						placeholder={placeholder}
+						placeholder={mappedPlaceholder}
 						required={required}
 					/>
 				) : (
@@ -147,7 +154,7 @@ const TextInput = React.forwardRef<
 						id={inputId}
 						ref={inputRef as React.RefObject<HTMLInputElement>}
 						type={isPasswordField ? (showPassword ? "text" : "password") : type}
-						placeholder={placeholder}
+						placeholder={mappedPlaceholder}
 						required={required}
 						onBlur={validateInput}
 						className={error ? "error-border" : ""}
