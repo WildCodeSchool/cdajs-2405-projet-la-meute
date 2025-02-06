@@ -1,5 +1,10 @@
 // All mixins must be gathered in this file
 
+@mixin avatar {
+    border-radius: 50%;
+    padding: 1.2vh 1.5vw;
+}
+
 @mixin title {
     color: $blue-400;
     font-weight: $semiBold;
