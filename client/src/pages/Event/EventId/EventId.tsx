@@ -1,143 +1,140 @@
-import { useState, useRef } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import { useRef } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
+import Tag from "@/components/_atoms/Tag/Tag";
+import NewTag from "@/components/_atoms/Tag/NewTag";
 
 function EventId() {
 	const titleRef = useRef<HTMLInputElement>(null);
-	const [eventName, setEventName] = useState("");
-	const [tags, setTags] = useState("");
-	const [eventDate, setEventDate] = useState("");
-	const [startTime, setStartTime] = useState("");
-	const [duration, setDuration] = useState("");
-	const [description, setDescription] = useState("");
-	const [price, setPrice] = useState<number | "">("");
-	const [participants, setParticipants] = useState<number | "">("");
-	const [location, setLocation] = useState<LatLngExpression | null>([
-		48.8566, 2.3522,
-	]); // Paris par défaut
+	const tagsRef = useRef<HTMLSelectElement>(null);
+	const dateRef = useRef<HTMLInputElement>(null);
+	const startTimeRef = useRef<HTMLInputElement>(null);
+	const durationRef = useRef<HTMLInputElement>(null);
+	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+	const priceRef = useRef<HTMLInputElement>(null);
+	const participantsRef = useRef<HTMLInputElement>(null);
+	const locationRef = useRef<HTMLInputElement>(null);
 
-	// Fonction pour sélectionner un point sur la carte
-	function LocationMarker() {
-		useMapEvents({
-			click(e) {
-				setLocation([e.latlng.lat, e.latlng.lng]);
-			},
-		});
-
-		return location ? <Marker position={location} /> : null;
-	}
-
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log({
-			eventName,
-			tags,
-			eventDate,
-			startTime,
-			duration,
-			description,
-			price,
-			participants,
-			location,
-		});
-		alert("Événement créé avec succès !");
+		const eventData = {
+			title: titleRef.current?.value,
+			tags: tagsRef.current?.value,
+			date: dateRef.current?.value,
+			startTime: startTimeRef.current?.value,
+			duration: durationRef.current?.value,
+			description: descriptionRef.current?.value,
+			price: priceRef.current?.value,
+			participants: participantsRef.current?.value,
+			location: locationRef.current?.value,
+		};
+		console.log("Eventdata", eventData);
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="event-form">
-			<h1>Création d'évènement</h1>
+		<form className="createEvent" onSubmit={handleSubmit}>
+			<h1 className="createEvent__title">Création d'évènement</h1>
 
 			<TextInput
+				className="createEvent__event createEvent__event--title"
 				label="Nom de l'évènement"
 				placeholder="Entrez le nom de l'évènement"
 				required
 				ref={titleRef}
-				value={eventName}
-				onChange={(e) => setEventName(e.target.value)}
 			/>
 
-			<label htmlFor="tags">Étiquettes</label>
-			<select
-				id="tags"
-				value={tags}
-				onChange={(e) => setTags(e.target.value)}
-				required
-			>
-				<option value="">Sélectionner une étiquette</option>
-				<option value="dressage">Dressage</option>
-				<option value="agility">Agility</option>
-			</select>
+			<label className="createEvent__event createEvent__event--tags">
+				Etiquettes
+				<p>
+					Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
+					clients, vous pouvez en choisir jusqu’à 3.
+				</p>
+				<div>
+					<Tag color={"#04272F"} href={""}>
+						😁&nbsp;etiquette 1
+					</Tag>
+					<Tag color={"#FFBF80"} href={""}>
+						😍&nbsp;etiquette 2
+					</Tag>
+					<NewTag href={""} />
+				</div>
+				<select ref={tagsRef}>
+					<option>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</label>
 
-			<label htmlFor="event-date">Date de l'évènement</label>
-			<input
-				type="date"
-				id="event-date"
-				value={eventDate}
-				onChange={(e) => setEventDate(e.target.value)}
-				required
-			/>
-
-			<label htmlFor="start-time">Heure de début</label>
-			<input
-				type="time"
-				id="start-time"
-				value={startTime}
-				onChange={(e) => setStartTime(e.target.value)}
-				required
-			/>
-
-			<label htmlFor="duration">Durée</label>
-			<input
-				type="time"
-				id="duration"
-				value={duration}
-				onChange={(e) => setDuration(e.target.value)}
-				required
-			/>
+			<span className="createEvent__event createEvent__event--dates">
+				<label className="createEvent__event--date">
+					Date de l'évènement *
+					<input type="date" required ref={dateRef} />
+				</label>
+				<label className="createEvent__event--time">
+					Heure de début *
+					<input type="time" required ref={startTimeRef} />
+				</label>
+				<label className="createEvent__event--duration">
+					Durée *
+					<input type="time" required ref={durationRef} />
+					{/* FIXME: (improvement) duration should be able to go over 24h */}
+				</label>
+			</span>
 
 			<TextInput
+				className="createEvent__event createEvent__event--description"
 				label="Description"
+				placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 				inputType="textarea"
 				required
-				value={description}
-				onChange={(e) => setDescription(e.target.value)}
+				ref={descriptionRef}
 			/>
 
-			<label htmlFor="price">Prix par chien (€)</label>
-			<input
-				type="number"
-				id="price"
-				value={price}
-				onChange={(e) => setPrice(Number(e.target.value) || "")}
-				required
-			/>
+			<span className="createEvent__event createEvent__event--prices">
+				<label className="createEvent__event--price">
+					Prix par chien *
+					<span>
+						<input
+							placeholder="Prix TTC en euros"
+							type="number"
+							min={1}
+							required
+							ref={priceRef}
+						/>
+						<p>€</p>
+					</span>
+				</label>
+				<label>
+					Nombre de chiens participants *
+					<input
+						placeholder="Nombre maximum"
+						type="number"
+						min={1}
+						required
+						ref={participantsRef}
+					/>
+				</label>
+			</span>
 
-			<label htmlFor="participants">Nombre de participants</label>
-			<input
-				type="number"
-				id="participants"
-				value={participants}
-				onChange={(e) => setParticipants(Number(e.target.value) || "")}
-				required
-			/>
+			<label className="createEvent__event createEvent__event--location">
+				Localisation *
+				<input
+					placeholder="Entrez une adresse ou des coordonnées"
+					type="text"
+					required
+					ref={locationRef}
+				/>
+			</label>
+			<div className="createEvent__event--map">{/* map */}</div>
 
-			<label>Localisation de l'évènement</label>
-			<MapContainer center={location} zoom={13} className="event-map">
-				<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-				<LocationMarker />
-			</MapContainer>
-
-			<div className="event-form-actions">
+			<span className="createEvent__event createEvent__event--buttons">
 				<Button type="button" style="btn-light" href="back">
 					Annuler
 				</Button>
 				<Button type="submit" style="btn-dark">
 					Créer l'évènement
 				</Button>
-			</div>
+			</span>
 		</form>
 	);
 }

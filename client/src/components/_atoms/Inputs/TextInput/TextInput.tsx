@@ -25,6 +25,7 @@ interface TextInputProps {
 	style?: "dark" | "light";
 	label?: string;
 	placeholder?: string;
+	className?: string;
 }
 
 const TEXT_INPUT_CONFIG: Record<
@@ -92,6 +93,7 @@ const TextInput = React.forwardRef<
 			isLogin,
 			label,
 			placeholder,
+			className,
 		},
 		ref,
 	) => {
@@ -135,7 +137,7 @@ const TextInput = React.forwardRef<
 
 		return (
 			<div
-				className={`textInput textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
+				className={`textInput ${className} textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
 				data-error={error}
 			>
 				<label htmlFor={inputId}>
@@ -157,7 +159,7 @@ const TextInput = React.forwardRef<
 						placeholder={mappedPlaceholder}
 						required={required}
 						onBlur={validateInput}
-						className={error ? "error-border" : ""}
+						className={`${className} ${error ? "error-border" : ""}`}
 					/>
 				)}
 				{isPasswordField && (

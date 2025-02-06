@@ -7,5 +7,6 @@
 .newTag {
     @include tag;
     background-color: none;
-    border: 2px solid currentColor;
+    color: $blue-400;
+    border: 2px solid $blue-400;
 }
