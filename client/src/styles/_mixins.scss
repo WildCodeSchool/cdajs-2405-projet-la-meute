@@ -1,5 +1,13 @@
 // All mixins must be gathered in this file
 
+@mixin avatar {
+    height: 100%;
+    & img {
+        border-radius: 50%;
+        padding-block: 1.2vh;
+    }
+}
+
 @mixin title {
     color: $blue-400;
     font-weight: $semiBold;
@@ -30,4 +38,3 @@
         }
     }
 }
-

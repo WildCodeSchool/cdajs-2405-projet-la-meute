@@ -1,0 +1,23 @@
+@import "@style";
+
+.ownerCard {
+    display: flex;
+    gap: 1rem;
+    border-radius: $windows-radius;
+    background-color: $orange-300;
+    padding: 1rem;
+
+    &__avatar {
+        @include avatar;
+        width: 33%;
+    }
+
+    &__infos {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        &--name {
+            font-weight: $bold;
+        }
+    }
+}

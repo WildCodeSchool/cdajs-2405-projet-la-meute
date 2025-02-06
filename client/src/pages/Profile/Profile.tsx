@@ -132,7 +132,7 @@ function Profile() {
 
 				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
 					<span className="profile__form--title">
-						<a className="dashHeader__avatar" href="/dashboard/my-profile">
+						<a className="profile__form--avatar" href="/dashboard/my-profile">
 							<img src={user?.avatar} alt="avatar de l'utilisateur" />
 						</a>
 						<h2>

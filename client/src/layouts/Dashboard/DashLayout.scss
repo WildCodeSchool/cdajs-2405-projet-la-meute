@@ -56,11 +56,7 @@
     }
 
     &__avatar {
-        height: 100%;
-        & img {
-            border-radius: 50%;
-            padding-block: 1.2vh;
-        }
+        @include avatar;
     }
 }
 
