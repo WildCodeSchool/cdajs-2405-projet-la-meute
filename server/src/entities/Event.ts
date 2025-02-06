@@ -43,6 +43,9 @@ export class Event {
 	@Field()
 	price: number;
 
+	// Ajouter une @Column duration pour la durée, voir si on l'ajoute en minutes, en heure...
+	// L'ajouter ici
+
 	@ManyToOne(
 		() => Trainer,
 		(trainer) => trainer.event,
@@ -60,7 +63,7 @@ export class Event {
 		(service) => service.event,
 		{ onDelete: "CASCADE" },
 	)
-	@JoinColumn({ name: "id" })
+	@JoinColumn({ name: "service_id" })
 	service: Service;
 
 	@OneToMany(
