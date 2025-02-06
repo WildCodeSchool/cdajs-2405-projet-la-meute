@@ -30,11 +30,14 @@ services:
     shm_size: 128mb
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    env_file:
-      - .env
     ports:
       - 5434:5432
     container_name: pawplanner-db-1
+    environment:
+      - POSTGRES_USER=${DBUSERNAME}
+      - POSTGRES_PASSWORD=${DBPASS}
+      - POSTGRES_DB=${DBNAME}
+
   adminer:
     image: adminer
     restart: unless-stopped

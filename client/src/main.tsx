@@ -21,8 +21,12 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
 // Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
+import CustomerId from "./pages/Trainer/Customers/CustomerId/CustomerId.tsx";
+import CustomerList from "./pages/Trainer/Customers/CustomerList/CustomerList.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
+import EventId from "./pages/Event/EventId/EventId.tsx";
+import EventList from "./pages/Event/EventList/EventList.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
@@ -149,14 +153,14 @@ const router = createBrowserRouter([
 							},
 							{
 								path: "new",
-								element: <p>planning/new</p>,
+								element: <EventId />,
 							},
 							{
 								path: "my-events",
 								children: [
 									{
 										index: true,
-										element: <p>planning/events</p>,
+										element: <EventList />,
 									},
 									{
 										path: ":id",
@@ -171,11 +175,11 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>customers List</p>,
+								element: <CustomerList />,
 							},
 							{
 								path: ":id",
-								element: <p>customers/:id</p>,
+								element: <CustomerId />,
 							},
 						],
 					},

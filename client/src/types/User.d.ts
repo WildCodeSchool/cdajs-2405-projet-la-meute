@@ -12,8 +12,6 @@ export interface User {
 
 export interface Owner extends User {
 	role: "owner";
-	siret: null;
-	company_name: null;
 	description: null;
 }
 
