@@ -1,65 +1,79 @@
+import { useNavigate } from "react-router-dom";
 import "./Button.scss";
 
-type ButtonTypes =
+type ButtonStyles =
 	| "submit"
-	| "form-deny"
+	| "btn-dark"
+	| "btn-light"
 	| "invite"
+	| "event"
 	| "button"
 	| "role-select-left"
 	| "role-select-right";
+/** To add a new type:
+ * 1. Add the type in ButtonStyles up above
+ * 2. Add the type in Button.scss (list $btn-types)
+ * 3. Add the type in buttonClassName in Button.tsx
+ * The new className must start with btn-
+ */
 
 export default function Button({
+	style,
 	type,
 	children,
 	href,
 	className,
 	onClick,
 }: {
-	type: ButtonTypes;
+	style: ButtonStyles;
+	type?: "submit" | "button" | "reset" | undefined;
 	children?: string;
 	href?: string;
 	className?: string;
 	onClick?: () => void;
 }) {
-	const buttonType = type === "submit" ? "submit" : "button";
+	const buttonType = style === "submit" ? "submit" : "button";
 	const buttonClassName =
-		type === "submit"
+		style === "submit"
 			? "btn-submit"
-			: type === "form-deny"
-				? "btn-deny"
-				: type === "invite"
+			: style === "btn-dark"
+				? "btn-dark"
+				: style === "invite" || style === "event"
 					? "btn-invite"
-					: type === "role-select-left"
+					: style === "role-select-left"
 						? "btn-role-select-left"
-						: type === "role-select-right"
+						: style === "role-select-right"
 							? "btn-role-select-right"
-							: "btn-default";
+							: "btn-light";
+	const navigate = useNavigate();
 
 	if (href) {
 		return (
-			<a href={href}>
-				<button
-					type={buttonType}
-					className={`button ${buttonClassName}`}
-					onClick={onClick}
-				>
-					{type === "invite" && !children
-						? "+ Inviter un client à s'inscrire"
+			<a
+				href={href}
+				className={`button ${buttonClassName}`}
+				onClick={href === "back" ? () => navigate(-1) : onClick}
+			>
+				{style === "invite" && !children
+					? "+ Inviter un client à s'inscrire"
+					: style === "event" && !children
+						? "+ Ajouter un évènement"
 						: children}
-				</button>
 			</a>
 		);
 	}
 
 	return (
 		<button
-			type={buttonType}
+			type={type || buttonType}
 			className={`button ${buttonClassName} ${className}`}
 			onClick={onClick}
 		>
-			{type === "invite" && !children
+			{style === "invite" && !children
 				? "+ Inviter un client à s'inscrire"
-				: children}
+				: style === "event" && !children
+					? "+ Ajouter un évènement"
+					: children}
 		</button>
 	);
 }

@@ -37,7 +37,8 @@ async function createData() {
 		const dogRepository = dataSource.getRepository(Dog);
 
 		const owner = new Owner();
-		owner.name = "John Doe";
+		owner.lastname = "Doe";
+		owner.firstname = "John";
 		owner.email = "john@example.com";
 		owner.password_hashed = "pulseform";
 		owner.phone_number = "0123456789";
@@ -49,13 +50,15 @@ async function createData() {
 		//2. Create trainers
 
 		const trainerRepository = dataSource.getRepository(Trainer);
-		const trainer = new Trainer("12345678901234");
-		trainer.name = "Jane Smith";
+		const trainer = new Trainer("12345678901234", "educ de Lyon");
+		trainer.lastname = "Smith";
+		trainer.firstname = "Jane";
 		trainer.email = "jane@example.com";
 		trainer.password_hashed = "mdpdefou";
 		trainer.phone_number = "0987654321";
 		trainer.city = "Lyon";
 		trainer.postal_code = "69000";
+		trainer.description = "Je suis un très bon éducateur et je sens bon.";
 
 		const savedTrainer = await trainerRepository.save(trainer);
 
@@ -64,13 +67,17 @@ async function createData() {
 		const dog1 = new Dog(
 			savedOwner1,
 			"Rex",
-			3,
+			new Date("2020-01-01"),
 			"Caniche de Siberie",
-			"rex.jpg",
 		);
 		const savedDog1 = await dogRepository.save(dog1);
 
-		const dog2 = new Dog(savedOwner1, "Luna", 2, "Golden Retriever");
+		const dog2 = new Dog(
+			savedOwner1,
+			"Luna",
+			new Date("2023-04-15"),
+			"Golden Retriever",
+		);
 		const savedDog2 = await dogRepository.save(dog2);
 
 		// 4. Create Service
@@ -89,7 +96,12 @@ async function createData() {
 			savedTrainer,
 			savedService,
 			new Date("2024-12-20"),
-			"Parc Canin de Lyon",
+			"Formation Super spéciale du jour",
+			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
+			{
+				latitude: 45.7771392,
+				longitude: 4.8560401,
+			},
 			5,
 		);
 		const savedEvent = await eventRepository.save(event);

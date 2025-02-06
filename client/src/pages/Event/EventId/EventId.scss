@@ -1,0 +1,100 @@
+@import "@style";
+
+.createEvent {
+    display: flex;
+    flex-direction: column;
+    background-color: $beige-200;
+    margin: 1rem;
+    margin-block-start: calc(1rem + 1vh);
+    border-radius: $windows-radius;
+    padding-inline: 1rem;
+    padding-bottom: 1rem;
+    gap: 1rem;
+    &__title {
+        font-weight: $bold;
+    }
+    & label {
+        font-weight: $bold;
+        color: $blue-400;
+    }
+    & input,
+    textarea {
+        background-color: $beige-300;
+        border: none;
+        color: $blue-400;
+        border-radius: $atoms-radius;
+        padding: 0.8rem;
+        padding-inline: 2rem;
+    }
+    & textarea {
+        resize: none;
+        height: 10rem;
+        overflow: auto;
+    }
+
+    &__event {
+        display: flex;
+        justify-content: space-between;
+        & label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        &--tags {
+            display: flex;
+            flex-direction: column;
+            p {
+                font-weight: $regular;
+                font-size: $xs;
+            }
+            div {
+                background-color: $beige-300;
+                border-radius: $atoms-radius;
+                padding: 0.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            select {
+                display: none;
+            }
+        }
+        &--dates {
+            & label {
+                width: 31%;
+            }
+        }
+        &--prices {
+            display: flex;
+            gap: 1rem;
+            label {
+                width: 50%;
+            }
+
+            & span {
+                display: flex;
+                input {
+                    width: 100%;
+                }
+                p {
+                    margin-inline-start: -30%;
+                }
+            }
+        }
+        &--location {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        &--map {
+            height: 200px;
+            background-color: $orange-300;
+            margin-inline: -1rem;
+        }
+        &--buttons {
+            display: flex;
+            justify-content: end;
+            margin-block: 3rem;
+        }
+    }
+}

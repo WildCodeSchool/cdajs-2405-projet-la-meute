@@ -13,6 +13,7 @@ $welcomePageHeaderHeight: 10vh;
     padding: 0vh 3vw;
     border-bottom: 2px solid $beige-300;
     background-color: $beige-100;
+    z-index: 10;
 }
 
 .welcomepage__header--logo {
@@ -30,6 +31,7 @@ $welcomePageHeaderHeight: 10vh;
     font-weight: $semiBold;
     font-style: normal;
     letter-spacing: 1px;
+    z-index: 11;
     // This centering method allows all elements to stay clickable without overlays
     left: 50%;
     transform: translateX(-50%);
@@ -38,7 +40,7 @@ $welcomePageHeaderHeight: 10vh;
         color: $primary-dark;
 
         &:hover {
-            color: $hovered-link;
+            color: lighten($primary-dark, 15%);
         }
 
         &:active {
@@ -54,7 +56,7 @@ $welcomePageHeaderHeight: 10vh;
     font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
-    border-radius: 5px;
+    border-radius: $atoms-radius;
     letter-spacing: 1px;
 
     &:hover {
@@ -70,7 +72,7 @@ $welcomePageHeaderHeight: 10vh;
     font-weight: $medium;
     font-style: normal;
     padding: 1.5vh 3vw;
-    border-radius: 5px;
+    border-radius: $atoms-radius;
     letter-spacing: 1px;
     margin-left: $s;
 

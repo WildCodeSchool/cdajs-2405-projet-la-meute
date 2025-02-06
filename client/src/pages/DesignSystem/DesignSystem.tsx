@@ -1,11 +1,34 @@
 import Button from "@/components/_atoms/Button/Button";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import NewTag from "@/components/_atoms/Tag/NewTag";
-import Tag from "@/components/_atoms/Tag/Tag";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Form from "@/components/_molecules/Form/Form";
+import IdCard from "@/components/_molecules/Card/IdCard";
+import NewTag from "@/components/_atoms/Tag/NewTag";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import Tag from "@/components/_atoms/Tag/Tag";
 
 export default function DesignSystem() {
+	const dog = {
+		id: 1,
+		name: "Leo",
+		birthDate: new Date("2020-08-17"),
+		getAge: 3,
+		breed: "Caniche",
+		picture: "https://placehold.co/400x400",
+	};
+
+	const owner = {
+		id: 1,
+		lastname: "Dubois",
+		firstname: "Marie",
+		email: "marie.dubois@gmail.com",
+		phone_number: "06 12 34 56 78",
+		city: "Lyon",
+		postal_code: "69001",
+		avatar: "https://placehold.co/400x400",
+		role: "owner" as const,
+		description: null,
+	};
+
 	return (
 		<div className="page-ds-layout">
 			<div>
@@ -53,21 +76,28 @@ export default function DesignSystem() {
 					<h2>Buttons</h2>
 					<div>
 						<div>
-							<Button type="submit" href="/">
-								Form Submit
+							<Button type="button" style="btn-light" href="/">
+								Link light
+							</Button>
+							<Button type="button" style="btn-light">
+								Button light
 							</Button>
 						</div>
 						<div>
-							<Button type="form-deny" href="/">
-								Form Deny
+							<Button type="button" style="btn-dark" href="/">
+								Link dark
+							</Button>
+							<Button type="button" style="btn-dark">
+								Button dark
 							</Button>
 						</div>
 						<div>
-							<Button type="invite" href="/" />
+							<Button type="button" style="invite" href="/" />
+							<Button type="button" style="invite" />
 						</div>
 						<div>
-							<Button type="button" href="/">
-								Button
+							<Button type="button" style="button">
+								Actual button
 							</Button>
 						</div>
 
@@ -88,6 +118,15 @@ export default function DesignSystem() {
 								<NewTag href="" />
 							</div>
 						</div>
+						<h2>IdCard</h2>
+						<div>
+							<div>
+								<IdCard type="dog" data={dog} />
+							</div>
+							<div>
+								<IdCard type="owner" data={owner} />
+							</div>
+						</div>
 					</div>
 				</div>
 				<div>
@@ -95,10 +134,10 @@ export default function DesignSystem() {
 					<Form title="Connectez-vous ici">
 						<TextInput type="email" />
 						<TextInput type="password" />
-						<Button type="form-deny" href="">
+						<Button type="submit" style="btn-dark" href="">
 							Annuler
 						</Button>
-						<Button type="submit" href="">
+						<Button type="submit" style="btn-light" href="">
 							Me connecter
 						</Button>
 						<p>

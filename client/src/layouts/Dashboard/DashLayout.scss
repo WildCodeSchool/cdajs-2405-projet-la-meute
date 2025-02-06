@@ -1,10 +1,5 @@
 @import "@style";
 
-$dashHeaderHeight: 10vh;
-$dashSideBarWidth: 8vw; // maximum $dashHeaderHeight minimum $dashSideBarWidth
-$dashMobileSideBarHeight: 9vh;
-$dashInlinePadding: $minPaddingInline;
-
 // HEADER DESKTOP
 .dashHeader {
     height: $dashHeaderHeight;
@@ -21,6 +16,7 @@ $dashInlinePadding: $minPaddingInline;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
 
     & h1 {
         color: $green-400;
@@ -82,6 +78,7 @@ $dashInlinePadding: $minPaddingInline;
     align-items: center;
     padding-inline: $dashInlinePadding;
     padding-block: 1vh;
+    z-index: 10;
 
     &__logo img {
         padding: 5px;

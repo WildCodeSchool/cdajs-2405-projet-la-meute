@@ -4,7 +4,8 @@ export const GET_ALL_OWNERS = gql`
     query GetAllOwners {
         getAllOwners {
             id
-            name
+            lastname
+            firstname
             email
             phone_number
             city
@@ -18,7 +19,8 @@ export const GET_USER_BY_EMAIL = gql`
     query GetUserByEmail($email: String!) {
         getUserByEmail(email: $email) {
             id
-            name
+            lastname
+            firstname
             email
             phone_number
             city
@@ -29,15 +31,22 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const ME = gql`
-query Me {
-    me {
-      id
-      name
-      email
-      phone_number
-      city
-      postal_code
-      role
+    query ME($token: String!, $isTrainer: Boolean!) {
+        me: ME(token: $token) {
+            id
+            lastname
+            firstname
+            email
+            phone_number
+            city
+            postal_code
+            avatar
+            role
+            ... @include(if: $isTrainer) {
+                siret
+                company_name
+                description
+            }
+        }
     }
-  }
 `;

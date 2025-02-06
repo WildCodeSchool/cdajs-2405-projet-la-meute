@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -6,6 +7,17 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const confirmPasswordRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
+
+	const navigate = useNavigate();
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		navigate("/login");
+	};
+
 	return (
 		<main className="registration">
 			{!role ? (
@@ -18,7 +30,8 @@ function Registration() {
 									🙋🏻‍♂️&nbsp;Éducateur · rice
 								</h3>
 								<Button
-									type="role-select-left"
+									type="button"
+									style="role-select-left"
 									onClick={() => setRole("trainer")}
 								>
 									Je suis éducateur·trice canin·e
@@ -29,7 +42,8 @@ function Registration() {
 									🐶&nbsp;Propriétaire
 								</h3>
 								<Button
-									type="role-select-right"
+									type="button"
+									style="role-select-right"
 									onClick={() => setRole("owner")}
 								>
 									Je suis un·e propriétaire de chien
@@ -39,25 +53,47 @@ function Registration() {
 					</section>
 				</>
 			) : (
-				<Form className="registration__form" title="Inscription">
-					{role === "trainer" && <TextInput type="SIRET" required />}
+				<Form
+					className="registration__form"
+					title="Inscription"
+					onSubmit={handleSubmit}
+				>
+					{role === "trainer" && (
+						<TextInput style="dark" type="SIRET" required />
+					)}
 
-					{role === "trainer" && <TextInput type="companyName" required />}
+					{role === "trainer" && (
+						<TextInput style="dark" type="company_name" required />
+					)}
 
-					<TextInput type="lastname" required />
-					<TextInput type="firstname" required />
-					<TextInput type="email" required />
-					<TextInput type="password" required />
-					<TextInput type="city" required />
-					<TextInput type="postcode" required />
-					<TextInput type="telephone" />
+					<TextInput style="dark" type="lastname" required />
+					<TextInput style="dark" type="firstname" required />
+					<TextInput style="dark" type="email" ref={emailRef} required />
+					<TextInput style="dark" type="password" ref={passwordRef} required />
+					<TextInput
+						style="dark"
+						type="confirmPassword"
+						ref={confirmPasswordRef}
+						passwordRef={passwordRef}
+						required
+					/>
+					<TextInput style="dark" type="city" required />
+					<TextInput style="dark" type="postal_code" required />
+					<TextInput style="dark" type="telephone" />
 					<input type="hidden" name="role" value={role} />
-
-					<Button type="form-deny" href="/registration">
+					<Button type="button" style="btn-dark" href="/registration">
 						Retour
 					</Button>
 
-					<Button type="submit">S'inscrire</Button>
+					<Button type="submit" style="submit">
+						S'inscrire
+					</Button>
+					<p>
+						<p className="userMessage">
+							Les champs comportants une * sont obligatoires.
+						</p>
+					</p>
+					<br />
 					<p>
 						Si vous avez déjà un compte vous pouvez{" "}
 						<a href="/login"> vous connecter ici</a>.

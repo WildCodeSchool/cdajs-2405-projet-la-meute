@@ -15,7 +15,7 @@ import { Participation } from "./Participation";
 export class Dog {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	dog_id?: number;
+	id?: number;
 
 	@Column({
 		type: "varchar",
@@ -24,9 +24,9 @@ export class Dog {
 	@Field()
 	name: string;
 
-	@Column("int")
+	@Column("timestamp")
 	@Field()
-	age: number;
+	birthDate: Date;
 
 	@Column({
 		type: "varchar",
@@ -62,10 +62,22 @@ export class Dog {
 	@Field(() => [Participation], { nullable: true })
 	participation?: Participation[];
 
-	constructor(owner: Owner, name = "", age = 0, breed = "", picture = "") {
+	@Field()
+	getAge(): number {
+		const diff = new Date().getTime() - new Date(this.birthDate).getTime();
+		return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+	}
+
+	constructor(
+		owner: Owner,
+		name = "",
+		birthDate = new Date(),
+		breed = "",
+		picture = "/upload/images/defaultdog.jpg",
+	) {
 		this.owner = owner;
 		this.name = name;
-		this.age = age;
+		this.birthDate = birthDate;
 		this.breed = breed;
 		this.picture = picture;
 	}
