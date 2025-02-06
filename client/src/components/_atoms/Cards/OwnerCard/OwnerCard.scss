@@ -2,27 +2,22 @@
 
 .ownerCard {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    cursor: pointer;
+    gap: 1rem;
     border-radius: $windows-radius;
     background-color: $orange-300;
-    color: $primary-light;
     padding: 1rem;
 
-    &__name {
-        font-weight: $bold;
-        font-size: $m;
-        margin-bottom: 1rem;
+    &__avatar {
+        @include avatar;
+        width: 33%;
     }
 
     &__infos {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
         width: 100%;
+        &--name {
+            font-weight: $bold;
+        }
     }
 }
