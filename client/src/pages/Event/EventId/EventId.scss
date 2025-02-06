@@ -5,6 +5,7 @@
     flex-direction: column;
     background-color: $beige-200;
     margin: 1rem;
+    margin-block-start: calc(1rem + 1vh);
     border-radius: $windows-radius;
     padding-inline: 1rem;
     padding-bottom: 1rem;
