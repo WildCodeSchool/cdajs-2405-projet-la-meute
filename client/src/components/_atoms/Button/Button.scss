@@ -6,7 +6,8 @@ $btn-types: (
     "light",
     "invite",
     "role-select-left",
-    "role-select-right"
+    "role-select-right",
+    "thin-btn-light"
 );
 
 .button {
@@ -82,6 +83,20 @@ $btn-types: (
 
         &:hover {
             background-color: $orange-400;
+        }
+    }
+
+    &.thin-btn-light {
+        $background-color: $orange-400;
+        background-color: $orange-400;
+        padding: 0.8rem;
+        padding-inline: min(5rem, 10vw);
+        border-radius: 5px;
+        box-shadow: (0 3px 5px 5px #ad998533) ;
+
+        &:hover {
+            background-color: lighten($background-color, 5%);
+            color: $font-light;
         }
     }
 }

@@ -7,7 +7,8 @@ type ButtonStyles =
 	| "invite"
 	| "button"
 	| "role-select-left"
-	| "role-select-right";
+	| "role-select-right"
+	| "thin-btn-light";
 /** To add a new type:
  * 1. Add the type in ButtonStyles up above
  * 2. Add the type in Button.scss (list $btn-types)
@@ -42,7 +43,9 @@ export default function Button({
 						? "btn-role-select-left"
 						: style === "role-select-right"
 							? "btn-role-select-right"
-							: "btn-light";
+							: style === "thin-btn-light"
+								? "thin-btn-light"
+								: "btn-light";
 
 	if (href) {
 		return (

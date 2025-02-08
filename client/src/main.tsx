@@ -38,6 +38,7 @@ import TestFileUpload from "./components/TestFileUpload.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
+import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -115,7 +116,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>my-dogs List</p>,
+								element: <MyDogList />,
 							},
 							{
 								path: "new",
