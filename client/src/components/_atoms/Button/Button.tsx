@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./Button.scss";
 
 type ButtonStyles =
@@ -5,6 +6,7 @@ type ButtonStyles =
 	| "btn-dark"
 	| "btn-light"
 	| "invite"
+	| "event"
 	| "button"
 	| "role-select-left"
 	| "role-select-right"
@@ -37,7 +39,7 @@ export default function Button({
 			? "btn-submit"
 			: style === "btn-dark"
 				? "btn-dark"
-				: style === "invite"
+				: style === "invite" || style === "event"
 					? "btn-invite"
 					: style === "role-select-left"
 						? "btn-role-select-left"
@@ -47,12 +49,20 @@ export default function Button({
 								? "thin-btn-light"
 								: "btn-light";
 
+	const navigate = useNavigate();
+
 	if (href) {
 		return (
-			<a href={href} className={`button ${buttonClassName}`} onClick={onClick}>
+			<a
+				href={href}
+				className={`button ${buttonClassName}`}
+				onClick={href === "back" ? () => navigate(-1) : onClick}
+			>
 				{style === "invite" && !children
 					? "+ Inviter un client à s'inscrire"
-					: children}
+					: style === "event" && !children
+						? "+ Ajouter un évènement"
+						: children}
 			</a>
 		);
 	}
@@ -65,7 +75,9 @@ export default function Button({
 		>
 			{style === "invite" && !children
 				? "+ Inviter un client à s'inscrire"
-				: children}
+				: style === "event" && !children
+					? "+ Ajouter un évènement"
+					: children}
 		</button>
 	);
 }

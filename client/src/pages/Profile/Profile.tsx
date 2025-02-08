@@ -44,8 +44,9 @@ function Profile() {
 		if (view === "personal") {
 			if (emailRef.current) emailRef.current.value = user.email || "";
 			if (phoneRef.current) phoneRef.current.value = user.phone_number || "";
-			if (siretRef.current) siretRef.current.value = user.siret || "";
-			if (companyNameRef.current)
+			if (siretRef.current && user.role === "trainer")
+				siretRef.current.value = user.siret || "";
+			if (companyNameRef.current && user.role === "trainer")
 				companyNameRef.current.value = user.company_name || "";
 		}
 	}, [user, navigate, view]);
