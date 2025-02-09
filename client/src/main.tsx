@@ -41,6 +41,7 @@ import TestFileUpload from "./components/TestFileUpload.tsx";
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
 import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
+import DogForm from "./pages/Owner/Dogs/DogForm/DogForm.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: "new",
-								element: <p>my-dogs/new</p>,
+								element: <DogForm />,
 							},
 							{
 								path: "profile/:id",

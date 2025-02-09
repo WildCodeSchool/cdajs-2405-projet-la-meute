@@ -2,32 +2,13 @@
 
 
 .myDogList {
+    @include dashContentArea;
+    @include dogBackground;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     max-width: max-content;
-    min-height: calc(100vh - $dashHeaderHeight - $dashInlinePadding);
     gap: 2rem;
-
-    @media (width < $mobile) {
-        min-height: calc(100vh - $dashHeaderHeight - $dashHeaderHeight);
-    }
-
-    &::after {
-        content: '';
-        width: 30%;
-        aspect-ratio: 1;
-        position: fixed;
-        z-index: -1;
-        bottom: 0;
-        right: 2rem;
-        background: bottom right url(../../../../assets/illustrations/chien-high-five-proprietaire-canape.png) no-repeat;
-        background-size: 30vw;
-
-        @media (width < $tablet) {
-            display: none;
-        }
-    }
 
     &__title {
         display: flex;

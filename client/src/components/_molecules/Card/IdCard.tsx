@@ -24,7 +24,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 				title: dogData.name,
 				subtitle: dogData.breed,
 				age: `${dogData.getAge} ans`,
-				info: "informations complémentaires",
+				info: dogData.info,
 				link:
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`

@@ -1,0 +1,41 @@
+@import "@style";
+
+
+.dogForm {
+    @include dogBackground;
+
+    &__form { 
+        @include dashContentArea(-2rem);
+        margin:2rem 1rem;
+        max-width: max-content;
+        display: flex;
+        flex-direction: column;
+
+        &__title {
+            display: flex;
+            align-items: center;
+
+            &--upload {
+                min-width: clamp(64px , 10%, 96px);
+                aspect-ratio: 1;
+                background: url(../../../../assets/icons/upload.svg)center no-repeat, $blue-400;
+                background-size: 30%;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            &--intro {
+                margin-left: 2rem;
+            }
+        }
+
+    }
+
+    &__button {
+        margin: 2rem auto 0 auto;
+
+        @media (width < $mobile) {
+            margin: auto auto 0 auto;
+        }
+    }
+}

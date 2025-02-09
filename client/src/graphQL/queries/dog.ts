@@ -8,6 +8,7 @@ query GetAllDogsByOwnerId($ownerId: Float!) {
       id
       name
       picture
+      info
     }
   }
 `;
