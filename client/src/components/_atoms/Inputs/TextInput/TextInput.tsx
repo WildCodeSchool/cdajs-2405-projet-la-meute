@@ -16,7 +16,7 @@ type TextInputTypes =
 	| "telephone"
 	| "description"
 	| "name"
-	| "age"
+	| "birthDate"
 	| "breed"
 	| "info";
 
@@ -25,8 +25,7 @@ interface TextInputProps {
 	required?: boolean;
 	passwordRef?: React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
-	inputType?: "input" | "textarea" | "number";
-	min?: number;
+	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
 	label?: string;
 	placeholder?: string;
@@ -85,9 +84,9 @@ const TEXT_INPUT_CONFIG: Record<
 		mappedLabel: "Nom de mon chien",
 		mappedPlaceholder: "Entrez le nom de votre chien",
 	},
-	age: {
-		mappedLabel: "Âge de mon chien",
-		mappedPlaceholder: "Entrez l’âge de votre chien",
+	birthDate: {
+		mappedLabel: "Date de naissance de mon chien",
+		mappedPlaceholder: "Sélectionnez la date de naissance",
 	},
 	breed: {
 		mappedLabel: "Race de mon chien",
@@ -181,11 +180,10 @@ const TextInput = React.forwardRef<
 								? showPassword
 									? "text"
 									: "password"
-								: inputType === "number"
-									? "number"
+								: inputType === "date"
+									? "date"
 									: "text"
 						}
-						min={type === "age" ? "0" : undefined}
 						placeholder={mappedPlaceholder}
 						required={required}
 						onBlur={validateInput}

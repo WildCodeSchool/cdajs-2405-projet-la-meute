@@ -22,6 +22,19 @@
                 background-size: 30%;
                 border-radius: 50%;
                 cursor: pointer;
+
+                &:focus {
+                    outline: none;
+                    border-radius: 50%; 
+                }
+
+                &:hover {
+                    filter: brightness(1.5);
+                }
+
+                input {
+                    display: none;
+                }
             }
 
             &--intro {

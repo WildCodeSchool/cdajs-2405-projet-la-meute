@@ -49,7 +49,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 			<img
 				src={image}
 				alt={imageAlt}
-				className={`idCard__image${!isDog && "--round"}`}
+				className={`idCard__image${!isDog ? "--round" : ""}`}
 			/>
 			<div className="idCard__infos">
 				<span className="idCard__infos--title">
