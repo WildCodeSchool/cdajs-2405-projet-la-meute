@@ -5,12 +5,24 @@ import { GET_ALL_DOGS_BY_OWNER_ID } from "@/graphQL/queries/dog";
 
 import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import type { Dog } from "@/types/Dog";
 
 function MyDogList() {
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (location.state?.message) {
+			alert(location.state.message);
+			navigate(location.pathname, { replace: true });
+		}
+	}, [location, navigate]);
+
 	const { user } = useUser();
-	const { data, loading, error } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
+	const { data, loading } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
 		variables: {
 			ownerId: user?.id ? Number(user.id) : null,
 		},
@@ -21,9 +33,6 @@ function MyDogList() {
 
 	if (loading) {
 		return <p>loading...</p>;
-	}
-	if (error) {
-		return <p>{error.message}</p>;
 	}
 
 	return (

@@ -12,3 +12,16 @@ query GetAllDogsByOwnerId($ownerId: Float!) {
     }
   }
 `;
+
+export const GET_DOG_BY_ID = gql`
+query GetDogById($getDogByIdId: Float!) {
+  getDogById(id: $getDogByIdId) {
+    breed
+    birthDate
+    id
+    info
+    name
+    picture
+  }
+}
+`;

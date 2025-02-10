@@ -6,6 +6,7 @@ import type { Dog } from "@/types/Dog";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import { useMutation } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
+import { useNavigate } from "react-router-dom";
 import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dogs";
 
 interface DogFormProps {
@@ -21,20 +22,37 @@ export default function DogForm({
 	const nameRef = useRef<HTMLInputElement>(null);
 	const breedRef = useRef<HTMLInputElement>(null);
 	const birthDateRef = useRef<HTMLInputElement>(null);
-	const infoRef = useRef<HTMLInputElement>(null);
+	const infoRef = useRef<HTMLTextAreaElement>(null);
 	const { handleChange, selectedFile } = useFileUpload();
 	const { user } = useUser();
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (initialData) {
-			if (nameRef.current) nameRef.current.value = initialData.name || "";
-			if (breedRef.current) breedRef.current.value = initialData.breed || "";
-			if (birthDateRef.current)
-				birthDateRef.current.value = (initialData.getAge || "0").toString();
-			if (infoRef.current) infoRef.current.value = initialData.info || "";
-			if (pictureRef.current)
-				pictureRef.current.value = initialData.picture || "";
+		let isComponentMounted = true;
+
+		if (initialData && isComponentMounted) {
+			if (nameRef.current instanceof HTMLInputElement) {
+				nameRef.current.value = initialData.name || "";
+			}
+			if (breedRef.current instanceof HTMLInputElement) {
+				breedRef.current.value = initialData.breed || "";
+			}
+			if (birthDateRef.current instanceof HTMLInputElement) {
+				birthDateRef.current.value = initialData.birthDate
+					? new Date(initialData.birthDate).toISOString().split("T")[0]
+					: "";
+			}
+			if (infoRef.current instanceof HTMLTextAreaElement) {
+				infoRef.current.value = initialData.info || "";
+			}
+			if (pictureRef.current instanceof HTMLInputElement) {
+				pictureRef.current.value = "";
+			}
 		}
+
+		return () => {
+			isComponentMounted = false;
+		};
 	}, [initialData]);
 
 	const query = mode === "create" ? CREATE_DOG : UPDATE_DOG;
@@ -54,9 +72,9 @@ export default function DogForm({
 		event.preventDefault();
 
 		try {
-            const birthDate = birthDateRef.current?.value 
-            ? new Date(birthDateRef.current.value).toISOString()
-            : undefined;
+			const birthDate = birthDateRef.current?.value
+				? new Date(birthDateRef.current.value).toISOString()
+				: undefined;
 
 			const variables = {
 				ownerId: Number(user?.id),
@@ -65,16 +83,19 @@ export default function DogForm({
 				birthDate,
 				info: infoRef.current?.value,
 				picture: selectedFile,
-				...(mode === "update" && { dogId: initialData?.id }),
+				...(mode === "update" && { dogId: Number(initialData?.id) }),
 			};
 
-			const { data } = await selectedQuery({
+			await selectedQuery({
 				variables,
 			});
 
-			console.info(data);
+			const message =
+				mode === "create"
+					? "Votre chien a été ajouté avec succès !"
+					: "Les modifications ont été enregistrées avec succès !";
 
-			window.location.href = "/owner/my-dogs";
+			navigate("/owner/my-dogs", { state: { message: `${message}` } });
 		} catch (error) {
 			console.error("Error saving dog:", error);
 		}
