@@ -43,7 +43,7 @@ function Planning() {
 
 	const events =
 		data?.getAllEvents.map((event: Event) => ({
-			id: event.id,
+			id: event.id.toString(),
 			title: event.title,
 			start: new Date(event.date),
 			description: event.description,

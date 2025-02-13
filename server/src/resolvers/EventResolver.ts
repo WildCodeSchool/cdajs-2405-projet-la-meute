@@ -5,10 +5,9 @@ import { Service } from "../entities/Service";
 import { Trainer } from "../entities/Trainer";
 
 import "dotenv/config";
-import { EventResponse } from "./responseType";
 import type { Coordinates } from "../entities/Coordinates";
 
-import { LocationInput } from "./inputTypes";
+import { LocationInput } from "../types/inputTypes";
 
 const eventRepository = dataSource.getRepository(Event);
 const trainerRepository = dataSource.getRepository(Trainer);
