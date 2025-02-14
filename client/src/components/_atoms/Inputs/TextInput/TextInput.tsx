@@ -98,6 +98,7 @@ const TEXT_INPUT_CONFIG: Record<
 	},
 };
 
+/** TextInput Component */
 // forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement | HTMLTextAreaElement,

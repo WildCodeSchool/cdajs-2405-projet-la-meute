@@ -26,6 +26,8 @@
 
         &--round {
             @include avatar;
+            max-width: 250px;
+            width: 100%;
         }
     }
 

@@ -18,6 +18,7 @@ type ButtonStyles =
  * The new className must start with btn-
  */
 
+/**  Button componnents */
 export default function Button({
 	style,
 	type,

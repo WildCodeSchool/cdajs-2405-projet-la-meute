@@ -117,8 +117,6 @@ export default function DogForm({
 							className="dogForm__form__title--upload"
 							onClick={() => pictureRef.current?.click()}
 							onKeyDown={handleKeyPress}
-							role="button"
-							tabIndex={0}
 						>
 							<input
 								type="file"
