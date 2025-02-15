@@ -14,12 +14,18 @@ export default function IdCard({ type, data }: IdCardProps) {
 	const ownerData = data as Owner;
 	const { role } = useUser();
 
+	const getImageUrl = (path: string) => {
+		if (path?.startsWith("http")) {
+			return path;
+		}
+		return `${import.meta.env.VITE_API_URL || ""}${path}`;
+	};
+
 	const getCardInfo = () => {
 		if (isDog) {
+			const dogImage = dogData.picture || "/upload/images/defaultdog.jpg";
 			return {
-				image:
-					`${import.meta.env.VITE_API_URL}${dogData.picture}` ||
-					`${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`,
+				image: getImageUrl(dogImage),
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
@@ -33,7 +39,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 		}
 
 		return {
-			image: `${import.meta.env.VITE_API_URL}${ownerData.avatar}`,
+			image: getImageUrl(ownerData.avatar),
 			imageAlt: `Avatar de ${ownerData.firstname} ${ownerData.lastname}`,
 			title: `${ownerData.firstname} ${ownerData.lastname}`,
 			subtitle: ownerData.email,
