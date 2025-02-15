@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-  workflow_dispatch:
+      - documentation/s07_client_StoryBook
 
 jobs:
   deploy:
