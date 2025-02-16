@@ -15,7 +15,7 @@ import { Event } from "./Event";
 export class Service {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	service_id?: number;
+	id?: number;
 
 	@Column({
 		type: "varchar",

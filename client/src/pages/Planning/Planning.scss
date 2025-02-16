@@ -1,10 +1,72 @@
 @import '@style';
 
-/* Container */
-
 .calendar-container {
-    margin: 20px;
-    margin-top: 30px;
+    padding: 20px;
+
+    /* Under -> Allow to modify element per view */
+
+    /* dayGridMonth */
+    .event-content-month {
+        padding: 2px;
+
+        .event-title {
+            font-size: $s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: $semiBold;
+            color: $primary-dark;
+
+        }
+
+        .fc-v-event {
+            background-color: $green-300;
+            width: 100%;
+            word-break: normal;
+        }
+    }
+
+    /* timeGridWeek */
+    .event-content-week {
+        padding: 4px;
+
+        .event-title {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .event-description {
+            font-size: 0.85em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    /* listWeek */
+    .event-content-list {
+        padding: 8px;
+
+        .event-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .event-description {
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+
+        .event-details {
+            font-size: 0.85em;
+            color: #666;
+
+            .event-location {
+                margin-top: 4px;
+            }
+        }
+    }
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -34,7 +96,7 @@
     &:first-child {
         border-top-left-radius: $atoms-radius !important;
     }
-    
+
     &:last-child {
         border-top-right-radius: $atoms-radius !important;
     }
@@ -44,7 +106,7 @@
     &:first-child {
         border-bottom-left-radius: $atoms-radius !important;
     }
-    
+
     &:last-child {
         border-bottom-right-radius: $atoms-radius !important;
     }
@@ -374,7 +436,8 @@
         padding: 0.5rem !important;
     }
 
-    .fc td, .fc th {
+    .fc td,
+    .fc th {
         border-style: none;
     }
 }

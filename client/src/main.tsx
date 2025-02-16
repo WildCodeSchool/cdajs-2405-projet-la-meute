@@ -31,6 +31,7 @@ import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import Planning from "./pages/Planning/Planning.tsx";
+import EventDetail from "./pages/Events/EventDetail.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
@@ -163,7 +164,7 @@ const router = createBrowserRouter([
 									},
 									{
 										path: ":id",
-										element: <EventId />,
+										element: <EventDetail />,
 									},
 								],
 							},
