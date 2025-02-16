@@ -92,10 +92,11 @@ export default function DogForm({
 
 			const message =
 				mode === "create"
-					? "Votre chien a été ajouté avec succès !"
-					: "Les modifications ont été enregistrées avec succès !";
+					? `Votre chien ${variables.name} a été ajouté avec succès !`
+					: `Les modificationsd de ${variables.name} ont été enregistrées avec succès !`;
 
-			navigate("/owner/my-dogs", { state: { message: `${message}` } });
+			sessionStorage.setItem("dogAlert", message);
+			navigate("/owner/my-dogs");
 		} catch (error) {
 			console.error("Error saving dog:", error);
 		}
@@ -113,12 +114,11 @@ export default function DogForm({
 			<form className="dogForm__form" onSubmit={handleSubmit}>
 				<div>
 					<div className="dogForm__form__title">
-						<div
+						<button
 							className="dogForm__form__title--upload"
 							onClick={() => pictureRef.current?.click()}
 							onKeyDown={handleKeyPress}
-							role="button"
-							tabIndex={0}
+							type="button"
 						>
 							<input
 								type="file"
@@ -126,7 +126,7 @@ export default function DogForm({
 								accept="image/*"
 								ref={pictureRef}
 							/>
-						</div>
+						</button>
 						<div className="dogForm__form__title--intro">
 							<h3>{formTitle}</h3>
 							<p>{formSubtitle}</p>

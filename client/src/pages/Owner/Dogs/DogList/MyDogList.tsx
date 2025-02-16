@@ -1,25 +1,24 @@
 import "./MyDogList.scss";
+import { toast } from "react-toastify";
 import Button from "@/components/_atoms/Button/Button";
 import IdCard from "@/components/_molecules/Card/IdCard";
 import { GET_ALL_DOGS_BY_OWNER_ID } from "@/graphQL/queries/dog";
 
 import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 import type { Dog } from "@/types/Dog";
 
 function MyDogList() {
-	const location = useLocation();
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (location.state?.message) {
-			alert(location.state.message);
-			navigate(location.pathname, { replace: true });
+	const alert = () => {
+		const message = sessionStorage.getItem("dogAlert");
+		if (message) {
+			toast.success(message, {
+				icon: () => <span>🐶</span>,
+			});
+			sessionStorage.removeItem("dogAlert");
 		}
-	}, [location, navigate]);
+	};
 
 	const { user } = useUser();
 	const { data, loading } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
@@ -36,7 +35,7 @@ function MyDogList() {
 	}
 
 	return (
-		<main className="myDogList">
+		<main className="myDogList" onLoad={alert}>
 			<section className="myDogList__title">
 				<h2>Mes chiens</h2>
 				<span className="myDogList__title--count">{dogs.length}</span>

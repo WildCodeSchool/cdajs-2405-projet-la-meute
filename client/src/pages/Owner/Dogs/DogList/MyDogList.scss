@@ -2,13 +2,17 @@
 
 
 .myDogList {
-    @include dashContentArea;
-    @include dogBackground;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: max-content;
-    gap: 2rem;
+    @include dashContentArea(-4rem);
+    & {
+        @include dogBackground;
+        & {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: max-content;
+            gap: 2rem;
+        }
+    }
 
     &__title {
         display: flex;
