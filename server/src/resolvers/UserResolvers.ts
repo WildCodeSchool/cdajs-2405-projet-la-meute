@@ -1,6 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
+import { User } from "../entities/User";
 import { Owner } from "../entities/Owner";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
@@ -87,6 +88,62 @@ export class UserResolvers {
 		} catch (err) {
 			console.error("Failed to verify token:", err);
 			throw new Error("Invalid token");
+		}
+	}
+
+	// Register new user
+	@Mutation(() => User)
+	async registerUser(
+		@Arg("lastname") lastname: string,
+		@Arg("firstname") firstname: string,
+		@Arg("email") email: string,
+		@Arg("password") password: string,
+		@Arg("phone_number", { nullable: true }) phone_number: string,
+		@Arg("city") city: string,
+		@Arg("postal_code") postal_code: string,
+		@Arg("role") role: string,
+		@Arg("siret", { nullable: true }) siret: string,
+		@Arg("company_name", { nullable: true }) company_name: string,
+	): Promise<Owner | Trainer> {
+		// Check if user already exists
+		const existingUser = await this.findUserByEmail(email);
+		if (existingUser) {
+			throw new Error("Un utilisateur avec cet email existe déjà");
+		}
+
+		try {
+			if (role.toLowerCase() === "owner") {
+				const owner = new Owner();
+				owner.lastname = lastname;
+				owner.firstname = firstname;
+				owner.email = email;
+				owner.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				owner.phone_number = phone_number;
+				owner.city = city;
+				owner.postal_code = postal_code;
+
+				return await dataSource.manager.save(Owner, owner);
+			} else if (role.toLowerCase() === "trainer") {
+				if (!siret || !company_name) {
+					throw new Error("SIRET et nom d'entreprise requis pour un éducateur");
+				}
+
+				const trainer = new Trainer(siret, company_name);
+				trainer.lastname = lastname;
+				trainer.firstname = firstname;
+				trainer.email = email;
+				trainer.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				trainer.phone_number = phone_number;
+				trainer.city = city;
+				trainer.postal_code = postal_code;
+
+				return await dataSource.manager.save(Trainer, trainer);
+			} else {
+				throw new Error("Rôle invalide");
+			}
+		} catch (error) {
+			console.error("Erreur lors de l'inscription:", error);
+			throw new Error("Erreur lors de l'inscription");
 		}
 	}
 
