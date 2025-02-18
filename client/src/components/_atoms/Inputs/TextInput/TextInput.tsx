@@ -26,59 +26,73 @@ interface TextInputProps {
 	label?: string;
 	placeholder?: string;
 	className?: string;
+	name?: string;
+	onChange?: (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => void;
 }
 
 const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
-	{ mappedLabel: string; mappedPlaceholder: string }
+	{ mappedLabel: string; mappedPlaceholder: string; mappedName: string }
 > = {
 	email: {
 		mappedLabel: "Email",
 		mappedPlaceholder: "Entrez votre email",
+		mappedName: "email",
 	},
 	password: {
 		mappedLabel: "Mot de passe",
 		mappedPlaceholder: "Entrez votre mot de passe",
+		mappedName: "password",
 	},
 	confirmPassword: {
 		mappedLabel: "Confirmation mot de passe",
 		mappedPlaceholder: "Confirmer le mot de passe",
+		mappedName: "confirmPassword",
 	},
 	lastname: {
 		mappedLabel: "Nom",
 		mappedPlaceholder: "Entrez votre nom",
+		mappedName: "lastname",
 	},
 	firstname: {
 		mappedLabel: "Prénom",
 		mappedPlaceholder: "Entrez votre prénom",
+		mappedName: "firstname",
 	},
 	city: {
 		mappedLabel: "Ville",
 		mappedPlaceholder: "Entrez votre ville",
+		mappedName: "city",
 	},
 	postal_code: {
 		mappedLabel: "Code Postal",
 		mappedPlaceholder: "Entrez votre code postal",
+		mappedName: "postal_code",
 	},
 	SIRET: {
 		mappedLabel: "SIRET",
 		mappedPlaceholder: "Entrez votre SIRET",
+		mappedName: "SIRET",
 	},
 	company_name: {
 		mappedLabel: "Nom de l'entreprise",
 		mappedPlaceholder: "Entrez le nom de votre entreprise",
+		mappedName: "company_name",
 	},
 	telephone: {
 		mappedLabel: "Numéro de téléphone",
 		mappedPlaceholder: "Entrez votre numéro de téléphone",
+		mappedName: "telephone",
 	},
 	description: {
 		mappedLabel: "Description",
 		mappedPlaceholder: "Entrez votre description",
+		mappedName: "description",
 	},
 };
 
-// forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement | HTMLTextAreaElement,
 	TextInputProps
@@ -94,15 +108,20 @@ const TextInput = React.forwardRef<
 			label,
 			placeholder,
 			className,
+			name,
+			onChange,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
 
-		const { mappedLabel = label, mappedPlaceholder = placeholder } = type
-			? TEXT_INPUT_CONFIG[type]
-			: {};
+		const {
+			mappedLabel = label,
+			mappedPlaceholder = placeholder,
+			mappedName = name,
+		} = type ? TEXT_INPUT_CONFIG[type] : {};
+
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 		useImperativeHandle(
@@ -147,15 +166,20 @@ const TextInput = React.forwardRef<
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
+						name={type ? TEXT_INPUT_CONFIG[type].mappedName : name}
 						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
 						required={required}
+						onChange={onChange}
 					/>
 				) : (
 					<input
 						id={inputId}
+						name={name || type}
 						ref={inputRef as React.RefObject<HTMLInputElement>}
-						type={isPasswordField ? (showPassword ? "text" : "password") : type}
+						type={
+							isPasswordField ? (showPassword ? "text" : "password") : "text"
+						}
 						placeholder={mappedPlaceholder}
 						required={required}
 						onBlur={validateInput}
