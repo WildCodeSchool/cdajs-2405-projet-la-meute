@@ -37,6 +37,8 @@ export class Dog {
 
 	@Column({
 		nullable: true,
+		type: "varchar",
+		length: 255,
 		default: "/upload/images/defaultdog.jpg",
 	})
 	@Field({ nullable: true })
