@@ -23,7 +23,7 @@ export default function DogForm({
 	const breedRef = useRef<HTMLInputElement>(null);
 	const birthDateRef = useRef<HTMLInputElement>(null);
 	const infoRef = useRef<HTMLTextAreaElement>(null);
-	const { handleChange, selectedFile } = useFileUpload();
+	const { handleFileChange, selectedFile } = useFileUpload();
 	const { user } = useUser();
 	const navigate = useNavigate();
 
@@ -122,7 +122,7 @@ export default function DogForm({
 						>
 							<input
 								type="file"
-								onChange={handleChange}
+								onChange={handleFileChange}
 								accept="image/*"
 								ref={pictureRef}
 							/>
