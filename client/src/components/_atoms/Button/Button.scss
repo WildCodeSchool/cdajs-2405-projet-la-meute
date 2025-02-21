@@ -1,87 +1,107 @@
 @import "@style";
 
 $btn-types: (
-    "submit",
-    "dark",
-    "light",
-    "invite",
-    "role-select-left",
-    "role-select-right"
+	"submit",
+	"dark",
+	"light",
+	"invite",
+	"role-select-left",
+	"role-select-right",
+	"thin-btn-light"
+);
+
+$colors: (
+	"orange": $orange-400,
+	"blue": $blue-100,
+	"green": $green-400,
 );
 
 .button {
-    all: inherit;
-    min-height: $btn-height;
-    color: $primary-light;
-    font-weight: $semiBold;
-    border-radius: $atoms-radius;
-    padding: 1.25rem;
-    padding-inline: 3.5rem;
-    margin: 0.2rem;
-    font-size: $s;
-    background-color: $blue-200;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    display: inline-block;
+	all: inherit;
+	min-height: $btn-height;
+	color: $primary-light;
+	font-weight: $semiBold;
+	border-radius: $atoms-radius;
+	padding: 1.25rem;
+	padding-inline: 3.5rem;
+	margin: 0.2rem;
+	font-size: $s;
+	background-color: $blue-200;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	display: inline-block;
 
-    @each $btn-type in $btn-types {
-        &.btn-#{$btn-type} {
-            color: $font-light;
-        }
-    }
+	@each $btn-type in $btn-types {
+		&.btn-#{$btn-type} {
+			color: $font-light;
+		}
+	}
 
-    &.btn-submit {
-        $background-color: $blue-200;
-        background-color: $background-color;
+	&.btn-submit {
+		$background-color: $blue-200;
+		background-color: $background-color;
+		&:hover {
+			background-color: lighten($background-color, 10%);
+		}
+	}
 
-        &:hover {
-            background-color: lighten($background-color, 10%);
-        }
-    }
+	&.btn-dark {
+		$background-color: $blue-500;
+		background-color: $background-color;
+		&:hover {
+			background-color: lighten($background-color, 10%);
+		}
+	}
 
-    &.btn-dark {
-        $background-color: $blue-500;
-        background-color: $background-color;
+	&.btn-light {
+		$background-color: $blue-200;
+		background-color: $background-color;
+		&:hover {
+			background-color: lighten($background-color, 10%);
+		}
+	}
 
-        &:hover {
-            background-color: lighten($background-color, 10%);
-        }
-    }
+	&.btn-invite {
+		$background-color: $blue-500;
+		background-color: $background-color;
+		&:hover {
+			background-color: lighten($background-color, 10%);
+		}
+	}
 
-    &.btn-light {
-        $background-color: $blue-200;
-        background-color: $background-color;
+	&.btn-role-select-left {
+		$background-color: $green-400;
+		background-color: $background-color;
+		&:hover {
+			background-color: $green-300;
+		}
+	}
 
-        &:hover {
-            background-color: lighten($background-color, 10%);
-        }
-    }
+	&.btn-role-select-right {
+		$background-color: $orange-500;
+		background-color: $background-color;
 
-    &.btn-invite {
-        $background-color: $blue-500;
-        background-color: $background-color;
+		&:hover {
+			background-color: $orange-400;
+		}
+	}
 
-        &:hover {
-            background-color: lighten($background-color, 10%);
-        }
-    }
+	&.thin-btn-light {
+		padding: 0.8rem;
+		padding-inline: min(5rem, 10vw);
+		border-radius: 5px;
+		box-shadow: 0 3px 5px 5px rgba($beige-500, 0.2);
 
-    &.btn-role-select-left {
-        $background-color: $green-400;
-        background-color: $background-color;
+		@each $color, $base-color in $colors {
+			&.thin-btn-#{$color} {
+				background-color: $base-color;
 
-        &:hover {
-            background-color: $green-300;
-        }
-    }
-
-    &.btn-role-select-right {
-        $background-color: $orange-500;
-        background-color: $background-color;
-
-        &:hover {
-            background-color: $orange-400;
-        }
-    }
+				&:hover {
+					background-color: lighten($base-color, 5%);
+					color: $font-light;
+				}
+			}
+		}
+	}
 }

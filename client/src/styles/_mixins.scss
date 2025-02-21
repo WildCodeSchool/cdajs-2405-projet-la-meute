@@ -5,6 +5,14 @@
     padding: 1.2vh 1.5vw;
 }
 
+@mixin dashContentArea($offset : 0) {
+    min-height: calc(100vh - $dashHeaderHeight - $dashInlinePadding + #{$offset});
+
+    @media (width < $mobile) {
+        min-height: calc(100vh - $dashHeaderHeight - $dashHeaderHeight + #{$offset});
+    }
+}
+
 @mixin title {
     color: $blue-400;
     font-weight: $semiBold;
@@ -20,6 +28,24 @@
     display: inline-block;
     font-weight: $semiBold;
     text-align: center;
+}
+
+@mixin dogBackground {
+    &::after {
+        content: '';
+        width: 30%;
+        aspect-ratio: 1;
+        position: fixed;
+        z-index: -1;
+        bottom: 0;
+        right: 2rem;
+        background: bottom right url(../../../../assets/illustrations/chien-high-five-proprietaire-canape.png) no-repeat;
+        background-size: 30vw;
+
+        @media (width < $tablet) {
+            display: none;
+        }
+    }
 }
 
 .hidden__ {

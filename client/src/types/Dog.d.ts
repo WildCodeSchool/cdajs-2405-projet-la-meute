@@ -4,5 +4,6 @@ export interface Dog {
 	birthDate: Date;
 	breed: string;
 	picture: string;
+	info: string;
 	getAge?: number;
 }

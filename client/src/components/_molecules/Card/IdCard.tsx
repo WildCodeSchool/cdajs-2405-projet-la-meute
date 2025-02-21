@@ -1,6 +1,7 @@
 import "./IdCard.scss";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
+import { useUser } from "@/hooks/useUser";
 
 type IdCardProps = {
 	type: "dog" | "owner";
@@ -11,22 +12,34 @@ export default function IdCard({ type, data }: IdCardProps) {
 	const isDog = type === "dog";
 	const dogData = data as Dog;
 	const ownerData = data as Owner;
+	const { role } = useUser();
+
+	const getImageUrl = (path: string) => {
+		if (path?.startsWith("http")) {
+			return path;
+		}
+		return `${import.meta.env.VITE_API_URL || ""}${path}`;
+	};
 
 	const getCardInfo = () => {
 		if (isDog) {
+			const dogImage = dogData.picture || "/upload/images/defaultdog.jpg";
 			return {
-				image: dogData.picture,
+				image: getImageUrl(dogImage),
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
 				age: `${dogData.getAge} ans`,
-				info: "informations complémentaires",
-				link: `/dog/${dogData.id}`,
+				info: dogData.info,
+				link:
+					role === "owner"
+						? `/owner/my-dogs/profile/${dogData.id}`
+						: `/dog/${dogData.id}`,
 			};
 		}
 
 		return {
-			image: ownerData.avatar,
+			image: getImageUrl(ownerData.avatar),
 			imageAlt: `Avatar de ${ownerData.firstname} ${ownerData.lastname}`,
 			title: `${ownerData.firstname} ${ownerData.lastname}`,
 			subtitle: ownerData.email,
@@ -42,7 +55,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 			<img
 				src={image}
 				alt={imageAlt}
-				className={`idCard__image${!isDog && "--round"}`}
+				className={`idCard__image${!isDog ? "--round" : ""}`}
 			/>
 			<div className="idCard__infos">
 				<span className="idCard__infos--title">

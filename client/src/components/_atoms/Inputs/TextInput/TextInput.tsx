@@ -14,14 +14,18 @@ type TextInputTypes =
 	| "SIRET"
 	| "company_name"
 	| "telephone"
-	| "description";
+	| "description"
+	| "name"
+	| "birthDate"
+	| "breed"
+	| "info";
 
 interface TextInputProps {
 	type?: TextInputTypes;
 	required?: boolean;
 	passwordRef?: React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
-	inputType?: "input" | "textarea";
+	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
 	label?: string;
 	placeholder?: string;
@@ -75,6 +79,22 @@ const TEXT_INPUT_CONFIG: Record<
 	description: {
 		mappedLabel: "Description",
 		mappedPlaceholder: "Entrez votre description",
+	},
+	name: {
+		mappedLabel: "Nom de mon chien",
+		mappedPlaceholder: "Entrez le nom de votre chien",
+	},
+	birthDate: {
+		mappedLabel: "Date de naissance de mon chien",
+		mappedPlaceholder: "Sélectionnez la date de naissance",
+	},
+	breed: {
+		mappedLabel: "Race de mon chien",
+		mappedPlaceholder: "Entrez la race de votre chien",
+	},
+	info: {
+		mappedLabel: "Informations complémentaires",
+		mappedPlaceholder: "Entrez un commentaire sur votre chien",
 	},
 };
 
@@ -155,7 +175,15 @@ const TextInput = React.forwardRef<
 					<input
 						id={inputId}
 						ref={inputRef as React.RefObject<HTMLInputElement>}
-						type={isPasswordField ? (showPassword ? "text" : "password") : type}
+						type={
+							isPasswordField
+								? showPassword
+									? "text"
+									: "password"
+								: inputType === "date"
+									? "date"
+									: "text"
+						}
 						placeholder={mappedPlaceholder}
 						required={required}
 						onBlur={validateInput}
