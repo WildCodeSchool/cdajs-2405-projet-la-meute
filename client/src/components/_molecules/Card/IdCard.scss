@@ -19,7 +19,7 @@
 
     &__image {
         grid-area: 1 / 1 / 2 / 2;
-        object-fit: contain;
+        object-fit: cover center;
         max-width: 250px;
         width: 100%;
         aspect-ratio: 1;
