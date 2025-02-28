@@ -136,7 +136,12 @@ export default function DogForm({
 				</div>
 				<TextInput type="breed" ref={breedRef} />
 				<TextInput type="birthDate" ref={birthDateRef} inputType="date" />
-				<TextInput type="info" inputType="textarea" ref={infoRef} />
+				<TextInput
+					type="info"
+					inputType="textarea"
+					ref={infoRef}
+					className="dogForm__form__description"
+				/>
 				<span className="dogForm__button">
 					<Button
 						type="submit"
