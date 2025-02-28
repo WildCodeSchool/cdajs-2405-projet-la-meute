@@ -42,8 +42,6 @@ export const useAuth = () => {
 
 			refetch();
 
-			navigate(`/${decoded.role.toLowerCase()}`);
-
 			return new Promise((resolve) => {
 				const checkUserData = () => {
 					if (user && !isLoading) {
@@ -57,19 +55,6 @@ export const useAuth = () => {
 				};
 
 				if (checkUserData()) return;
-
-				const interval = setInterval(() => {
-					if (checkUserData()) {
-						clearInterval(interval);
-					}
-				}, 100);
-
-				setTimeout(() => {
-					clearInterval(interval);
-					resolve({
-						success: false,
-					});
-				}, 5000);
 			});
 		} catch (error) {
 			return {
