@@ -18,7 +18,7 @@ interface LoginResponse {
 export const useAuth = () => {
 	const [loginMutation, { data, loading }] = useMutation(LOGIN);
 	const navigate = useNavigate();
-	const { refetch } = useContext(AuthContext);
+	const { refetch, user, isLoading } = useContext(AuthContext);
 
 	const login = async (
 		email: string,
@@ -44,9 +44,33 @@ export const useAuth = () => {
 
 			navigate(`/${decoded.role.toLowerCase()}`);
 
-			return {
-				success: true,
-			};
+			return new Promise((resolve) => {
+				const checkUserData = () => {
+					if (user && !isLoading) {
+						navigate(`/${decoded.role.toLowerCase()}`);
+						resolve({
+							success: true,
+						});
+						return true;
+					}
+					return false;
+				};
+
+				if (checkUserData()) return;
+
+				const interval = setInterval(() => {
+					if (checkUserData()) {
+						clearInterval(interval);
+					}
+				}, 100);
+
+				setTimeout(() => {
+					clearInterval(interval);
+					resolve({
+						success: false,
+					});
+				}, 5000);
+			});
 		} catch (error) {
 			return {
 				success: false,

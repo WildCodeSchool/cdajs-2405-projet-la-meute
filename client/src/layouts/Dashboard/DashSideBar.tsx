@@ -9,13 +9,13 @@ import { Exit } from "@/assets/icons/exit";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
-import { useState } from "react";
 
 const DashSideBar = () => {
 	const location = useLocation();
 	const { logout } = useAuth();
 	const { role } = useUser();
-	const [userRole] = useState<"trainer" | "owner">(role || "trainer");
+
+	const userRole = role || "trainer";
 
 	const isActive = (path: string) =>
 		location.pathname.includes(path)
