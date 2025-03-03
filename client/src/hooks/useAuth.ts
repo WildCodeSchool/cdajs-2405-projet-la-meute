@@ -42,7 +42,7 @@ export const useAuth = () => {
 
 			refetch();
 
-			navigate(`/${decoded.role.toLowerCase()}`);
+			window.location.href = `/${decoded.role.toLowerCase()}`;
 
 			return {
 				success: true,

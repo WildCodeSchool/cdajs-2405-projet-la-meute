@@ -23,7 +23,7 @@ export default function DogForm({
 	const breedRef = useRef<HTMLInputElement>(null);
 	const birthDateRef = useRef<HTMLInputElement>(null);
 	const infoRef = useRef<HTMLTextAreaElement>(null);
-	const { handleChange, selectedFile } = useFileUpload();
+	const { handleFileChange, selectedFile } = useFileUpload();
 	const { user } = useUser();
 	const navigate = useNavigate();
 
@@ -122,7 +122,7 @@ export default function DogForm({
 						>
 							<input
 								type="file"
-								onChange={handleChange}
+								onChange={handleFileChange}
 								accept="image/*"
 								ref={pictureRef}
 							/>
@@ -136,9 +136,17 @@ export default function DogForm({
 				</div>
 				<TextInput type="breed" ref={breedRef} />
 				<TextInput type="birthDate" ref={birthDateRef} inputType="date" />
-				<TextInput type="info" inputType="textarea" ref={infoRef} />
+				<TextInput
+					type="info"
+					inputType="textarea"
+					ref={infoRef}
+					className="dogForm__form__description"
+				/>
 				<span className="dogForm__button">
-					<Button type="submit" style="thin-btn-light">
+					<Button
+						type="submit"
+						style={{ type: "thin-btn-light", color: "orange" }}
+					>
 						{buttonText}
 					</Button>
 				</span>

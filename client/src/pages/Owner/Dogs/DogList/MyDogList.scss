@@ -2,7 +2,7 @@
 
 
 .myDogList {
-    @include dashContentArea(-4rem);
+    @include dashContentArea(-2rem);
     & {
         @include dogBackground;
         & {

@@ -22,7 +22,7 @@
             &--upload {
                 min-width: clamp(64px , 10%, 96px);
                 aspect-ratio: 1;
-                background: url(../../../../assets/icons/upload.svg)center no-repeat, $blue-400;
+                background: url(../../../../assets/icons/upload.svg) center no-repeat, $blue-400;
                 background-size: 30%;
                 border-radius: 50%;
                 border: none;
@@ -45,6 +45,12 @@
             &--intro {
                 margin-left: 2rem;
             }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            width: 100%;
         }
 
     }
