@@ -224,9 +224,7 @@ const router = createBrowserRouter([
 	// FIXME: delete -----------------------
 	{
 		path: "/",
-		element: (
-			<DashLayout />
-		),
+		element: <DashLayout />,
 		children: [
 			{
 				path: "designsystem",
@@ -240,8 +238,8 @@ const router = createBrowserRouter([
 				path: "testme",
 				element: <TestME />,
 			},
-		]
-	}
+		],
+	},
 	// -------------------------------------
 ]);
 
