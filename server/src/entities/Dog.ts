@@ -37,10 +37,20 @@ export class Dog {
 
 	@Column({
 		nullable: true,
+		type: "varchar",
+		length: 255,
 		default: "/upload/images/defaultdog.jpg",
 	})
 	@Field({ nullable: true })
 	picture?: string;
+
+	@Column({
+		nullable: true,
+		type: "varchar",
+		length: 255,
+	})
+	@Field({ nullable: true })
+	info?: string;
 
 	@ManyToOne(
 		() => Owner,
@@ -74,11 +84,13 @@ export class Dog {
 		birthDate = new Date(),
 		breed = "",
 		picture = "/upload/images/defaultdog.jpg",
+		info = "Informations complémentaires",
 	) {
 		this.owner = owner;
 		this.name = name;
 		this.birthDate = birthDate;
 		this.breed = breed;
 		this.picture = picture;
+		this.info = info;
 	}
 }

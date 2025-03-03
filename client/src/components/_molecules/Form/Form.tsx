@@ -3,12 +3,16 @@ import "./Form.scss";
 import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 
+type FormStyles = "dark-blue" | "beige";
+
 export default function Form({
+	style = "dark-blue",
 	className,
 	title,
 	children,
 	onSubmit,
 }: {
+	style?: FormStyles;
 	className?: string;
 	title: string;
 	children: React.ReactNode;
@@ -40,7 +44,7 @@ export default function Form({
 	// -- End children filtering
 
 	return (
-		<form className={`form ${className}`} onSubmit={onSubmit}>
+		<form className={`form form--${style} ${className}`} onSubmit={onSubmit}>
 			<h2>{title}</h2>
 			{introductiveText}
 			<div>{inputs}</div>

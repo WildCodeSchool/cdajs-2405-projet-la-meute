@@ -14,6 +14,7 @@ export default function DesignSystem() {
 		getAge: 3,
 		breed: "Caniche",
 		picture: "https://placehold.co/400x400",
+		info: "aime les saucisses",
 	};
 
 	const owner = {
