@@ -223,17 +223,25 @@ const router = createBrowserRouter([
 	},
 	// FIXME: delete -----------------------
 	{
-		path: "designsystem",
-		element: <DesignSystem />,
-	},
-	{
-		path: "test",
-		element: <TestFileUpload />,
-	},
-	{
-		path: "testme",
-		element: <TestME />,
-	},
+		path: "/",
+		element: (
+			<DashLayout />
+		),
+		children: [
+			{
+				path: "designsystem",
+				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestFileUpload />,
+			},
+			{
+				path: "testme",
+				element: <TestME />,
+			},
+		]
+	}
 	// -------------------------------------
 ]);
 

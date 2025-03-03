@@ -100,8 +100,8 @@ export default function DesignSystem() {
 				<div>
 					<h2>Form</h2>
 					<Form title="Connectez-vous ici">
-						<TextInput type="email" />
-						<TextInput type="password" />
+						<TextInput style="dark" type="email" />
+						<TextInput style="dark" type="password" />
 						<Button type="submit" style="btn-dark" href="">
 							Annuler
 						</Button>
