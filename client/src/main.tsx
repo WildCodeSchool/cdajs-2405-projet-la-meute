@@ -43,6 +43,7 @@ import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
 import TestFileUpload from "./components/TestFileUpload.tsx";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
 	{
@@ -251,6 +252,7 @@ createRoot(rootElement).render(
 		<ApolloProvider client={client}>
 			<AuthProvider>
 				<RouterProvider router={router} />
+				<ToastContainer theme="colored" />
 			</AuthProvider>
 		</ApolloProvider>
 	</StrictMode>,
