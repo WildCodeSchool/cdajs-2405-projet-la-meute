@@ -47,7 +47,10 @@ function MyDogList() {
 				))}
 			</section>
 			<span className="myDogList__button">
-				<Button href="/owner/my-dogs/new" style="thin-btn-light">
+				<Button
+					href="/owner/my-dogs/new"
+					style={{ type: "thin-btn-light", color: "orange" }}
+				>
 					+ Ajouter un nouveau chien
 				</Button>
 			</span>

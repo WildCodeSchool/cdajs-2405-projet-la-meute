@@ -23,7 +23,7 @@ export default function DogForm({
 	const breedRef = useRef<HTMLInputElement>(null);
 	const birthDateRef = useRef<HTMLInputElement>(null);
 	const infoRef = useRef<HTMLTextAreaElement>(null);
-	const { handleChange, selectedFile } = useFileUpload();
+	const { handleFileChange, selectedFile } = useFileUpload();
 	const { user } = useUser();
 	const navigate = useNavigate();
 
@@ -92,10 +92,11 @@ export default function DogForm({
 
 			const message =
 				mode === "create"
-					? "Votre chien a été ajouté avec succès !"
-					: "Les modifications ont été enregistrées avec succès !";
+					? `Votre chien ${variables.name} a été ajouté avec succès !`
+					: `Les modificationsd de ${variables.name} ont été enregistrées avec succès !`;
 
-			navigate("/owner/my-dogs", { state: { message: `${message}` } });
+			sessionStorage.setItem("dogAlert", message);
+			navigate("/owner/my-dogs");
 		} catch (error) {
 			console.error("Error saving dog:", error);
 		}
@@ -113,18 +114,19 @@ export default function DogForm({
 			<form className="dogForm__form" onSubmit={handleSubmit}>
 				<div>
 					<div className="dogForm__form__title">
-						<div
+						<button
 							className="dogForm__form__title--upload"
 							onClick={() => pictureRef.current?.click()}
 							onKeyDown={handleKeyPress}
+							type="button"
 						>
 							<input
 								type="file"
-								onChange={handleChange}
+								onChange={handleFileChange}
 								accept="image/*"
 								ref={pictureRef}
 							/>
-						</div>
+						</button>
 						<div className="dogForm__form__title--intro">
 							<h3>{formTitle}</h3>
 							<p>{formSubtitle}</p>
@@ -134,9 +136,17 @@ export default function DogForm({
 				</div>
 				<TextInput type="breed" ref={breedRef} />
 				<TextInput type="birthDate" ref={birthDateRef} inputType="date" />
-				<TextInput type="info" inputType="textarea" ref={infoRef} />
+				<TextInput
+					type="info"
+					inputType="textarea"
+					ref={infoRef}
+					className="dogForm__form__description"
+				/>
 				<span className="dogForm__button">
-					<Button type="submit" style="thin-btn-light">
+					<Button
+						type="submit"
+						style={{ type: "thin-btn-light", color: "orange" }}
+					>
 						{buttonText}
 					</Button>
 				</span>
