@@ -1,11 +1,34 @@
 import Button from "@/components/_atoms/Button/Button";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import NewTag from "@/components/_atoms/Tag/NewTag";
-import Tag from "@/components/_atoms/Tag/Tag";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Form from "@/components/_molecules/Form/Form";
+import IdCard from "@/components/_molecules/Card/IdCard";
+import NewTag from "@/components/_atoms/Tag/NewTag";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import Tag from "@/components/_atoms/Tag/Tag";
 
 export default function DesignSystem() {
+	const dog = {
+		id: 1,
+		name: "Leo",
+		birthDate: new Date("2020-08-17"),
+		getAge: 3,
+		breed: "Caniche",
+		picture: "https://placehold.co/400x400",
+	};
+
+	const owner = {
+		id: 1,
+		lastname: "Dubois",
+		firstname: "Marie",
+		email: "marie.dubois@gmail.com",
+		phone_number: "06 12 34 56 78",
+		city: "Lyon",
+		postal_code: "69001",
+		avatar: "https://placehold.co/400x400",
+		role: "owner" as const,
+		description: null,
+	};
+
 	return (
 		<div className="page-ds-layout">
 			<div>
@@ -93,6 +116,15 @@ export default function DesignSystem() {
 							</Tag>
 							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
 								<NewTag href="" />
+							</div>
+						</div>
+						<h2>IdCard</h2>
+						<div>
+							<div>
+								<IdCard type="dog" data={dog} />
+							</div>
+							<div>
+								<IdCard type="owner" data={owner} />
 							</div>
 						</div>
 					</div>

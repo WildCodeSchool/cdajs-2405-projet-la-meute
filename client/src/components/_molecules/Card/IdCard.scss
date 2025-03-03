@@ -1,0 +1,84 @@
+@import "@style";
+
+
+.idCard{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    border-radius: 10px;
+    background-color: $orange-300;
+    overflow: hidden;
+    max-height: 250px;
+    max-width: 900px;
+    margin: 0.2rem;
+
+    &[data-dog] {
+        background-color: #1B8095
+    }
+
+    &__image {
+        grid-area: 1 / 1 / 2 / 2;
+        object-fit: cover;
+
+        &--round {
+            @include avatar;
+        }
+    }
+
+    &__infos {
+        grid-area: 1 / 2 / 2 / 4;
+        padding: min(1rem, 1vw);
+        color: $blue-500;
+
+        h3 {
+            margin: 0.5rem 0;
+            font-size: clamp(1rem , 5vw , $xl);
+            font-weight: $bold;
+            color: inherit;
+        }
+        
+        & *:not(hr,h3){
+            margin: 0;
+            color: inherit;
+        }
+    
+
+        &--title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &--sub {
+            font-style: italic;
+            font-weight: $light;
+        }
+
+        &--hr {
+            width: 95%;
+            border: none;
+            border-bottom: 1px solid $blue-400;
+            margin-block: min(2vw, 1.5rem);
+        }
+
+        &--infos {
+            @media (width < 650px) {
+                display: none;
+            }
+        }
+    }
+    
+    &--link {
+        grid-area: 1 / 3 / 2 / 4;
+        align-self: end;
+        justify-self: end;
+        padding: min(2vw, 2rem) 1vw;
+        color: $blue-600;
+
+        &:hover {
+            color: $blue-100;
+        }
+    }
+    
+}
