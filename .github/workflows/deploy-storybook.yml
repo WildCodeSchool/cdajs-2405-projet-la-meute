@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - documentation/s07_client_StoryBook
 
 jobs:
   deploy:
