@@ -42,7 +42,7 @@ function MyDogList() {
 			</section>
 			<section className="myDogList__list">
 				{dogs.map((dog: Dog) => (
-					<IdCard key={dog.id} type="dog" data={dog} />
+					<IdCard key={dog.id} type="dog" data={dog} ownerView />
 				))}
 			</section>
 			<span className="myDogList__button">

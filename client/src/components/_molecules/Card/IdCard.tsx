@@ -6,9 +6,10 @@ import { useUser } from "@/hooks/useUser";
 type IdCardProps = {
 	type: "dog" | "owner";
 	data: Dog | Owner;
+	ownerView?: boolean;
 };
 
-export default function IdCard({ type, data }: IdCardProps) {
+export default function IdCard({ type, data, ownerView }: IdCardProps) {
 	const isDog = type === "dog";
 	const dogData = data as Dog;
 	const ownerData = data as Owner;
@@ -35,6 +36,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
 						: `/dog/${dogData.id}`,
+				buttonText: ownerView ? "Modifier le profil" : "Voir le profil",
 			};
 		}
 
@@ -45,10 +47,12 @@ export default function IdCard({ type, data }: IdCardProps) {
 			subtitle: ownerData.email,
 			info: ownerData.phone_number,
 			link: `/customer/${ownerData.id}`,
+			buttonText: "Voir le profil",
 		};
 	};
 
-	const { image, imageAlt, title, subtitle, info, link, age } = getCardInfo();
+	const { image, imageAlt, title, subtitle, info, link, age, buttonText } =
+		getCardInfo();
 
 	return (
 		<article className="idCard" {...(isDog ? { "data-dog": true } : {})}>
@@ -67,7 +71,7 @@ export default function IdCard({ type, data }: IdCardProps) {
 				<p className="idCard__infos--infos">{info}</p>
 			</div>
 			<a href={link} className="idCard--link">
-				Voir le profil &gt;
+				{buttonText} &gt;
 			</a>
 		</article>
 	);
