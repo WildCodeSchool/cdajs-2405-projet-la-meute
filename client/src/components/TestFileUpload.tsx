@@ -4,7 +4,7 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 
 function TestFileUpload() {
 	const [uploadDogPicture] = useMutation(DOG_PROFIL_PICTURE);
-	const { selectedFile, handleChange } = useFileUpload();
+	const { selectedFile, handleFileChange } = useFileUpload();
 
 	const handleSend = async () => {
 		if (!selectedFile) {
@@ -27,7 +27,7 @@ function TestFileUpload() {
 
 	return (
 		<div>
-			<input type="file" onChange={handleChange} accept="image/*" />
+			<input type="file" onChange={handleFileChange} accept="image/*" />
 			<button type="button" onClick={handleSend}>
 				Send
 			</button>

@@ -114,7 +114,7 @@ export const RoleSelectRight: Story = {
 
 export const ThinLight: Story = {
 	args: {
-		style: "thin-btn-light",
+		style: { type: "thin-btn-light", color: "orange" },
 		children: "Valider l'ajout de mon nouveau chien",
 	},
 };
