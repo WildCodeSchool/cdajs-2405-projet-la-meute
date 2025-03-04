@@ -14,7 +14,7 @@ export class ResetPasswordResponse {
 @ObjectType()
 export class UserPayload {
 	@Field()
-	id?: number;
+	userId?: number;
 
 	@Field(() => String, { nullable: true })
 	role?: "Trainer" | "Owner";
