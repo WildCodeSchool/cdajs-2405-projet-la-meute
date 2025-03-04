@@ -16,23 +16,8 @@ import listPlugin from "@fullcalendar/list";
 import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
 
-interface Event {
-	id: number;
-	date: string;
-	title: string;
-	description: string;
-	group_max_size: number;
-	location: Location;
-}
-
-interface Location {
-	latitude: number;
-	longitude: number;
-}
-
-interface GetAllEventsData {
-	getAllEvents: Event[];
-}
+// Interfaces
+import { Event, GetAllEventsData } from "@/types/Event";
 
 function Planning() {
 	/* Business logic */
@@ -45,11 +30,13 @@ function Planning() {
 		data?.getAllEvents.map((event: Event) => ({
 			id: event.id.toString(),
 			title: event.title,
-			start: new Date(event.date),
+			start: new Date(event.startDate),
+			end: new Date(event.endDate),
 			description: event.description,
 			extendedProps: {
 				group_max_size: event.group_max_size,
 				location: event.location,
+				price: event.price,
 			},
 		})) || [];
 
@@ -184,7 +171,7 @@ function Planning() {
 						} else if (userRole === "owner") {
 							navigate(`/owner/planning/${eventId}`);
 						} else {
-							// If unauthorized user try to force the URL
+							// If an unauthorized user tries to force the URL
 							console.error("Vous n'êtes pas autorisé à voir cet événement");
 						}
 					}}

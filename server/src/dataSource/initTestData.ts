@@ -103,6 +103,9 @@ async function createData() {
 				longitude: 4.8560401,
 			},
 			5,
+			40,
+			new Date("2025-03-05T09:00:00"),
+			new Date("2025-03-05T09:45:00"),
 		);
 		const savedEvent = await eventRepository.save(event);
 

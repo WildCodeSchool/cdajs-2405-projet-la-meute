@@ -6,6 +6,7 @@ import {
 	OneToMany,
 	JoinColumn,
 	PrimaryGeneratedColumn,
+	Timestamp,
 } from "typeorm";
 import { Trainer } from "./Trainer";
 import { Service } from "./Service";
@@ -43,8 +44,13 @@ export class Event {
 	@Field()
 	price: number;
 
-	// Ajouter une @Column duration pour la durée, voir si on l'ajoute en minutes, en heure...
-	// L'ajouter ici
+	@Column()
+	@Field()
+	startDate: Date;
+
+	@Column()
+	@Field()
+	endDate: Date;
 
 	@ManyToOne(
 		() => Trainer,
@@ -81,6 +87,8 @@ export class Event {
 		location: Coordinates,
 		group_max_size = 0,
 		price = 0,
+		startDate: Date,
+		endDate: Date,
 	) {
 		this.trainer = trainer;
 		this.service = service;
@@ -90,5 +98,7 @@ export class Event {
 		this.location = location;
 		this.group_max_size = group_max_size;
 		this.price = price;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 }
