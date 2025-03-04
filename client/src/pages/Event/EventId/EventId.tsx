@@ -22,6 +22,11 @@ function EventId() {
 		const startTime = startTimeRef.current?.value;
 		const endTime = endTimeRef.current?.value;
 
+		console.log(startTime, endTime);
+		if (startTime <= endTime) {
+			console.log("nonono");
+		}
+
 		e.preventDefault();
 		const eventData = {
 			title: titleRef.current?.value,
