@@ -47,6 +47,17 @@ async function createData() {
 
 		const savedOwner1 = await ownerRepository.save(owner);
 
+		const owner2 = new Owner();
+		owner2.lastname = "Chantal";
+		owner2.firstname = "Marie";
+		owner2.email = "marie-chantal@example.com";
+		owner2.password_hashed = "linux4ever";
+		owner2.phone_number = "0612456789";
+		owner2.city = "Lille";
+		owner2.postal_code = "59000";
+
+		const savedOwner2 = await ownerRepository.save(owner2);
+
 		//2. Create trainers
 
 		const trainerRepository = dataSource.getRepository(Trainer);

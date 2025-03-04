@@ -1,5 +1,16 @@
 @import "@style";
 
+$form-style: (
+    'dark-blue': (
+        bg: $blue-400,
+        text: $font-light
+    ),
+    'beige': (
+        bg: $beige-200,
+        text: $font-dark
+    )
+);
+
 .form {
     display: flex;
     flex-direction: column;
@@ -11,29 +22,46 @@
     width: fit-content;
     margin: auto;
 
-    h2 {
-        color: $font-light;
+    @each $style, $colors in $form-style {
+        &--#{$style} {
+          background-color: map-get($colors, bg);
+          color: map-get($colors, text);
+    
+          h2 {
+            color: map-get($colors, text);
+          }
+    
+          .form__otherFields {
+            color: map-get($colors, text);
+          }
+    
+          .introductiveText {
+            color: map-get($colors, text);
+          }
+        }
+      }
+    
+      h2 {
         font-weight: $semiBold;
         font-size: $xl;
         margin: 0;
         padding: 0;
-    }
-
-    .form__buttons {
+      }
+    
+      .form__buttons {
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
         justify-content: flex-end;
-    }
-
-    .form__otherFields {
-        color: $font-light;
+      }
+    
+      .form__otherFields {
         & * {
-            margin: 0;
-            padding: 0;
+          margin: 0;
+          padding: 0;
         }
+      }
     }
-}
 
 .introductiveText {
     color: $font-light;

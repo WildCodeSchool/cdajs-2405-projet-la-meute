@@ -2,6 +2,7 @@ import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeade
 import "./Profile.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -83,19 +84,19 @@ function Profile() {
 				variables: { updatedUser },
 			});
 			if (response.data.UpdateUser.message === "User updated successfully") {
-				alert("Profil sauvegardé avec succès !");
-				await refetch();
+				toast.success("Profil sauvegardé avec succès !");
+				refetch();
 			} else if (response.data.UpdateUser.message === "User not found") {
-				alert("Utilisateur non trouvé.");
+				toast.error("Utilisateur non trouvé.");
 			} else if (
 				response.data.UpdateUser.message === "There was no field to update"
 			) {
-				alert("Aucun champ à mettre à jour.");
+				toast.warning("Aucun champ à mettre à jour.");
 			} else {
-				alert("Erreur lors de la mise à jour du profil.");
+				toast.error("Erreur lors de la mise à jour du profil.");
 			}
 		} catch (error) {
-			alert("Une erreur est survenue lors de la sauvegarde.");
+			toast.error("Une erreur est survenue lors de la sauvegarde.");
 		}
 	};
 

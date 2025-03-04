@@ -64,6 +64,7 @@ export class UserResolvers {
 		if (!token) {
 			throw new Error("Token is required");
 		}
+
 		const secretKey = process.env.JWTSECRETKEY;
 		if (!secretKey) {
 			throw new Error("JWT secret key is not defined");
@@ -74,10 +75,10 @@ export class UserResolvers {
 
 			const user =
 				(await dataSource.manager.findOne(Owner, {
-					where: { id: payload.id, role: payload.role },
+					where: { id: payload.userId, role: payload.role },
 				})) ||
 				(await dataSource.manager.findOne(Trainer, {
-					where: { id: payload.id, role: payload.role },
+					where: { id: payload.userId, role: payload.role },
 				}));
 
 			if (!user) {
