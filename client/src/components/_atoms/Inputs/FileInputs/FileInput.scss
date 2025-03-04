@@ -1,0 +1,46 @@
+@import "@style";
+
+.fileInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: 0.6rem;
+    color: $blue-100;
+    position: relative;
+
+    label {
+        font-weight: $bold;
+        color: $blue-400;
+    }
+  
+    input{
+        border-radius: 7px;
+        padding: 0.8rem;
+        padding-inline: 2rem;
+        font-weight: $light;
+    }
+
+    &__dark {
+        color: $blue-100;
+
+        input {
+            border: 2px solid $blue-300;
+            background-color: $blue-500;
+            color: $font-light;
+        }
+    }
+
+    &__light {
+
+        label {
+            font-weight: $bold;
+            color: $blue-400;
+        }
+
+        input {
+            border: 2px solid $beige-300;
+            background-color: $beige-300;
+            color: $blue-300;
+        }
+    }
+}

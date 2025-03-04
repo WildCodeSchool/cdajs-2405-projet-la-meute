@@ -43,7 +43,7 @@ import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
-import TestFileUpload from "./components/TestFileUpload.tsx";
+import TestModal from "./components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
@@ -233,7 +233,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "test",
-		element: <TestFileUpload />,
+		element: <TestModal />,
 	},
 	{
 		path: "testme",
