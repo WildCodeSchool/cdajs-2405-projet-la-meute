@@ -10,23 +10,27 @@ function EventId() {
 	const tagsRef = useRef<HTMLSelectElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
 	const startTimeRef = useRef<HTMLInputElement>(null);
-	const durationRef = useRef<HTMLInputElement>(null);
+	const endTimeRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 	const priceRef = useRef<HTMLInputElement>(null);
 	const participantsRef = useRef<HTMLInputElement>(null);
 	const locationRef = useRef<HTMLInputElement>(null);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		const formatDateTime = (date: string, time: string) => `${date} ${time}:00`;
+		const date = dateRef.current?.value;
+		const startTime = startTimeRef.current?.value;
+		const endTime = endTimeRef.current?.value;
+
 		e.preventDefault();
 		const eventData = {
 			title: titleRef.current?.value,
 			tags: tagsRef.current?.value,
-			date: dateRef.current?.value,
-			startTime: startTimeRef.current?.value,
-			duration: durationRef.current?.value,
+			startDate: formatDateTime(date as string, startTime as string),
+			endDate: formatDateTime(date as string, endTime as string),
 			description: descriptionRef.current?.value,
-			price: priceRef.current?.value,
-			participants: participantsRef.current?.value,
+			price: Number(priceRef.current?.value),
+			participants: Number(participantsRef.current?.value),
 			location: locationRef.current?.value,
 		};
 		console.log("Eventdata", eventData);
@@ -74,10 +78,10 @@ function EventId() {
 					Heure de début *
 					<input type="time" required ref={startTimeRef} />
 				</label>
-				<label className="createEvent__event--duration">
-					Durée *
-					<input type="time" required ref={durationRef} />
-					{/* FIXME: (improvement) duration should be able to go over 24h */}
+				<label className="createEvent__event--endDate">
+					Heure de fin *
+					<input type="time" required ref={endTimeRef} />
+					{/* FIXME: (improvement) endDate should be able to go over 24h */}
 				</label>
 			</span>
 
