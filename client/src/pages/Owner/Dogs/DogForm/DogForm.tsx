@@ -58,7 +58,7 @@ export default function DogForm({
 	const query = mode === "create" ? CREATE_DOG : UPDATE_DOG;
 	const [selectedQuery] = useMutation(query);
 	const formTitle =
-		mode === "create" ? "Ajout d'un chien" : "Profil de mon chien";
+		mode === "create" ? "Ajout d'un chien" : `Profil de ${initialData?.name}`;
 	const formSubtitle =
 		mode === "create"
 			? "Renseignez les informations de votre nouveau compagnon"
