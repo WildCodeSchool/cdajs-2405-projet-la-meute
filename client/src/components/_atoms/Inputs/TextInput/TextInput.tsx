@@ -98,18 +98,22 @@ const TEXT_INPUT_CONFIG: Record<
 	name: {
 		mappedLabel: "Nom de mon chien",
 		mappedPlaceholder: "Entrez le nom de votre chien",
+		mappedName: "name",
 	},
 	birthDate: {
 		mappedLabel: "Date de naissance de mon chien",
 		mappedPlaceholder: "Sélectionnez la date de naissance",
+		mappedName: "birthDate",
 	},
 	breed: {
 		mappedLabel: "Race de mon chien",
 		mappedPlaceholder: "Entrez la race de votre chien",
+		mappedName: "breed",
 	},
 	info: {
 		mappedLabel: "Informations complémentaires",
 		mappedPlaceholder: "Entrez un commentaire sur votre chien",
+		mappedName: "info",
 	},
 };
 
