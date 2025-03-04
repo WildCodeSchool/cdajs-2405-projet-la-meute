@@ -39,6 +39,13 @@ export class Event {
 	@Field()
 	group_max_size: number;
 
+	@Column("decimal", { precision: 6, scale: 2 })
+	@Field()
+	price: number;
+
+	// Ajouter une @Column duration pour la durée, voir si on l'ajoute en minutes, en heure...
+	// L'ajouter ici
+
 	@ManyToOne(
 		() => Trainer,
 		(trainer) => trainer.event,
@@ -73,6 +80,7 @@ export class Event {
 		description: string,
 		location: Coordinates,
 		group_max_size = 0,
+		price = 0,
 	) {
 		this.trainer = trainer;
 		this.service = service;
@@ -81,5 +89,6 @@ export class Event {
 		this.description = description;
 		this.location = location;
 		this.group_max_size = group_max_size;
+		this.price = price;
 	}
 }
