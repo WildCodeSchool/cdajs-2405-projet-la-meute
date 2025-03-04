@@ -32,12 +32,6 @@ function Registration() {
 			const formElement = e.currentTarget;
 			const formData = new FormData(formElement);
 
-			// Log pour déboguer
-			console.log("Contenu de FormData:");
-			for (const [key, value] of formData.entries()) {
-				console.log(key, value);
-			}
-
 			const userData = {
 				lastname: formData.get("lastname") as string,
 				firstname: formData.get("firstname") as string,
@@ -52,9 +46,6 @@ function Registration() {
 					company_name: formData.get("company_name") as string,
 				}),
 			};
-
-			// Log pour déboguer
-			console.log("Données à envoyer:", userData);
 
 			const { data } = await registerUser({
 				variables: userData,
