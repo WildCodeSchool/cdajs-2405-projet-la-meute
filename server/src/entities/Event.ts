@@ -6,6 +6,7 @@ import {
 	OneToMany,
 	JoinColumn,
 	PrimaryGeneratedColumn,
+	Timestamp,
 } from "typeorm";
 import { Trainer } from "./Trainer";
 import { Service } from "./Service";
@@ -38,6 +39,18 @@ export class Event {
 	@Column("int")
 	@Field()
 	group_max_size: number;
+
+	@Column("decimal", { precision: 6, scale: 2 })
+	@Field()
+	price: number;
+
+	@Column()
+	@Field()
+	startDate: Date;
+
+	@Column()
+	@Field()
+	endDate: Date;
 
 	@ManyToOne(
 		() => Trainer,
@@ -73,6 +86,9 @@ export class Event {
 		description: string,
 		location: Coordinates,
 		group_max_size = 0,
+		price = 0,
+		startDate: Date,
+		endDate: Date,
 	) {
 		this.trainer = trainer;
 		this.service = service;
@@ -81,5 +97,8 @@ export class Event {
 		this.description = description;
 		this.location = location;
 		this.group_max_size = group_max_size;
+		this.price = price;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 }
