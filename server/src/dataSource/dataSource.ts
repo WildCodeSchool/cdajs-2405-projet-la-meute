@@ -11,6 +11,6 @@ export const dataSource = new DataSource({
 
 	// TypeORM configuration
 	entities: ["src/entities/*.ts"],
-	synchronize: false,
+	synchronize: true,
 	logging: true, // FIXME: delete this line in production
 });

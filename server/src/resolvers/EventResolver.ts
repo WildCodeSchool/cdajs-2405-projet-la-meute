@@ -42,25 +42,25 @@ export class EventResolver {
 		@Arg("location") location: LocationInput,
 		@Arg("group_max_size") group_max_size: number,
 		@Arg("price") price: number,
+		@Arg("startDate") startDate: Date,
+		@Arg("endDate") endDate: Date,
 	): Promise<Event> {
 		const trainer = await trainerRepository.findOneBy({ id: trainerId });
 		if (!trainer) {
 			throw new Error(`Trainer with ID ${trainerId} not found`);
 		}
-		const service = await serviceRepository.findOneBy({ id: serviceId });
-		if (!service) {
-			throw new Error(`Service with ID ${serviceId} not found`);
-		}
 
 		const event = new Event(
 			trainer,
-			service,
+			serviceId,
 			date,
 			title,
 			description,
 			location,
 			group_max_size,
 			price,
+			startDate,
+			endDate,
 		);
 
 		return await eventRepository.save(event);
@@ -78,26 +78,30 @@ export class EventResolver {
 		@Arg("location", () => LocationInput) location: LocationInput,
 		@Arg("group_max_size") group_max_size: number,
 		@Arg("price") price: number,
+		@Arg("startDate") startDate: Date,
+		@Arg("endDate") endDate: Date,
 	): Promise<Event> {
 		const event = await eventRepository.findOne({
 			where: {
 				id: eventId,
 				trainer: { id: trainerId },
-				service: { id: serviceId },
 			},
-			relations: ["trainer", "service"],
+			relations: ["trainer"],
 		});
 
 		if (!event) {
 			throw new Error(`Event with ID ${eventId} not found`);
 		}
 
+		if (serviceId) event.serviceId = serviceId;
 		if (date) event.date = date;
 		if (title) event.title = title;
 		if (description) event.description = description;
 		if (location) event.location = location;
 		if (group_max_size) event.group_max_size = group_max_size;
 		if (price) event.price = price;
+		if (startDate) event.startDate = startDate;
+		if (endDate) event.endDate = endDate;
 
 		return await eventRepository.save(event);
 	}
