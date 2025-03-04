@@ -29,6 +29,9 @@ async function createData() {
 		await queryRunner.manager.query(
 			'DROP TABLE IF EXISTS "password_reset_token" CASCADE',
 		);
+		await queryRunner.manager.query(
+			'DROP TABLE IF EXISTS "event_services" CASCADE',
+		);
 		// Let TypeORM recreate the tables with proper inheritance
 		await dataSource.synchronize();
 
@@ -93,19 +96,14 @@ async function createData() {
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const service = new Service(
-			savedTrainer,
-			"Dressage Canin",
-			"Formation complète pour votre chien",
-			"education",
-		);
+		const service = new Service("Manger des chips", "🥔", "#DDDDFF");
 		const savedService = await serviceRepository.save(service);
 
 		// 5. Create Event
 		const eventRepository = dataSource.getRepository(Event);
 		const event = new Event(
 			savedTrainer,
-			savedService,
+			[savedService],
 			"Formation Super spéciale du jour",
 			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
 			{

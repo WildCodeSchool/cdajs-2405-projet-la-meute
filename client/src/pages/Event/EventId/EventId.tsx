@@ -18,7 +18,7 @@ function EventId() {
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
 
 	const titleRef = useRef<HTMLInputElement>(null);
-	const tagsRef = useRef<HTMLSelectElement>(null);
+	const servicesRef = useRef<HTMLSelectElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
 	const startTimeRef = useRef<HTMLInputElement>(null);
 	const endTimeRef = useRef<HTMLInputElement>(null);
@@ -49,7 +49,7 @@ function EventId() {
 		if (user?.role === "trainer") {
 			const eventData = {
 				title: titleRef.current?.value,
-				tags: tagsRef.current?.value,
+				services: servicesRef.current?.value,
 				startDate: formatDateTime(
 					date as string,
 					startTimeRef.current?.value as string,
@@ -95,7 +95,7 @@ function EventId() {
 					</Tag>
 					<NewTag href={""} />
 				</div>
-				<select ref={tagsRef}>
+				<select ref={servicesRef}>
 					<option>Option 1</option>
 					<option>Option 2</option>
 				</select>

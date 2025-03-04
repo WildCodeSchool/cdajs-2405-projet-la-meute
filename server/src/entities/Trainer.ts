@@ -28,14 +28,6 @@ export class Trainer extends User {
 	description: string;
 
 	@OneToMany(
-		() => Service,
-		(service) => service.trainer,
-		{ cascade: true },
-	)
-	@Field(() => [Service], { nullable: true })
-	service?: Service[];
-
-	@OneToMany(
 		() => Event,
 		(event) => event.trainer,
 		{ cascade: true },
