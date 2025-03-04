@@ -1,13 +1,21 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
 import Tag from "@/components/_atoms/Tag/Tag";
 import NewTag from "@/components/_atoms/Tag/NewTag";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/hooks/useUser";
+import { toast } from "react-toastify";
+
+type endTimeStyleType = {
+	outline?: string;
+};
 
 function EventId() {
 	const navigate = useNavigate();
+	const { user } = useUser();
+	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
 
 	const titleRef = useRef<HTMLInputElement>(null);
 	const tagsRef = useRef<HTMLSelectElement>(null);
@@ -16,32 +24,48 @@ function EventId() {
 	const endTimeRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 	const priceRef = useRef<HTMLInputElement>(null);
-	const participantsRef = useRef<HTMLInputElement>(null);
+	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
 	const locationRef = useRef<HTMLInputElement>(null);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		const formatDateTime = (date: string, time: string) => `${date} ${time}:00`;
-		const date = dateRef.current?.value;
-		const startTime = startTimeRef.current?.value;
-		const endTime = endTimeRef.current?.value;
+	const formatDateTime = (date: string, time: string) => `${date} ${time}:00`;
 
-		console.log(startTime, endTime);
-		if (startTime <= endTime) {
-			console.log("nonono");
+	const handleEndTimeBlur = () => {
+		if (startTimeRef.current?.value && endTimeRef.current?.value) {
+			if (startTimeRef.current.value >= endTimeRef.current.value) {
+				setEndTimeStyle({ outline: "2px solid red" });
+				toast.error(
+					"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+				);
+			} else {
+				setEndTimeStyle({});
+			}
 		}
+	};
 
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const eventData = {
-			title: titleRef.current?.value,
-			tags: tagsRef.current?.value,
-			startDate: formatDateTime(date as string, startTime as string),
-			endDate: formatDateTime(date as string, endTime as string),
-			description: descriptionRef.current?.value,
-			price: Number(priceRef.current?.value),
-			participants: Number(participantsRef.current?.value),
-			location: locationRef.current?.value,
-		};
-		console.log("Eventdata", eventData);
+		const date = dateRef.current?.value;
+
+		if (user?.role === "trainer") {
+			const eventData = {
+				title: titleRef.current?.value,
+				tags: tagsRef.current?.value,
+				startDate: formatDateTime(
+					date as string,
+					startTimeRef.current?.value as string,
+				),
+				endDate: formatDateTime(
+					date as string,
+					endTimeRef.current?.value as string,
+				),
+				description: descriptionRef.current?.value,
+				price: Number(priceRef.current?.value),
+				groupMaxSize: Number(groupMaxSizeRef.current?.value),
+				location: locationRef.current?.value,
+				trainerId: user?.id,
+			};
+			console.log("Eventdata", eventData);
+		}
 	};
 
 	return (
@@ -79,16 +103,22 @@ function EventId() {
 
 			<span className="createEvent__event createEvent__event--dates">
 				<label className="createEvent__event--date">
-					Date de l'évènement *
-					<input type="date" required ref={dateRef} />
+					Date de l'évènement&nbsp;*
+					<input type="date" ref={dateRef} required />
 				</label>
-				<label className="createEvent__event--time">
-					Heure de début *
-					<input type="time" required ref={startTimeRef} />
+				<label className="createEvent__event--startTime">
+					Heure de début&nbsp;*
+					<input type="time" ref={startTimeRef} required />
 				</label>
 				<label className="createEvent__event--endDate">
-					Heure de fin *
-					<input type="time" required ref={endTimeRef} />
+					Heure de fin&nbsp;*
+					<input
+						style={endTimeStyle}
+						type="time"
+						ref={endTimeRef}
+						required
+						onBlur={handleEndTimeBlur}
+					/>
 					{/* FIXME: (improvement) endDate should be able to go over 24h */}
 				</label>
 			</span>
@@ -104,32 +134,29 @@ function EventId() {
 
 			<span className="createEvent__event createEvent__event--prices">
 				<label className="createEvent__event--price">
-					Prix par chien *
-					<span>
-						<input
-							placeholder="Prix TTC en euros"
-							type="number"
-							min={1}
-							required
-							ref={priceRef}
-						/>
-						<p>€</p>
-					</span>
+					Prix par chien&nbsp;*
+					<input
+						placeholder="Prix TTC en euros"
+						type="number"
+						min={1}
+						required
+						ref={priceRef}
+					/>
 				</label>
-				<label>
-					Nombre de chiens participants *
+				<label className="createEvent__event--groupMaxSize">
+					Nombre de chiens participants&nbsp;*
 					<input
 						placeholder="Nombre maximum"
 						type="number"
 						min={1}
 						required
-						ref={participantsRef}
+						ref={groupMaxSizeRef}
 					/>
 				</label>
 			</span>
 
 			<label className="createEvent__event createEvent__event--location">
-				Localisation *
+				Localisation&nbsp;*
 				<input
 					placeholder="Entrez une adresse ou des coordonnées"
 					type="text"

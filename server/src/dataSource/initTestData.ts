@@ -106,17 +106,16 @@ async function createData() {
 		const event = new Event(
 			savedTrainer,
 			savedService,
-			new Date("2024-12-20"),
 			"Formation Super spéciale du jour",
 			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
 			{
 				latitude: 45.7771392,
 				longitude: 4.8560401,
 			},
-			5,
-			40,
 			new Date("2025-03-05T09:00:00"),
 			new Date("2025-03-05T09:45:00"),
+			5,
+			40,
 		);
 		const savedEvent = await eventRepository.save(event);
 

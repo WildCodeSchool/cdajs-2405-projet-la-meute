@@ -60,26 +60,34 @@
             }
         }
         &--dates {
-            & label {
-                width: 31%;
-            }
+            align-items: flex-end;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--startTime {
+            grid-area: 1 / 2 / 2 / 3;
+        }
+        &--endTime {
+            grid-area: 1 / 3 / 2 / 4;
         }
         &--prices {
-            display: flex;
-            gap: 1rem;
-            label {
-                width: 50%;
-            }
-
-            & span {
-                display: flex;
-                input {
-                    width: 100%;
-                }
-                p {
-                    margin-inline-start: -30%;
-                }
-            }
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+        &--price {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--groupMaxSize {
+            grid-area: 1 / 2 / 2 / 3;
         }
         &--location {
             display: flex;
@@ -95,6 +103,35 @@
             display: flex;
             justify-content: end;
             margin-block: 3rem;
+        }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .createEvent__event {
+        &--dates {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 3;
+        }
+        &--startTime {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+        &--endTime {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+
+        &--prices {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        &--price {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--groupMaxSize {
+            grid-area: 2 / 1 / 3 / 2;
         }
     }
 }
