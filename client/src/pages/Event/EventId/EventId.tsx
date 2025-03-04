@@ -4,8 +4,11 @@ import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
 import Tag from "@/components/_atoms/Tag/Tag";
 import NewTag from "@/components/_atoms/Tag/NewTag";
+import { useNavigate } from "react-router-dom";
 
 function EventId() {
+	const navigate = useNavigate();
+
 	const titleRef = useRef<HTMLInputElement>(null);
 	const tagsRef = useRef<HTMLSelectElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
@@ -128,7 +131,7 @@ function EventId() {
 			<div className="createEvent__event--map">{/* map */}</div>
 
 			<span className="createEvent__event createEvent__event--buttons">
-				<Button type="button" style="btn-light" href="back">
+				<Button type="button" style="btn-light" onClick={() => navigate(-1)}>
 					Annuler
 				</Button>
 				<Button type="submit" style="btn-dark">
