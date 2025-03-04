@@ -1,0 +1,76 @@
+@import "@style";
+
+.dogForm {
+    @include dogBackground;
+    &{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__form { 
+        display: flex;
+        flex-direction: column;
+        max-width: max-content;
+        background-color: $beige-200;
+        border-radius: $windows-radius;
+        padding: 1rem;
+        margin: 2rem 1rem;
+
+        @media (width < $mobile ) {
+            @include dashContentArea(-2rem);
+
+            & {
+                background-color: transparent;
+                max-width: 100%;
+            }
+        }
+
+        &__title {
+            display: flex;
+            align-items: center;
+
+            &--upload {
+                min-width: clamp(64px , 10%, 96px);
+                aspect-ratio: 1;
+                background: url(../../../../assets/icons/upload.svg) center no-repeat, $blue-400;
+                background-size: 30%;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+
+                &:focus {
+                    outline: none;
+                    border-radius: 50%; 
+                }
+
+                &:hover {
+                    filter: brightness(1.5);
+                }
+
+                input {
+                    display: none;
+                }
+            }
+
+            &--intro {
+                margin-left: 2rem;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            width: 100%;
+        }
+
+    }
+
+    &__button {
+        margin: 2rem auto 0 auto;
+
+        @media (width < $mobile) {
+            margin: auto auto 0 auto;
+        }
+    }
+}

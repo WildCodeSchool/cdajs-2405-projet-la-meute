@@ -21,6 +21,7 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
 // Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
+import CreateDog from "./pages/Owner/Dogs/CreateDog/CreateDog.tsx";
 import CustomerId from "./pages/Trainer/Customers/CustomerId/CustomerId.tsx";
 import CustomerList from "./pages/Trainer/Customers/CustomerList/CustomerList.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
@@ -30,16 +31,19 @@ import EventList from "./pages/Event/EventList/EventList.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
+import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
 import Planning from "./pages/Planning/Planning.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
 import Services from "@/pages/WelcomePage/Services.tsx";
-import TestFileUpload from "./components/TestFileUpload.tsx";
+import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
+import TestFileUpload from "./components/TestFileUpload.tsx";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
 	{
@@ -117,15 +121,15 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>my-dogs List</p>,
+								element: <MyDogList />,
 							},
 							{
 								path: "new",
-								element: <p>my-dogs/new</p>,
+								element: <CreateDog />,
 							},
 							{
 								path: "profile/:id",
-								element: <p>my-dogs/profile/:id</p>,
+								element: <UpdateDog />,
 							},
 						],
 					},
@@ -254,6 +258,7 @@ createRoot(rootElement).render(
 		<ApolloProvider client={client}>
 			<AuthProvider>
 				<RouterProvider router={router} />
+				<ToastContainer theme="colored" />
 			</AuthProvider>
 		</ApolloProvider>
 	</StrictMode>,
