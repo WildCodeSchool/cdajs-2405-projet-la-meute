@@ -120,116 +120,126 @@ describe("UserResolvers", () => {
 
 	describe("registerUser", () => {
 		beforeEach(() => {
-		// Réinitialisation tous les mocks avant chaque test pour éviter les interférences
-		jest.clearAllMocks();
-		userResolvers = new UserResolvers();
+			// Réinitialisation tous les mocks avant chaque test pour éviter les interférences
+			jest.clearAllMocks();
+			userResolvers = new UserResolvers();
 		});
-	
+
 		// Test inscritpion owner
 		it("should register a new owner successfully", async () => {
-		// 1. PRÉPARATION DU TEST
-		// Mock de la méthode findUserByEmail pour simuler qu'aucun utilisateur avec cet email n'existe
-		jest.spyOn(userResolvers as unknown as TestableUserResolvers, 'findUserByEmail')
-		.mockResolvedValueOnce(null);
-		
-		// Création d'un objet Owner avec toutes les propriétés attendues dans le résultat final
-		// Cet objet représente l'utilisateur qui devrait être retourné après l'inscription
-		const newOwner = Object.assign(new Owner(), {
-			id: 3,                                    // ID généré pour le nouvel utilisateur
-			lastname: "Smith",                        // nom fourni
-			firstname: "Alice",                       // prénom fourni
-			email: "alice.smith@example.com",         // email unique
-			password_hashed: "hashed_password123",    // MDP après hachage
-			phone_number: "111222333",                // Numéro de téléphone
-			city: "Bordeaux",                         // Ville
-			postal_code: "33000",                     // Code postal
-			role: "owner",                            // Rôle de l'utilisateur (propriétaire pour ce test)
-			dogs: [],                                 // liste de chiens vide pour un nouvel utilisateur
-			avatar: "https://placehold.co/400"        // Avatar par défaut
-		});
-		
-		// Configuration le mock de TypeORM pour simuler que la méthode save() renvoie notre objet newOwner
-		// Simulation d'un enregistrement réussi de l'utilisateur dans la base de données
-		typeorm.onMock("Owner").toReturn(newOwner, "save");
-		
-		// Mock supplémentaire de la méthode registerUser pour s'assurer qu'elle renvoie bien l'objet newOwner
-		jest.spyOn(userResolvers, 'registerUser').mockResolvedValueOnce(newOwner);
-		
-		// 2. EXÉCUTION DE LA MÉTHODE À TESTER
-		// Appel de la méthode registerUser avec tous les paramètres requis pour un owner
-		// donc les paramètres SIRET et company_name sont des chaînes vides
-		const result = await userResolvers.registerUser(
-			"Smith",                      // lastname
-			"Alice",                      // firstname
-			"alice.smith@example.com",    // email
-			"password123",                // password (sera haché dans la méthode)
-			"111222333",                  // phone_number
-			"Bordeaux",                   // city
-			"33000",                      // postal_code
-			"owner",                      // role (propriétaire)
-			"",                           // siret (vide pour un propriétaire)
-			""                            // company_name (vide pour un propriétaire)
-		);
-		
+			// 1. PRÉPARATION DU TEST
+			// Mock de la méthode findUserByEmail pour simuler qu'aucun utilisateur avec cet email n'existe
+			jest
+				.spyOn(
+					userResolvers as unknown as TestableUserResolvers,
+					"findUserByEmail",
+				)
+				.mockResolvedValueOnce(null);
 
-		// 3. VÉRIFICATIONS
-		// Vérification que l'objet retourné correspond exactement à l'objet newOwner attendu
-		// Et confirmer que l'inscription a réussi et que toutes les données sont correctes
-		expect(result).toEqual(newOwner);
+			// Création d'un objet Owner avec toutes les propriétés attendues dans le résultat final
+			// Cet objet représente l'utilisateur qui devrait être retourné après l'inscription
+			const newOwner = Object.assign(new Owner(), {
+				id: 3, // ID généré pour le nouvel utilisateur
+				lastname: "Smith", // nom fourni
+				firstname: "Alice", // prénom fourni
+				email: "alice.smith@example.com", // email unique
+				password_hashed: "hashed_password123", // MDP après hachage
+				phone_number: "111222333", // Numéro de téléphone
+				city: "Bordeaux", // Ville
+				postal_code: "33000", // Code postal
+				role: "owner", // Rôle de l'utilisateur (propriétaire pour ce test)
+				dogs: [], // liste de chiens vide pour un nouvel utilisateur
+				avatar: "https://placehold.co/400", // Avatar par défaut
+			});
+
+			// Configuration le mock de TypeORM pour simuler que la méthode save() renvoie notre objet newOwner
+			// Simulation d'un enregistrement réussi de l'utilisateur dans la base de données
+			typeorm.onMock("Owner").toReturn(newOwner, "save");
+
+			// Mock supplémentaire de la méthode registerUser pour s'assurer qu'elle renvoie bien l'objet newOwner
+			jest.spyOn(userResolvers, "registerUser").mockResolvedValueOnce(newOwner);
+
+			// 2. EXÉCUTION DE LA MÉTHODE À TESTER
+			// Appel de la méthode registerUser avec tous les paramètres requis pour un owner
+			// donc les paramètres SIRET et company_name sont des chaînes vides
+			const result = await userResolvers.registerUser(
+				"Smith", // lastname
+				"Alice", // firstname
+				"alice.smith@example.com", // email
+				"password123", // password (sera haché dans la méthode)
+				"111222333", // phone_number
+				"Bordeaux", // city
+				"33000", // postal_code
+				"owner", // role (propriétaire)
+				"", // siret (vide pour un propriétaire)
+				"", // company_name (vide pour un propriétaire)
+			);
+
+			// 3. VÉRIFICATIONS
+			// Vérification que l'objet retourné correspond exactement à l'objet newOwner attendu
+			// Et confirmer que l'inscription a réussi et que toutes les données sont correctes
+			expect(result).toEqual(newOwner);
 		});
 
 		// Test inscription trainer
 		it("should register a new trainer successfully", async () => {
 			// 1. PRÉPARATION DU TEST
 			// Mock de la méthode findUserByEmail pour simuler qu'aucun utilisateur avec cet email n'existe
-			jest.spyOn(userResolvers as unknown as TestableUserResolvers, 'findUserByEmail')
-			.mockResolvedValueOnce(null);
-			
+			jest
+				.spyOn(
+					userResolvers as unknown as TestableUserResolvers,
+					"findUserByEmail",
+				)
+				.mockResolvedValueOnce(null);
+
 			// Création d'un objet Trainer avec toutes les propriétés attendues dans le résultat final
 			// Cet objet représente l'utilisateur qui devrait être retourné après l'inscription
-			const newTrainer = Object.assign(new Trainer("123456789123", "Toutoulouse"), {
-				id: 4,                                    // ID généré pour le nouvel utilisateur
-				lastname: "Rouge",                        // nom fourni
-				firstname: "Natasha",                     // prénom fourni
-				email: "natasha.rouge@example.com",       // email unique
-				password_hashed: "hashed_password456",    // MDP après hachage
-				phone_number: "444555666",                // Numéro de téléphone
-				city: "Toulouse",                         // Ville
-				postal_code: "31000",                     // Code postal
-				role: "trainer",                          // Rôle de l'utilisateur (propriétaire pour ce test)
-				service: [],
-        		event: [],
-				avatar: "https://placehold.co/400"        // Avatar par défaut
-			});
-			
+			const newTrainer = Object.assign(
+				new Trainer("123456789123", "Toutoulouse"),
+				{
+					id: 4, // ID généré pour le nouvel utilisateur
+					lastname: "Rouge", // nom fourni
+					firstname: "Natasha", // prénom fourni
+					email: "natasha.rouge@example.com", // email unique
+					password_hashed: "hashed_password456", // MDP après hachage
+					phone_number: "444555666", // Numéro de téléphone
+					city: "Toulouse", // Ville
+					postal_code: "31000", // Code postal
+					role: "trainer", // Rôle de l'utilisateur (propriétaire pour ce test)
+					service: [],
+					event: [],
+					avatar: "https://placehold.co/400", // Avatar par défaut
+				},
+			);
+
 			// Configuration le mock de TypeORM pour simuler que la méthode save() renvoie notre objet newOwner
 			// Simulation d'un enregistrement réussi de l'utilisateur dans la base de données
 			typeorm.onMock("Trainer").toReturn(newTrainer, "save");
-			
+
 			// Mock supplémentaire de la méthode registerUser pour s'assurer qu'elle renvoie bien l'objet newOwner
-			jest.spyOn(userResolvers, 'registerUser').mockResolvedValueOnce(newTrainer);
-			
+			jest
+				.spyOn(userResolvers, "registerUser")
+				.mockResolvedValueOnce(newTrainer);
+
 			// 2. EXÉCUTION DE LA MÉTHODE À TESTER
 			// Appel de la méthode registerUser avec tous les paramètres requis pour un trainer
 			const result = await userResolvers.registerUser(
-				"Toutoulouse",				  // company_name
-				"123456789123",				  // siret
-				"Rouge",                      // lastname
-				"Natasha",                      // firstname
-				"natasha.rouge@example.com",    // email
-				"password456",                // password (sera haché dans la méthode)
-				"444555666",                  // phone_number
-				"Toulouse",                   // city
-				"31000",                      // postal_code
-				"trainer"                      // role (éduc) 
+				"Toutoulouse", // company_name
+				"123456789123", // siret
+				"Rouge", // lastname
+				"Natasha", // firstname
+				"natasha.rouge@example.com", // email
+				"password456", // password (sera haché dans la méthode)
+				"444555666", // phone_number
+				"Toulouse", // city
+				"31000", // postal_code
+				"trainer", // role (éduc)
 			);
-			
-	
+
 			// 3. VÉRIFICATIONS
 			// Vérification que l'objet retourné correspond exactement à l'objet newTrainer attendu
 			// Et confirmer que l'inscription a réussi et que toutes les données sont correctes
 			expect(result).toEqual(newTrainer);
-			});
-
+		});
 	});
 });
