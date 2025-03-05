@@ -7,7 +7,10 @@ import { useUser } from "@/hooks/useUser";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_EVENTS } from "@/graphQL/queries/event";
+import {
+	GET_ALL_EVENTS,
+	GET_ALL_EVENTS_BY_OWNER_ID,
+} from "@/graphQL/queries/event";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -21,17 +24,44 @@ import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
 
 // Interfaces
-import { Event, GetAllEventsData } from "@/types/Event";
+import { Event, GetAllEventsData, GetAllEventsByOwnerId } from "@/types/Event";
 
 function Planning() {
 	/* Business logic */
 
 	const navigate = useNavigate();
-	const { user } = useUser();
-	const { data } = useQuery<GetAllEventsData>(GET_ALL_EVENTS);
+	const { user, role } = useUser();
+	const { data: allEventsData } = useQuery<GetAllEventsData>(GET_ALL_EVENTS);
+	const { data: ownerEventsData } = useQuery<GetAllEventsByOwnerId>(
+		GET_ALL_EVENTS_BY_OWNER_ID,
+		{
+			variables: {
+				ownerId: user?.id ? Number(user.id) : null,
+			},
+			skip: !user?.id,
+		},
+	);
+
+	const isTrainer = role === "trainer";
 
 	const events =
-		data?.getAllEvents.map((event: Event) => ({
+		allEventsData?.getAllEvents.map((event: Event) => ({
+			id: event.id.toString(),
+			title: event.title,
+			start: new Date(event.startDate),
+			end: new Date(event.endDate),
+			description: event.description,
+			extendedProps: {
+				group_max_size: event.group_max_size,
+				location: event.location,
+				price: event.price,
+			},
+		})) || [];
+
+	// const eventsByTrainer
+
+	const ownerEvents =
+		ownerEventsData?.getAllEventsByOwnerId.map((event: Event) => ({
 			id: event.id.toString(),
 			title: event.title,
 			start: new Date(event.startDate),
@@ -111,7 +141,7 @@ function Planning() {
 					locale={frLocale}
 					timeZone="Europe/Paris"
 					height="auto"
-					events={events}
+					events={isTrainer ? events : ownerEvents}
 					views={{
 						dayGridMonth: { buttonText: "Mois" },
 						timeGridWeek: { buttonText: "Semaine" },
@@ -173,13 +203,13 @@ function Planning() {
 								return `${hours}h${minutes}`;
 							};
 
-							// Condition pour vérifier si l'événement s'étend sur plusieurs jours
-							if (startDate.getDate() !== endDate.getDate()) {
-								return `Le ${formatDate(startDate)} au ${formatDate(endDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
-							} else {
-								return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
-							}
+							return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
 						};
+
+						// Checking if start or end is null
+						if (arg.event.start === null || arg.event.end === null) {
+							return <p>"Aucune date trouvée pour cet événement"</p>;
+						}
 
 						if (currentView === "listWeek") {
 							return (

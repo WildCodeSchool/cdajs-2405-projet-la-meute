@@ -31,6 +31,17 @@ export class EventResolver {
 		return eventsId;
 	}
 
+	// Get events by owner_id
+	@Query(() => [Event])
+	async getAllEventsByOwnerId(
+		@Arg("ownerId") ownerId: number,
+	): Promise<Event[]> {
+		const eventsByOwnerId: Event[] = await eventRepository.find({
+			where: { id: ownerId },
+		});
+		return eventsByOwnerId;
+	}
+
 	/*
 	// Create event
 	@Mutation(() => Event)

@@ -18,3 +18,16 @@ export interface Event {
 export interface GetAllEventsData {
 	getAllEvents: Event[];
 }
+
+export interface GetAllEventsByOwnerId {
+	getAllEventsByOwnerId: Event[];
+	id: number;
+	date: string;
+	title: string;
+	description: string;
+	group_max_size: number;
+	location: Location;
+	price: number;
+	startDate: Date;
+	endDate: Date;
+}

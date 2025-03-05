@@ -37,3 +37,22 @@ export const GET_EVENT_BY_ID = gql`
         }
     }
 `;
+
+export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
+query GetAllEventsByOwnerId($ownerId: Float!) {
+    getAllEventsByOwnerId(ownerId: $ownerId) {
+        id
+        title
+        date
+        startDate
+        endDate
+        description
+        location {
+        latitude
+        longitude
+        }
+        group_max_size
+        price
+    }
+  }
+`;
