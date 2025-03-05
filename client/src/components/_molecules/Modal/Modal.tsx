@@ -1,6 +1,7 @@
 import "./Modal.scss";
 import Button from "@/components/_atoms/Button/Button";
 import React, { useRef, useEffect, useState } from "react";
+import logo from "@/assets/logo/beige/symbol/logo-pawplanner-symbol-beige.svg";
 
 type ModalProps = {
 	variant?: "confirm";
@@ -23,9 +24,9 @@ export default function Modal({
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 	const icons = {
-		success: "success.svg",
-		info: "info.svg",
-		warning: "warning.svg",
+		success: logo,
+		info: logo,
+		warning: logo,
 	};
 
 	const promptMessage = React.Children.toArray(children).filter(
