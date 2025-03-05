@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import Service from "@/components/_atoms/Service/Service";
 import type { ServiceType } from "@/types/Service";
+import IdCard from "@/components/_molecules/Card/IdCard";
 
 function EventDetail() {
 	const { id } = useParams();
@@ -42,6 +43,7 @@ function EventDetail() {
 						<Service service={service} key={service.id} />
 					))}
 				</div>
+				<IdCard type="owner" data={event.trainer} ownerView />
 			</div>
 			<div>
 				<a href="">Supprimer</a>
