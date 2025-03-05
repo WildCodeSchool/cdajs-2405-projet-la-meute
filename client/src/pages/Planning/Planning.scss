@@ -7,22 +7,30 @@
 
     /* dayGridMonth */
     .event-content-month {
-        padding: 2px;
+        padding: 5px;
 
         .event-title {
             font-size: $s;
             overflow: hidden;
-            text-overflow: ellipsis;
             font-weight: $semiBold;
             color: $primary-dark;
-
+            white-space: nowrap;
+            word-break: normal;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 100%;
         }
 
         .fc-v-event {
             background-color: $green-300;
             width: 100%;
-            word-break: normal;
+            white-space: nowrap;
+            word-break: break-all;
         }
+    }
+
+    .fc-h-event {
+        border: 0px;
     }
 
     /* timeGridWeek */
@@ -44,29 +52,6 @@
     }
 
     /* listWeek */
-    .event-content-list {
-        padding: 8px;
-
-        .event-title {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-
-        .event-description {
-            font-size: 0.9em;
-            margin-bottom: 6px;
-        }
-
-        .event-details {
-            font-size: 0.85em;
-            color: #666;
-
-            .event-location {
-                margin-top: 4px;
-            }
-        }
-    }
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -111,7 +96,6 @@
         border-bottom-right-radius: $atoms-radius !important;
     }
 }
-
 
 /* Buttons and elements */
 
@@ -232,7 +216,7 @@
     border-radius: $atoms-radius !important;
 }
 
-/* Grid days */
+/* Month views */
 
 .fc-day {
     padding: 0.75rem !important;
@@ -262,15 +246,22 @@
     background-color: $orange-300;
 }
 
+.fc-daygrid-event {
+    background-color: $green-100;
+    margin-bottom: 0.25rem;
+
+    &:hover {
+        background-color: $green-200;
+    }
+}
+
 /* Liste des événements - View */
 
-.fc-theme-standard .fc-list {
-    background-color: $beige-200;
-    color: $primary-dark;
+.fc-theme-standard .fc-list-event {
+    --fc-list-event-hover-bg-color: transparent !important;
 }
 
 .fc-listWeek-view {
-    background-color: $beige-300 !important;
     border: 0px !important;
     border-radius: $atoms-radius !important;
 }
@@ -278,6 +269,134 @@
 .fc .fc-list-empty {
     background-color: $beige-200 !important;
     border-radius: $atoms-radius !important;
+}
+
+.fc-list-day {
+    display: none;
+}
+
+.fc-list-table {
+
+    background-color: none;
+    margin: 0;
+    padding: 0;
+
+    .fc-list-event-time {
+        display: none;
+    }
+
+    .fc-list-event-graphic {
+        display: none;
+    }
+
+    .fc-theme-standard .fc-list {
+        background-color: none;
+    }
+
+    .fc-theme-standard .fc-list {
+        background-color: none;
+    }
+
+}
+
+.fc .fc-list-day-cushion,
+.fc .fc-list-table td {
+    background-color: none;
+    padding: 0;
+}
+
+.event__section--global {
+    display: flex;
+    flex-direction: row;
+    background-color: none;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .event-content-list {
+        width: 60%;
+        padding: 0px;
+
+        .event-card {
+            background-color: $beige-200;
+            border-radius: $atoms-radius;
+            padding: 3%;
+            cursor: pointer;
+
+            .event-title {
+                font-size: $xxl;
+                font-weight: $bold;
+                color: $blue-400;
+                margin-bottom: 2rem;
+            }
+
+            .event-date-and-time {
+                font-size: $s;
+                font-weight: $semiBold;
+                color: $blue-300;
+                margin-bottom: 1rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: left;
+            }
+
+            .event-location {
+                font-size: $s;
+                color: $blue-300;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: left;
+            }
+        }
+    }
+
+    .event__div--participation {
+        width: 40%;
+        background-color: none; // Couleur voyante pour la section participants
+        display: flex;
+        flex-direction: column;
+
+        .participants-wrapper {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+        }
+
+        .participants-title {
+            font-size: $l;
+            font-weight: bold;
+            text-align: left;
+            color: $blue-400;
+        }
+
+        .participants-card {
+            background-color: $blue-200;
+            border-radius: $atoms-radius;
+            padding: 12px;
+            margin-bottom: 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .participants-count {
+            font-size: $s;
+            color: $blue-200;
+            text-align: left;
+            font-style: italic;
+        }
+    }
+
+    .event__icons {
+        max-height: 20px;
+        width: auto;
+        fill: $blue-400;
+        margin-right: 1rem;
+    }
 }
 
 /* Semaine - View */

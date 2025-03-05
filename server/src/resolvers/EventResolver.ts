@@ -31,6 +31,7 @@ export class EventResolver {
 		return eventsId;
 	}
 
+	/*
 	// Create event
 	@Mutation(() => Event)
 	async createEvent(
@@ -121,5 +122,5 @@ export class EventResolver {
 
 		const result = await eventRepository.delete(eventId);
 		return result.affected ? result.affected > 0 : false;
-	}
+	}*/
 }
