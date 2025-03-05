@@ -10,7 +10,7 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 
 function Profile() {
-	const { user, refetch } = useUser();
+	const { role, user, refetch } = useUser();
 	const navigate = useNavigate();
 	const [view, setView] = useState<"profile" | "personal" | "preferences">(
 		"profile",
@@ -26,6 +26,7 @@ function Profile() {
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	const [updateUserMutation] = useMutation(UPDATE_USER);
+	const isTrainer = role === "trainer";
 
 	useEffect(() => {
 		if (!user) {
@@ -81,7 +82,10 @@ function Profile() {
 
 		try {
 			const response = await updateUserMutation({
-				variables: { updatedUser },
+				variables: {
+					updatedUser,
+					isTrainer: isTrainer,
+				},
 			});
 			if (response.data.UpdateUser.message === "User updated successfully") {
 				toast.success("Profil sauvegardé avec succès !");
@@ -114,7 +118,7 @@ function Profile() {
 							setView("profile");
 						}}
 					>
-						Mon profil éducateur
+						{isTrainer ? "Mon profil éducateur" : "Mon profil"}
 					</Button>
 					<Button
 						className="profile__nav--button"
@@ -126,9 +130,9 @@ function Profile() {
 						Informations personnelles
 					</Button>
 					<p>
-						Modifiez les informations visibles par vos clients dans votre Profil
-						Educateur et les informations non-visibles dans Informations
-						personnelles.
+						{isTrainer
+							? "Modifiez les informations visibles par vos clients dans votre Profil Educateur et les informations non-visibles dans Informations personnelles."
+							: "Modifiez les informations visibles par les éducateurs dans votre Profil et les informations non-visibles dans Informations personnelles."}
 					</p>
 				</nav>
 
@@ -148,10 +152,12 @@ function Profile() {
 								<TextInput style="light" type="lastname" ref={lastnameRef} />
 							</span>
 							<TextInput style="light" type="city" ref={cityRef} />
-							<p>
-								Indiquez une adresse générale pour donner un périmètre à vos
-								clients.
-							</p>
+							{isTrainer && (
+								<p>
+									Indiquez une adresse générale pour donner un périmètre à vos
+									clients.
+								</p>
+							)}
 							<TextInput
 								style="light"
 								type="description"
@@ -164,12 +170,16 @@ function Profile() {
 						<>
 							<TextInput style="light" type="email" ref={emailRef} />
 							<TextInput style="light" type="telephone" ref={phoneRef} />
-							<TextInput style="light" type="SIRET" ref={siretRef} />
-							<TextInput
-								style="light"
-								type="company_name"
-								ref={companyNameRef}
-							/>
+							{isTrainer && (
+								<>
+									<TextInput style="light" type="SIRET" ref={siretRef} />
+									<TextInput
+										style="light"
+										type="company_name"
+										ref={companyNameRef}
+									/>
+								</>
+							)}
 						</>
 					)}
 					<Button

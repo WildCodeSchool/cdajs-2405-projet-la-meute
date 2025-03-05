@@ -25,22 +25,24 @@ export const PASSWORDRESET = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($updatedUser: UpdateUserInput!) {
+  mutation UpdateUser($updatedUser: UpdateUserInput!, $isTrainer: Boolean!) {
     UpdateUser(updatedUser: $updatedUser) {
       message
       user {
         id
-        role
-        firstname
-        lastname
-        city
-        description
-        avatar
-        email
-        phone_number
-        postal_code
-        siret
-        company_name
+            lastname
+            firstname
+            email
+            phone_number
+            city
+            postal_code
+            avatar
+            role
+            ... @include(if: $isTrainer) {
+                siret
+                company_name
+                description
+        }  
       }
     }
   }
