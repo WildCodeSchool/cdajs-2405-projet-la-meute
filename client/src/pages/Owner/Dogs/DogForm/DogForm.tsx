@@ -27,6 +27,8 @@ export default function DogForm({
 
 	const [confirmModal, setConfirmModal] = useState(false);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [tempFile, setTempFile] = useState<File | null>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 	const { user } = useUser();
 	const navigate = useNavigate();
@@ -59,6 +61,15 @@ export default function DogForm({
 		};
 	}, [initialData]);
 
+	useEffect(() => {
+		if (selectedFile) {
+			const objectUrl = URL.createObjectURL(selectedFile);
+			setPreviewUrl(objectUrl);
+			return () => URL.revokeObjectURL(objectUrl);
+		}
+		setPreviewUrl(null);
+	}, [selectedFile]);
+
 	const query = mode === "create" ? CREATE_DOG : UPDATE_DOG;
 	const [selectedQuery] = useMutation(query);
 	const formTitle =
@@ -75,11 +86,23 @@ export default function DogForm({
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const file = e.target.files[0];
-			setSelectedFile(file);
-
+			setTempFile(file);
 			setConfirmModal(true);
 		} else {
-			setSelectedFile(null);
+			setTempFile(null);
+		}
+	};
+
+	const confirmFileSelection = () => {
+		setSelectedFile(tempFile);
+		setConfirmModal(false);
+	};
+
+	const cancelFileSelection = () => {
+		setTempFile(null);
+		setConfirmModal(false);
+		if (pictureRef.current) {
+			pictureRef.current.value = "";
 		}
 	};
 
@@ -120,21 +143,30 @@ export default function DogForm({
 	return (
 		<main className="dogForm">
 			<form className="dogForm__form" onSubmit={handleSubmit}>
-				<div>
-					<div className="dogForm__form__title">
-						<div className="dogForm__form__title--intro">
-							<h3>{formTitle}</h3>
-							<p>{formSubtitle}</p>
-						</div>
-					</div>
-					<FileInput
-						ref={pictureRef}
-						label="Photo de votre chien"
-						accept="image/*"
-						onChange={handleFileChange}
+				<div className="dogForm__form__title">
+					<img
+						src={
+							previewUrl
+								? previewUrl
+								: initialData?.picture
+									? `${import.meta.env.VITE_API_URL}${initialData.picture}`
+									: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+						}
+						alt={mode === "create" ? "votre chien" : `${initialData?.name}`}
+						className="dogForm__form__title--picture"
 					/>
-					<TextInput type="name" ref={nameRef} />
+					<div className="dogForm__form__title--intro">
+						<h3>{formTitle}</h3>
+						<p>{formSubtitle}</p>
+					</div>
 				</div>
+				<FileInput
+					ref={pictureRef}
+					label="Photo de votre chien"
+					accept="image/*"
+					onChange={handleFileChange}
+				/>
+				<TextInput type="name" ref={nameRef} />
 				<TextInput type="breed" ref={breedRef} />
 				<TextInput type="birthDate" ref={birthDateRef} inputType="date" />
 				<TextInput
@@ -155,14 +187,14 @@ export default function DogForm({
 			<Modal
 				type="info"
 				isOpen={confirmModal}
-				onClose={() => setConfirmModal(false)}
-				filePreview={selectedFile}
+				onClose={cancelFileSelection}
+				filePreview={tempFile}
 			>
 				<p>
 					Voulez-vous utiliser cette image comme photo pour{" "}
 					{mode === "create" ? "votre chien" : `${initialData?.name}`} ?
 				</p>
-				<Button onClick={() => setConfirmModal(false)} style="btn-dark">
+				<Button onClick={confirmFileSelection} style="btn-dark">
 					Confirmer
 				</Button>
 			</Modal>
