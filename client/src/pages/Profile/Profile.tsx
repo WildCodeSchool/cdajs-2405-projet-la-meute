@@ -1,7 +1,9 @@
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import "./Profile.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import Button from "@/components/_atoms/Button/Button";
+import Modal from "@/components/_molecules/Modal/Modal";
 import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +18,7 @@ function Profile() {
 		"profile",
 	);
 
+	const avatarRef = useRef<HTMLInputElement>(null);
 	const firstnameRef = useRef<HTMLInputElement>(null);
 	const lastnameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -24,6 +27,11 @@ function Profile() {
 	const siretRef = useRef<HTMLInputElement>(null);
 	const companyNameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+	const [confirmModal, setConfirmModal] = useState(false);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [tempFile, setTempFile] = useState<File | null>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 	const [updateUserMutation] = useMutation(UPDATE_USER);
 	const isTrainer = role === "trainer";
@@ -53,6 +61,15 @@ function Profile() {
 		}
 	}, [user, navigate, view]);
 
+	useEffect(() => {
+		if (selectedFile) {
+			const objectUrl = URL.createObjectURL(selectedFile);
+			setPreviewUrl(objectUrl);
+			return () => URL.revokeObjectURL(objectUrl);
+		}
+		setPreviewUrl(null);
+	}, [selectedFile]);
+
 	const handleUpdateFormSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
 	) => {
@@ -64,6 +81,7 @@ function Profile() {
 			updatedUser = {
 				id: Number(user?.id),
 				role: user?.role,
+				avatar: selectedFile,
 				firstname: firstnameRef.current?.value,
 				lastname: lastnameRef.current?.value,
 				city: cityRef.current?.value,
@@ -104,6 +122,29 @@ function Profile() {
 		}
 	};
 
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files.length > 0) {
+			const file = e.target.files[0];
+			setTempFile(file);
+			setConfirmModal(true);
+		} else {
+			setTempFile(null);
+		}
+	};
+
+	const confirmFileSelection = () => {
+		setSelectedFile(tempFile);
+		setConfirmModal(false);
+	};
+
+	const cancelFileSelection = () => {
+		setTempFile(null);
+		setConfirmModal(false);
+		if (avatarRef.current) {
+			avatarRef.current.value = "";
+		}
+	};
+
 	return (
 		<>
 			<PlanningHeader title="Mon profil" button={false} />
@@ -138,15 +179,29 @@ function Profile() {
 
 				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
 					<span className="profile__form--title">
-						<a className="dashHeader__avatar" href="/dashboard/my-profile">
-							<img src={user?.avatar} alt="avatar de l'utilisateur" />
-						</a>
+						<img
+							src={
+								previewUrl
+									? previewUrl
+									: user?.avatar
+										? `${import.meta.env.VITE_API_URL}${user?.avatar}`
+										: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+							}
+							alt="avatar de l'utilisateur"
+						/>
+
 						<h2>
 							{user?.firstname} {user?.lastname}
 						</h2>
 					</span>
 					{view === "profile" && (
 						<>
+							<FileInput
+								ref={avatarRef}
+								label="Photo de profil"
+								accept="image/*"
+								onChange={handleFileChange}
+							/>
 							<span className="profile__form--names">
 								<TextInput style="light" type="firstname" ref={firstnameRef} />
 								<TextInput style="light" type="lastname" ref={lastnameRef} />
@@ -190,6 +245,17 @@ function Profile() {
 						Sauvegarder le profil
 					</Button>
 				</form>
+				<Modal
+					type="info"
+					isOpen={confirmModal}
+					onClose={cancelFileSelection}
+					filePreview={tempFile}
+				>
+					<p>Voulez-vous utiliser cette image comme avatar ?</p>
+					<Button onClick={confirmFileSelection} style="btn-dark">
+						Confirmer
+					</Button>
+				</Modal>
 			</main>
 		</>
 	);

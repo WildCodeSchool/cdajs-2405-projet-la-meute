@@ -109,6 +109,7 @@ export abstract class User {
 	@Column({
 		type: "varchar",
 		length: 255,
+		default: "/upload/images/defaultuserprofile.jpg",
 	})
 	@Field()
 	avatar: string;
@@ -129,7 +130,7 @@ export abstract class User {
 		city = "",
 		postal_code = "",
 		role = "",
-		avatar = "https://placehold.co/400",
+		avatar = "/upload/images/defaultuserprofile.jpg",
 	) {
 		this.lastname = lastname;
 		this.firstname = firstname;
