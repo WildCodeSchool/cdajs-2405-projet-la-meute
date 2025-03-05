@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
-import Tag from "@/components/_atoms/Tag/Tag";
-import NewTag from "@/components/_atoms/Tag/NewTag";
+import Service from "@/components/_atoms/Service/Service";
+import NewService from "@/components/_atoms/Service/NewService";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "react-toastify";
@@ -83,20 +83,20 @@ function EventId() {
 				ref={titleRef}
 			/>
 
-			<label className="createEvent__event createEvent__event--tags">
+			<label className="createEvent__event createEvent__event--services">
 				Etiquettes
 				<p>
 					Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
 					clients, vous pouvez en choisir jusqu’à 3.
 				</p>
 				<div>
-					<Tag color={"#04272F"} href={""}>
+					<Service color={"#04272F"} href={""}>
 						😁&nbsp;etiquette 1
-					</Tag>
-					<Tag color={"#FFBF80"} href={""}>
+					</Service>
+					<Service color={"#FFBF80"} href={""}>
 						😍&nbsp;etiquette 2
-					</Tag>
-					<NewTag href={""} />
+					</Service>
+					<NewService href={""} />
 				</div>
 				<select ref={servicesRef}>
 					<option>Option 1</option>

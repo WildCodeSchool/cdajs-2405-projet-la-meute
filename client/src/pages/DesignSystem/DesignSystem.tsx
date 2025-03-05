@@ -1,10 +1,10 @@
 import Button from "@/components/_atoms/Button/Button";
 import Form from "@/components/_molecules/Form/Form";
 import IdCard from "@/components/_molecules/Card/IdCard";
-import NewTag from "@/components/_atoms/Tag/NewTag";
+import NewService from "@/components/_atoms/Service/NewService";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import Tag from "@/components/_atoms/Tag/Tag";
+import Service from "@/components/_atoms/Service/Service";
 
 export default function DesignSystem() {
 	const dog = {
@@ -103,20 +103,20 @@ export default function DesignSystem() {
 						</div>
 
 						<div>
-							<Tag color="#167024" href="/first-tag">
-								✨ First Tag
-							</Tag>
-							<Tag color="#1b1670" href="/second-tag">
-								🔥 Second Tag
-							</Tag>
-							<Tag color="#c728c4" href="/third-tag">
-								🎉 Third Tag
-							</Tag>
-							<Tag color="#ff3729" href="/fourth-tag">
-								🎊 Fourth Tag
-							</Tag>
+							<Service color="#167024" href="/first-service">
+								✨ First Service
+							</Service>
+							<Service color="#1b1670" href="/second-service">
+								🔥 Second Service
+							</Service>
+							<Service color="#c728c4" href="/third-service">
+								🎉 Third Service
+							</Service>
+							<Service color="#ff3729" href="/fourth-service">
+								🎊 Fourth Service
+							</Service>
 							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
-								<NewTag href="" />
+								<NewService href="" />
 							</div>
 						</div>
 						<h2>IdCard</h2>

@@ -1,11 +1,11 @@
 @import "@style";
 
-.tag {
-    @include tag;
+.service {
+    @include service;
 }
 
-.newTag {
-    @include tag;
+.newService {
+    @include service;
     background-color: none;
     color: $blue-400;
     border: 2px solid $blue-400;
