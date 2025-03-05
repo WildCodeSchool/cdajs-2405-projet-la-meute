@@ -79,6 +79,7 @@
         &--prices {
             display: flex;
             gap: 1rem;
+            align-items: end;
             label {
                 width: 50%;
             }

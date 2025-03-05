@@ -90,12 +90,6 @@ function EventId() {
 					clients, vous pouvez en choisir jusqu’à 3.
 				</p>
 				<div>
-					<Service color={"#04272F"} href={""}>
-						😁&nbsp;etiquette 1
-					</Service>
-					<Service color={"#FFBF80"} href={""}>
-						😍&nbsp;etiquette 2
-					</Service>
 					<NewService href={""} />
 				</div>
 				<select ref={servicesRef}>
@@ -137,12 +131,12 @@ function EventId() {
 
 			<span className="createEvent__event createEvent__event--prices">
 				<label className="createEvent__event--price">
-					Prix par chien *
+					Prix par chien en euros *
 					<span>
 						<input
-							placeholder="Prix TTC en euros"
+							placeholder="Prix TTC"
 							type="number"
-							min={1}
+							min={0}
 							required
 							ref={priceRef}
 						/>
@@ -150,9 +144,9 @@ function EventId() {
 					</span>
 				</label>
 				<label className="createEvent__event--groupMaxSize">
-					Nombre de chiens participants&nbsp;*
+					Nombre maximum de chiens participants&nbsp;*
 					<input
-						placeholder="Nombre maximum"
+						placeholder="1 minimum"
 						type="number"
 						min={1}
 						required
