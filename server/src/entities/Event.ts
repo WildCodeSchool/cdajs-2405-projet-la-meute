@@ -51,13 +51,14 @@ export class Event {
 	@Field()
 	price: number;
 
+	@Field(() => Trainer)
 	@ManyToOne(
 		() => Trainer,
 		(trainer) => trainer.event,
 		{ onDelete: "CASCADE" },
 	)
 	@JoinColumn([{ name: "trainer_id" }])
-	trainer?: Trainer;
+	trainer: Trainer;
 
 	@ManyToMany(
 		() => Service,
