@@ -2,6 +2,7 @@ import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DashHeader() {
 	const { user } = useUser();
@@ -23,17 +24,17 @@ export default function DashHeader() {
 				</button>
 				<span className="dashHeader__right-corner">
 					<Bell className="dashHeader__notification" />
-					<a className="dashHeader__avatar" href="/my-profile">
+					<Link className="dashHeader__avatar" to="/my-profile">
 						<img
 							src={
 								user?.avatar
 									? `${import.meta.env.VITE_API_URL}${user?.avatar}`
-									: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+									: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
 							}
 							alt="avatar de l'utilisateur"
 							title="Mon profil"
 						/>
-					</a>
+					</Link>
 				</span>
 			</header>
 		</>

@@ -185,7 +185,7 @@ function Profile() {
 									? previewUrl
 									: user?.avatar
 										? `${import.meta.env.VITE_API_URL}${user?.avatar}`
-										: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+										: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
 							}
 							alt="avatar de l'utilisateur"
 						/>
