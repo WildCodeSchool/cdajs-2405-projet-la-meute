@@ -1,9 +1,10 @@
 import "./DogForm.scss";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import Button from "@/components/_atoms/Button/Button";
+import Modal from "@/components/_molecules/Modal/Modal";
 import type { Dog } from "@/types/Dog";
-import { useFileUpload } from "@/hooks/useFileUpload";
 import { useMutation } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +24,12 @@ export default function DogForm({
 	const breedRef = useRef<HTMLInputElement>(null);
 	const birthDateRef = useRef<HTMLInputElement>(null);
 	const infoRef = useRef<HTMLTextAreaElement>(null);
-	const { handleFileChange, selectedFile } = useFileUpload();
+
+	const [confirmModal, setConfirmModal] = useState(false);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [tempFile, setTempFile] = useState<File | null>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
 	const { user } = useUser();
 	const navigate = useNavigate();
 
@@ -55,6 +61,15 @@ export default function DogForm({
 		};
 	}, [initialData]);
 
+	useEffect(() => {
+		if (selectedFile) {
+			const objectUrl = URL.createObjectURL(selectedFile);
+			setPreviewUrl(objectUrl);
+			return () => URL.revokeObjectURL(objectUrl);
+		}
+		setPreviewUrl(null);
+	}, [selectedFile]);
+
 	const query = mode === "create" ? CREATE_DOG : UPDATE_DOG;
 	const [selectedQuery] = useMutation(query);
 	const formTitle =
@@ -67,6 +82,29 @@ export default function DogForm({
 		mode === "create"
 			? "Valider l'ajout de mon nouveau chien"
 			: "Sauvegarder les modifications";
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files.length > 0) {
+			const file = e.target.files[0];
+			setTempFile(file);
+			setConfirmModal(true);
+		} else {
+			setTempFile(null);
+		}
+	};
+
+	const confirmFileSelection = () => {
+		setSelectedFile(tempFile);
+		setConfirmModal(false);
+	};
+
+	const cancelFileSelection = () => {
+		setTempFile(null);
+		setConfirmModal(false);
+		if (pictureRef.current) {
+			pictureRef.current.value = "";
+		}
+	};
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -102,38 +140,33 @@ export default function DogForm({
 		}
 	};
 
-	const handleKeyPress = (event: React.KeyboardEvent) => {
-		if (event.key === "Enter" || event.key === " ") {
-			event.preventDefault();
-			pictureRef.current?.click();
-		}
-	};
-
 	return (
 		<main className="dogForm">
 			<form className="dogForm__form" onSubmit={handleSubmit}>
-				<div>
-					<div className="dogForm__form__title">
-						<button
-							className="dogForm__form__title--upload"
-							onClick={() => pictureRef.current?.click()}
-							onKeyDown={handleKeyPress}
-							type="button"
-						>
-							<input
-								type="file"
-								onChange={handleFileChange}
-								accept="image/*"
-								ref={pictureRef}
-							/>
-						</button>
-						<div className="dogForm__form__title--intro">
-							<h3>{formTitle}</h3>
-							<p>{formSubtitle}</p>
-						</div>
+				<div className="dogForm__form__title">
+					<img
+						src={
+							previewUrl
+								? previewUrl
+								: initialData?.picture
+									? `${import.meta.env.VITE_API_URL}${initialData.picture}`
+									: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+						}
+						alt={mode === "create" ? "votre chien" : `${initialData?.name}`}
+						className="dogForm__form__title--picture"
+					/>
+					<div className="dogForm__form__title--intro">
+						<h3>{formTitle}</h3>
+						<p>{formSubtitle}</p>
 					</div>
-					<TextInput type="name" ref={nameRef} />
 				</div>
+				<FileInput
+					ref={pictureRef}
+					label="Photo de votre chien"
+					accept="image/*"
+					onChange={handleFileChange}
+				/>
+				<TextInput type="name" ref={nameRef} />
 				<TextInput type="breed" ref={breedRef} />
 				<TextInput type="birthDate" ref={birthDateRef} inputType="date" />
 				<TextInput
@@ -151,6 +184,20 @@ export default function DogForm({
 					</Button>
 				</span>
 			</form>
+			<Modal
+				type="info"
+				isOpen={confirmModal}
+				onClose={cancelFileSelection}
+				filePreview={tempFile}
+			>
+				<p>
+					Voulez-vous utiliser cette image comme photo pour{" "}
+					{mode === "create" ? "votre chien" : `${initialData?.name}`} ?
+				</p>
+				<Button onClick={confirmFileSelection} style="btn-dark">
+					Confirmer
+				</Button>
+			</Modal>
 		</main>
 	);
 }
