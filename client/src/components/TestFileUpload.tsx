@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { DOG_PROFILE_PICTURE } from "@/graphQL/mutations/dogs";
+import { DOG_PROFILE_PICTURE } from "@/graphQL/mutations/dog";
 import { useFileUpload } from "@/hooks/useFileUpload";
 
 function TestFileUpload() {

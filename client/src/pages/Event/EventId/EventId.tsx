@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
@@ -27,7 +27,10 @@ function EventId() {
 	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
 	const locationRef = useRef<HTMLInputElement>(null);
 
-	const formatDateTime = (date: string, time: string) => `${date} ${time}:00`;
+	const formatDateTime = (date: string, time: string) => {
+		const dateTime = new Date(`${date}T${time}:00.000Z`);
+		return dateTime.toISOString();
+	};
 
 	const handleEndTimeBlur = () => {
 		if (startTimeRef.current?.value && endTimeRef.current?.value) {
@@ -134,14 +137,17 @@ function EventId() {
 
 			<span className="createEvent__event createEvent__event--prices">
 				<label className="createEvent__event--price">
-					Prix par chien&nbsp;*
-					<input
-						placeholder="Prix TTC en euros"
-						type="number"
-						min={1}
-						required
-						ref={priceRef}
-					/>
+					Prix par chien *
+					<span>
+						<input
+							placeholder="Prix TTC en euros"
+							type="number"
+							min={1}
+							required
+							ref={priceRef}
+						/>
+						<p>€</p>
+					</span>
 				</label>
 				<label className="createEvent__event--groupMaxSize">
 					Nombre de chiens participants&nbsp;*
