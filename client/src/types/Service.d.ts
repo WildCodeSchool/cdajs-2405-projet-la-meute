@@ -1,5 +1,5 @@
 export interface ServiceType {
-	id: number;
+	id: string;
 	title: string;
 	smiley: string;
 	color: string;

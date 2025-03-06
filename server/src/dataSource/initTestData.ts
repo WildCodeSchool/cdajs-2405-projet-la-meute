@@ -62,7 +62,6 @@ async function createData() {
 		const savedOwner2 = await ownerRepository.save(owner2);
 
 		//2. Create trainers
-
 		const trainerRepository = dataSource.getRepository(Trainer);
 		const trainer = new Trainer("12345678901234", "educ de Lyon");
 		trainer.lastname = "Smith";
@@ -77,7 +76,6 @@ async function createData() {
 		const savedTrainer = await trainerRepository.save(trainer);
 
 		//3. Create dog
-
 		const dog1 = new Dog(
 			savedOwner1,
 			"Rex",

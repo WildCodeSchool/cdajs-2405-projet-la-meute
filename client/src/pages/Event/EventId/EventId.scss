@@ -13,10 +13,6 @@
     &__title {
         font-weight: $bold;
     }
-    & label {
-        font-weight: $bold;
-        color: $blue-400;
-    }
     & input,
     textarea {
         background-color: $beige-300;
@@ -33,6 +29,9 @@
     }
 
     &__event {
+        font-weight: $bold;
+        color: $blue-400;
+
         display: flex;
         justify-content: space-between;
         & label {
@@ -47,16 +46,13 @@
                 font-weight: $regular;
                 font-size: $xs;
             }
-            div {
+            &--newService {
                 background-color: $beige-300;
                 border-radius: $atoms-radius;
                 padding: 0.5rem;
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5rem;
-            }
-            select {
-                display: none;
             }
         }
         &--dates {

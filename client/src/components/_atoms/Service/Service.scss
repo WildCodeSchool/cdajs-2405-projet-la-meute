@@ -6,7 +6,10 @@
 
 .newService {
     @include service;
-    background-color: none;
+    background-color: $beige-300;
     color: $blue-400;
     border: 2px solid $blue-400;
+    &:hover {
+        background-color: lighten($beige-300, 5%);
+    }
 }

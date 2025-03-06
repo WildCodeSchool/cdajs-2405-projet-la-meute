@@ -103,20 +103,25 @@ export default function DesignSystem() {
 						</div>
 
 						<div>
-							<Service color="#167024" href="/first-service">
-								✨ First Service
-							</Service>
-							<Service color="#1b1670" href="/second-service">
-								🔥 Second Service
-							</Service>
-							<Service color="#c728c4" href="/third-service">
-								🎉 Third Service
-							</Service>
-							<Service color="#ff3729" href="/fourth-service">
-								🎊 Fourth Service
-							</Service>
+							<Service
+								service={{
+									id: "1",
+									color: "#167024",
+									smiley: "🐶",
+									title: "First Service",
+								}}
+							/>
+							<Service
+								service={{
+									id: "1",
+									color: "#167024",
+									smiley: "🐶",
+									title: "First Service",
+								}}
+							/>
+
 							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
-								<NewService href="" />
+								<NewService />
 							</div>
 						</div>
 						<h2>IdCard</h2>

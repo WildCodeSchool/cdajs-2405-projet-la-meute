@@ -9,14 +9,13 @@ const meta = {
 		layout: "centered",
 	},
 	argTypes: {
-		color: {
-			control: "color",
-		},
-		children: {
-			control: "text",
-		},
-		href: {
-			control: "text",
+		service: {
+			control: {
+				id: "1",
+				color: "#167024",
+				smiley: "🐶",
+				title: "First Service",
+			},
 		},
 	},
 } satisfies Meta<typeof Service>;
@@ -26,32 +25,39 @@ type Story = StoryObj<typeof meta>;
 
 export const FirstService: Story = {
 	args: {
-		color: "#167024",
-		children: "✨ First Service",
-		href: "/first-service",
+		service: {
+			id: "1",
+			color: "#167024",
+			smiley: "🐶",
+			title: "First Service",
+		},
 	},
 };
 
 export const SecondService: Story = {
 	args: {
-		color: "#1b1670",
-		children: "🔥 Second Service",
-		href: "/second-service",
+		service: {
+			id: "2",
+			color: "#167024",
+			smiley: "🍟",
+			title: "Second Service",
+		},
 	},
 };
 
 export const ThirdService: Story = {
 	args: {
-		color: "#c728c4",
-		children: "🎉 Third Service",
-		href: "/third-service",
+		service: { id: "3", color: "#000", smiley: "🥞", title: "third Service" },
 	},
 };
 
 export const FourthService: Story = {
 	args: {
-		color: "#ff3729",
-		children: "🎊 Fourth Service",
-		href: "/fourth-service",
+		service: {
+			id: "4",
+			color: "#ff3729",
+			smiley: "🎊",
+			title: "Fourth Service",
+		},
 	},
 };
