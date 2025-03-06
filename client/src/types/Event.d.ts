@@ -1,3 +1,5 @@
+import { Dog } from "./Dog";
+
 export interface Location {
 	latitude: number;
 	longitude: number;
@@ -13,6 +15,11 @@ export interface Event {
 	price: number;
 	startDate: Date;
 	endDate: Date;
+	participation: Participation[];
+}
+
+export interface Participation {
+	dog: Dog;
 }
 
 export interface GetAllEventsData {
@@ -30,4 +37,8 @@ export interface GetAllEventsByOwnerId {
 	price: number;
 	startDate: Date;
 	endDate: Date;
+}
+
+export interface GetDogsByEventsId {
+	getDogsByEventsId: Dog[];
 }

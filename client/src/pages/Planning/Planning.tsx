@@ -1,11 +1,12 @@
 import "@/pages/Planning/Planning.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
+import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
 
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 import { useIsMobile } from "@/hooks/checkIsMobile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
 	GET_ALL_EVENTS,
@@ -18,6 +19,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
+import momentTimezonePlugin from "@fullcalendar/moment-timezone";
 
 // Icons
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
@@ -42,8 +44,10 @@ function Planning() {
 		},
 	);
 
+	// Check if the role is trainer or owner
 	const isTrainer = role === "trainer";
 
+	// All events
 	const events =
 		allEventsData?.getAllEvents.map((event: Event) => ({
 			id: event.id.toString(),
@@ -55,11 +59,11 @@ function Planning() {
 				group_max_size: event.group_max_size,
 				location: event.location,
 				price: event.price,
+				dogs: event.participation?.map((p) => p.dog) || [],
 			},
 		})) || [];
 
-	// const eventsByTrainer
-
+	// Events associates to specific owner
 	const ownerEvents =
 		ownerEventsData?.getAllEventsByOwnerId.map((event: Event) => ({
 			id: event.id.toString(),
@@ -73,6 +77,16 @@ function Planning() {
 				price: event.price,
 			},
 		})) || [];
+
+	// Navigate to dog's profile when you click on bubble image
+	interface Dog {
+		id: number;
+		name: string;
+	}
+
+	const handleDogClick = (dog: Dog) => {
+		navigate(`/trainer/dogs/${dog.id}`);
+	};
 
 	/* FullCalendar views */
 
@@ -106,18 +120,38 @@ function Planning() {
 	// Initialize the props to change for PlanningHeader
 	const { title } = getPlanningHeaderProps();
 
+	// Check size to select the right toolbar in function of the viewport
 	const isMobile = useIsMobile();
-
 	const desktopToolbar = {
 		left: "today prev,next title",
 		right: "listWeek,timeGridWeek,dayGridMonth",
 	};
-
 	const mobileToolbar = {
 		left: "listWeek",
 		center: "today,dayGridMonth",
 		right: "prev title next",
 	};
+
+	// Display only the first title "Participants" at the top of the column
+	useEffect(() => {
+		const observer = new MutationObserver(() => {
+			const participantTitles = document.querySelectorAll(
+				".participants-title",
+			);
+
+			participantTitles.forEach((title, index) => {
+				(title as HTMLElement).style.display = index === 0 ? "block" : "none";
+			});
+		});
+
+		const calendarContainer = document.querySelector(".calendar-container");
+
+		if (calendarContainer) {
+			observer.observe(calendarContainer, { childList: true, subtree: true });
+		}
+
+		return () => observer.disconnect();
+	}, []);
 
 	return (
 		<>
@@ -131,6 +165,7 @@ function Planning() {
 			<div className="calendar-container">
 				<FullCalendar
 					plugins={[
+						momentTimezonePlugin,
 						dayGridPlugin,
 						timeGridPlugin,
 						listPlugin,
@@ -155,7 +190,11 @@ function Planning() {
 					}}
 					eventContent={(arg) => {
 						// View Month
+						// Si on est en vue mensuelle et en mode mobile, afficher un rond
 						if (currentView === "dayGridMonth") {
+							if (isMobile) {
+								return <div className="event-dot"></div>;
+							}
 							return (
 								<div className="event-content-month">
 									<div className="event-title">{arg.event.title}</div>
@@ -173,9 +212,7 @@ function Planning() {
 								</div>
 							);
 						}
-
-						// View list of Events
-
+						// View listWeek
 						// Function to formate the date with startDate and endDate
 						const formatEventDateTime = (startDate: Date, endDate: Date) => {
 							const formatDate = (date: Date) => {
@@ -231,14 +268,11 @@ function Planning() {
 									<div className="event__div--participation">
 										<div className="participants-title">Participants</div>
 										<div className="participants-wrapper">
-											<div className="participants-card">
-												{/* Logique à ajouter pour afficher les chiens participants */}
-												{/* Placeholder pour l'instant */}
-												<div>Liste des chiens participants</div>
-											</div>
-											<div className="participants-count">
-												2 chiens / 3 places disponibles
-											</div>
+											<DogBubbles
+												dogs={arg.event.extendedProps.dogs}
+												maxSize={arg.event.extendedProps.group_max_size}
+												onDogClick={handleDogClick}
+											/>
 										</div>
 									</div>
 								</section>

@@ -20,12 +20,18 @@
             width: 100%;
             max-width: 100%;
         }
+    }
 
-        .fc-v-event {
-            background-color: $green-300;
-            width: 100%;
-            white-space: nowrap;
-            word-break: break-all;
+    .fc-daygrid-dot-event {
+        padding: 3%;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $green-200;
         }
     }
 
@@ -45,13 +51,9 @@
 
         .event-description {
             font-size: 0.85em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+
         }
     }
-
-    /* listWeek */
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -322,6 +324,10 @@
             padding: 3%;
             cursor: pointer;
 
+            &:hover {
+                background: $beige-300;
+            }
+
             .event-title {
                 font-size: $xxl;
                 font-weight: $bold;
@@ -381,13 +387,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .participants-count {
-            font-size: $s;
-            color: $blue-200;
-            text-align: left;
-            font-style: italic;
         }
     }
 
@@ -533,13 +532,6 @@
         color: $blue-300;
     }
 
-    .fc-event,
-    .fc-event-main,
-    .fc-daygrid-event {
-        background-color: $orange-300 !important;
-        border-color: $orange-300 !important;
-    }
-
     .fc-day-past,
     .fc-daygrid-day {
         background-color: $beige-200;
@@ -558,5 +550,21 @@
     .fc td,
     .fc th {
         border-style: none;
+    }
+
+    /* dayGridMonth */
+
+    .fc-daygrid-event {
+        padding: 0.5rem !important;
+        background-color: none !important;
+    }
+
+    .event-dot {
+        width: 15px;
+        height: 15px;
+        background-color: $blue-400;
+        border-radius: 50%;
+        margin: auto;
+        padding: 5%;
     }
 }
