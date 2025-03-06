@@ -30,11 +30,13 @@ interface TextInputProps {
 	label?: string;
 	placeholder?: string;
 	className?: string;
+	helpText?: string;
+	showHelp?: boolean;
 }
 
 const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
-	{ mappedLabel: string; mappedPlaceholder: string }
+	{ mappedLabel: string; mappedPlaceholder: string; helpText?: string }
 > = {
 	email: {
 		mappedLabel: "Email",
@@ -43,6 +45,7 @@ const TEXT_INPUT_CONFIG: Record<
 	password: {
 		mappedLabel: "Mot de passe",
 		mappedPlaceholder: "Entrez votre mot de passe",
+		helpText: "Le mot de passe doit faire au moins 8 caractères",
 	},
 	confirmPassword: {
 		mappedLabel: "Confirmation mot de passe",
@@ -115,15 +118,27 @@ const TextInput = React.forwardRef<
 			label,
 			placeholder,
 			className,
+			helpText,
+			showHelp,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
 
-		const { mappedLabel = label, mappedPlaceholder = placeholder } = type
-			? TEXT_INPUT_CONFIG[type]
-			: {};
+		const { 
+			mappedLabel = label, 
+			mappedPlaceholder = placeholder,
+			helpText: defaultHelpText 
+		} = type ? TEXT_INPUT_CONFIG[type] : {};
+		
+		const displayHelpText = helpText || defaultHelpText;
+		
+		
+		const shouldDisplayHelp = showHelp !== undefined 
+			? showHelp 
+			: !isLogin; // Par défaut, on n'affiche pas le texte d'aide pour le mdp en mode login
+		
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 		useImperativeHandle(
@@ -165,6 +180,12 @@ const TextInput = React.forwardRef<
 					{mappedLabel}
 					{fieldRequired}
 				</label>
+				
+				{/* N'affiche le texte d'aide que si shouldDisplayHelp est true */}
+				{displayHelpText && shouldDisplayHelp && (
+					<p className="textInput__help-text">{displayHelpText}</p>
+				)}
+				
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
