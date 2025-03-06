@@ -50,9 +50,9 @@ export default function ServiceModal({
 		services ? setChosenServices(services) : setChosenServices([]);
 	}, [services]);
 
-	if (loading) return <p>Chargement des services...</p>;
+	if (loading) return <p>Chargement des étiquettes...</p>;
 	if (error) return <p>Erreur : {error.message}</p>;
-	if (!data || !data.getAllServices) return <p>Aucun service disponible.</p>;
+	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
 
 	const handleSelectService = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedService = data.getAllServices.find(
@@ -61,9 +61,9 @@ export default function ServiceModal({
 		if (!selectedService) return;
 
 		if (chosenServices.some((serv) => serv.id === selectedService.id)) {
-			alert("Ce service est déjà sélectionné.");
+			alert("Cette étiquette est déjà sélectionnée.");
 		} else if (chosenServices.length >= 3) {
-			alert("Vous ne pouvez sélectionner que 3 services.");
+			alert("Vous ne pouvez sélectionner que 3 étiquettes.");
 		} else {
 			setChosenServices((prev) => [...prev, selectedService]);
 		}
@@ -79,7 +79,7 @@ export default function ServiceModal({
 
 	const handleCreateService = async () => {
 		if (!newServiceTitle.trim()) {
-			alert("Veuillez entrer un nom pour le service.");
+			alert("Veuillez entrer un nom pour l'étiquette.");
 			return;
 		}
 		if (
@@ -91,7 +91,7 @@ export default function ServiceModal({
 			return;
 		}
 		if (chosenServices.length >= 3) {
-			alert("Vous ne pouvez pas ajouter plus de 3 services.");
+			alert("Vous ne pouvez pas ajouter plus de 3 étiquettes.");
 			return;
 		}
 
@@ -112,7 +112,7 @@ export default function ServiceModal({
 				refetch();
 			}
 		} catch (error) {
-			console.error("Erreur lors de la création du service :", error);
+			console.error("Erreur lors de la création de l'étiquette :", error);
 		}
 	};
 
