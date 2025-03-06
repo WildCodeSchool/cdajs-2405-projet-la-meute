@@ -1,11 +1,10 @@
 import Button from "@/components/_atoms/Button/Button";
 import Form from "@/components/_molecules/Form/Form";
 import IdCard from "@/components/_molecules/Card/IdCard";
-import NewService from "@/components/_atoms/Service/NewService";
+// import NewService from "@/components/_atoms/Service/NewService";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Service from "@/components/_atoms/Service/Service";
-import { Link } from "react-router-dom";
 
 export default function DesignSystem() {
 	const dog = {
@@ -122,7 +121,7 @@ export default function DesignSystem() {
 							/>
 
 							<div style={{ backgroundColor: "#04272F", padding: "1rem" }}>
-								<NewService />
+								{/* <NewService /> */}
 							</div>
 						</div>
 						<h2>IdCard</h2>
@@ -149,7 +148,7 @@ export default function DesignSystem() {
 						</Button>
 						<p>
 							On peut ajouter d'autres <strong>champs</strong>.
-							<Link to="/">Un lien par exemple</Link>.
+							<a href="/">Un lien par exemple</a>.
 						</p>
 					</Form>
 				</div>
