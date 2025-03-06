@@ -117,8 +117,6 @@ export default function ServiceModal({
 	};
 
 	const handleEmojiClick = (emoji: { emoji: string }) => {
-		console.log("emoji clcik");
-
 		setNewServiceSmiley(emoji.emoji);
 		setShowEmojiPicker(false);
 	};

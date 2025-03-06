@@ -9,8 +9,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: none;
     z-index: 5;
+    background: none;
+    border: none;
+    backdrop-filter: blur(4px);
+    animation: modal-opening 0.4s;
 
     & * {
         color: $font-light;
@@ -127,5 +130,16 @@
     z-index: 10;
     & .emojiPicker {
         max-width: 100%;
+    }
+}
+
+@keyframes modal-opening {
+    0% {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+    }
+    100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
     }
 }
