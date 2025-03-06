@@ -6,7 +6,7 @@
     /* Under -> Allow to modify element per view */
 
     /* dayGridMonth */
-    .event-content-month {
+    .event-dayGridMonth {
         padding: 5px;
 
         .event-title {
@@ -14,20 +14,15 @@
             overflow: hidden;
             font-weight: $semiBold;
             color: $primary-dark;
-            white-space: nowrap;
-            word-break: normal;
-            text-overflow: ellipsis;
-            width: 100%;
-            max-width: 100%;
         }
     }
 
     .fc-daygrid-dot-event {
         padding: 3%;
         width: 100%;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        box-sizing: border-box;
         cursor: pointer;
 
         &:hover {
@@ -40,23 +35,38 @@
     }
 
     /* timeGridWeek */
-    .event-content-week {
-        padding: 4px;
+
+    .event-timeGridWeek {
+        padding: 3%;
+        background-color: $green-200;
+        border: none;
+        outline: none;
+        border-radius: $atoms-radius;
 
         .event-title {
             font-size: 1em;
             font-weight: bold;
             margin-bottom: 4px;
+            color: $primary-dark;
         }
 
         .event-description {
             font-size: 0.85em;
-
+            color: $primary-dark;
         }
     }
 }
 
-.fc-theme-standard .fc-scrollgrid {
+.fc-v-event {
+    --fc-event-bg-color: none;
+    border: 0;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+    box-shadow: none;
+}
+
+.fc-theme-standard, .fc-scrollgrid, .fc-timegrid-event {
     border: 0px;
 }
 
@@ -400,6 +410,20 @@
 
 /* Semaine - View */
 
+.hide-daygrid-body .fc-daygrid-body-unbalanced {
+    display: none;
+}
+
+.fc-timegrid-divider {
+    display: none !important;
+}
+
+.fc .fc-scrollgrid-section,
+.fc .fc-scrollgrid-section table,
+.fc .fc-scrollgrid-section>td {
+    height: 0px;
+}
+
 .fc-timegrid-axis {
     background-color: $primary-light;
     border: 0px;
@@ -411,7 +435,6 @@
     background-color: $beige-200;
     border: 0px;
 }
-
 
 /* --- Responsive - Mobile --- */
 

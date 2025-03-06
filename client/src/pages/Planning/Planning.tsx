@@ -19,7 +19,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
-import momentTimezonePlugin from "@fullcalendar/moment-timezone";
 
 // Icons
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
@@ -153,6 +152,19 @@ function Planning() {
 		return () => observer.disconnect();
 	}, []);
 
+	// Hide row all day on timeGridWeek
+	useEffect(() => {
+		const calendarContainer = document.querySelector(".calendar-container");
+
+		if (calendarContainer) {
+			if (currentView === "timeGridWeek") {
+				calendarContainer.classList.add("hide-daygrid-body");
+			} else {
+				calendarContainer.classList.remove("hide-daygrid-body");
+			}
+		}
+	}, [currentView]);
+
 	return (
 		<>
 			{user?.role === "trainer" && (
@@ -165,7 +177,6 @@ function Planning() {
 			<div className="calendar-container">
 				<FullCalendar
 					plugins={[
-						momentTimezonePlugin,
 						dayGridPlugin,
 						timeGridPlugin,
 						listPlugin,
@@ -179,7 +190,12 @@ function Planning() {
 					events={isTrainer ? events : ownerEvents}
 					views={{
 						dayGridMonth: { buttonText: "Mois" },
-						timeGridWeek: { buttonText: "Semaine" },
+						timeGridWeek: {
+							buttonText: "Semaine",
+							slotMinTime: "06:00:00",
+							slotMaxTime: "21:00:00",
+							slotDuration: "00:30:00",
+						},
 						listWeek: { buttonText: "Liste des événements" },
 					}}
 					buttonText={{
@@ -196,7 +212,7 @@ function Planning() {
 								return <div className="event-dot"></div>;
 							}
 							return (
-								<div className="event-content-month">
+								<div className="event-dayGridMonth">
 									<div className="event-title">{arg.event.title}</div>
 								</div>
 							);
@@ -204,11 +220,8 @@ function Planning() {
 						// View Week
 						if (currentView === "timeGridWeek") {
 							return (
-								<div className="event-content-week">
+								<div className="event-timeGridWeek">
 									<div className="event-title">{arg.event.title}</div>
-									<div className="event-description">
-										{arg.event.extendedProps.description}
-									</div>
 								</div>
 							);
 						}
