@@ -7,6 +7,7 @@ import NewService from "@/components/_atoms/Service/NewService";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "react-toastify";
+import type { ServiceType } from "@/types/Service";
 
 type endTimeStyleType = {
 	outline?: string;
@@ -16,6 +17,8 @@ function EventId() {
 	const navigate = useNavigate();
 	const { user } = useUser();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
+	const [services] = useState<ServiceType[]>([]);
+	//const [services, setServices] = useState<ServiceType[]>([]);
 
 	const titleRef = useRef<HTMLInputElement>(null);
 	const servicesRef = useRef<HTMLSelectElement>(null);
@@ -89,12 +92,13 @@ function EventId() {
 					Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
 					clients, vous pouvez en choisir jusqu’à 3.
 				</p>
-				<div>
-					<NewService href={""} />
+				<div className="createEvent__event--services--newService">
+					<NewService />
 				</div>
 				<select ref={servicesRef}>
-					<option>Option 1</option>
-					<option>Option 2</option>
+					{services.map((service) => (
+						<Service key={service.id} service={service} />
+					))}
 				</select>
 			</label>
 
@@ -113,8 +117,8 @@ function EventId() {
 						style={endTimeStyle}
 						type="time"
 						ref={endTimeRef}
-						required
 						onBlur={handleEndTimeBlur}
+						required
 					/>
 					{/* FIXME: (improvement) endDate should be able to go over 24h */}
 				</label>
@@ -125,8 +129,8 @@ function EventId() {
 				label="Description"
 				placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 				inputType="textarea"
-				required
 				ref={descriptionRef}
+				required
 			/>
 
 			<span className="createEvent__event createEvent__event--prices">
@@ -137,8 +141,8 @@ function EventId() {
 							placeholder="Prix TTC"
 							type="number"
 							min={0}
-							required
 							ref={priceRef}
+							required
 						/>
 						<p>€</p>
 					</span>
@@ -149,8 +153,8 @@ function EventId() {
 						placeholder="1 minimum"
 						type="number"
 						min={1}
-						required
 						ref={groupMaxSizeRef}
+						required
 					/>
 				</label>
 			</span>
@@ -160,8 +164,8 @@ function EventId() {
 				<input
 					placeholder="Entrez une adresse ou des coordonnées"
 					type="text"
-					required
 					ref={locationRef}
+					required
 				/>
 			</label>
 			<div className="createEvent__event--map">{/* map */}</div>
