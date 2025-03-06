@@ -10,6 +10,9 @@ import { toast } from "react-toastify";
 import type { ServiceType } from "@/types/Service";
 import { useMutation } from "@apollo/client";
 import { CREATE_EVENT } from "@/graphQL/mutations/event";
+import LeafletMap, {
+	type leafletMarkerType,
+} from "@/components/_atoms/LeafletMap/LeafletMap";
 
 type endTimeStyleType = {
 	outline?: string;
@@ -20,6 +23,7 @@ function EventId() {
 	const { user } = useUser();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
 	const [services, setServices] = useState<ServiceType[]>([]);
+	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>();
 
 	const [createEvent] = useMutation(CREATE_EVENT);
 
@@ -30,7 +34,6 @@ function EventId() {
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 	const priceRef = useRef<HTMLInputElement>(null);
 	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
-	const locationRef = useRef<HTMLInputElement>(null);
 
 	const formatDateTime = (date: string, time: string) => {
 		const dateTime = new Date(`${date}T${time}:00.000Z`);
@@ -52,6 +55,7 @@ function EventId() {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		const date = dateRef.current?.value;
 
 		if (user?.role === "trainer") {
@@ -68,10 +72,9 @@ function EventId() {
 				),
 				price: Number(priceRef.current?.value),
 				groupMaxSize: Number(groupMaxSizeRef.current?.value),
-				//location: locationRef.current?.value, // TODO: Add proper location
 				location: {
-					latitude: 10,
-					longitude: 10,
+					latitude: markerLocation ? markerLocation[0].lat : 48.853495,
+					longitude: markerLocation ? markerLocation[0].lng : 2.349014,
 				},
 				description: descriptionRef.current?.value,
 				title: titleRef.current?.value,
@@ -193,17 +196,11 @@ function EventId() {
 				</label>
 			</span>
 
+			{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
 			<label className="createEvent__event createEvent__event--location">
 				Localisation&nbsp;*
-				<input
-					className="createEvent__input"
-					placeholder="Entrez une adresse ou des coordonnées"
-					type="text"
-					ref={locationRef}
-					required
-				/>
+				<LeafletMap setMarkerLocation={setMarkerLocation} />
 			</label>
-			<div className="createEvent__event--map">{/* map */}</div>
 
 			<span className="createEvent__event createEvent__event--buttons">
 				<Button type="button" style="btn-light" onClick={() => navigate(-1)}>

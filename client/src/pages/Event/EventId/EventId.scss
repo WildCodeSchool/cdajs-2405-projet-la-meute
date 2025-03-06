@@ -101,11 +101,6 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        &--map {
-            height: 200px;
-            background-color: $orange-300;
-            margin-inline: -1rem;
-        }
         &--buttons {
             display: flex;
             justify-content: end;
