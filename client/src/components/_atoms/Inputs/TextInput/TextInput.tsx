@@ -32,77 +32,95 @@ interface TextInputProps {
 	className?: string;
 	helpText?: string;
 	showHelp?: boolean;
+	name?: string;
+	onChange?: (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => void;
 }
 
 const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
-	{ mappedLabel: string; mappedPlaceholder: string; helpText?: string }
+	{ mappedLabel: string; mappedPlaceholder: string; mappedName: string; helpText?: string }
 > = {
 	email: {
 		mappedLabel: "Email",
 		mappedPlaceholder: "Entrez votre email",
+		mappedName: "email",
 	},
 	password: {
 		mappedLabel: "Mot de passe",
 		mappedPlaceholder: "Entrez votre mot de passe",
+    mappedName: "password",
 		helpText: "Le mot de passe doit faire au moins 8 caractères",
 	},
 	confirmPassword: {
 		mappedLabel: "Confirmation mot de passe",
 		mappedPlaceholder: "Confirmer le mot de passe",
+		mappedName: "confirmPassword",
 	},
 	lastname: {
 		mappedLabel: "Nom",
 		mappedPlaceholder: "Entrez votre nom",
+		mappedName: "lastname",
 	},
 	firstname: {
 		mappedLabel: "Prénom",
 		mappedPlaceholder: "Entrez votre prénom",
+		mappedName: "firstname",
 	},
 	city: {
 		mappedLabel: "Ville",
 		mappedPlaceholder: "Entrez votre ville",
+		mappedName: "city",
 	},
 	postal_code: {
 		mappedLabel: "Code Postal",
 		mappedPlaceholder: "Entrez votre code postal",
+		mappedName: "postal_code",
 	},
 	SIRET: {
 		mappedLabel: "SIRET",
 		mappedPlaceholder: "Entrez votre SIRET",
+		mappedName: "SIRET",
 	},
 	company_name: {
 		mappedLabel: "Nom de l'entreprise",
 		mappedPlaceholder: "Entrez le nom de votre entreprise",
+		mappedName: "company_name",
 	},
 	telephone: {
 		mappedLabel: "Numéro de téléphone",
 		mappedPlaceholder: "Entrez votre numéro de téléphone",
+		mappedName: "telephone",
 	},
 	description: {
 		mappedLabel: "Description",
 		mappedPlaceholder: "Entrez votre description",
+		mappedName: "description",
 	},
 	name: {
 		mappedLabel: "Nom de mon chien",
 		mappedPlaceholder: "Entrez le nom de votre chien",
+		mappedName: "name",
 	},
 	birthDate: {
 		mappedLabel: "Date de naissance de mon chien",
 		mappedPlaceholder: "Sélectionnez la date de naissance",
+		mappedName: "birthDate",
 	},
 	breed: {
 		mappedLabel: "Race de mon chien",
 		mappedPlaceholder: "Entrez la race de votre chien",
+		mappedName: "breed",
 	},
 	info: {
 		mappedLabel: "Informations complémentaires",
 		mappedPlaceholder: "Entrez un commentaire sur votre chien",
+		mappedName: "info",
 	},
 };
 
 /** TextInput Component */
-// forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement | HTMLTextAreaElement,
 	TextInputProps
@@ -118,7 +136,9 @@ const TextInput = React.forwardRef<
 			label,
 			placeholder,
 			className,
-			helpText,
+			name,
+			onChange,
+      helpText,
 			showHelp,
 		},
 		ref,
@@ -133,7 +153,6 @@ const TextInput = React.forwardRef<
 		} = type ? TEXT_INPUT_CONFIG[type] : {};
 		
 		const displayHelpText = helpText || defaultHelpText;
-		
 		
 		const shouldDisplayHelp = showHelp !== undefined 
 			? showHelp 
@@ -189,13 +208,16 @@ const TextInput = React.forwardRef<
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
+						name={type ? TEXT_INPUT_CONFIG[type].mappedName : name}
 						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
 						required={required}
+						onChange={onChange}
 					/>
 				) : (
 					<input
 						id={inputId}
+						name={name || type}
 						ref={inputRef as React.RefObject<HTMLInputElement>}
 						type={
 							isPasswordField

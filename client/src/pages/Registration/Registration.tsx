@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { REGISTER_USER } from "@/graphQL/mutations/user";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -7,15 +9,59 @@ import Button from "@/components/_atoms/Button/Button";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const confirmPasswordRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
 
 	const navigate = useNavigate();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const [registerUser] = useMutation(REGISTER_USER);
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		navigate("/login");
+		setError(null);
+
+		// Vérification des mots de passe
+		if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
+			setError("Les mots de passe ne correspondent pas");
+			return;
+		}
+
+		try {
+			const formElement = e.currentTarget;
+			const formData = new FormData(formElement);
+
+			const userData = {
+				lastname: formData.get("lastname") as string,
+				firstname: formData.get("firstname") as string,
+				email: formData.get("email") as string,
+				password: formData.get("password") as string,
+				phone_number: (formData.get("telephone") as string) || "",
+				city: formData.get("city") as string,
+				postal_code: formData.get("postal_code") as string,
+				role: role,
+				...(role === "trainer" && {
+					siret: formData.get("SIRET") as string,
+					company_name: formData.get("company_name") as string,
+				}),
+			};
+
+			const { data } = await registerUser({
+				variables: userData,
+			});
+
+			if (data?.registerUser) {
+				navigate("/login");
+			}
+		} catch (err) {
+			const errorMessage =
+				err instanceof Error
+					? err.message
+					: "Une erreur est survenue lors de l'inscription";
+			setError(errorMessage);
+			console.error("Erreur lors de l'inscription:", err);
+		}
 	};
 
 	return (
@@ -66,38 +112,66 @@ function Registration() {
 						<TextInput style="dark" type="company_name" required />
 					)}
 
-					<TextInput style="dark" type="lastname" required />
-					<TextInput style="dark" type="firstname" required />
-					<TextInput style="dark" type="email" ref={emailRef} required />
-					<TextInput style="dark" type="password" ref={passwordRef} required />
+					<TextInput style="dark" type="lastname" name="lastname" required />
+					<TextInput style="dark" type="firstname" name="firstname" required />
+					<TextInput
+						style="dark"
+						type="email"
+						name="email"
+						ref={emailRef}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="password"
+						name="password"
+						ref={passwordRef}
+						required
+					/>
 					<TextInput
 						style="dark"
 						type="confirmPassword"
+						name="confirmPassword"
 						ref={confirmPasswordRef}
 						passwordRef={passwordRef}
 						required
 					/>
-					<TextInput style="dark" type="city" required />
-					<TextInput style="dark" type="postal_code" required />
-					<TextInput style="dark" type="telephone" />
+					<TextInput style="dark" type="city" name="city" required />
+					<TextInput
+						style="dark"
+						type="postal_code"
+						name="postal_code"
+						required
+					/>
+					<TextInput style="dark" type="telephone" name="telephone" />
 					<input type="hidden" name="role" value={role} />
-					<Button type="button" style="btn-dark" href="/registration">
+
+					{error && (
+						<div
+							className="error-message"
+							style={{ color: "red", marginTop: "10px" }}
+						>
+							{error}
+						</div>
+					)}
+
+					<Button type="button" style="btn-dark" onClick={() => setRole(null)}>
 						Retour
 					</Button>
 
 					<Button type="submit" style="submit">
 						S'inscrire
 					</Button>
-					<p>
+
+					<div className="form-footer">
 						<p className="userMessage">
 							Les champs comportants une * sont obligatoires.
 						</p>
-					</p>
-					<br />
-					<p>
-						Si vous avez déjà un compte vous pouvez{" "}
-						<a href="/login"> vous connecter ici</a>.
-					</p>
+						<p className="login-link">
+							Si vous avez déjà un compte vous pouvez{" "}
+							<Link to="/login">vous connecter ici</Link>.
+						</p>
+					</div>
 				</Form>
 			)}
 		</main>

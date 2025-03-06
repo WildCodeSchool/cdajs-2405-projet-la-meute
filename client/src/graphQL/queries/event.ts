@@ -1,39 +1,41 @@
 import { gql } from "@apollo/client";
 
+import {
+	EVENT_FRAGMENT,
+	SERVICE_FRAGMENT,
+	TRAINER_FRAGMENT,
+} from "../fragments/fragments";
+
 export const GET_ALL_EVENTS = gql`
     query GetAllEvents {
         getAllEvents {
-            id
-            date
-            title
-            description
-            group_max_size
-            location {
-            latitude
-            longitude
+        ...EventFragment
+            services {
+                ...ServiceFragment
             }
-            price
-            startDate
-            endDate
+            trainer {
+                ...TrainerFragment
+            }
         }
     }
+    ${EVENT_FRAGMENT}
+    ${TRAINER_FRAGMENT}
+    ${SERVICE_FRAGMENT}
 `;
 
 export const GET_EVENT_BY_ID = gql`
     query GetEventById($eventId: Float!) {
         getEventById(eventId: $eventId) {
-            id
-            title
-            date
-            startDate
-            endDate
-            description
-            location {
-            latitude
-            longitude
+        ...EventFragment
+            services {
+                ...ServiceFragment
             }
-            group_max_size
-            price
+            trainer {
+                ...TrainerFragment
+            }
         }
     }
+    ${EVENT_FRAGMENT}
+    ${TRAINER_FRAGMENT}
+    ${SERVICE_FRAGMENT}
 `;

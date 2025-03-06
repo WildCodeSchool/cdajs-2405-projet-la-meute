@@ -6,6 +6,7 @@ import {
 	OneToMany,
 	JoinColumn,
 	PrimaryGeneratedColumn,
+	ManyToMany,
 } from "typeorm";
 import { Trainer } from "./Trainer";
 import { Event } from "./Event";
@@ -25,38 +26,28 @@ export class Service {
 	title: string;
 
 	@Column({
-		type: "text",
+		type: "varchar",
+		length: 5,
 	})
 	@Field()
-	description: string;
+	smiley: string;
 
 	@Column({
 		type: "varchar",
-		length: 25,
+		length: 20,
 	})
 	@Field()
-	tag: string;
+	color: string;
 
-	@ManyToOne(() => Trainer)
-	@JoinColumn([
-		{
-			name: "owner_id",
-		},
-	])
-	@Field(() => Trainer)
-	trainer?: Trainer;
-
-	@OneToMany(
+	@ManyToMany(
 		() => Event,
-		(event) => event.service,
-		{ cascade: true },
+		(event) => event.services,
 	)
-	event?: Event[];
+	events?: Event[];
 
-	constructor(trainer_id: Trainer, title = "", description = "", tag = "") {
-		this.trainer = trainer_id;
+	constructor(title = "", smiley = "🐶", color = "#fff") {
 		this.title = title;
-		this.description = description;
-		this.tag = tag;
+		this.smiley = smiley;
+		this.color = color;
 	}
 }

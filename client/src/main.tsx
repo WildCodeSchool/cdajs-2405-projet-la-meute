@@ -43,7 +43,7 @@ import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
-import TestFileUpload from "./components/TestFileUpload.tsx";
+import TestModal from "./components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
@@ -228,16 +228,22 @@ const router = createBrowserRouter([
 	},
 	// FIXME: delete -----------------------
 	{
-		path: "designsystem",
-		element: <DesignSystem />,
-	},
-	{
-		path: "test",
-		element: <TestFileUpload />,
-	},
-	{
-		path: "testme",
-		element: <TestME />,
+		path: "/",
+		element: <DashLayout />,
+		children: [
+			{
+				path: "designsystem",
+				element: <DesignSystem />,
+			},
+			{
+				path: "test",
+				element: <TestModal />,
+			},
+			{
+				path: "testme",
+				element: <TestME />,
+			},
+		],
 	},
 	// -------------------------------------
 ]);

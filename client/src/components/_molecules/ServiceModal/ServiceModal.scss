@@ -1,0 +1,145 @@
+@import "@style";
+
+.serviceModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    background: none;
+    border: none;
+    backdrop-filter: blur(4px);
+    animation: modal-opening 0.4s;
+
+    & * {
+        color: $font-light;
+    }
+    &__content {
+        padding-inline: 2rem;
+        background-color: $blue-500;
+        max-width: 400px;
+        border-radius: $windows-radius;
+        text-align: center;
+        &--select {
+            color: $font-dark;
+            font-weight: $regular;
+            font-size: 1rem;
+            & option {
+                color: $font-dark;
+                font-weight: $regular;
+                font-size: 1rem;
+                &:focus {
+                    border-radius: 5px;
+                }
+            }
+        }
+        &--title {
+            font-weight: $bold;
+            text-align: start;
+            font-size: $m;
+            margin-block: 1rem;
+        }
+        &--chosen {
+            display: flex;
+            flex-direction: column;
+        }
+        &--text {
+            margin-block: 0;
+            text-align: start;
+            font-weight: $regular;
+            font-size: $xs;
+        }
+        &--colorOptions {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 2px;
+        }
+        &--colorOption {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid $font-light;
+        }
+    }
+    &__newService {
+        position: relative; /* emojiPicker needs this */
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        &--Service {
+            @include service;
+            padding-block: 0.4rem;
+            display: flex;
+            align-items: center;
+        }
+        &--input {
+            all: unset;
+            padding-inline-start: 10px;
+            text-align: start;
+        }
+        &--smiley {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        &--button {
+            padding-block: 0;
+            background-color: $blue-100;
+            width: 50%;
+            margin: auto;
+            margin-block: 1rem;
+        }
+    }
+    &__chosenServices {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        &--list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+            border: 5px dashed rgba($primary-light, 0.5);
+            border-radius: $windows-radius;
+            & * {
+                width: 95%;
+            }
+        }
+    }
+    &__buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-block-start: 2rem;
+        margin-block-end: 1rem;
+        &--close {
+            background-color: $blue-400;
+        }
+    }
+}
+
+.emojiPickerContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    & .emojiPicker {
+        max-width: 100%;
+    }
+}
+
+@keyframes modal-opening {
+    0% {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+    }
+    100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    }
+}
