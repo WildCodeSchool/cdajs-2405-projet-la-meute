@@ -4,6 +4,7 @@ import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import Service from "@/components/_atoms/Service/Service";
 import type { ServiceType } from "@/types/Service";
 import IdCard from "@/components/_molecules/Card/IdCard";
+import { Link } from "react-router-dom";
 
 function EventDetail() {
 	const { id } = useParams();
@@ -15,7 +16,6 @@ function EventDetail() {
 	if (error) return <div>Erreur : {error.message}</div>;
 
 	const event = data?.getEventById;
-	console.log("event", event);
 
 	return (
 		<div className="event-detail">
@@ -46,10 +46,10 @@ function EventDetail() {
 				<IdCard type="owner" data={event.trainer} ownerView />
 			</div>
 			<div>
-				<a href="">Supprimer</a>
+				<Link to="">Supprimer</Link>
 				<br />
 				<br />
-				<a href="">Modifier l'événement</a>
+				<Link to="">Modifier l'événement</Link>
 			</div>
 		</div>
 	);

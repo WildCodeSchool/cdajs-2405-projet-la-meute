@@ -1,6 +1,7 @@
 import "./IdCard.scss";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
+import { Link } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 
 type IdCardProps = {
@@ -70,9 +71,9 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				<hr className="idCard__infos--hr" />
 				<p className="idCard__infos--infos">{info}</p>
 			</div>
-			<a href={link} className="idCard--link">
+			<Link to={link} className="idCard--link">
 				{buttonText} &gt;
-			</a>
+			</Link>
 		</article>
 	);
 }
