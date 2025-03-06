@@ -17,14 +17,16 @@ import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
 
 // Interfaces
-import { Event, GetAllEventsData } from "@/types/Event";
+import type { Event, GetAllEventsData } from "@/types/Event";
 
 function Planning() {
 	/* Business logic */
 
 	const navigate = useNavigate();
 	const { user } = useUser();
-	const { data } = useQuery<GetAllEventsData>(GET_ALL_EVENTS);
+	const { data } = useQuery<GetAllEventsData>(GET_ALL_EVENTS, {
+		fetchPolicy: "no-cache",
+	});
 
 	const events =
 		data?.getAllEvents.map((event: Event) => ({

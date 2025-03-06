@@ -70,7 +70,6 @@ function EventId() {
 				location: locationRef.current?.value,
 				trainerId: user?.id,
 			};
-			console.log("Eventdata", eventData);
 		}
 	};
 

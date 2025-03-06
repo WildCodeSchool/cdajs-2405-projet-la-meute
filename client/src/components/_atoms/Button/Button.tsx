@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Button.scss";
 
 type ThinButtonColor = "orange" | "blue" | "green";
@@ -69,8 +69,8 @@ export default function Button({
 
 	if (href) {
 		return (
-			<a
-				href={href}
+			<Link
+				to={href}
 				className={`button ${buttonClassName} ${className}`}
 				onClick={href === "back" ? () => navigate(-1) : onClick}
 			>
@@ -79,7 +79,7 @@ export default function Button({
 					: style === "event" && !children
 						? "+ Ajouter un évènement"
 						: children}
-			</a>
+			</Link>
 		);
 	}
 
