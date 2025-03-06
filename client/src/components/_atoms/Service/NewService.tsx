@@ -1,9 +1,23 @@
+import ServiceModal from "@/components/_molecules/ServiceModal/ServiceModal";
 import "./Service.scss";
 
-export default function NewService({ href }: { href: string }) {
+import { useState } from "react";
+import Button from "../Button/Button";
+
+export default function NewService() {
+	const [showModal, setShowModal] = useState(false);
+
 	return (
-		<a href={href}>
-			<span className="newService">+ Nouvelle étiquette</span>
-		</a>
+		<>
+			<Button
+				style="none"
+				onClick={() => setShowModal(true)}
+				className="newService"
+			>
+				+ Nouvelle étiquette
+			</Button>
+
+			{showModal && <ServiceModal onClose={() => setShowModal(false)} />}
+		</>
 	);
 }
