@@ -5,6 +5,7 @@ import NewService from "@/components/_atoms/Service/NewService";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Service from "@/components/_atoms/Service/Service";
+import { Link } from "react-router-dom";
 
 export default function DesignSystem() {
 	const dog = {
@@ -148,7 +149,7 @@ export default function DesignSystem() {
 						</Button>
 						<p>
 							On peut ajouter d'autres <strong>champs</strong>.
-							<a href="/">Un lien par exemple</a>.
+							<Link to="/">Un lien par exemple</Link>.
 						</p>
 					</Form>
 				</div>

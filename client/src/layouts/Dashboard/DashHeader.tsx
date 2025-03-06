@@ -1,7 +1,7 @@
 import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useUser } from "@/hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function DashHeader() {
 	const { user } = useUser();
@@ -23,13 +23,13 @@ export default function DashHeader() {
 				</button>
 				<span className="dashHeader__right-corner">
 					<Bell className="dashHeader__notification" />
-					<a className="dashHeader__avatar" href="/my-profile">
+					<Link className="dashHeader__avatar" to="/my-profile">
 						<img
 							src={user ? user.avatar : "https://placehold.co/400"}
 							alt="avatar de l'utilisateur"
 							title="Mon profil"
 						/>
-					</a>
+					</Link>
 				</span>
 			</header>
 		</>

@@ -5,7 +5,7 @@ import Button from "@/components/_atoms/Button/Button";
 import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 
@@ -134,9 +134,9 @@ function Profile() {
 
 				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
 					<span className="profile__form--title">
-						<a className="dashHeader__avatar" href="/dashboard/my-profile">
+						<Link className="dashHeader__avatar" to="/dashboard/my-profile">
 							<img src={user?.avatar} alt="avatar de l'utilisateur" />
-						</a>
+						</Link>
 						<h2>
 							{user?.firstname} {user?.lastname}
 						</h2>

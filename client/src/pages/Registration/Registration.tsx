@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "@/graphQL/mutations/user";
 import Form from "@/components/_molecules/Form/Form";
@@ -169,7 +169,7 @@ function Registration() {
 						</p>
 						<p className="login-link">
 							Si vous avez déjà un compte vous pouvez{" "}
-							<a href="/login">vous connecter ici</a>.
+							<Link to="/login">vous connecter ici</Link>.
 						</p>
 					</div>
 				</Form>

@@ -4,6 +4,7 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useRef, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function Login() {
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -54,11 +55,11 @@ export default function Login() {
 				</Button>
 				<p className="login__bottomLinks">
 					Si vous avez oublié votre mot de passe{" "}
-					<a href="/reset-password">cliquez ici</a>.
+					<Link to="/reset-password">cliquez ici</Link>.
 				</p>
 				<p className="login__bottomLinks">
 					Si vous n'êtes pas inscrit, vous pouvez{" "}
-					<a href="/registration">vous inscrire ici</a>.
+					<Link to="/registration">vous inscrire ici</Link>.
 				</p>
 				{errorMessage && <p className="login__errorMessage">{errorMessage}</p>}
 			</Form>

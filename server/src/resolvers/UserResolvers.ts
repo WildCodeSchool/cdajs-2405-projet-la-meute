@@ -124,7 +124,9 @@ export class UserResolvers {
 				owner.postal_code = postal_code;
 
 				return await dataSource.manager.save(Owner, owner);
-			} else if (role.toLowerCase() === "trainer") {
+			}
+
+			if (role.toLowerCase() === "trainer") {
 				if (!siret || !company_name) {
 					throw new Error("SIRET et nom d'entreprise requis pour un éducateur");
 				}
@@ -139,9 +141,8 @@ export class UserResolvers {
 				trainer.postal_code = postal_code;
 
 				return await dataSource.manager.save(Trainer, trainer);
-			} else {
-				throw new Error("Rôle invalide");
 			}
+			throw new Error("Rôle invalide");
 		} catch (error) {
 			console.error("Erreur lors de l'inscription:", error);
 			throw new Error("Erreur lors de l'inscription");
