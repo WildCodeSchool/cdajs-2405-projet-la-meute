@@ -1,6 +1,7 @@
 import "./Footer.scss";
 import Logo from "@/assets/logo/night-blue/symbol/logo-pawplanner-symbol-night-blue.svg";
 import Button from "@/components/_atoms/Button/Button";
+import { Link } from "react-router-dom";
 
 function Footer() {
 	return (
@@ -12,15 +13,15 @@ function Footer() {
 				<div className="welcomepage__footer--lists">
 					<ul className="welcomepage__footer--list">
 						<p className="welcomepage__footer--title">Pages</p>
-						<a href="/">Accueil</a>
-						<a href="/services">Services</a>
-						<a href="/contact">Contact</a>
+						<Link to="/">Accueil</Link>
+						<Link to="/services">Services</Link>
+						<Link to="/contact">Contact</Link>
 					</ul>
 					<ul className="welcomepage__footer--list">
 						<p className="welcomepage__footer--title">Mentions légales</p>
-						<a href="/">Politique de confidentialité</a>
-						<a href="/offres">Conditions générales de vente</a>
-						<a href="/contact">Conditions générales d'utilisation</a>
+						<Link to="/">Politique de confidentialité</Link>
+						<Link to="/offres">Conditions générales de vente</Link>
+						<Link to="/contact">Conditions générales d'utilisation</Link>
 					</ul>
 				</div>
 				<div className="welcomepage__footer--contact">

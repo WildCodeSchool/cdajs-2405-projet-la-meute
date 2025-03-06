@@ -29,6 +29,9 @@ async function createData() {
 		await queryRunner.manager.query(
 			'DROP TABLE IF EXISTS "password_reset_token" CASCADE',
 		);
+		await queryRunner.manager.query(
+			'DROP TABLE IF EXISTS "event_services" CASCADE',
+		);
 		// Let TypeORM recreate the tables with proper inheritance
 		await dataSource.synchronize();
 
@@ -59,7 +62,6 @@ async function createData() {
 		const savedOwner2 = await ownerRepository.save(owner2);
 
 		//2. Create trainers
-
 		const trainerRepository = dataSource.getRepository(Trainer);
 		const trainer = new Trainer("12345678901234", "educ de Lyon");
 		trainer.lastname = "Smith";
@@ -74,7 +76,6 @@ async function createData() {
 		const savedTrainer = await trainerRepository.save(trainer);
 
 		//3. Create dog
-
 		const dog1 = new Dog(
 			savedOwner1,
 			"Rex",
@@ -93,30 +94,24 @@ async function createData() {
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const service = new Service(
-			savedTrainer,
-			"Dressage Canin",
-			"Formation complète pour votre chien",
-			"education",
-		);
+		const service = new Service("Manger des chips", "🥔", "#DDDDFF");
 		const savedService = await serviceRepository.save(service);
 
 		// 5. Create Event
 		const eventRepository = dataSource.getRepository(Event);
 		const event = new Event(
 			savedTrainer,
-			savedService,
-			new Date("2024-12-20"),
+			[savedService],
 			"Formation Super spéciale du jour",
 			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
 			{
 				latitude: 45.7771392,
 				longitude: 4.8560401,
 			},
-			5,
-			40,
 			new Date("2025-03-05T09:00:00"),
 			new Date("2025-03-05T09:45:00"),
+			5,
+			40,
 		);
 		const savedEvent = await eventRepository.save(event);
 

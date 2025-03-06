@@ -1,8 +1,7 @@
 import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useUser } from "@/hooks/useUser";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function DashHeader() {
 	const { user } = useUser();

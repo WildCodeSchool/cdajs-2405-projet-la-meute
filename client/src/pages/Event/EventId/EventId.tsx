@@ -1,38 +1,76 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
-import Tag from "@/components/_atoms/Tag/Tag";
-import NewTag from "@/components/_atoms/Tag/NewTag";
+import Service from "@/components/_atoms/Service/Service";
+import NewService from "@/components/_atoms/Service/NewService";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/hooks/useUser";
+import { toast } from "react-toastify";
+import type { ServiceType } from "@/types/Service";
+
+type endTimeStyleType = {
+	outline?: string;
+};
 
 function EventId() {
 	const navigate = useNavigate();
+	const { user } = useUser();
+	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
+	const [services] = useState<ServiceType[]>([]);
+	//const [services, setServices] = useState<ServiceType[]>([]);
 
 	const titleRef = useRef<HTMLInputElement>(null);
-	const tagsRef = useRef<HTMLSelectElement>(null);
+	const servicesRef = useRef<HTMLSelectElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
 	const startTimeRef = useRef<HTMLInputElement>(null);
-	const durationRef = useRef<HTMLInputElement>(null);
+	const endTimeRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 	const priceRef = useRef<HTMLInputElement>(null);
-	const participantsRef = useRef<HTMLInputElement>(null);
+	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
 	const locationRef = useRef<HTMLInputElement>(null);
+
+	const formatDateTime = (date: string, time: string) => {
+		const dateTime = new Date(`${date}T${time}:00.000Z`);
+		return dateTime.toISOString();
+	};
+
+	const handleEndTimeBlur = () => {
+		if (startTimeRef.current?.value && endTimeRef.current?.value) {
+			if (startTimeRef.current.value >= endTimeRef.current.value) {
+				setEndTimeStyle({ outline: "2px solid red" });
+				toast.error(
+					"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+				);
+			} else {
+				setEndTimeStyle({});
+			}
+		}
+	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const eventData = {
-			title: titleRef.current?.value,
-			tags: tagsRef.current?.value,
-			date: dateRef.current?.value,
-			startTime: startTimeRef.current?.value,
-			duration: durationRef.current?.value,
-			description: descriptionRef.current?.value,
-			price: priceRef.current?.value,
-			participants: participantsRef.current?.value,
-			location: locationRef.current?.value,
-		};
-		console.log("Eventdata", eventData);
+		const date = dateRef.current?.value;
+
+		if (user?.role === "trainer") {
+			const eventData = {
+				title: titleRef.current?.value,
+				services: servicesRef.current?.value,
+				startDate: formatDateTime(
+					date as string,
+					startTimeRef.current?.value as string,
+				),
+				endDate: formatDateTime(
+					date as string,
+					endTimeRef.current?.value as string,
+				),
+				description: descriptionRef.current?.value,
+				price: Number(priceRef.current?.value),
+				groupMaxSize: Number(groupMaxSizeRef.current?.value),
+				location: locationRef.current?.value,
+				trainerId: user?.id,
+			};
+		}
 	};
 
 	return (
@@ -47,40 +85,41 @@ function EventId() {
 				ref={titleRef}
 			/>
 
-			<label className="createEvent__event createEvent__event--tags">
+			<label className="createEvent__event createEvent__event--services">
 				Etiquettes
 				<p>
 					Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
 					clients, vous pouvez en choisir jusqu’à 3.
 				</p>
-				<div>
-					<Tag color={"#04272F"} href={""}>
-						😁&nbsp;etiquette 1
-					</Tag>
-					<Tag color={"#FFBF80"} href={""}>
-						😍&nbsp;etiquette 2
-					</Tag>
-					<NewTag href={""} />
+				<div className="createEvent__event--services--newService">
+					<NewService />
 				</div>
-				<select ref={tagsRef}>
-					<option>Option 1</option>
-					<option>Option 2</option>
+				<select ref={servicesRef}>
+					{services.map((service) => (
+						<Service key={service.id} service={service} />
+					))}
 				</select>
 			</label>
 
 			<span className="createEvent__event createEvent__event--dates">
 				<label className="createEvent__event--date">
-					Date de l'évènement *
-					<input type="date" required ref={dateRef} />
+					Date de l'évènement&nbsp;*
+					<input type="date" ref={dateRef} required />
 				</label>
-				<label className="createEvent__event--time">
-					Heure de début *
-					<input type="time" required ref={startTimeRef} />
+				<label className="createEvent__event--startTime">
+					Heure de début&nbsp;*
+					<input type="time" ref={startTimeRef} required />
 				</label>
-				<label className="createEvent__event--duration">
-					Durée *
-					<input type="time" required ref={durationRef} />
-					{/* FIXME: (improvement) duration should be able to go over 24h */}
+				<label className="createEvent__event--endDate">
+					Heure de fin&nbsp;*
+					<input
+						style={endTimeStyle}
+						type="time"
+						ref={endTimeRef}
+						onBlur={handleEndTimeBlur}
+						required
+					/>
+					{/* FIXME: (improvement) endDate should be able to go over 24h */}
 				</label>
 			</span>
 
@@ -89,43 +128,43 @@ function EventId() {
 				label="Description"
 				placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 				inputType="textarea"
-				required
 				ref={descriptionRef}
+				required
 			/>
 
 			<span className="createEvent__event createEvent__event--prices">
 				<label className="createEvent__event--price">
-					Prix par chien *
+					Prix par chien en euros *
 					<span>
 						<input
-							placeholder="Prix TTC en euros"
+							placeholder="Prix TTC"
 							type="number"
-							min={1}
-							required
+							min={0}
 							ref={priceRef}
+							required
 						/>
 						<p>€</p>
 					</span>
 				</label>
-				<label>
-					Nombre de chiens participants *
+				<label className="createEvent__event--groupMaxSize">
+					Nombre maximum de chiens participants&nbsp;*
 					<input
-						placeholder="Nombre maximum"
+						placeholder="1 minimum"
 						type="number"
 						min={1}
+						ref={groupMaxSizeRef}
 						required
-						ref={participantsRef}
 					/>
 				</label>
 			</span>
 
 			<label className="createEvent__event createEvent__event--location">
-				Localisation *
+				Localisation&nbsp;*
 				<input
 					placeholder="Entrez une adresse ou des coordonnées"
 					type="text"
-					required
 					ref={locationRef}
+					required
 				/>
 			</label>
 			<div className="createEvent__event--map">{/* map */}</div>

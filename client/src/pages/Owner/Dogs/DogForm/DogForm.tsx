@@ -8,7 +8,7 @@ import type { Dog } from "@/types/Dog";
 import { useMutation } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
-import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dogs";
+import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
 
 interface DogFormProps {
 	mode: "create" | "update";

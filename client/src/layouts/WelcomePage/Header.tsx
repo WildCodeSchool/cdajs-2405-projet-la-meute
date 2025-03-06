@@ -1,12 +1,13 @@
 import "./HeaderAndMain.scss";
 import LogoDesktop from "@/assets/logo/night-blue/symbol-aside/logo-pawplanner-symbol-aside-night-blue.svg";
 import LogoMobile from "@/assets/logo/night-blue/symbol/logo-pawplanner-symbol-night-blue.svg";
+import { Link } from "react-router-dom";
 
 function Header() {
 	return (
 		<header className="welcomepage__header">
 			<nav className="welcomepage__header--all">
-				<a className="welcomepage__header--logo" href="/">
+				<Link className="welcomepage__header--logo" to="/">
 					<img
 						src={LogoDesktop}
 						className="welcomepage__header--logo hidden__mobile"
@@ -17,21 +18,21 @@ function Header() {
 						className="welcomepage__header--logo hidden__desktop"
 						alt="Logo Paw Planner"
 					/>
-				</a>
+				</Link>
 				<div>
-					<a href="/registration" className="welcomepage__header--button-sign">
+					<Link to="/registration" className="welcomepage__header--button-sign">
 						S’inscrire
-					</a>
-					<a href="/login" className="welcomepage__header--button-login">
+					</Link>
+					<Link to="/login" className="welcomepage__header--button-login">
 						Se connecter
-					</a>
+					</Link>
 				</div>
 			</nav>
 			<nav>
 				<div className="welcomepage__header--links ">
-					<a href="/">Accueil</a>
-					<a href="/services">Services</a>
-					<a href="/contact">Contact</a>
+					<Link to="/">Accueil</Link>
+					<Link to="/services">Services</Link>
+					<Link to="/contact">Contact</Link>
 				</div>
 			</nav>
 		</header>

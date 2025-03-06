@@ -7,7 +7,7 @@ import Modal from "@/components/_molecules/Modal/Modal";
 import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 

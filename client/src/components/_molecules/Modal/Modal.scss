@@ -35,14 +35,14 @@ $types: (
     }
 
     &::backdrop {
-        background: linear-gradient(180deg, rgba($blue-600, 0.8) 0%, rgba($blue-100, 0.8) 100%);
+        background: linear-gradient(180deg, rgba($blue-600, 0.8) 0%, rgba($blue-300, 0.8) 100%);
         backdrop-filter: blur(4px);
     }
 
     &__picture {
         height: 150px;
         aspect-ratio: 1;
-        object-fit: contain;
+        object-fit:scale-down;
     }
 
     &__prompt {
