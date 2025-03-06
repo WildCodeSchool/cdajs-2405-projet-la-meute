@@ -35,14 +35,14 @@ export class EventResolver {
 	// Create event
 	@Mutation(() => Event)
 	async createEvent(
-		@Arg("trainerId") trainerId: number,
-		@Arg("title") title: string,
-		@Arg("description") description: string,
-		@Arg("location") location: LocationInput,
-		@Arg("group_max_size") group_max_size: number,
-		@Arg("price") price: number,
-		@Arg("startDate") startDate: Date,
 		@Arg("endDate") endDate: Date,
+		@Arg("startDate") startDate: Date,
+		@Arg("price") price: number,
+		@Arg("group_max_size") group_max_size: number,
+		@Arg("location") location: LocationInput,
+		@Arg("description") description: string,
+		@Arg("title") title: string,
+		@Arg("trainerId") trainerId: number,
 		@Arg("serviceIds", () => [Number], { nullable: true })
 		serviceIds?: number[],
 	): Promise<Event> {

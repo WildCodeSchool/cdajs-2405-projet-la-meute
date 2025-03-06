@@ -55,37 +55,38 @@ function EventId() {
 		const date = dateRef.current?.value;
 
 		if (user?.role === "trainer") {
-			const servicesArray = services.map((service) => service.id);
+			const servicesArray = services.map((service) => Number(service.id));
 
 			const eventData = {
-				title: titleRef.current?.value,
-				services: servicesArray,
-				startDate: formatDateTime(
-					date as string,
-					startTimeRef.current?.value as string,
-				),
 				endDate: formatDateTime(
 					date as string,
 					endTimeRef.current?.value as string,
 				),
-				description: descriptionRef.current?.value,
+				startDate: formatDateTime(
+					date as string,
+					startTimeRef.current?.value as string,
+				),
 				price: Number(priceRef.current?.value),
 				groupMaxSize: Number(groupMaxSizeRef.current?.value),
-				//location: locationRef.current?.value,
+				//location: locationRef.current?.value, // TODO: Add proper location
 				location: {
 					latitude: 10,
 					longitude: 10,
 				},
+				description: descriptionRef.current?.value,
+				title: titleRef.current?.value,
 				trainerId: Number(user?.id),
+				serviceIds: servicesArray,
 			};
 
 			try {
-				await createEvent({
+				const { data } = await createEvent({
 					variables: {
 						...eventData,
 					},
 				});
 				toast.success("L'évènement a été créé avec succès.");
+				navigate(`/trainer/planning/my-events/${data.createEvent.id}`);
 			} catch (error) {
 				console.error("Erreur lors de la création de l'évènement:", error);
 				toast.error(

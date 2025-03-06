@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { EVENT_FRAGMENT, SERVICE_FRAGMENT } from "../fragments/fragments";
+import {
+	EVENT_FRAGMENT,
+	SERVICE_FRAGMENT,
+	TRAINER_FRAGMENT,
+} from "../fragments/fragments";
 
 export const DELETE_EVENT = gql`
   mutation DeleteEvent($eventId: Float!) {
@@ -25,7 +29,6 @@ export const UPDATE_EVENT = gql`
     location: $location, 
     description: $description, 
     title: $title, 
-    date: $date, 
     serviceId: $serviceId, 
     trainerId: $trainerId, 
     eventId: $eventId, 
@@ -46,37 +49,38 @@ export const UPDATE_EVENT = gql`
 `;
 
 export const CREATE_EVENT = gql`
-  mutation CreateEvent(
-    $endDate: DateTimeISO!,
-    $startDate: DateTimeISO!,
-    $price: Float!,
-    $groupMaxSize: Float!,
-    $location: LocationInput!,
-    $description: String!,
-    $title: String!,
-    $trainerId: Float!,
-    $serviceIds: [Float!]
+mutation CreateEvent(
+  $endDate: DateTimeISO!, 
+  $startDate: DateTimeISO!, 
+  $price: Float!, 
+  $groupMaxSize: Float!, 
+  $location: LocationInput!, 
+  $description: String!, 
+  $title: String!, 
+  $trainerId: Float!, 
+  $serviceIds: [Float!]
+  ) {
+  createEvent(
+    endDate: $endDate, 
+    startDate: $startDate, 
+    price: $price, 
+    group_max_size: $groupMaxSize, 
+    location: $location, 
+    description: $description, 
+    title: $title, 
+    trainerId: $trainerId, 
+    serviceIds: $serviceIds
     ) {
-    createEvent(
-      endDate: $endDate,
-      startDate: $startDate,
-      price: $price,
-      group_max_size: $groupMaxSize,
-      location: $location,
-      description: $description,
-      title: $title,
-      trainerId: $trainerId,
-      serviceIds: $serviceIds
-      ) {
       ...EventFragment
       services {
         ...ServiceFragment
       }
       trainer {
-        id
+        ...TrainerFragment
       }
     }
   }
   ${EVENT_FRAGMENT}
   ${SERVICE_FRAGMENT}
+  ${TRAINER_FRAGMENT}
 `;
