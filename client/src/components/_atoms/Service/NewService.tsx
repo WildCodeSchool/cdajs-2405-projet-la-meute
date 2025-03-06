@@ -1,11 +1,23 @@
 import ServiceModal from "@/components/_molecules/ServiceModal/ServiceModal";
 import "./Service.scss";
 
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import Button from "../Button/Button";
+import type { ServiceType } from "@/types/Service";
 
-export default function NewService() {
+export default function NewService({
+	services,
+	setServices,
+}: {
+	services: ServiceType[];
+	setServices: Dispatch<SetStateAction<ServiceType[]>>;
+}) {
 	const [showModal, setShowModal] = useState(false);
+
+	const children =
+		services.length <= 0
+			? "+ Ajouter une étiquette"
+			: "Modifier les étiquettes";
 
 	return (
 		<>
@@ -14,10 +26,16 @@ export default function NewService() {
 				onClick={() => setShowModal(true)}
 				className="newService"
 			>
-				+ Nouvelle étiquette
+				{children}
 			</Button>
 
-			{showModal && <ServiceModal onClose={() => setShowModal(false)} />}
+			{showModal && (
+				<ServiceModal
+					services={services}
+					setServices={setServices}
+					onClose={() => setShowModal(false)}
+				/>
+			)}
 		</>
 	);
 }

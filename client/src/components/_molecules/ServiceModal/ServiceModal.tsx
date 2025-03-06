@@ -1,45 +1,74 @@
-import { useState } from "react";
+import {
+	useState,
+	useRef,
+	useEffect,
+	type Dispatch,
+	type SetStateAction,
+} from "react";
 import "./ServiceModal.scss";
 import Button from "@/components/_atoms/Button/Button";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_ALL_SERVICES } from "@/graphQL/queries/service";
+import { CREATE_SERVICE } from "@/graphQL/mutations/service";
 import type { ServiceType } from "@/types/Service";
 import Service from "@/components/_atoms/Service/Service";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 
-export default function ServiceModal({ onClose }: { onClose: () => void }) {
-	//const [newService, setNewService] = useState("");
+export default function ServiceModal({
+	services,
+	setServices,
+	onClose,
+}: {
+	services: ServiceType[];
+	setServices: Dispatch<SetStateAction<ServiceType[]>>;
+	onClose: () => void;
+}) {
 	const [chosenServices, setChosenServices] = useState<ServiceType[]>([]);
+	const [newServiceTitle, setNewServiceTitle] = useState("");
+	const [newServiceSmiley, setNewServiceSmiley] = useState("😊");
+	const [newServiceColor, setNewServiceColor] = useState("#FF5733");
+	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-	const { data, loading, error } = useQuery(GET_ALL_SERVICES);
+	const emojiPickerRef = useRef<HTMLDivElement>(null);
 
-	if (loading) return <p>Chargement des services...</p>;
+	const { data, loading, error, refetch } = useQuery(GET_ALL_SERVICES);
+	const [createService] = useMutation(CREATE_SERVICE);
+
+	const colorOptions = [
+		"#1D7AFC",
+		"#2898BD",
+		"#1F845A",
+		"#5B7F24",
+		"#B38600",
+		"#A84900",
+		"#C9372C",
+		"#AE4787",
+		"#352C63",
+	];
+
+	useEffect(() => {
+		services ? setChosenServices(services) : setChosenServices([]);
+	}, [services]);
+
+	if (loading) return <p>Chargement des étiquettes...</p>;
 	if (error) return <p>Erreur : {error.message}</p>;
-	if (!data || !data.getAllServices) return <p>Aucun service disponible.</p>;
+	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
 
 	const handleSelectService = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedService = data.getAllServices.find(
 			(serv: ServiceType) => serv.id === e.target.value,
 		);
-
 		if (!selectedService) return;
 
-		// Si déjà sélectionné
 		if (chosenServices.some((serv) => serv.id === selectedService.id)) {
-			alert("Ce service est déjà sélectionné."); // FIXME: toast ?
-			return;
+			alert("Cette étiquette est déjà sélectionnée.");
+		} else if (chosenServices.length >= 3) {
+			alert("Vous ne pouvez sélectionner que 3 étiquettes.");
+		} else {
+			setChosenServices((prev) => [...prev, selectedService]);
 		}
 
-		// Limiter à 3 services max
-		if (chosenServices.length >= 3) {
-			alert("Vous ne pouvez sélectionner que 3 services."); // FIXME: toast ?
-			return;
-		}
-
-		setChosenServices((prev) => [...prev, selectedService]);
-	};
-
-	const handleAddService = () => {
-		console.log("chaussette");
+		e.target.value = "";
 	};
 
 	const handleRemoveService = (serviceId: string) => {
@@ -48,64 +77,176 @@ export default function ServiceModal({ onClose }: { onClose: () => void }) {
 		);
 	};
 
+	const handleCreateService = async () => {
+		if (!newServiceTitle.trim()) {
+			alert("Veuillez entrer un nom pour l'étiquette.");
+			return;
+		}
+		if (
+			data.getAllServices.some(
+				(service: ServiceType) => service.title === newServiceTitle,
+			)
+		) {
+			alert("Il y a déjà une étiquette avec ce titre.");
+			return;
+		}
+		if (chosenServices.length >= 3) {
+			alert("Vous ne pouvez pas ajouter plus de 3 étiquettes.");
+			return;
+		}
+
+		try {
+			const { data } = await createService({
+				variables: {
+					title: newServiceTitle,
+					smiley: newServiceSmiley,
+					color: newServiceColor,
+				},
+			});
+
+			if (data?.createService) {
+				setChosenServices((prev) => [...prev, data.createService]);
+				setNewServiceTitle("");
+				setNewServiceSmiley("😊");
+				setNewServiceColor("#FF5733");
+				refetch();
+			}
+		} catch (error) {
+			console.error("Erreur lors de la création de l'étiquette :", error);
+		}
+	};
+
+	const handleEmojiClick = (emoji: { emoji: string }) => {
+		setNewServiceSmiley(emoji.emoji);
+		setShowEmojiPicker(false);
+	};
+
+	const handleValidate = () => {
+		setServices(chosenServices);
+		onClose();
+	};
+
 	return (
-		<div className="serviceModal">
+		<dialog className="serviceModal">
 			<div className="serviceModal__content">
-				<h2>Choisissez ou ajoutez une étiquette</h2>
-
-				<label className="serviceModal__content--list">
+				{/* Pick an existing service */}
+				<label htmlFor="services" className="serviceModal__content--title">
 					Ajoutez une étiquette existante :
-					<select onChange={handleSelectService}>
-						<option value="">Sélectionnez un service</option>
-						{data.getAllServices.map((service: ServiceType) => (
-							<option key={service.id} value={service.id}>
-								{service.smiley} {service.title}
-							</option>
-						))}
-					</select>
 				</label>
-
-				<hr />
-
-				{/* création d'un service */}
-				<label className="serviceModal__content--list">
-					Créez votre propre étiquette :
-				</label>
-				<p>Aperçu</p>
-				{/* Service */}
-				<div className="serviceModal__content--newSmileyAndTitle">
-					<div>smiley</div>
-					<div>title</div>
-				</div>
-
-				<hr />
-
-				{/* aperçu des services (3max) */}
-				<p className="serviceModal__content--text">
-					Vous pouvez choisir jusqu'à 3 étiquettes pour votre évènement.
-				</p>
-				<p className="serviceModal__content--text">
-					Cliquez sur une étiquette pour la supprimer de la liste.
-				</p>
-				<div className="serviceModal__content--chosen">
-					{chosenServices.map((service: ServiceType) => (
-						<Service
-							key={service.id}
-							service={service}
-							onClick={() => handleRemoveService(service.id)}
-						/>
+				<select
+					id="services"
+					name="services"
+					className="serviceModal__content--select"
+					onChange={handleSelectService}
+				>
+					<option value="">Sélectionnez une étiquette existante</option>
+					{data.getAllServices.map((service: ServiceType) => (
+						<option key={service.id} value={service.id}>
+							{service.smiley} {service.title}
+						</option>
 					))}
-				</div>
+				</select>
+
+				<hr />
+
+				{/* New service */}
+				<span className="serviceModal__newService">
+					<h3 className="serviceModal__content--title">
+						Ou créez votre propre étiquette :
+					</h3>
+					<p className="serviceModal__content--text">
+						Cliquez sur un élément pour le modifier.
+					</p>
+					<span
+						className="serviceModal__newService--Service"
+						style={{ backgroundColor: newServiceColor }}
+					>
+						<p
+							className="serviceModal__newService--smiley"
+							onClick={() => setShowEmojiPicker((prev) => !prev)}
+							onKeyUp={() => setShowEmojiPicker((prev) => !prev)}
+						>
+							{newServiceSmiley}
+						</p>{" "}
+						<input
+							type="text"
+							className="serviceModal__newService--input"
+							placeholder="Nom du service"
+							value={newServiceTitle}
+							onChange={(e) => setNewServiceTitle(e.target.value)}
+						/>
+					</span>
+
+					{showEmojiPicker && (
+						<div ref={emojiPickerRef} className="emojiPickerContainer">
+							<EmojiPicker
+								theme={Theme.DARK}
+								className="emojiPicker"
+								onEmojiClick={handleEmojiClick}
+							/>
+						</div>
+					)}
+
+					<div className="serviceModal__content--colorOptions">
+						{colorOptions.map((color) => (
+							<span
+								key={color}
+								className="serviceModal__content--colorOption"
+								style={{
+									backgroundColor: color,
+									border: newServiceColor === color ? "2px solid black" : "",
+								}}
+								onClick={() => setNewServiceColor(color)}
+								onKeyUp={() => setNewServiceColor(color)}
+							/>
+						))}
+					</div>
+
+					<Button
+						style="none"
+						className="serviceModal__newService--button"
+						type="button"
+						onClick={handleCreateService}
+					>
+						{"Créer"}
+					</Button>
+				</span>
+
+				<hr />
+
+				{/* Chosen services preview */}
+				<span className="serviceModal__chosenServices">
+					<p className="serviceModal__content--text">
+						Vous pouvez choisir jusqu'à 3 étiquettes.
+					</p>
+					<p className="serviceModal__content--text">
+						Cliquez sur une étiquette pour la supprimer.
+					</p>
+					<div className="serviceModal__chosenServices--list">
+						{chosenServices.map((service: ServiceType) => (
+							<Service
+								key={service.id}
+								service={service}
+								onClick={() => handleRemoveService(service.id)}
+							/>
+						))}
+					</div>
+				</span>
 
 				<span className="serviceModal__buttons">
-					<Button style="btn-dark" type="button" onClick={onClose}>
+					<Button
+						className="serviceModal__buttons--close"
+						style="none"
+						type="button"
+						onClick={onClose}
+					>
 						Fermer
 					</Button>
-					<Button style="submit" type="submit" onClick={handleAddService}>
-						Ajouter
+					<Button style="btn-light" type="submit" onClick={handleValidate}>
+						Valider
 					</Button>
 				</span>
 			</div>
-		</div>
+		</dialog>
 	);
 }
