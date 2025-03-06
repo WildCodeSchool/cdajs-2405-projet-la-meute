@@ -144,7 +144,7 @@ const TextInput = React.forwardRef<
 		const {
 			mappedLabel = label,
 			mappedPlaceholder = placeholder,
-			mappedName = name,
+			// mappedName = name,
 		} = type ? TEXT_INPUT_CONFIG[type] : {};
 
 		const fieldRequired = required ? " *" : "";
