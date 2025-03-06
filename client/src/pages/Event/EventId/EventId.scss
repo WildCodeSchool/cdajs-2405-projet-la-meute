@@ -13,8 +13,7 @@
     &__title {
         font-weight: $bold;
     }
-    & input,
-    textarea {
+    &__input {
         background-color: $beige-300;
         border: none;
         color: $blue-400;
@@ -23,6 +22,12 @@
         padding-inline: 2rem;
     }
     & textarea {
+        background-color: $beige-300;
+        border: none;
+        color: $blue-400;
+        border-radius: $atoms-radius;
+        padding: 0.8rem;
+        padding-inline: 2rem;
         resize: none;
         height: 10rem;
         overflow: auto;
@@ -42,7 +47,7 @@
         &--services {
             display: flex;
             flex-direction: column;
-            p {
+            &--p {
                 font-weight: $regular;
                 font-size: $xs;
             }
@@ -124,5 +129,10 @@
         &--endTime {
             grid-area: 2 / 2 / 3 / 3;
         }
+    }
+
+    .createEvent__event--buttons {
+        flex-direction: column;
+        margin-block-end: 2rem;
     }
 }

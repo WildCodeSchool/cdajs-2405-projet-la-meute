@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { EVENT_FRAGMENT, SERVICE_FRAGMENT } from "../fragments/fragments";
 
 export const DELETE_EVENT = gql`
   mutation DeleteEvent($eventId: Float!) {
@@ -13,7 +14,6 @@ export const UPDATE_EVENT = gql`
     $location: LocationInput!, 
     $description: String!, 
     $title: String!, 
-    $date: DateTimeISO!, 
     $serviceId: Float!, 
     $trainerId: Float!, 
     $eventId: Float!, 
@@ -32,7 +32,6 @@ export const UPDATE_EVENT = gql`
     startDate: $startDate, 
     endDate: $endDate) {
       price
-      date
       description
       endDate
       group_max_size
@@ -44,4 +43,40 @@ export const UPDATE_EVENT = gql`
       title
   }
 }
+`;
+
+export const CREATE_EVENT = gql`
+  mutation CreateEvent(
+    $endDate: DateTimeISO!,
+    $startDate: DateTimeISO!,
+    $price: Float!,
+    $groupMaxSize: Float!,
+    $location: LocationInput!,
+    $description: String!,
+    $title: String!,
+    $trainerId: Float!,
+    $serviceIds: [Float!]
+    ) {
+    createEvent(
+      endDate: $endDate,
+      startDate: $startDate,
+      price: $price,
+      group_max_size: $groupMaxSize,
+      location: $location,
+      description: $description,
+      title: $title,
+      trainerId: $trainerId,
+      serviceIds: $serviceIds
+      ) {
+      ...EventFragment
+      services {
+        ...ServiceFragment
+      }
+      trainer {
+        id
+      }
+    }
+  }
+  ${EVENT_FRAGMENT}
+  ${SERVICE_FRAGMENT}
 `;

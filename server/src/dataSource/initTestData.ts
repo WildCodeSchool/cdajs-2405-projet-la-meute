@@ -94,7 +94,7 @@ async function createData() {
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const service = new Service("Manger des chips", "🥔", "#DDDDFF");
+		const service = new Service("Manger des chips", "🥔", "#B38600");
 		const savedService = await serviceRepository.save(service);
 
 		// 5. Create Event
