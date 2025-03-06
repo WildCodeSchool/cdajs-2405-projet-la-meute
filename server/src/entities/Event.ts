@@ -72,12 +72,12 @@ export class Event {
 	@JoinColumn({ name: "service_id" })
 	service: Service;
 
+	@Field(() => [Participation])
 	@OneToMany(
 		() => Participation,
 		(participation) => participation.event,
 	)
 	participation?: Participation[];
-
 	constructor(
 		trainer: Trainer,
 		service: Service,

@@ -106,8 +106,8 @@ async function createData() {
 		const event = new Event(
 			savedTrainer,
 			savedService,
-			new Date("2024-12-20"),
-			"Formation Super spéciale du jour",
+			new Date("2025-03-14"),
+			"Session à la plage au bord de l'océan",
 			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
 			{
 				latitude: 45.7771392,
@@ -115,10 +115,27 @@ async function createData() {
 			},
 			5,
 			40,
-			new Date("2025-03-05T09:00:00"),
-			new Date("2025-03-05T09:45:00"),
+			new Date("2025-03-14T09:00:00"),
+			new Date("2025-03-14T09:45:00"),
 		);
 		const savedEvent = await eventRepository.save(event);
+
+		const event2 = new Event(
+			savedTrainer,
+			savedService,
+			new Date("2025-03-05"),
+			"Initiation en forêt",
+			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
+			{
+				latitude: 45.7771392,
+				longitude: 4.8560401,
+			},
+			3,
+			35,
+			new Date("2025-03-05T14:00:00"),
+			new Date("2025-03-05T15:30:00"),
+		);
+		const savedEvent2 = await eventRepository.save(event2);
 
 		// 6. Create Participation
 		const participationRepository = dataSource.getRepository(Participation);

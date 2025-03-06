@@ -3,22 +3,25 @@ import { dataSource } from "../dataSource/dataSource";
 import { Event } from "../entities/Event";
 import { Service } from "../entities/Service";
 import { Trainer } from "../entities/Trainer";
+import { Participation } from "../entities/Participation";
+import { Dog } from "../entities/Dog";
 
 import "dotenv/config";
-import type { Coordinates } from "../entities/Coordinates";
-
-import { LocationInput } from "../types/inputTypes";
 
 const eventRepository = dataSource.getRepository(Event);
 const trainerRepository = dataSource.getRepository(Trainer);
 const serviceRepository = dataSource.getRepository(Service);
+const participationRepository = dataSource.getRepository(Participation);
+const dogRepository = dataSource.getRepository(Dog);
 
 @Resolver()
 export class EventResolver {
 	// Get all events
 	@Query(() => [Event])
 	async getAllEvents(): Promise<Event[]> {
-		const events: Event[] = await eventRepository.find();
+		const events: Event[] = await eventRepository.find({
+			relations: ["participation", "participation.dog"],
+		});
 		return events;
 	}
 
@@ -27,6 +30,7 @@ export class EventResolver {
 	async getEventById(@Arg("eventId") eventId: number): Promise<Event> {
 		const eventsId: Event = await eventRepository.findOneOrFail({
 			where: { id: eventId },
+			relations: ["participation.dog"],
 		});
 		return eventsId;
 	}
@@ -40,6 +44,18 @@ export class EventResolver {
 			where: { id: ownerId },
 		});
 		return eventsByOwnerId;
+	}
+
+	// Get dog_id by event_id
+	@Query(() => [Participation])
+	async getDogsByEventsId(
+		@Arg("eventId") eventId: number,
+	): Promise<Participation[] | null> {
+		const dogsByEventsId = await participationRepository.find({
+			where: { event: { id: eventId } },
+			relations: ["dog"],
+		});
+		return dogsByEventsId || [];
 	}
 
 	/*
