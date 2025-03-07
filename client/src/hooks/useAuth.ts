@@ -1,5 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
 import { LOGIN } from "@/graphQL/mutations/user";
 
@@ -16,6 +18,7 @@ interface LoginResponse {
 export const useAuth = () => {
 	const [loginMutation, { data, loading }] = useMutation(LOGIN);
 	const navigate = useNavigate();
+	const { refetch } = useContext(AuthContext);
 
 	const login = async (
 		email: string,
@@ -36,7 +39,10 @@ export const useAuth = () => {
 
 			localStorage.setItem("authToken", token);
 			const decoded = jwtDecode<DecodedToken>(token);
-			navigate(`/${decoded.role.toLowerCase()}`);
+
+			refetch();
+
+			window.location.href = `/${decoded.role.toLowerCase()}`;
 
 			return {
 				success: true,

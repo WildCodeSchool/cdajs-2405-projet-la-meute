@@ -1,16 +1,10 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { DOG_PROFIL_PICTURE } from "@/graphQL/mutations/dogs";
+import { DOG_PROFILE_PICTURE } from "@/graphQL/mutations/dog";
+import { useFileUpload } from "@/hooks/useFileUpload";
 
 function TestFileUpload() {
-	const [uploadDogPicture] = useMutation(DOG_PROFIL_PICTURE);
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files?.[0]) {
-			setSelectedFile(event.target.files[0]);
-		}
-	};
+	const [uploadDogPicture] = useMutation(DOG_PROFILE_PICTURE);
+	const { selectedFile, handleFileChange } = useFileUpload();
 
 	const handleSend = async () => {
 		if (!selectedFile) {
@@ -33,7 +27,7 @@ function TestFileUpload() {
 
 	return (
 		<div>
-			<input type="file" onChange={handleChange} accept="image/*" />
+			<input type="file" onChange={handleFileChange} accept="image/*" />
 			<button type="button" onClick={handleSend}>
 				Send
 			</button>

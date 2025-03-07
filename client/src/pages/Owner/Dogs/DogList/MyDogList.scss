@@ -1,0 +1,54 @@
+@import "@style";
+
+
+.myDogList {
+    @include dashContentArea(-2rem);
+    & {
+        @include dogBackground;
+        & {
+            display: flex;
+            flex-direction: column;
+            max-width: max-content;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-weight: $extraBold;
+        font-size: clamp(1rem , 3vw , $m);
+
+        &--count {
+            font-weight: $semiBold;
+            font-size: clamp(1rem , 2vw , $s);
+            background-color: $beige-200;
+            width: calc(clamp(1rem , 2vw , $s)* 2 );
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        
+    }
+
+    &__button {
+        margin: 0 auto 0 auto;
+
+        @media (width < $mobile) {
+            margin: auto auto 0 auto;
+        }
+    }
+
+}

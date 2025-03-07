@@ -14,15 +14,20 @@
     margin: 0.2rem;
 
     &[data-dog] {
-        background-color: #1B8095
+        background-color: $blue-100;
     }
 
     &__image {
         grid-area: 1 / 1 / 2 / 2;
         object-fit: cover;
+        max-width: 250px;
+        width: 100%;
+        aspect-ratio: 1;
 
         &--round {
             @include avatar;
+            max-width: 250px;
+            width: 100%;
         }
     }
 
@@ -30,6 +35,7 @@
         grid-area: 1 / 2 / 2 / 4;
         padding: min(1rem, 1vw);
         color: $blue-500;
+        text-overflow: ellipsis; 
 
         h3 {
             margin: 0.5rem 0;
@@ -70,14 +76,14 @@
     }
     
     &--link {
-        grid-area: 1 / 3 / 2 / 4;
+        grid-area: 1 / 2 / 2 / 4;
         align-self: end;
         justify-self: end;
         padding: min(2vw, 2rem) 1vw;
         color: $blue-600;
 
         &:hover {
-            color: $blue-100;
+            color: $beige-100;
         }
     }
     
