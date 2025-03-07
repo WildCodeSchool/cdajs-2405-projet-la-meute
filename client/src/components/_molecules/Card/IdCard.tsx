@@ -36,7 +36,7 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 		}
 
 		return {
-			image: getImageUrl(ownerData.avatar),
+			image: useImageUrl(ownerData.avatar),
 			imageAlt: `Avatar de ${ownerData.firstname} ${ownerData.lastname}`,
 			title: `${ownerData.firstname} ${ownerData.lastname}`,
 			subtitle: ownerData.email,
