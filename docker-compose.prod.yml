@@ -11,8 +11,11 @@ services:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-    env_file:
-      - .env
+      - VITE_NODE_ENV=production
+      - VITE_NGINX_API_URL =/graphql
+      - VITE_API_URL_DEV="http://localhost:3200/"
+      - VITE_API_URL_STAGING="https://staging.pawplanner.052024-jaune-2.wns.wilders.dev/graphql"
+      - VITE_API_URL_PROD="https://pawplanner.052024-jaune-2.wns.wilders.dev/graphql"
 
   server:
     image: dolpheus89/prod_server_pawplanner
