@@ -53,7 +53,9 @@ function Registration() {
 			});
 
 			if (data?.registerUser) {
-				toast.success("Inscription reussie ! Vous pouvez maintenant vous connecter.");
+				toast.success(
+					"Inscription reussie ! Vous pouvez maintenant vous connecter.",
+				);
 				navigate("/login");
 			}
 		} catch (err) {
@@ -62,7 +64,9 @@ function Registration() {
 					? err.message
 					: "Une erreur est survenue lors de l'inscription";
 			setError(errorMessage);
-			toast.error("Il y a eu une erreur dans votre inscription. Contactez le support.");
+			toast.error(
+				"Il y a eu une erreur dans votre inscription. Contactez le support.",
+			);
 		}
 	};
 
