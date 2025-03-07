@@ -1,4 +1,5 @@
-@import "@style";
+@use "@style" as *;
+@use "sass:map";
 
 $form-style: (
     'dark-blue': (
@@ -24,19 +25,19 @@ $form-style: (
 
     @each $style, $colors in $form-style {
         &--#{$style} {
-          background-color: map-get($colors, bg);
-          color: map-get($colors, text);
+          background-color: map.get($colors, bg);
+          color: map.get($colors, text);
     
           h2 {
-            color: map-get($colors, text);
+            color: map.get($colors, text);
           }
     
           .form__otherFields {
-            color: map-get($colors, text);
+            color: map.get($colors, text);
           }
     
           .introductiveText {
-            color: map-get($colors, text);
+            color: map.get($colors, text);
           }
         }
       }

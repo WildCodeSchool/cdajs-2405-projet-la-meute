@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 // All mixins must be gathered in this file
 
 @mixin avatar {

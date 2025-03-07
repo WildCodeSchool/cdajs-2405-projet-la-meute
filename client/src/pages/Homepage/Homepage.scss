@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 @mixin HomepageTitle {
     font-size: 4rem;

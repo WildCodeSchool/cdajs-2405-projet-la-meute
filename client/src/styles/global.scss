@@ -1,5 +1,5 @@
-@import "./reset";
-@import "./variables";
-@import "./toastify-variables";
-@import "./mixins";
-@import "./base";
+@use "./reset";
+@use "./toastify-variables";
+@forward  "./variables";
+@forward "./mixins";
+@forward "./base";

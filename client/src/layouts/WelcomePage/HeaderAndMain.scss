@@ -1,4 +1,5 @@
-@import "@style";
+@use "@style" as *;
+@use "sass:color";
 
 $welcomePageHeaderHeight: 10vh;
 
@@ -40,7 +41,7 @@ $welcomePageHeaderHeight: 10vh;
         color: $primary-dark;
 
         &:hover {
-            color: lighten($primary-dark, 15%);
+            color: color.adjust($primary-dark, $lightness: 15%);
         }
 
         &:active {
