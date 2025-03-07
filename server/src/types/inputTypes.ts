@@ -1,4 +1,5 @@
 import { InputType, Field } from "type-graphql";
+import { type FileUpload, GraphQLUpload } from "graphql-upload-ts";
 
 @InputType()
 export class UpdateUserInput {
@@ -23,8 +24,8 @@ export class UpdateUserInput {
 	@Field({ nullable: true })
 	postal_code?: string;
 
-	@Field({ nullable: true })
-	avatar?: string;
+	@Field(() => GraphQLUpload, { nullable: true })
+	avatar?: Promise<FileUpload>;
 
 	@Field()
 	role!: "trainer" | "owner";

@@ -12,6 +12,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { UpdateUserInput } from "../types/inputTypes";
 import { MessageAndUserResponse } from "../types/responseType";
+import { FileUploadResolver } from "./FileUpload";
 
 @Resolver()
 export class UserResolvers {
@@ -336,12 +337,11 @@ export class UserResolvers {
 	async UpdateUser(
 		@Arg("updatedUser", () => UpdateUserInput) updatedUser: UpdateUserInput,
 	): Promise<MessageAndUserResponse> {
-		const { id, role, ...fieldsToUpdate } = updatedUser;
+		const { id, role, avatar, ...fieldsToUpdate } = updatedUser;
 		const userRole = role.toLowerCase() === "owner" ? Owner : Trainer;
 
 		// Fetch user from database
 		const user = await dataSource.manager.findOne(userRole, { where: { id } });
-
 		if (!user) {
 			return {
 				message: "User not found",
@@ -349,6 +349,17 @@ export class UserResolvers {
 		}
 
 		let hasChanges = false;
+
+		// Handle avatar upload if provided
+		if (avatar) {
+			const fileUploader = new FileUploadResolver();
+			const avatarPath = await fileUploader.addProfilePicture(avatar);
+
+			if (user.avatar !== avatarPath) {
+				user.avatar = avatarPath;
+				hasChanges = true;
+			}
+		}
 
 		// Take each key of fieldsToUpdate and update the user if the value is different
 		for (const key of Object.keys(
@@ -360,7 +371,6 @@ export class UserResolvers {
 			) {
 				hasChanges = true;
 				(user[key as keyof typeof user] as string) = fieldsToUpdate[key];
-			} else {
 			}
 		}
 
@@ -374,7 +384,6 @@ export class UserResolvers {
 
 		// Save updated user
 		await dataSource.manager.save(user);
-
 		return {
 			message: "User updated successfully",
 			user,

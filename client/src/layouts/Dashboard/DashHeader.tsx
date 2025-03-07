@@ -25,7 +25,11 @@ export default function DashHeader() {
 					<Bell className="dashHeader__notification" />
 					<Link className="dashHeader__avatar" to="/my-profile">
 						<img
-							src={user ? user.avatar : "https://placehold.co/400"}
+							src={
+								user?.avatar
+									? `${import.meta.env.VITE_API_URL}${user?.avatar}`
+									: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
+							}
 							alt="avatar de l'utilisateur"
 							title="Mon profil"
 						/>

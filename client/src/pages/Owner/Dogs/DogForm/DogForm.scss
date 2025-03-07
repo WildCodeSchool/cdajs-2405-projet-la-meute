@@ -32,9 +32,10 @@
             align-items: center;
 
             &--picture {
-                width: clamp(120px , 10%, 250px);
+                width: 120px;
                 aspect-ratio: 1;
-                border-radius: 5px;
+                border-radius: 10px;
+                object-fit: cover;
 
             }
 
