@@ -1,16 +1,10 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
-const useCredentials = import.meta.env.VITE_API_URL === "/graphql";
-
-console.log(
-	"const useCredentials = import.meta.env.VITE_API_URL === /graphql;",
-	useCredentials,
-);
-console.log("import.meta.env.VITE_API_URL", import.meta.env.VITE_API_URL);
+const useCredentials = import.meta.env.VITE_API_URL_DEV === "/graphql";
 
 const uploadLink = createUploadLink({
-	uri: import.meta.env.VITE_API_URL || "http://localhost:3200",
+	uri: import.meta.env.VITE_API_URL_DEV || "http://localhost:3200",
 	headers: {
 		"Apollo-Require-Preflight": "true",
 	},

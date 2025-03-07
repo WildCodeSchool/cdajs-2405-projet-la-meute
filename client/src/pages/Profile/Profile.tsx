@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 function Profile() {
 	const { role, user, refetch } = useUser();
@@ -184,8 +185,8 @@ function Profile() {
 								previewUrl
 									? previewUrl
 									: user?.avatar
-										? `${import.meta.env.VITE_API_URL}${user?.avatar}`
-										: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
+										? useImageUrl(user?.avatar)
+										: useImageUrl("/upload/images/defaultuserprofile.jpg")
 							}
 							alt="avatar de l'utilisateur"
 						/>
