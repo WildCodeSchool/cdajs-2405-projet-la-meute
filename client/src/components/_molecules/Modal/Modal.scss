@@ -1,5 +1,5 @@
 @use "sass:map";
-@import "@style";
+@use "@style" as *;
 
 $types: (
     "success": (

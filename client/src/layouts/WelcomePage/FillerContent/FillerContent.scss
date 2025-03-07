@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .welcomepage__filler {
     background-color: $orange-300;

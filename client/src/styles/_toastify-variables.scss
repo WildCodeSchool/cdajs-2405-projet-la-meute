@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 // Override toastify css variables
 :root {
     --toastify-color-info: #{$blue-100};
