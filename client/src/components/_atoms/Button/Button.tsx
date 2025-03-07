@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Button.scss";
 
 type ThinButtonColor = "orange" | "blue" | "green";
@@ -12,6 +12,7 @@ type ButtonStyles =
 	| "button"
 	| "role-select-left"
 	| "role-select-right"
+	| "none"
 	| { type: "thin-btn-light"; color: ThinButtonColor };
 
 interface BaseButtonProps {
@@ -61,14 +62,16 @@ export default function Button({
 							? "btn-role-select-left"
 							: style === "role-select-right"
 								? "btn-role-select-right"
-								: "btn-light";
+								: style === "none"
+									? ""
+									: "btn-light";
 	const navigate = useNavigate();
 
 	if (href) {
 		return (
-			<a
-				href={href}
-				className={`button ${buttonClassName}`}
+			<Link
+				to={href}
+				className={`button ${buttonClassName} ${className}`}
 				onClick={href === "back" ? () => navigate(-1) : onClick}
 			>
 				{style === "invite" && !children
@@ -76,7 +79,7 @@ export default function Button({
 					: style === "event" && !children
 						? "+ Ajouter un évènement"
 						: children}
-			</a>
+			</Link>
 		);
 	}
 

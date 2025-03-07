@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Link } from "react-router-dom";
 import Form from "./Form";
 import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -47,11 +48,11 @@ LoginForm.render = function Render(args) {
 			</Button>
 			<p className="login__bottomLinks">
 				Si vous avez oublié votre mot de passe{" "}
-				<a href="/reset-password">cliquez ici</a>.
+				<Link to="/reset-password">cliquez ici</Link>.
 			</p>
 			<p className="login__bottomLinks">
 				Si vous n'êtes pas inscrit, vous pouvez{" "}
-				<a href="/registration">vous inscrire ici</a>.
+				<Link to="/registration">vous inscrire ici</Link>.
 			</p>
 			<p className="login__errorMessage">Message d'erreur exemple</p>
 		</Form>

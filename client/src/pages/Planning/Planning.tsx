@@ -32,7 +32,9 @@ function Planning() {
 
 	const navigate = useNavigate();
 	const { user, role } = useUser();
-	const { data: allEventsData } = useQuery<GetAllEventsData>(GET_ALL_EVENTS);
+	const { data: allEventsData } = useQuery<GetAllEventsData>(GET_ALL_EVENTS, {
+		fetchPolicy: "no-cache",
+	});
 	const { data: ownerEventsData } = useQuery<GetAllEventsByOwnerId>(
 		GET_ALL_EVENTS_BY_OWNER_ID,
 		{

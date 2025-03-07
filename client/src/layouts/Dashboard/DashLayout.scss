@@ -57,9 +57,15 @@
 
     &__avatar {
         height: 100%;
+        display: flex;
         & img {
             border-radius: 50%;
-            padding-block: 1.2vh;
+            height: 60px;
+            aspect-ratio: 1;
+            margin: auto;
+            object-fit: cover;
+            outline: 2px solid $blue-500;
+            
         }
     }
 }

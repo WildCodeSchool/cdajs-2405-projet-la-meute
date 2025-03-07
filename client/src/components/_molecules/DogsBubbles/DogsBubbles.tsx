@@ -1,5 +1,6 @@
 import React from "react";
 import "./DogsBubbles.scss";
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 interface Dog {
 	id: number;
@@ -52,8 +53,8 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						<img
 							src={
 								dog?.picture
-									? `${import.meta.env.VITE_API_URL}${dog?.picture}`
-									: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
+									? useImageUrl(dog?.picture)
+									: useImageUrl("/upload/images/defaultuserprofile.jpg")
 							}
 							alt={dog.name}
 							className="dog__profile-pic"

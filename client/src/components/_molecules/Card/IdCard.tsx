@@ -1,7 +1,9 @@
 import "./IdCard.scss";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
+import { Link } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 type IdCardProps = {
 	type: "dog" | "owner";
@@ -15,18 +17,11 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 	const ownerData = data as Owner;
 	const { role } = useUser();
 
-	const getImageUrl = (path: string) => {
-		if (path?.startsWith("http")) {
-			return path;
-		}
-		return `${import.meta.env.VITE_API_URL || ""}${path}`;
-	};
-
 	const getCardInfo = () => {
 		if (isDog) {
 			const dogImage = dogData.picture || "/upload/images/defaultdog.jpg";
 			return {
-				image: getImageUrl(dogImage),
+				image: useImageUrl(dogImage),
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
@@ -41,7 +36,7 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 		}
 
 		return {
-			image: getImageUrl(ownerData.avatar),
+			image: useImageUrl(ownerData.avatar),
 			imageAlt: `Avatar de ${ownerData.firstname} ${ownerData.lastname}`,
 			title: `${ownerData.firstname} ${ownerData.lastname}`,
 			subtitle: ownerData.email,
@@ -70,9 +65,9 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				<hr className="idCard__infos--hr" />
 				<p className="idCard__infos--infos">{info}</p>
 			</div>
-			<a href={link} className="idCard--link">
+			<Link to={link} className="idCard--link">
 				{buttonText} &gt;
-			</a>
+			</Link>
 		</article>
 	);
 }

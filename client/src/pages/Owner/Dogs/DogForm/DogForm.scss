@@ -11,7 +11,7 @@
     &__form { 
         display: flex;
         flex-direction: column;
-        max-width: max-content;
+        max-width: 700px;
         background-color: $beige-200;
         border-radius: $windows-radius;
         padding: 1rem;
@@ -23,6 +23,7 @@
             & {
                 background-color: transparent;
                 max-width: 100%;
+                margin: 0 1rem;
             }
         }
 
@@ -30,27 +31,12 @@
             display: flex;
             align-items: center;
 
-            &--upload {
-                min-width: clamp(64px , 10%, 96px);
+            &--picture {
+                width: 120px;
                 aspect-ratio: 1;
-                background: url(../../../../assets/icons/upload.svg) center no-repeat, $blue-400;
-                background-size: 30%;
-                border-radius: 50%;
-                border: none;
-                cursor: pointer;
+                border-radius: 10px;
+                object-fit: cover;
 
-                &:focus {
-                    outline: none;
-                    border-radius: 50%; 
-                }
-
-                &:hover {
-                    filter: brightness(1.5);
-                }
-
-                input {
-                    display: none;
-                }
             }
 
             &--intro {
@@ -70,7 +56,7 @@
         margin: 2rem auto 0 auto;
 
         @media (width < $mobile) {
-            margin: auto auto 0 auto;
+            margin: 1rem auto 0 auto;
         }
     }
 }

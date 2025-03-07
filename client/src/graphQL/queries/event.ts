@@ -1,20 +1,21 @@
 import { gql } from "@apollo/client";
 
+import {
+	EVENT_FRAGMENT,
+	SERVICE_FRAGMENT,
+	TRAINER_FRAGMENT,
+} from "../fragments/fragments";
+
 export const GET_ALL_EVENTS = gql`
 query GetAllEvents {
     getAllEvents {
-        id
-        date
-        title
-        description
-        group_max_size
-        location {
-        latitude
-        longitude
+    ...EventFragment
+        services {
+        ...ServiceFragment
         }
-        price
-        startDate
-        endDate
+        trainer {
+        ...TrainerFragment
+        }
         participation {
             dog {
                 birthDate
@@ -28,23 +29,21 @@ query GetAllEvents {
         }
     }
 }
+${EVENT_FRAGMENT}
+${TRAINER_FRAGMENT}
+${SERVICE_FRAGMENT}
 `;
 
 export const GET_EVENT_BY_ID = gql`
     query GetEventById($eventId: Float!) {
         getEventById(eventId: $eventId) {
-            id
-            date
-            title
-            description
-            location {
-            latitude
-            longitude
+        ...EventFragment
+            services {
+                ...ServiceFragment
             }
-            group_max_size
-            price
-            startDate
-            endDate
+            trainer {
+                ...TrainerFragment
+            }
             participation {
                 dog {
                     id
@@ -58,6 +57,9 @@ export const GET_EVENT_BY_ID = gql`
             }
         }
     }
+    ${EVENT_FRAGMENT}
+    ${TRAINER_FRAGMENT}
+    ${SERVICE_FRAGMENT}
 `;
 
 export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
