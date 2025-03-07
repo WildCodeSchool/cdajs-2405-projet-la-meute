@@ -3,6 +3,7 @@ import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 import { Link } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 type IdCardProps = {
 	type: "dog" | "owner";
@@ -16,18 +17,11 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 	const ownerData = data as Owner;
 	const { role } = useUser();
 
-	const getImageUrl = (path: string) => {
-		if (path?.startsWith("http")) {
-			return path;
-		}
-		return `${import.meta.env.VITE_API_URL || ""}${path}`;
-	};
-
 	const getCardInfo = () => {
 		if (isDog) {
 			const dogImage = dogData.picture || "/upload/images/defaultdog.jpg";
 			return {
-				image: getImageUrl(dogImage),
+				image: useImageUrl(dogImage),
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
