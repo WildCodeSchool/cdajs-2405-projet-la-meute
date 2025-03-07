@@ -414,6 +414,10 @@
     display: none;
 }
 
+.fc-theme-standard .fc-scrollgrid {
+    --fc-border-color: 0px;
+}
+
 .fc-timegrid-divider {
     display: none !important;
 }
