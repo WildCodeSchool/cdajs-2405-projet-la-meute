@@ -9,6 +9,7 @@ import { useMutation } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 interface DogFormProps {
 	mode: "create" | "update";
@@ -149,8 +150,8 @@ export default function DogForm({
 							previewUrl
 								? previewUrl
 								: initialData?.picture
-									? `${import.meta.env.VITE_API_URL}${initialData.picture}`
-									: `${import.meta.env.VITE_API_URL}/upload/images/defaultdog.jpg`
+									? useImageUrl(initialData.picture)
+									: useImageUrl("/upload/images/defaultdog.jpg")
 						}
 						alt={mode === "create" ? "votre chien" : `${initialData?.name}`}
 						className="dogForm__form__title--picture"

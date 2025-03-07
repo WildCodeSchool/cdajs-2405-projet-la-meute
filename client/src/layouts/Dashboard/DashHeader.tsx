@@ -1,5 +1,6 @@
 import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
+import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -27,8 +28,8 @@ export default function DashHeader() {
 						<img
 							src={
 								user?.avatar
-									? `${import.meta.env.VITE_API_URL}${user?.avatar}`
-									: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
+									? useImageUrl(user?.avatar)
+									: useImageUrl("/upload/images/defaultuserprofile.jpg")
 							}
 							alt="avatar de l'utilisateur"
 							title="Mon profil"
