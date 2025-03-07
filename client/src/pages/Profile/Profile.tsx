@@ -1,7 +1,10 @@
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import "./Profile.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import Button from "@/components/_atoms/Button/Button";
+import Modal from "@/components/_molecules/Modal/Modal";
+import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +12,13 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 
 function Profile() {
-	const { user, refetch } = useUser();
+	const { role, user, refetch } = useUser();
 	const navigate = useNavigate();
 	const [view, setView] = useState<"profile" | "personal" | "preferences">(
 		"profile",
 	);
 
+	const avatarRef = useRef<HTMLInputElement>(null);
 	const firstnameRef = useRef<HTMLInputElement>(null);
 	const lastnameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -24,7 +28,13 @@ function Profile() {
 	const companyNameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
+	const [confirmModal, setConfirmModal] = useState(false);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [tempFile, setTempFile] = useState<File | null>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
 	const [updateUserMutation] = useMutation(UPDATE_USER);
+	const isTrainer = role === "trainer";
 
 	useEffect(() => {
 		if (!user) {
@@ -51,6 +61,15 @@ function Profile() {
 		}
 	}, [user, navigate, view]);
 
+	useEffect(() => {
+		if (selectedFile) {
+			const objectUrl = URL.createObjectURL(selectedFile);
+			setPreviewUrl(objectUrl);
+			return () => URL.revokeObjectURL(objectUrl);
+		}
+		setPreviewUrl(null);
+	}, [selectedFile]);
+
 	const handleUpdateFormSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
 	) => {
@@ -62,6 +81,7 @@ function Profile() {
 			updatedUser = {
 				id: Number(user?.id),
 				role: user?.role,
+				avatar: selectedFile,
 				firstname: firstnameRef.current?.value,
 				lastname: lastnameRef.current?.value,
 				city: cityRef.current?.value,
@@ -80,22 +100,48 @@ function Profile() {
 
 		try {
 			const response = await updateUserMutation({
-				variables: { updatedUser },
+				variables: {
+					updatedUser,
+					isTrainer: isTrainer,
+				},
 			});
 			if (response.data.UpdateUser.message === "User updated successfully") {
-				alert("Profil sauvegardé avec succès !");
-				await refetch();
+				toast.success("Profil sauvegardé avec succès !");
+				refetch();
 			} else if (response.data.UpdateUser.message === "User not found") {
-				alert("Utilisateur non trouvé.");
+				toast.error("Utilisateur non trouvé.");
 			} else if (
 				response.data.UpdateUser.message === "There was no field to update"
 			) {
-				alert("Aucun champ à mettre à jour.");
+				toast.warning("Aucun champ à mettre à jour.");
 			} else {
-				alert("Erreur lors de la mise à jour du profil.");
+				toast.error("Erreur lors de la mise à jour du profil.");
 			}
 		} catch (error) {
-			alert("Une erreur est survenue lors de la sauvegarde.");
+			toast.error("Une erreur est survenue lors de la sauvegarde.");
+		}
+	};
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files.length > 0) {
+			const file = e.target.files[0];
+			setTempFile(file);
+			setConfirmModal(true);
+		} else {
+			setTempFile(null);
+		}
+	};
+
+	const confirmFileSelection = () => {
+		setSelectedFile(tempFile);
+		setConfirmModal(false);
+	};
+
+	const cancelFileSelection = () => {
+		setTempFile(null);
+		setConfirmModal(false);
+		if (avatarRef.current) {
+			avatarRef.current.value = "";
 		}
 	};
 
@@ -113,7 +159,7 @@ function Profile() {
 							setView("profile");
 						}}
 					>
-						Mon profil éducateur
+						{isTrainer ? "Mon profil éducateur" : "Mon profil"}
 					</Button>
 					<Button
 						className="profile__nav--button"
@@ -125,32 +171,48 @@ function Profile() {
 						Informations personnelles
 					</Button>
 					<p>
-						Modifiez les informations visibles par vos clients dans votre Profil
-						Educateur et les informations non-visibles dans Informations
-						personnelles.
+						{isTrainer
+							? "Modifiez les informations visibles par vos clients dans votre Profil Educateur et les informations non-visibles dans Informations personnelles."
+							: "Modifiez les informations visibles par les éducateurs dans votre Profil et les informations non-visibles dans Informations personnelles."}
 					</p>
 				</nav>
 
 				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
 					<span className="profile__form--title">
-						<a className="dashHeader__avatar" href="/dashboard/my-profile">
-							<img src={user?.avatar} alt="avatar de l'utilisateur" />
-						</a>
+						<img
+							src={
+								previewUrl
+									? previewUrl
+									: user?.avatar
+										? `${import.meta.env.VITE_API_URL}${user?.avatar}`
+										: `${import.meta.env.VITE_API_URL}/upload/images/defaultuserprofile.jpg`
+							}
+							alt="avatar de l'utilisateur"
+						/>
+
 						<h2>
 							{user?.firstname} {user?.lastname}
 						</h2>
 					</span>
 					{view === "profile" && (
 						<>
+							<FileInput
+								ref={avatarRef}
+								label="Photo de profil"
+								accept="image/*"
+								onChange={handleFileChange}
+							/>
 							<span className="profile__form--names">
 								<TextInput style="light" type="firstname" ref={firstnameRef} />
 								<TextInput style="light" type="lastname" ref={lastnameRef} />
 							</span>
 							<TextInput style="light" type="city" ref={cityRef} />
-							<p>
-								Indiquez une adresse générale pour donner un périmètre à vos
-								clients.
-							</p>
+							{isTrainer && (
+								<p>
+									Indiquez une adresse générale pour donner un périmètre à vos
+									clients.
+								</p>
+							)}
 							<TextInput
 								style="light"
 								type="description"
@@ -163,12 +225,16 @@ function Profile() {
 						<>
 							<TextInput style="light" type="email" ref={emailRef} />
 							<TextInput style="light" type="telephone" ref={phoneRef} />
-							<TextInput style="light" type="SIRET" ref={siretRef} />
-							<TextInput
-								style="light"
-								type="company_name"
-								ref={companyNameRef}
-							/>
+							{isTrainer && (
+								<>
+									<TextInput style="light" type="SIRET" ref={siretRef} />
+									<TextInput
+										style="light"
+										type="company_name"
+										ref={companyNameRef}
+									/>
+								</>
+							)}
 						</>
 					)}
 					<Button
@@ -179,6 +245,17 @@ function Profile() {
 						Sauvegarder le profil
 					</Button>
 				</form>
+				<Modal
+					type="info"
+					isOpen={confirmModal}
+					onClose={cancelFileSelection}
+					filePreview={tempFile}
+				>
+					<p>Voulez-vous utiliser cette image comme avatar ?</p>
+					<Button onClick={confirmFileSelection} style="btn-dark">
+						Confirmer
+					</Button>
+				</Modal>
 			</main>
 		</>
 	);

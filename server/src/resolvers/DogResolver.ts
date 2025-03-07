@@ -34,6 +34,7 @@ export class DogResolver {
 		@Arg("name", { nullable: true }) name?: string,
 		@Arg("birthDate", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
+		@Arg("info", { nullable: true }) info?: string,
 		@Arg("picture", () => GraphQLUpload, { nullable: true })
 		picture?: Promise<FileUpload>,
 	): Promise<Dog> {
@@ -49,7 +50,7 @@ export class DogResolver {
 			picturePath = await fileUploader.addProfilePicture(picture);
 		}
 
-		const dog = new Dog(owner, name, birthDate, breed, picturePath);
+		const dog = new Dog(owner, name, birthDate, breed, picturePath, info);
 		return await dogRepository.save(dog);
 	}
 
@@ -60,6 +61,9 @@ export class DogResolver {
 		@Arg("name", { nullable: true }) name?: string,
 		@Arg("birthDate", { nullable: true }) birthDate?: Date,
 		@Arg("breed", { nullable: true }) breed?: string,
+		@Arg("info", { nullable: true }) info?: string,
+		@Arg("picture", () => GraphQLUpload, { nullable: true })
+		picture?: Promise<FileUpload>,
 	): Promise<Dog> {
 		const dog = await dogRepository.findOne({
 			where: {
@@ -73,9 +77,18 @@ export class DogResolver {
 			throw new Error(`Dog with ID ${dogId} not found`);
 		}
 
+		let picturePath = "/upload/images/defaultdog.jpg";
+
 		if (name) dog.name = name;
 		if (birthDate) dog.birthDate = birthDate;
 		if (breed) dog.breed = breed;
+		if (info) dog.info = info;
+
+		if (picture) {
+			const fileUploader = new FileUploadResolver();
+			picturePath = await fileUploader.addProfilePicture(picture);
+			dog.picture = picturePath;
+		}
 
 		return await dogRepository.save(dog);
 	}

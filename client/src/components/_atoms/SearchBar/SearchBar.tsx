@@ -11,7 +11,6 @@ const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
 function SearchBar() {
 	return (
 		<form
-			role="search"
 			aria-label="Rechercher sur le site"
 			className="searchbar"
 			onSubmit={handleSearch}

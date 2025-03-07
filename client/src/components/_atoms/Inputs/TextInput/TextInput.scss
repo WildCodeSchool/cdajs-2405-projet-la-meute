@@ -39,6 +39,12 @@
         }
 
         &__light {
+
+            label {
+                font-weight: $bold;
+                color: $blue-400;
+            }
+
             input,
             textarea {
                 border: 2px solid $beige-300;
