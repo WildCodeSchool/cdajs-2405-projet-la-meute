@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest --watchAll",
+		"test": "jest",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
 		"format": "biome format --write ./src"
