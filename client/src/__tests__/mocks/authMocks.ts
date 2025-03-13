@@ -19,4 +19,29 @@ export const mocks = [
 		},
 		error: new Error("Invalid credentials"),
 	},
+
+	{
+		request: {
+			query: REGISTER_USER,
+			variables: {
+				email: "cesarmillan@pawplanner.com",
+				password: "Cesar123",
+				confirmPassword: "Cesar123",
+				firstName: "Cesar",
+				lastName: "Millan",
+				companyName: "Cesar's Dog Academy",
+				siret: "12345678901234",
+			},
+		},
+		result: {
+			data: {
+				registerUser: {
+					id: "123",
+					email: "cesarmillan@pawplanner.com",
+					firstName: "Cesar",
+					lastName: "Millan",
+				},
+			},
+		},
+	},
 ];
