@@ -2,8 +2,6 @@ name: Run server tests
 
 on:
   push:
-    branches:
-      - "*"
   pull_request:
     branches:
       - main
