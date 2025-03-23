@@ -7,6 +7,7 @@ services:
       - 4201:4200
     volumes:
       - web-client-build:/client/dist
+      - ./shared:/shared 
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -24,6 +25,8 @@ services:
       - db
     ports:
       - 3201:3200
+    volumes:
+      - ./shared:/shared 
     env_file:
       - .env
 

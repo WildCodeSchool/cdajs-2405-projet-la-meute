@@ -1,14 +1,24 @@
 import { Field, ObjectType } from "type-graphql";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
 import { User } from "./User";
-import { Service } from "./Service";
 import { Event } from "./Event";
+import validationRules from "@shared/validationRules";
 
 // The Trainer class is a subclass of User; it inherits the properties and methods from User.
 
 @ObjectType()
 @Entity()
 export class Trainer extends User {
+	@BeforeInsert()
+	@BeforeUpdate()
+	private async validateTrainerFields() {
+		this.siret = this.siret.trim();
+
+		if (this.siret && !validationRules.SIRET.pattern.test(this.siret)) {
+			throw new Error(validationRules.SIRET.message);
+		}
+	}
+
 	@Column({
 		type: "varchar",
 		length: 14,
