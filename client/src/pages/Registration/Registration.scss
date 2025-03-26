@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .registration {
     background-image: url("@/assets/illustrations/promeneur-proprietaire-se-baladant-avec-son-chien-au-parc.png");

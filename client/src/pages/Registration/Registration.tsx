@@ -6,6 +6,7 @@ import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import { toast } from "react-toastify";
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
@@ -52,6 +53,9 @@ function Registration() {
 			});
 
 			if (data?.registerUser) {
+				toast.success(
+					"Inscription reussie ! Vous pouvez maintenant vous connecter.",
+				);
 				navigate("/login");
 			}
 		} catch (err) {
@@ -60,7 +64,9 @@ function Registration() {
 					? err.message
 					: "Une erreur est survenue lors de l'inscription";
 			setError(errorMessage);
-			console.error("Erreur lors de l'inscription:", err);
+			toast.error(
+				"Il y a eu une erreur dans votre inscription. Contactez le support.",
+			);
 		}
 	};
 

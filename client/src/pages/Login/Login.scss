@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .login {
     background-image: url("@/assets/illustrations/chien-attendant-sages-restaurant-proprietaires.png");
