@@ -14,7 +14,7 @@ import { Owner } from "./Owner";
 export class Favorite {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	favorite_id?: number;
+	id?: number;
 
 	@Column({ type: "date", default: () => "CURRENT_TIMESTAMP" })
 	@Field()

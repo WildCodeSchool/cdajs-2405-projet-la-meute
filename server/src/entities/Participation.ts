@@ -8,7 +8,7 @@ import { Dog } from "./Dog";
 export class Participation {
 	@PrimaryGeneratedColumn()
 	@Field((_) => ID)
-	participation_id?: number;
+	id?: number;
 
 	@ManyToOne(
 		() => Event,
