@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest --watchAll",
+		"test": "jest",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
 		"format": "biome format --write ./src"
@@ -33,6 +33,7 @@
 		"@types/bcryptjs": "^2.4.6",
 		"@types/cors": "^2.8.17",
 		"@types/graphql-upload": "^17.0.0",
+		"@types/jest": "^29.5.14",
 		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "^22.10.1",
 		"@types/nodemailer": "^6.4.17",
