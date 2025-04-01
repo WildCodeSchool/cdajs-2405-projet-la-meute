@@ -36,7 +36,7 @@ interface TextInputProps {
 	) => void;
 }
 
-const TEXT_INPUT_CONFIG: Record<
+export const TEXT_INPUT_CONFIG: Record<
 	TextInputTypes,
 	{ mappedLabel: string; mappedPlaceholder: string; mappedName: string }
 > = {
