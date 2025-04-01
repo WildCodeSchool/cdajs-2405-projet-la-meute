@@ -1,4 +1,3 @@
-import type { RegisterOptions } from "react-hook-form";
 import validationRules from "@shared/validationRules";
 
 export type TextInputTypes =
@@ -23,29 +22,21 @@ export interface TextInputConfigItem {
 	mappedLabel: string;
 	mappedPlaceholder: string;
 	mappedName: string;
-	validationRules?: RegisterOptions;
+	validationRules?: {
+		pattern: RegExp;
+		message: string;
+	};
 	maxLength?: number;
 }
 
-export const TEXT_INPUT_CONFIG: Record<
-	TextInputTypes,
-	{
-		mappedLabel: string;
-		mappedPlaceholder: string;
-		mappedName: string;
-		validationRules?: RegisterOptions;
-		maxLength?: number;
-	}
-> = {
+export const TEXT_INPUT_CONFIG: Record<TextInputTypes, TextInputConfigItem> = {
 	email: {
 		mappedLabel: "Email",
 		mappedPlaceholder: "Entrez votre email",
 		mappedName: "email",
 		validationRules: {
-			pattern: {
-				value: validationRules.EMAIL.pattern,
-				message: validationRules.EMAIL.message,
-			},
+			pattern: validationRules.EMAIL.pattern,
+			message: validationRules.EMAIL.message,
 		},
 		maxLength: 255,
 	},
@@ -54,11 +45,10 @@ export const TEXT_INPUT_CONFIG: Record<
 		mappedPlaceholder: "Entrez votre mot de passe",
 		mappedName: "password",
 		validationRules: {
-			pattern: {
-				value: validationRules.PASSWORD.pattern,
-				message: validationRules.PASSWORD.message,
-			},
+			pattern: validationRules.PASSWORD.pattern,
+			message: validationRules.PASSWORD.message,
 		},
+
 		maxLength: 255,
 	},
 	confirmPassword: {
@@ -90,11 +80,10 @@ export const TEXT_INPUT_CONFIG: Record<
 		mappedPlaceholder: "Entrez votre code postal",
 		mappedName: "postal_code",
 		validationRules: {
-			pattern: {
-				value: validationRules.POSTAL_CODE.pattern,
-				message: validationRules.POSTAL_CODE.message,
-			},
+			pattern: validationRules.POSTAL_CODE.pattern,
+			message: validationRules.POSTAL_CODE.message,
 		},
+
 		maxLength: 5,
 	},
 	SIRET: {
@@ -102,11 +91,10 @@ export const TEXT_INPUT_CONFIG: Record<
 		mappedPlaceholder: "Entrez votre SIRET",
 		mappedName: "SIRET",
 		validationRules: {
-			pattern: {
-				value: validationRules.SIRET.pattern,
-				message: validationRules.SIRET.message,
-			},
+			pattern: validationRules.SIRET.pattern,
+			message: validationRules.SIRET.message,
 		},
+
 		maxLength: 14,
 	},
 	company_name: {
@@ -120,11 +108,10 @@ export const TEXT_INPUT_CONFIG: Record<
 		mappedPlaceholder: "Entrez votre numéro de téléphone",
 		mappedName: "telephone",
 		validationRules: {
-			pattern: {
-				value: validationRules.PHONE.pattern,
-				message: validationRules.PHONE.message,
-			},
+			pattern: validationRules.PHONE.pattern,
+			message: validationRules.PHONE.message,
 		},
+
 		maxLength: 15,
 	},
 	description: {
