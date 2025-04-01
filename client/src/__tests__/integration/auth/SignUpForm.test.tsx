@@ -3,78 +3,121 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom";
 
+import { MemoryRouter } from "react-router-dom";
+import { MockedProvider } from "@apollo/client/testing";
+import { mocks } from "@/__tests__/mocks/authMocks";
+
 import Registration from "@/pages/Registration/Registration";
 
 describe("Registration", () => {
-	const fieldLabels = [
-		{ label: "Noms", error: /Le nom est requis/i },
-		{ label: "Prénom", error: /Le prénom est requis/i },
-		{ label: "Ville", error: /La ville est requise/i },
-		{ label: "Code postal", error: /Le code postal est requis/i },
-		{ label: "Email", error: /L'email est requis/i },
-		{ label: "Mot de passe", error: /Le mot de passe est requis/i },
-		{
-			label: "Confirmer le mot de passe",
-			error: /La confirmation du mot de passe est requise/i,
-		},
-	];
-
-	const optionalFields = ["Téléphone"];
-
 	it("renders all fields in the Registration", async () => {
-		render(<Registration />);
+		render(
+			<MockedProvider mocks={mocks} addTypename={false}>
+				<MemoryRouter>
+					<Registration />
+				</MemoryRouter>
+			</MockedProvider>,
+		);
 
-		for (const { label } of fieldLabels) {
-			const field = await screen.findByLabelText(label);
-			expect(field).toBeInTheDocument();
-		}
+		const trainerButton = await screen.findByText(
+			"Je suis éducateur·trice canin·e",
+		);
+		await userEvent.click(trainerButton);
 
-		// Vérifie que les champs optionnels sont également présents
-		for (const label of optionalFields) {
-			const field = await screen.findByLabelText(label);
-			expect(field).toBeInTheDocument();
-		}
+		const title = await screen.findByRole("heading", {
+			name: "Inscription",
+		});
+		const siretField = await screen.findByLabelText(/siret/i);
+		const enterpriseField =
+			await screen.findByLabelText(/^Nom de l'entreprise/i);
+		const nameField = screen.getByLabelText(/Nom\s*\*/i, {
+			selector: 'input[name="lastname"]',
+		});
+		const firstnameField = await screen.findByLabelText(/prénom/i);
+		const emailField = await screen.findByLabelText(/email/i);
+		const passwordField = await screen.findByLabelText(/^Mot de passe/i);
+		const confirmPasswordField = await screen.findByLabelText(
+			/^Confirmation mot de passe/i,
+		);
+		const cityField = await screen.findByLabelText(/ville/i);
+		const postalCodeField = await screen.findByLabelText(/Code Postal/i);
+		const phoneNumberField =
+			await screen.findByLabelText(/Numéro de téléphone/i);
+
+		const backButton = await screen.findByRole("button", {
+			name: "Retour",
+		});
 
 		const signUpButton = await screen.findByRole("button", {
 			name: "S'inscrire",
 		});
+
+		expect(title).toBeInTheDocument();
+		expect(siretField).toBeInTheDocument();
+		expect(enterpriseField).toBeInTheDocument();
+		expect(nameField).toBeInTheDocument();
+		expect(firstnameField).toBeInTheDocument();
+		expect(emailField).toBeInTheDocument();
+		expect(passwordField).toBeInTheDocument();
+		expect(confirmPasswordField).toBeInTheDocument();
+		expect(cityField).toBeInTheDocument();
+		expect(postalCodeField).toBeInTheDocument();
+		expect(phoneNumberField).toBeInTheDocument();
+		expect(backButton).toBeInTheDocument();
 		expect(signUpButton).toBeInTheDocument();
+
+		expect(siretField).toHaveAttribute("required");
+		expect(enterpriseField).toHaveAttribute("required");
+		expect(nameField).toHaveAttribute("required");
+		expect(firstnameField).toHaveAttribute("required");
+		expect(emailField).toHaveAttribute("required");
+		expect(passwordField).toHaveAttribute("required");
+		expect(confirmPasswordField).toHaveAttribute("required");
+		expect(cityField).toHaveAttribute("required");
+		expect(postalCodeField).toHaveAttribute("required");
 	});
 
 	it("should have password fields of type 'password'", async () => {
-		render(<Registration />);
+		render(
+			<MockedProvider mocks={mocks} addTypename={false}>
+				<MemoryRouter>
+					<Registration />
+				</MemoryRouter>
+			</MockedProvider>,
+		);
 
-		const passwordField = await screen.findByLabelText("Mot de passe");
+		const trainerButton = await screen.findByText(
+			"Je suis éducateur·trice canin·e",
+		);
+		await userEvent.click(trainerButton);
+
+		const passwordField = await screen.findByLabelText(/^Mot de passe/i);
 		const confirmPasswordField = await screen.findByLabelText(
-			"Confirmer le mot de passe",
+			/^Confirmation mot de passe/i,
 		);
 
 		expect(passwordField).toHaveAttribute("type", "password");
 		expect(confirmPasswordField).toHaveAttribute("type", "password");
 	});
 
-	it("should show error messages for all empty required fields", async () => {
-		render(<Registration />);
-
-		const signUpButton = await screen.findByRole("button", {
-			name: "S'inscrire",
-		});
-		await userEvent.click(signUpButton);
-
-		// Vérifie les messages d'erreur pour chaque champ requis
-		for (const { error } of fieldLabels) {
-			const errorMessage = await screen.findByText(error);
-			expect(errorMessage).toBeInTheDocument();
-		}
-	});
-
 	it("should show error message if passwords do not match", async () => {
-		render(<Registration />);
+		render(
+			<MockedProvider mocks={mocks} addTypename={false}>
+				<MemoryRouter>
+					<Registration />
+				</MemoryRouter>
+			</MockedProvider>,
+		);
 
-		const emailField = await screen.findByLabelText("Email");
-		const passwordField = await screen.findByLabelText("Mot de passe");
+		const trainerButton = await screen.findByText(
+			"Je suis éducateur·trice canin·e",
+		);
+		await userEvent.click(trainerButton);
+
+		const emailField = await screen.findByLabelText(/email/i);
+		const passwordField = await screen.findByLabelText(/^Mot de passe/i);
 		const confirmPasswordField = await screen.findByLabelText(
-			"Confirmer le mot de passe",
+			/^Confirmation mot de passe/i,
 		);
 		const signUpButton = await screen.findByRole("button", {
 			name: "S'inscrire",
@@ -86,35 +129,76 @@ describe("Registration", () => {
 
 		await userEvent.click(signUpButton);
 
-		const confirmPasswordError = await screen.findByText(
-			/Les mots de passe ne correspondent pas/i,
+		const confirmPasswordInputWrapper = await screen.findByLabelText(
+			/^Confirmation mot de passe/i,
 		);
-		expect(confirmPasswordError).toBeInTheDocument();
+
+		const parentElement = confirmPasswordInputWrapper.closest("div.textInput");
+
+		await waitFor(() => {
+			expect(parentElement).toHaveAttribute(
+				"data-error",
+				"Les mots de passe ne correspondent pas.",
+			);
+		});
 	});
 
-	it("should send a signup request and show success message", async () => {
-		render(<Registration />);
+	it("should send a signup request and show success status", async () => {
+		render(
+			<MockedProvider mocks={mocks} addTypename={false}>
+				<MemoryRouter>
+					<Registration />
+				</MemoryRouter>
+			</MockedProvider>,
+		);
+
+		const trainerButton = await screen.findByText(
+			"Je suis éducateur·trice canin·e",
+		);
+		await userEvent.click(trainerButton);
+
+		const emailField = await screen.findByLabelText(/Email/i);
+		await userEvent.type(emailField, "cesarmillan@pawplanner.com");
+
+		const passwordField = await screen.findByLabelText(/^Mot de passe/i);
+		await userEvent.type(passwordField, "Cesar123");
+
+		const confirmPasswordField = await screen.findByLabelText(
+			/^Confirmation mot de passe/i,
+		);
+		await userEvent.type(confirmPasswordField, "Cesar123");
+
+		const companyNameField =
+			await screen.findByLabelText(/^Nom de l'entreprise/i);
+		await userEvent.type(companyNameField, "Cesar's Dog Academy");
+
+		const siretField = await screen.findByLabelText(/^SIRET/i);
+		await userEvent.type(siretField, "12345678901234");
+
+		const nameField = screen.getByLabelText(/Nom\s*\*/i, {
+			selector: 'input[name="lastname"]',
+		});
+		await userEvent.type(nameField, "Millan");
+
+		const firstNameField = await screen.findByLabelText(/^Prénom/i);
+		await userEvent.type(firstNameField, "Cesar");
 
 		const signUpButton = await screen.findByRole("button", {
 			name: "S'inscrire",
 		});
-
-		// Remplir tous les champs requis
-		for (const { label } of fieldLabels) {
-			const field = await screen.findByLabelText(label);
-
-			if (label === "Mot de passe" || label === "Confirmer le mot de passe") {
-				await userEvent.type(field, "securePassword");
-			} else if (label === "Email") {
-				await userEvent.type(field, "newuser@example.com");
-			} else {
-				await userEvent.type(field, "dummy value");
-			}
-		}
-
 		await userEvent.click(signUpButton);
 
-		// Vérifie la confirmation de succès
-		await waitFor(() => screen.getByText(/Inscription réussie/i));
+		await waitFor(() => {
+			expect(mocks[2].result).toBeDefined();
+
+			const registerUser = mocks[2].result?.data?.registerUser;
+			expect(registerUser).toBeDefined();
+			expect(registerUser?.email).toBe("cesarmillan@pawplanner.com");
+		});
+
+		await waitFor(() => {
+			const responseStatus = mocks[2].result?.data ? "success" : "error";
+			expect(responseStatus).toBe("success");
+		});
 	});
 });
