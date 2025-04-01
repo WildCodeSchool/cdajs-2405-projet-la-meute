@@ -1,7 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
 import { Column, Entity, OneToMany } from "typeorm";
 import { User } from "./User";
-import { Service } from "./Service";
 import { Event } from "./Event";
 
 // The Trainer class is a subclass of User; it inherits the properties and methods from User.
