@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { useForm } from "@/hooks/useForm";
@@ -25,8 +25,6 @@ interface RegistrationFormValues extends Record<string, unknown> {
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
 	const [error, setError] = useState<string | null>(null);
-	const passwordRef = useRef<HTMLInputElement>(null);
-	const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
 	const navigate = useNavigate();
 
@@ -189,7 +187,6 @@ function Registration() {
 						name="password"
 						value={form.values.password}
 						onChange={form.handleChange}
-						ref={passwordRef}
 						required
 					/>
 					<TextInput
@@ -197,9 +194,8 @@ function Registration() {
 						type="confirmPassword"
 						name="confirmPassword"
 						value={form.values.confirmPassword}
+						passwordRef={form.values.password}
 						onChange={form.handleChange}
-						ref={confirmPasswordRef}
-						passwordRef={passwordRef}
 						required
 					/>
 					<TextInput

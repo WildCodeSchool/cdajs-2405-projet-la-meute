@@ -7,7 +7,7 @@ import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 interface TextInputProps {
 	type: TextInputTypes;
 	required?: boolean;
-	passwordRef?: React.RefObject<HTMLInputElement>;
+	passwordRef?: string;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
@@ -72,12 +72,8 @@ const TextInput = React.forwardRef<
 
 			if (required && !value.trim()) {
 				errorMessage = "Ce champ est requis";
-			} else if (
-				type === "confirmPassword" &&
-				passwordRef?.current &&
-				passwordRef.current.value !== value
-			) {
-				errorMessage = "Les mots de passe ne correspondent pas";
+			} else if (type === "confirmPassword" && passwordRef !== value) {
+				errorMessage = "Les mots de passe ne correspondent pas.";
 			} else if (validationPattern && typeof validationPattern === "object") {
 				const pattern =
 					"value" in validationPattern
