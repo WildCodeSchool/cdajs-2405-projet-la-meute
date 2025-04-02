@@ -5,7 +5,13 @@ import { SearchIndex } from "../entities/SearchIndex";
 @Resolver()
 export class SearchResolver {
 	@Query(() => [SearchIndex])
-	async search(@Arg("query") query: string): Promise<SearchIndex[]> {
-		return await search(query);
+	async search(@Arg("query") query: string): Promise<Partial<SearchIndex>[]> {
+		const results = await search(query);
+
+		return results.map(({ id, entity_type, entity_id }) => ({
+			id,
+			entity_type,
+			entity_id,
+		}));
 	}
 }
