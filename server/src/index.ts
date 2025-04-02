@@ -16,13 +16,20 @@ import { UserResolvers } from "./resolvers/UserResolvers";
 import { DogResolver } from "./resolvers/DogResolver";
 import { EventResolver } from "./resolvers/EventResolver";
 import { ServicesResolvers } from "./resolvers/ServicesResolvers";
+import { SearchResolver } from "./resolvers/SearchResolver";
 
 dotenv.config();
 const port = 3200;
 
 export async function startServerApollo() {
 	const schema = await buildSchema({
-		resolvers: [UserResolvers, DogResolver, EventResolver, ServicesResolvers],
+		resolvers: [
+			UserResolvers,
+			DogResolver,
+			EventResolver,
+			ServicesResolvers,
+			SearchResolver,
+		],
 	});
 
 	const server = new ApolloServer({ schema });

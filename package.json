@@ -6,7 +6,9 @@
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
-    "client-package": "./client-package.sh"
+    "client-package": "./client-package.sh",
+    "migration": "cd server && npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts && cd ..",
+    "migration:revert": "cd server && npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts && cd .."
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
