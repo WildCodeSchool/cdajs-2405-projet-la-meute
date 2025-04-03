@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .createEvent {
     display: flex;
@@ -13,12 +13,7 @@
     &__title {
         font-weight: $bold;
     }
-    & label {
-        font-weight: $bold;
-        color: $blue-400;
-    }
-    & input,
-    textarea {
+    &__input {
         background-color: $beige-300;
         border: none;
         color: $blue-400;
@@ -27,12 +22,21 @@
         padding-inline: 2rem;
     }
     & textarea {
+        background-color: $beige-300;
+        border: none;
+        color: $blue-400;
+        border-radius: $atoms-radius;
+        padding: 0.8rem;
+        padding-inline: 2rem;
         resize: none;
         height: 10rem;
         overflow: auto;
     }
 
     &__event {
+        font-weight: $bold;
+        color: $blue-400;
+
         display: flex;
         justify-content: space-between;
         & label {
@@ -40,14 +44,14 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        &--tags {
+        &--services {
             display: flex;
             flex-direction: column;
-            p {
+            &--p {
                 font-weight: $regular;
                 font-size: $xs;
             }
-            div {
+            &--newService {
                 background-color: $beige-300;
                 border-radius: $atoms-radius;
                 padding: 0.5rem;
@@ -55,18 +59,28 @@
                 flex-wrap: wrap;
                 gap: 0.5rem;
             }
-            select {
-                display: none;
-            }
         }
         &--dates {
-            & label {
-                width: 31%;
-            }
+            align-items: flex-end;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--startTime {
+            grid-area: 1 / 2 / 2 / 3;
+        }
+        &--endTime {
+            grid-area: 1 / 3 / 2 / 4;
         }
         &--prices {
             display: flex;
             gap: 1rem;
+            align-items: end;
             label {
                 width: 50%;
             }
@@ -81,20 +95,39 @@
                 }
             }
         }
+
         &--location {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-        }
-        &--map {
-            height: 200px;
-            background-color: $orange-300;
-            margin-inline: -1rem;
         }
         &--buttons {
             display: flex;
             justify-content: end;
             margin-block: 3rem;
         }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .createEvent__event {
+        &--dates {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 3;
+        }
+        &--startTime {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+        &--endTime {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+    }
+
+    .createEvent__event--buttons {
+        flex-direction: column;
+        margin-block-end: 2rem;
     }
 }

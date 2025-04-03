@@ -1,0 +1,99 @@
+@use "sass:map";
+@use "@style" as *;
+
+$types: (
+    "success": (
+        "base-color": $green-300,
+        "accent": $green-400,
+        "color": $font-dark,
+    ),
+    "info": (
+        "base-color": $blue-100,
+        "accent": $blue-200,
+        "color": $font-light,
+    ),
+    "warning": (
+        "base-color": $orange-300,
+        "accent": $orange-400,
+        "color": $font-dark,
+    )
+);
+
+.modal {
+    &[open] {
+        border: none;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border-radius: 10px;
+        animation: modal-opening 0.4s;
+        font-weight: $medium;
+        font-size: $s;
+        text-align: center;
+    }
+
+    &::backdrop {
+        background: linear-gradient(180deg, rgba($blue-600, 0.8) 0%, rgba($blue-300, 0.8) 100%);
+        backdrop-filter: blur(4px);
+    }
+
+    &__picture {
+        height: 150px;
+        aspect-ratio: 1;
+        object-fit:scale-down;
+    }
+
+    &__prompt {
+    max-width: 300px;
+    line-height: 1.5rem;
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+    &--cancel {
+        min-height: $btn-height;
+        color: $primary-light;
+        font-weight: $semiBold;
+        border-radius: $atoms-radius;
+        padding: 1.25rem;
+        padding-inline: 3.5rem;
+        margin: 0.2rem;
+        font-size: $s;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+    }
+}
+
+    @each $type, $props in $types {
+        &--#{$type} {
+            background-color: map.get($props, "base-color");
+            
+            .modal__prompt {
+                color: map.get($props, "color");
+            }
+            
+            .modal__actions--cancel {
+                background-color: map.get($props, "accent");
+            }
+        }
+    }
+}
+
+@keyframes modal-opening {
+    0% {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+    }
+    100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    }
+}

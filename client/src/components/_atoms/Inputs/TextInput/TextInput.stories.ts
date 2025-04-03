@@ -73,6 +73,8 @@ export const Default: Story = {
 		type: "firstname",
 		style: "light",
 		required: true,
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -82,6 +84,8 @@ export const Password: Story = {
 		type: "password",
 		style: "dark",
 		required: true,
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -91,6 +95,8 @@ export const PasswordConfirmation: Story = {
 		type: "confirmPassword",
 		style: "dark",
 		required: true,
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -100,6 +106,8 @@ export const TextArea: Story = {
 		type: "description",
 		inputType: "textarea",
 		style: "light",
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -109,6 +117,8 @@ export const DateInput: Story = {
 		type: "birthDate",
 		inputType: "date",
 		style: "light",
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -118,6 +128,8 @@ export const DarkTheme: Story = {
 		type: "email",
 		style: "dark",
 		required: true,
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };
 
@@ -128,5 +140,7 @@ export const LoginInput: Story = {
 		style: "light",
 		required: true,
 		isLogin: true,
+		value: "",
+		onChange: (e) => console.log("Value changed:", e.target.value),
 	},
 };

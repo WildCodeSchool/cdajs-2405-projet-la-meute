@@ -3,6 +3,11 @@ export interface Location {
 	longitude: number;
 }
 
+export interface LocationType {
+	latitude: number;
+	longitude: number;
+}
+
 export interface Event {
 	id: number;
 	date: string;

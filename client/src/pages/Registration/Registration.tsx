@@ -1,21 +1,98 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { useForm } from "@/hooks/useForm";
+import { REGISTER_USER } from "@/graphQL/mutations/user";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
+import { toast } from "react-toastify";
+
+interface RegistrationFormValues extends Record<string, unknown> {
+	lastname: string;
+	firstname: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+	city: string;
+	postal_code: string;
+	telephone: string;
+	SIRET?: string;
+	company_name?: string;
+}
 
 function Registration() {
 	const [role, setRole] = useState<"trainer" | "owner" | null>(null);
-	const passwordRef = useRef<HTMLInputElement>(null);
-	const confirmPasswordRef = useRef<HTMLInputElement>(null);
-	const emailRef = useRef<HTMLInputElement>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const navigate = useNavigate();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		navigate("/login");
+	const [registerUser] = useMutation(REGISTER_USER);
+
+	const form = useForm<RegistrationFormValues>({
+		initialValues: {
+			lastname: "",
+			firstname: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+			city: "",
+			postal_code: "",
+			telephone: "",
+			SIRET: "",
+			company_name: "",
+		},
+		onSubmit: async (formValues) => {
+			await handleSubmit(formValues);
+		},
+	});
+
+	const handleSubmit = async (formValues: RegistrationFormValues) => {
+		setError(null);
+
+		// Vérification des mots de passe
+		if (formValues.password !== formValues.confirmPassword) {
+			setError("Les mots de passe ne correspondent pas");
+			return;
+		}
+
+		try {
+			const userData = {
+				lastname: formValues.lastname,
+				firstname: formValues.firstname,
+				email: formValues.email,
+				password: formValues.password,
+				phone_number: formValues.telephone || "",
+				city: formValues.city,
+				postal_code: formValues.postal_code,
+				role: role,
+				...(role === "trainer" && {
+					siret: formValues.SIRET,
+					company_name: formValues.company_name,
+				}),
+			};
+
+			const { data } = await registerUser({
+				variables: userData,
+			});
+
+			if (data?.registerUser) {
+				toast.success(
+					"Inscription reussie ! Vous pouvez maintenant vous connecter.",
+				);
+				navigate("/login");
+			}
+		} catch (err) {
+			const errorMessage =
+				err instanceof Error
+					? err.message
+					: "Une erreur est survenue lors de l'inscription";
+			setError(errorMessage);
+			toast.error(
+				"Il y a eu une erreur dans votre inscription. Contactez le support.",
+			);
+		}
 	};
 
 	return (
@@ -56,48 +133,122 @@ function Registration() {
 				<Form
 					className="registration__form"
 					title="Inscription"
-					onSubmit={handleSubmit}
+					onSubmit={form.handleSubmit}
 				>
 					{role === "trainer" && (
-						<TextInput style="dark" type="SIRET" required />
+						<TextInput
+							style="dark"
+							type="SIRET"
+							name="SIRET"
+							value={form.values.SIRET || ""}
+							onChange={form.handleChange}
+							required
+						/>
 					)}
 
 					{role === "trainer" && (
-						<TextInput style="dark" type="company_name" required />
+						<TextInput
+							style="dark"
+							type="company_name"
+							name="company_name"
+							value={form.values.company_name || ""}
+							onChange={form.handleChange}
+							required
+						/>
 					)}
 
-					<TextInput style="dark" type="lastname" required />
-					<TextInput style="dark" type="firstname" required />
-					<TextInput style="dark" type="email" ref={emailRef} required />
-					<TextInput style="dark" type="password" ref={passwordRef} required />
+					<TextInput
+						style="dark"
+						type="lastname"
+						name="lastname"
+						value={form.values.lastname}
+						onChange={form.handleChange}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="firstname"
+						name="firstname"
+						value={form.values.firstname}
+						onChange={form.handleChange}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="email"
+						name="email"
+						value={form.values.email}
+						onChange={form.handleChange}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="password"
+						name="password"
+						value={form.values.password}
+						onChange={form.handleChange}
+						required
+					/>
 					<TextInput
 						style="dark"
 						type="confirmPassword"
-						ref={confirmPasswordRef}
-						passwordRef={passwordRef}
+						name="confirmPassword"
+						value={form.values.confirmPassword}
+						passwordRef={form.values.password}
+						onChange={form.handleChange}
 						required
 					/>
-					<TextInput style="dark" type="city" required />
-					<TextInput style="dark" type="postal_code" required />
-					<TextInput style="dark" type="telephone" />
+					<TextInput
+						style="dark"
+						type="city"
+						name="city"
+						value={form.values.city}
+						onChange={form.handleChange}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="postal_code"
+						name="postal_code"
+						value={form.values.postal_code}
+						onChange={form.handleChange}
+						required
+					/>
+					<TextInput
+						style="dark"
+						type="telephone"
+						name="telephone"
+						value={form.values.telephone}
+						onChange={form.handleChange}
+					/>
 					<input type="hidden" name="role" value={role} />
-					<Button type="button" style="btn-dark" href="/registration">
+
+					{error && (
+						<div
+							className="error-message"
+							style={{ color: "red", marginTop: "10px" }}
+						>
+							{error}
+						</div>
+					)}
+
+					<Button type="button" style="btn-dark" onClick={() => setRole(null)}>
 						Retour
 					</Button>
 
 					<Button type="submit" style="submit">
 						S'inscrire
 					</Button>
-					<p>
+
+					<div className="form-footer">
 						<p className="userMessage">
 							Les champs comportants une * sont obligatoires.
 						</p>
-					</p>
-					<br />
-					<p>
-						Si vous avez déjà un compte vous pouvez{" "}
-						<a href="/login"> vous connecter ici</a>.
-					</p>
+						<p className="login-link">
+							Si vous avez déjà un compte vous pouvez{" "}
+							<Link to="/login">vous connecter ici</Link>.
+						</p>
+					</div>
 				</Form>
 			)}
 		</main>

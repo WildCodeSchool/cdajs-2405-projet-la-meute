@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const DOG_PROFIL_PICTURE = gql`
+export const DOG_PROFILE_PICTURE = gql`
     mutation Mutation($file: Upload!, $dogId: Float!) {
     uploadDogProfilePicture(file: $file, dogId: $dogId)
     }

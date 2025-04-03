@@ -1,0 +1,16 @@
+@use "@style" as *;
+@use "sass:color";
+
+.service {
+    @include service;
+}
+
+.newService {
+    @include service;
+    background-color: $beige-300;
+    color: $blue-400;
+    border: 2px solid $blue-400;
+    &:hover {
+        background-color: color.adjust($beige-300, $lightness: 5%);
+    }
+}

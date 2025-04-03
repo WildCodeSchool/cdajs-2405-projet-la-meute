@@ -2,107 +2,26 @@ import React, { useState, useRef, useImperativeHandle } from "react";
 import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
-
-type TextInputTypes =
-	| "email"
-	| "password"
-	| "confirmPassword"
-	| "lastname"
-	| "firstname"
-	| "city"
-	| "postal_code"
-	| "SIRET"
-	| "company_name"
-	| "telephone"
-	| "description"
-	| "name"
-	| "birthDate"
-	| "breed"
-	| "info";
+import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 
 interface TextInputProps {
-	type?: TextInputTypes;
+	type: TextInputTypes;
 	required?: boolean;
-	passwordRef?: React.RefObject<HTMLInputElement>;
+	passwordRef?: string;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
 	label?: string;
 	placeholder?: string;
 	className?: string;
-	helpText?: string;
-	showHelp?: boolean;
+	name?: string;
+	value: string;
+	onChange: (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => void;
 }
 
-const TEXT_INPUT_CONFIG: Record<
-	TextInputTypes,
-	{ mappedLabel: string; mappedPlaceholder: string; helpText?: string }
-> = {
-	email: {
-		mappedLabel: "Email",
-		mappedPlaceholder: "Entrez votre email",
-	},
-	password: {
-		mappedLabel: "Mot de passe",
-		mappedPlaceholder: "Entrez votre mot de passe",
-		helpText: "Le mot de passe doit faire au moins 8 caractères",
-	},
-	confirmPassword: {
-		mappedLabel: "Confirmation mot de passe",
-		mappedPlaceholder: "Confirmer le mot de passe",
-	},
-	lastname: {
-		mappedLabel: "Nom",
-		mappedPlaceholder: "Entrez votre nom",
-	},
-	firstname: {
-		mappedLabel: "Prénom",
-		mappedPlaceholder: "Entrez votre prénom",
-	},
-	city: {
-		mappedLabel: "Ville",
-		mappedPlaceholder: "Entrez votre ville",
-	},
-	postal_code: {
-		mappedLabel: "Code Postal",
-		mappedPlaceholder: "Entrez votre code postal",
-	},
-	SIRET: {
-		mappedLabel: "SIRET",
-		mappedPlaceholder: "Entrez votre SIRET",
-	},
-	company_name: {
-		mappedLabel: "Nom de l'entreprise",
-		mappedPlaceholder: "Entrez le nom de votre entreprise",
-	},
-	telephone: {
-		mappedLabel: "Numéro de téléphone",
-		mappedPlaceholder: "Entrez votre numéro de téléphone",
-	},
-	description: {
-		mappedLabel: "Description",
-		mappedPlaceholder: "Entrez votre description",
-	},
-	name: {
-		mappedLabel: "Nom de mon chien",
-		mappedPlaceholder: "Entrez le nom de votre chien",
-	},
-	birthDate: {
-		mappedLabel: "Date de naissance de mon chien",
-		mappedPlaceholder: "Sélectionnez la date de naissance",
-	},
-	breed: {
-		mappedLabel: "Race de mon chien",
-		mappedPlaceholder: "Entrez la race de votre chien",
-	},
-	info: {
-		mappedLabel: "Informations complémentaires",
-		mappedPlaceholder: "Entrez un commentaire sur votre chien",
-	},
-};
-
 /** TextInput Component */
-// forwardRef allows us to use useRef in the component calling this one
 const TextInput = React.forwardRef<
 	HTMLInputElement | HTMLTextAreaElement,
 	TextInputProps
@@ -110,35 +29,31 @@ const TextInput = React.forwardRef<
 	(
 		{
 			type,
-			required,
+			required = false,
 			inputType = "input",
 			style = "light",
 			passwordRef,
-			isLogin,
+			isLogin = false,
 			label,
 			placeholder,
-			className,
-			helpText,
-			showHelp,
+			className = "",
+			name,
+			value,
+			onChange,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
 
-		const { 
-			mappedLabel = label, 
-			mappedPlaceholder = placeholder,
-			helpText: defaultHelpText 
-		} = type ? TEXT_INPUT_CONFIG[type] : {};
-		
-		const displayHelpText = helpText || defaultHelpText;
-		
-		
-		const shouldDisplayHelp = showHelp !== undefined 
-			? showHelp 
-			: !isLogin; // Par défaut, on n'affiche pas le texte d'aide pour le mdp en mode login
-		
+		const config = TEXT_INPUT_CONFIG[type];
+		const mappedLabel = label || config.mappedLabel || "";
+		const mappedPlaceholder = placeholder || config.mappedPlaceholder || "";
+		const maxLength = config.maxLength;
+		const validationPattern = config.validationRules?.pattern;
+
+		const fieldName = name || config.mappedName || type;
+
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 		useImperativeHandle(
@@ -150,25 +65,46 @@ const TextInput = React.forwardRef<
 		const isPasswordField: boolean =
 			type === "password" || type === "confirmPassword";
 
-		const validateInput = () => {
+		const validateValue = () => {
 			if (isLogin) return;
 
-			const value = inputRef.current?.value.trim() || "";
 			let errorMessage = "";
 
-			if (type === "email" && !/\S+@\S+\.\S+/.test(value)) {
-				errorMessage = "Format d'email invalide.";
-			} else if (type === "password" && value.length < 8) {
-				errorMessage = "Le mot de passe doit contenir au moins 8 caractères.";
-			} else if (
-				type === "confirmPassword" &&
-				passwordRef?.current &&
-				passwordRef.current.value !== value
-			) {
+			if (required && !value.trim()) {
+				errorMessage = "Ce champ est requis";
+			} else if (type === "confirmPassword" && passwordRef !== value) {
 				errorMessage = "Les mots de passe ne correspondent pas.";
+			} else if (validationPattern && typeof validationPattern === "object") {
+				const pattern =
+					"value" in validationPattern
+						? (validationPattern.value as RegExp)
+						: null;
+				const message =
+					"message" in validationPattern
+						? (validationPattern.message as string)
+						: "Format invalide";
+
+				if (pattern && value && !pattern.test(value)) {
+					errorMessage = message;
+				}
 			}
 
 			setError(errorMessage);
+			return errorMessage === "";
+		};
+
+		const handleBlur = () => {
+			validateValue();
+		};
+
+		const handleChange = (
+			e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		) => {
+			onChange(e);
+
+			if (error) {
+				validateValue();
+			}
 		};
 
 		return (
@@ -189,14 +125,22 @@ const TextInput = React.forwardRef<
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
-						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+						name={fieldName}
+						ref={ref as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
 						required={required}
+						value={value}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						maxLength={maxLength}
+						aria-invalid={!!error}
+						aria-describedby={error ? `${inputId}-error` : undefined}
 					/>
 				) : (
 					<input
 						id={inputId}
-						ref={inputRef as React.RefObject<HTMLInputElement>}
+						name={fieldName}
+						ref={ref as React.RefObject<HTMLInputElement>}
 						type={
 							isPasswordField
 								? showPassword
@@ -208,8 +152,12 @@ const TextInput = React.forwardRef<
 						}
 						placeholder={mappedPlaceholder}
 						required={required}
-						onBlur={validateInput}
-						className={`${className} ${error ? "error-border" : ""}`}
+						value={value}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						maxLength={maxLength}
+						aria-invalid={!!error}
+						aria-describedby={error ? `${inputId}-error` : undefined}
 					/>
 				)}
 				{isPasswordField && (

@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 // All mixins must be gathered in this file
 
 @mixin avatar {
@@ -5,7 +7,7 @@
     padding: 1.2vh 1.5vw;
 }
 
-@mixin dashContentArea($offset : 0) {
+@mixin dashContentArea($offset: 0) {
     min-height: calc(100vh - $dashHeaderHeight - $dashInlinePadding + #{$offset});
 
     @media (width < $mobile) {
@@ -18,12 +20,12 @@
     font-weight: $semiBold;
 }
 
-@mixin tag {
+@mixin service {
     color: $primary-light;
     min-width: 15ch;
     padding-inline: 2rem;
     padding-block: 0.6rem;
-    border-radius: $atoms-radius;
+    border-radius: 5px;
     margin: 0.2rem;
     display: inline-block;
     font-weight: $semiBold;
@@ -32,7 +34,7 @@
 
 @mixin dogBackground {
     &::after {
-        content: '';
+        content: "";
         width: 30%;
         aspect-ratio: 1;
         position: fixed;
@@ -61,4 +63,3 @@
         }
     }
 }
-

@@ -29,6 +29,9 @@ async function createData() {
 		await queryRunner.manager.query(
 			'DROP TABLE IF EXISTS "password_reset_token" CASCADE',
 		);
+		await queryRunner.manager.query(
+			'DROP TABLE IF EXISTS "event_services" CASCADE',
+		);
 		// Let TypeORM recreate the tables with proper inheritance
 		await dataSource.synchronize();
 
@@ -40,7 +43,7 @@ async function createData() {
 		owner.lastname = "Doe";
 		owner.firstname = "John";
 		owner.email = "john@example.com";
-		owner.password_hashed = "pulseform";
+		owner.password_hashed = "C@niche22";
 		owner.phone_number = "0123456789";
 		owner.city = "Paris";
 		owner.postal_code = "75000";
@@ -51,7 +54,7 @@ async function createData() {
 		owner2.lastname = "Chantal";
 		owner2.firstname = "Marie";
 		owner2.email = "marie-chantal@example.com";
-		owner2.password_hashed = "linux4ever";
+		owner2.password_hashed = "C@niche22";
 		owner2.phone_number = "0612456789";
 		owner2.city = "Lille";
 		owner2.postal_code = "59000";
@@ -59,22 +62,21 @@ async function createData() {
 		const savedOwner2 = await ownerRepository.save(owner2);
 
 		//2. Create trainers
-
 		const trainerRepository = dataSource.getRepository(Trainer);
 		const trainer = new Trainer("12345678901234", "educ de Lyon");
 		trainer.lastname = "Smith";
 		trainer.firstname = "Jane";
 		trainer.email = "jane@example.com";
-		trainer.password_hashed = "mdpdefou";
+		trainer.password_hashed = "C@niche22";
 		trainer.phone_number = "0987654321";
 		trainer.city = "Lyon";
 		trainer.postal_code = "69000";
 		trainer.description = "Je suis un très bon éducateur et je sens bon.";
+		trainer.siret = "12345678901234";
 
 		const savedTrainer = await trainerRepository.save(trainer);
 
 		//3. Create dog
-
 		const dog1 = new Dog(
 			savedOwner1,
 			"Rex",
@@ -93,30 +95,24 @@ async function createData() {
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const service = new Service(
-			savedTrainer,
-			"Dressage Canin",
-			"Formation complète pour votre chien",
-			"education",
-		);
+		const service = new Service("Manger des chips", "🥔", "#B38600");
 		const savedService = await serviceRepository.save(service);
 
 		// 5. Create Event
 		const eventRepository = dataSource.getRepository(Event);
 		const event = new Event(
 			savedTrainer,
-			savedService,
-			new Date("2024-12-20"),
+			[savedService],
 			"Formation Super spéciale du jour",
 			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
 			{
 				latitude: 45.7771392,
 				longitude: 4.8560401,
 			},
-			5,
-			40,
 			new Date("2025-03-05T09:00:00"),
 			new Date("2025-03-05T09:45:00"),
+			5,
+			40,
 		);
 		const savedEvent = await eventRepository.save(event);
 

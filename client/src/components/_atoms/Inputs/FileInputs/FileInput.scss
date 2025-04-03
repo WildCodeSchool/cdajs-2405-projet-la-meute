@@ -1,0 +1,69 @@
+@use "@style" as *;
+@use "sass:map";
+
+$themes: (
+    "dark": (
+        "color": $blue-100,
+        "border-color": $blue-300,
+        "bg-color": $blue-500,
+        "text-color": $font-light
+    ),
+    "light": (
+        "color": $blue-100,
+        "border-color": $beige-300,
+        "bg-color": $beige-300,
+        "text-color": $blue-300
+    )
+);
+
+.fileInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: 0.6rem;
+    color: $blue-100;
+    position: relative;
+
+    label {
+        font-weight: $bold;
+        color: $blue-400;
+    }
+
+    input{
+        border-radius: 7px;
+        padding: 0.8rem;
+        padding-inline: 2rem;
+        font-weight: $light;
+
+        &::file-selector-button {
+            background-color: $blue-300;
+            color: $font-light;
+            border: none;
+            padding: 4px 12px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:active {
+                transform: translateY(1px);
+            }
+
+            &:hover {
+                background-color: $blue-200;
+            }
+        }
+    }
+
+    @each $theme, $colors in $themes {
+        &__#{$theme} {
+            color: map.get($colors, "color");
+        
+            input {
+                border: 2px solid map.get($colors, "border-color");
+                background-color: map.get($colors, "bg-color");
+                color: map.get($colors, "text-color");
+            }
+        }
+    }
+}

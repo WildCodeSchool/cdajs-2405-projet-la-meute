@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "install:all": "npm install && cd server && npm install && cd .. && cd client && npm install && cd ..",
     "ci:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
     "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
@@ -28,6 +28,7 @@
     "@testing-library/user-event": "^14.5.2",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0"
+    "jwt-decode": "^4.0.0",
+    "react-toastify": "^11.0.5"
   }
 }

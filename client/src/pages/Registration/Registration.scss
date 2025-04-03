@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .registration {
     background-image: url("@/assets/illustrations/promeneur-proprietaire-se-baladant-avec-son-chien-au-parc.png");
@@ -52,6 +52,7 @@
 .registration__form {
     margin-block-start: 3vh;
     margin-bottom: 15vh;
+    max-width: 600px;
 }
 
 .userMessage {

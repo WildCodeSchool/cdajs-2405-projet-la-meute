@@ -8,5 +8,5 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-# Build is needed for build in github action
-RUN npm run build
+# # Build is needed for build in github action
+# RUN npm run build

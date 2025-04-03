@@ -4,6 +4,7 @@ import { ApolloServer } from "@apollo/server";
 import dotenv from "dotenv";
 import path from "node:path";
 import cors from "cors";
+import "module-alias/register";
 
 import express from "express";
 import { expressMiddleware } from "@apollo/server/express4";
@@ -15,13 +16,14 @@ import { initTestData } from "./dataSource/initTestData";
 import { UserResolvers } from "./resolvers/UserResolvers";
 import { DogResolver } from "./resolvers/DogResolver";
 import { EventResolver } from "./resolvers/EventResolver";
+import { ServicesResolvers } from "./resolvers/ServicesResolvers";
 
 dotenv.config();
 const port = 3200;
 
 export async function startServerApollo() {
 	const schema = await buildSchema({
-		resolvers: [UserResolvers, DogResolver, EventResolver],
+		resolvers: [UserResolvers, DogResolver, EventResolver, ServicesResolvers],
 	});
 
 	const server = new ApolloServer({ schema });
