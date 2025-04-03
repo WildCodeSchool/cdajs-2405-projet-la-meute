@@ -167,6 +167,7 @@ function EventUpdate() {
 					className="createEvent__event createEvent__event--title"
 					label="Nom de l'évènement"
 					required
+					type="title"
 					ref={titleRef}
 				/>
 
@@ -221,6 +222,7 @@ function EventUpdate() {
 					label="Description"
 					placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 					inputType="textarea"
+					type="description"
 					ref={descriptionRef}
 					required
 				/>

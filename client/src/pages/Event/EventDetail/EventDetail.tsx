@@ -150,6 +150,7 @@ function EventDetail() {
 							className="createEvent__event eventDetail__description eventDetail__margin"
 							label="Description"
 							inputType="textarea"
+							type="description"
 							placeholder={event.description}
 						/>
 						{/*<label className="createEvent__event eventDetail__event--location eventDetail__margin">

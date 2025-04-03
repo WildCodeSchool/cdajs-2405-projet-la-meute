@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import "./EventId.scss";
@@ -6,6 +6,7 @@ import Service from "@/components/_atoms/Service/Service";
 import NewService from "@/components/_atoms/Service/NewService";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
+import { useForm } from "@/hooks/useForm";
 import { toast } from "react-toastify";
 import type { ServiceType } from "@/types/Service";
 import { useMutation } from "@apollo/client";
@@ -18,6 +19,16 @@ type endTimeStyleType = {
 	outline?: string;
 };
 
+interface EventFormValues extends Record<string, unknown> {
+	title: string;
+	date: string;
+	startTime: string;
+	endTime: string;
+	description: string;
+	price: string;
+	groupMaxSize: string;
+}
+
 function EventId() {
 	const navigate = useNavigate();
 	const { user } = useUser();
@@ -27,13 +38,20 @@ function EventId() {
 
 	const [createEvent] = useMutation(CREATE_EVENT);
 
-	const titleRef = useRef<HTMLInputElement>(null);
-	const dateRef = useRef<HTMLInputElement>(null);
-	const startTimeRef = useRef<HTMLInputElement>(null);
-	const endTimeRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
-	const priceRef = useRef<HTMLInputElement>(null);
-	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
+	const form = useForm<EventFormValues>({
+		initialValues: {
+			title: "",
+			date: "",
+			startTime: "",
+			endTime: "",
+			description: "",
+			price: "",
+			groupMaxSize: "",
+		},
+		onSubmit: async (formValues) => {
+			await handleSubmit(formValues);
+		},
+	});
 
 	const formatDateTime = (date: string, time: string) => {
 		const dateTime = new Date(`${date}T${time}:00.000Z`);
@@ -41,8 +59,8 @@ function EventId() {
 	};
 
 	const handleEndTimeBlur = () => {
-		if (startTimeRef.current?.value && endTimeRef.current?.value) {
-			if (startTimeRef.current.value >= endTimeRef.current.value) {
+		if (form.values.startTime && form.values.endTime) {
+			if (form.values.startTime >= form.values.endTime) {
 				setEndTimeStyle({ outline: "2px solid red" });
 				toast.error(
 					"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
@@ -53,31 +71,21 @@ function EventId() {
 		}
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
-		const date = dateRef.current?.value;
-
+	const handleSubmit = async (formValues: EventFormValues) => {
 		if (user?.role === "trainer") {
 			const servicesArray = services.map((service) => Number(service.id));
 
 			const eventData = {
-				endDate: formatDateTime(
-					date as string,
-					endTimeRef.current?.value as string,
-				),
-				startDate: formatDateTime(
-					date as string,
-					startTimeRef.current?.value as string,
-				),
-				price: Number(priceRef.current?.value),
-				groupMaxSize: Number(groupMaxSizeRef.current?.value),
+				endDate: formatDateTime(formValues.date, formValues.endTime),
+				startDate: formatDateTime(formValues.date, formValues.startTime),
+				price: Number(formValues.price),
+				groupMaxSize: Number(formValues.groupMaxSize),
 				location: {
 					latitude: markerLocation ? markerLocation[0].lat : 48.853495,
 					longitude: markerLocation ? markerLocation[0].lng : 2.349014,
 				},
-				description: descriptionRef.current?.value,
-				title: titleRef.current?.value,
+				description: formValues.description,
+				title: formValues.title,
 				trainerId: Number(user?.id),
 				serviceIds: servicesArray,
 			};
@@ -101,7 +109,7 @@ function EventId() {
 
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={handleSubmit}>
+			<form className="createEvent" onSubmit={form.handleSubmit}>
 				<h1 className="createEvent__title">Création d'évènement</h1>
 
 				<TextInput
@@ -109,7 +117,10 @@ function EventId() {
 					label="Nom de l'évènement"
 					placeholder="Entrez le nom de l'évènement"
 					required
-					ref={titleRef}
+					type="title"
+					name="title"
+					value={form.values.title}
+					onChange={form.handleChange}
 				/>
 
 				{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
@@ -133,7 +144,9 @@ function EventId() {
 						<input
 							className="createEvent__input"
 							type="date"
-							ref={dateRef}
+							name="date"
+							value={form.values.date}
+							onChange={form.handleChange}
 							required
 						/>
 					</label>
@@ -142,7 +155,9 @@ function EventId() {
 						<input
 							className="createEvent__input"
 							type="time"
-							ref={startTimeRef}
+							name="startTime"
+							value={form.values.startTime}
+							onChange={form.handleChange}
 							required
 						/>
 					</label>
@@ -152,7 +167,9 @@ function EventId() {
 							className="createEvent__input"
 							style={endTimeStyle}
 							type="time"
-							ref={endTimeRef}
+							name="endTime"
+							value={form.values.endTime}
+							onChange={form.handleChange}
 							onBlur={handleEndTimeBlur}
 							required
 						/>
@@ -165,7 +182,10 @@ function EventId() {
 					label="Description"
 					placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 					inputType="textarea"
-					ref={descriptionRef}
+					type="description"
+					name="description"
+					value={form.values.description}
+					onChange={form.handleChange}
 					required
 				/>
 
@@ -178,7 +198,9 @@ function EventId() {
 								placeholder="Prix TTC"
 								type="number"
 								min={0}
-								ref={priceRef}
+								name="price"
+								value={form.values.price}
+								onChange={form.handleChange}
 								required
 							/>
 							<p>€</p>
@@ -191,7 +213,9 @@ function EventId() {
 							placeholder="1 minimum"
 							type="number"
 							min={1}
-							ref={groupMaxSizeRef}
+							name="groupMaxSize"
+							value={form.values.groupMaxSize}
+							onChange={form.handleChange}
 							required
 						/>
 					</label>
