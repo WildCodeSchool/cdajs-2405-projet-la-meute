@@ -4,7 +4,10 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import type { LatLngExpression, Marker as LeafletMarker } from "leaflet";
 
 type LeafletMapProps = {
-	setMarkerLocation: Dispatch<leafletMarkerType[]>;
+	markerLocation?: leafletMarkerType[];
+	setMarkerLocation?: Dispatch<leafletMarkerType[]>;
+	readOnly?: boolean;
+	className?: string;
 };
 
 export type leafletMarkerType = {
@@ -20,9 +23,12 @@ function LeafletMap({ setMarkerLocation }: LeafletMapProps) {
 	const handleDragEnd = useCallback(() => {
 		const marker = markerRef.current;
 		if (marker) {
-			const newPosition = marker.getLatLng() as leafletMarkerType;
+			const newPosition: leafletMarkerType = marker?.getLatLng() ?? {
+				lat: 0,
+				lng: 0,
+			};
 			setPosition(newPosition);
-			setMarkerLocation([newPosition]);
+			setMarkerLocation?.([newPosition]);
 		}
 	}, [setMarkerLocation]);
 

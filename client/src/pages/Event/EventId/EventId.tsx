@@ -100,117 +100,118 @@ function EventId() {
 	};
 
 	return (
-		<form className="createEvent" onSubmit={handleSubmit}>
-			<h1 className="createEvent__title">Création d'évènement</h1>
+		<section className="sectionEvent">
+			<form className="createEvent" onSubmit={handleSubmit}>
+				<h1 className="createEvent__title">Création d'évènement</h1>
 
-			<TextInput
-				className="createEvent__event createEvent__event--title"
-				label="Nom de l'évènement"
-				placeholder="Entrez le nom de l'évènement"
-				required
-				ref={titleRef}
-			/>
+				<TextInput
+					className="createEvent__event createEvent__event--title"
+					label="Nom de l'évènement"
+					placeholder="Entrez le nom de l'évènement"
+					required
+					ref={titleRef}
+				/>
 
-			{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
-			<label className="createEvent__event createEvent__event--services">
-				Etiquettes
-				<p className="createEvent__event--services--p">
-					Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
-					clients, vous pouvez en choisir jusqu’à 3.
-				</p>
-				<div className="createEvent__event--services--newService">
-					{services.map((service) => (
-						<Service key={service.id} service={service} />
-					))}
-					<NewService services={services} setServices={setServices} />
-				</div>
-			</label>
-
-			<span className="createEvent__event createEvent__event--dates">
-				<label className="createEvent__event--date">
-					Date de l'évènement&nbsp;*
-					<input
-						className="createEvent__input"
-						type="date"
-						ref={dateRef}
-						required
-					/>
+				{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
+				<label className="createEvent__event createEvent__event--services">
+					Etiquettes
+					<p className="createEvent__event--services--p">
+						Les étiquettes donneront quelques mots-clés en un coup d’oeil à vos
+						clients, vous pouvez en choisir jusqu’à 3.
+					</p>
+					<div className="createEvent__event--services--newService">
+						{services.map((service) => (
+							<Service key={service.id} service={service} />
+						))}
+						<NewService services={services} setServices={setServices} />
+					</div>
 				</label>
-				<label className="createEvent__event--startTime">
-					Heure de début&nbsp;*
-					<input
-						className="createEvent__input"
-						type="time"
-						ref={startTimeRef}
-						required
-					/>
-				</label>
-				<label className="createEvent__event--endDate">
-					Heure de fin&nbsp;*
-					<input
-						className="createEvent__input"
-						style={endTimeStyle}
-						type="time"
-						ref={endTimeRef}
-						onBlur={handleEndTimeBlur}
-						required
-					/>
-					{/* FIXME: (improvement) endDate should be able to go over 24h */}
-				</label>
-			</span>
 
-			<TextInput
-				className="createEvent__event createEvent__event--description"
-				label="Description"
-				placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
-				inputType="textarea"
-				ref={descriptionRef}
-				required
-			/>
-
-			<span className="createEvent__event createEvent__event--prices">
-				<label className="createEvent__event--price">
-					Prix par chien en euros *
-					<span>
+				<span className="createEvent__event createEvent__event--dates">
+					<label className="createEvent__event--date">
+						Date de l'évènement&nbsp;*
 						<input
 							className="createEvent__input"
-							placeholder="Prix TTC"
-							type="number"
-							min={0}
-							ref={priceRef}
+							type="date"
+							ref={dateRef}
 							required
 						/>
-						<p>€</p>
-					</span>
-				</label>
-				<label className="createEvent__event--groupMaxSize">
-					Nombre maximum de chiens participants&nbsp;*
-					<input
-						className="createEvent__input"
-						placeholder="1 minimum"
-						type="number"
-						min={1}
-						ref={groupMaxSizeRef}
-						required
-					/>
-				</label>
-			</span>
+					</label>
+					<label className="createEvent__event--startTime">
+						Heure de début&nbsp;*
+						<input
+							className="createEvent__input"
+							type="time"
+							ref={startTimeRef}
+							required
+						/>
+					</label>
+					<label className="createEvent__event--endDate">
+						Heure de fin&nbsp;*
+						<input
+							className="createEvent__input"
+							style={endTimeStyle}
+							type="time"
+							ref={endTimeRef}
+							onBlur={handleEndTimeBlur}
+							required
+						/>
+						{/* FIXME: (improvement) endDate should be able to go over 24h */}
+					</label>
+				</span>
 
-			{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
-			<label className="createEvent__event createEvent__event--location">
-				Localisation&nbsp;*
-				<LeafletMap setMarkerLocation={setMarkerLocation} />
-			</label>
+				<TextInput
+					className="createEvent__event createEvent__event--description"
+					label="Description"
+					placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
+					inputType="textarea"
+					ref={descriptionRef}
+					required
+				/>
 
-			<span className="createEvent__event createEvent__event--buttons">
-				<Button type="button" style="btn-light" onClick={() => navigate(-1)}>
-					Annuler
-				</Button>
-				<Button type="submit" style="btn-dark">
-					Créer l'évènement
-				</Button>
-			</span>
-		</form>
+				<span className="createEvent__event createEvent__event--prices">
+					<label className="createEvent__event--price">
+						Prix par chien en euros *
+						<span>
+							<input
+								className="createEvent__input"
+								placeholder="Prix TTC"
+								type="number"
+								min={0}
+								ref={priceRef}
+								required
+							/>
+							<p>€</p>
+						</span>
+					</label>
+					<label className="createEvent__event--groupMaxSize">
+						Nombre maximum de chiens participants&nbsp;*
+						<input
+							className="createEvent__input"
+							placeholder="1 minimum"
+							type="number"
+							min={1}
+							ref={groupMaxSizeRef}
+							required
+						/>
+					</label>
+				</span>
+
+				{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
+				<span className="createEvent__event--location">
+					<label>Localisation&nbsp;*</label>
+					<LeafletMap setMarkerLocation={setMarkerLocation} />
+				</span>
+				<span className="createEvent__event createEvent__event--buttons">
+					<Button type="button" style="btn-light" onClick={() => navigate(-1)}>
+						Annuler
+					</Button>
+					<Button type="submit" style="btn-dark">
+						Créer l'évènement
+					</Button>
+				</span>
+			</form>
+		</section>
 	);
 }
 

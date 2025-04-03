@@ -1,8 +1,8 @@
 @use "@style" as *;
 
 .calendar-container {
-    padding: 20px;
 
+    margin-top: 3vh;
     /* Under -> Allow to modify element per view */
 
     /* dayGridMonth */
@@ -62,11 +62,15 @@
     border: 0;
 }
 
-.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+.fc-timegrid-event-harness-inset .fc-timegrid-event,
+.fc-timegrid-event.fc-event-mirror,
+.fc-timegrid-more-link {
     box-shadow: none;
 }
 
-.fc-theme-standard, .fc-scrollgrid, .fc-timegrid-event {
+.fc-theme-standard,
+.fc-scrollgrid,
+.fc-timegrid-event {
     border: 0px;
 }
 
@@ -232,7 +236,16 @@
 
 .fc-day {
     padding: 0.75rem !important;
+    border: 1px solid $beige-400 !important;
+
 }
+
+.fc-col-header {
+    .fc-day {
+        border: 0px !important;
+    }
+}
+
 
 .fc-daygrid {
     color: $primary-dark !important;
@@ -342,7 +355,7 @@
                 font-size: $xxl;
                 font-weight: $bold;
                 color: $blue-400;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
             }
 
             .event-date-and-time {
@@ -593,5 +606,29 @@
         border-radius: 50%;
         margin: auto;
         padding: 5%;
+    }
+
+    /* listWeekView */
+
+    .event__section--global {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        .event-content-list {
+            width: 100%;
+
+            .event-card {
+
+                .event-title {
+                    font-size: $l;
+                    margin-bottom: 1.5rem;
+                }
+            }
+        }
+
+        .event__div--participation {
+            display: none;
+        }
     }
 }

@@ -21,6 +21,7 @@ export interface Event {
 	startDate: Date;
 	endDate: Date;
 	participation: Participation[];
+	services: ServiceType[];
 }
 
 export interface Participation {

@@ -12,6 +12,8 @@ import {
 	GET_ALL_EVENTS,
 	GET_ALL_EVENTS_BY_OWNER_ID,
 } from "@/graphQL/queries/event";
+import Service from "@/components/_atoms/Service/Service";
+import type { ServiceType } from "@/types/Service";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -41,9 +43,10 @@ function Planning() {
 			variables: {
 				ownerId: user?.id ? Number(user.id) : null,
 			},
-			skip: !user?.id,
 		},
 	);
+
+	console.log(ownerEventsData);
 
 	// Check if the role is trainer or owner
 	const isTrainer = role === "trainer";
@@ -61,6 +64,7 @@ function Planning() {
 				location: event.location,
 				price: event.price,
 				dogs: event.participation?.map((p) => p.dog) || [],
+				services: event.services || [],
 			},
 		})) || [];
 
@@ -132,27 +136,6 @@ function Planning() {
 		center: "today,dayGridMonth",
 		right: "prev title next",
 	};
-
-	// Display only the first title "Participants" at the top of the column
-	useEffect(() => {
-		const observer = new MutationObserver(() => {
-			const participantTitles = document.querySelectorAll(
-				".participants-title",
-			);
-
-			participantTitles.forEach((title, index) => {
-				(title as HTMLElement).style.display = index === 0 ? "block" : "none";
-			});
-		});
-
-		const calendarContainer = document.querySelector(".calendar-container");
-
-		if (calendarContainer) {
-			observer.observe(calendarContainer, { childList: true, subtree: true });
-		}
-
-		return () => observer.disconnect();
-	}, []);
 
 	// Hide row all day on timeGridWeek
 	useEffect(() => {
@@ -269,6 +252,16 @@ function Planning() {
 									<div className="event-content-list">
 										<div className="event-card">
 											<div className="event-title">{arg.event.title}</div>
+											<div className="eventDetail__event--service">
+												{arg.event.extendedProps.services.map(
+													(service: ServiceType, index: number) => (
+														<Service
+															service={service}
+															key={service.id || `service-${index}`}
+														/>
+													),
+												)}
+											</div>
 											<div className="event-date-and-time">
 												<CalendarWithClock className="event__icons" />
 												{formatEventDateTime(arg.event.start, arg.event.end)}

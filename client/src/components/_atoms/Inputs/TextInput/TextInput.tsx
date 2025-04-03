@@ -31,6 +31,7 @@ interface TextInputProps {
 	placeholder?: string;
 	className?: string;
 	name?: string;
+	value?: string | number;
 	onChange?: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => void;
@@ -133,6 +134,7 @@ const TextInput = React.forwardRef<
 			label,
 			placeholder,
 			className,
+			value,
 			name,
 			onChange,
 		},
@@ -194,6 +196,7 @@ const TextInput = React.forwardRef<
 						name={type ? TEXT_INPUT_CONFIG[type].mappedName : name}
 						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
+						value={value}
 						required={required}
 						onChange={onChange}
 					/>
@@ -212,6 +215,7 @@ const TextInput = React.forwardRef<
 									: "text"
 						}
 						placeholder={mappedPlaceholder}
+						value={value}
 						required={required}
 						onBlur={validateInput}
 						className={`${className} ${error ? "error-border" : ""}`}

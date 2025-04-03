@@ -33,7 +33,8 @@ import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
 import Planning from "./pages/Planning/Planning.tsx";
-import EventDetail from "./pages/Events/EventDetail.tsx";
+import EventDetail from "./pages/Event/EventDetail/EventDetail.tsx";
+import EventUpdate from "./pages/Event/EventUpdate/EventUpdate.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
@@ -169,6 +170,10 @@ const router = createBrowserRouter([
 									{
 										path: ":id",
 										element: <EventDetail />,
+									},
+									{
+										path: ":id/edit",
+										element: <EventUpdate />,
 									},
 								],
 							},
