@@ -1,6 +1,17 @@
 import { Resolver, Query, Arg } from "type-graphql";
 import { search } from "../services/search";
 import { SearchIndex } from "../entities/SearchIndex";
+import { Event } from "../entities/Event"; // Ajoute d'autres entités si besoin
+import { Dog } from "../entities/Dog";
+import { dataSource } from "../dataSource/dataSource";
+import { EntityDetails } from "../types/entityDetailsTypes";
+
+const entityMap = {
+	event: Event,
+	dog: Dog,
+} as const;
+
+type EntityType = keyof typeof entityMap;
 
 @Resolver()
 export class SearchResolver {
@@ -14,5 +25,23 @@ export class SearchResolver {
 			entity_type,
 			entity_id,
 		}));
+	}
+
+	@Query(() => EntityDetails, { nullable: true })
+	async GetEntityDetails(
+		@Arg("id") id: number,
+		@Arg("entityType") entityType: string,
+	): Promise<EntityDetails | null> {
+		if (!(entityType in entityMap)) return null;
+
+		const repository = dataSource.getRepository(entityType);
+		const entity = await repository.findOne({ where: { id } });
+
+		if (!entity) return null;
+
+		return {
+			type: entityType,
+			data: entity as Event | Dog,
+		};
 	}
 }
