@@ -86,10 +86,12 @@ const TextInput = React.forwardRef<
 				if (passwordRef !== value) {
 					errorMessage = "Les mots de passe ne correspondent pas.";
 				}
-			}
-			else if (required && !value.trim()) {
+			} else if (required && !value.trim()) {
 				errorMessage = "Ce champ est requis";
-			} else if (type === "password" && !validationRules.PASSWORD.pattern.test(value)) {
+			} else if (
+				type === "password" &&
+				!validationRules.PASSWORD.pattern.test(value)
+			) {
 				errorMessage = validationRules.PASSWORD.message;
 			} else if (type === "confirmPassword" && passwordRef !== value) {
 				errorMessage = "Les mots de passe ne correspondent pas.";
@@ -114,7 +116,7 @@ const TextInput = React.forwardRef<
 
 		const handleFocus = () => {
 			setIsFocused(true);
-			
+
 			// For the password field, display the requirements in first
 			if (isPasswordField && type === "password") {
 				if (!validationRules.PASSWORD.pattern.test(value)) {
@@ -138,9 +140,9 @@ const TextInput = React.forwardRef<
 			e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		) => {
 			onChange(e);
-			
+
 			const newValue = e.target.value;
-			
+
 			// For the password field, check in real time if the format is correct
 			if (isPasswordField && type === "password") {
 				// Check is the format is correct
@@ -151,7 +153,7 @@ const TextInput = React.forwardRef<
 					// Format is incorrect so the error message is displayed
 					setError(validationRules.PASSWORD.message);
 				}
-			} 
+			}
 			// For confirm password field, check in real time if it matches with password
 			else if (type === "confirmPassword") {
 				if (passwordRef === newValue) {
@@ -161,8 +163,7 @@ const TextInput = React.forwardRef<
 					// Passwords don't match, show error
 					setError("Les mots de passe ne correspondent pas.");
 				}
-			}
-			else if (error) {
+			} else if (error) {
 				validateValue();
 			}
 		};
