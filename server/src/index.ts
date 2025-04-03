@@ -4,6 +4,7 @@ import { ApolloServer } from "@apollo/server";
 import dotenv from "dotenv";
 import path from "node:path";
 import cors from "cors";
+import "module-alias/register";
 
 import express from "express";
 import { expressMiddleware } from "@apollo/server/express4";

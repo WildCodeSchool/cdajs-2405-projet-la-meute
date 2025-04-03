@@ -43,7 +43,7 @@ async function createData() {
 		owner.lastname = "Doe";
 		owner.firstname = "John";
 		owner.email = "john@example.com";
-		owner.password_hashed = "pulseform";
+		owner.password_hashed = "C@niche22";
 		owner.phone_number = "0123456789";
 		owner.city = "Paris";
 		owner.postal_code = "75000";
@@ -54,7 +54,7 @@ async function createData() {
 		owner2.lastname = "Chantal";
 		owner2.firstname = "Marie";
 		owner2.email = "marie-chantal@example.com";
-		owner2.password_hashed = "linux4ever";
+		owner2.password_hashed = "C@niche22";
 		owner2.phone_number = "0612456789";
 		owner2.city = "Lille";
 		owner2.postal_code = "59000";
@@ -67,11 +67,12 @@ async function createData() {
 		trainer.lastname = "Smith";
 		trainer.firstname = "Jane";
 		trainer.email = "jane@example.com";
-		trainer.password_hashed = "mdpdefou";
+		trainer.password_hashed = "C@niche22";
 		trainer.phone_number = "0987654321";
 		trainer.city = "Lyon";
 		trainer.postal_code = "69000";
 		trainer.description = "Je suis un très bon éducateur et je sens bon.";
+		trainer.siret = "12345678901234";
 
 		const savedTrainer = await trainerRepository.save(trainer);
 
