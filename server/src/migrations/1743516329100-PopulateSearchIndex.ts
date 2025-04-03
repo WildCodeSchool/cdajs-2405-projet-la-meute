@@ -2,7 +2,7 @@ import type { MigrationInterface, QueryRunner } from "typeorm";
 
 export class PopulateSearchIndex1680000000000 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
-		// 1️⃣ DOG
+		// DOG
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'dog', dog.id, 
@@ -11,7 +11,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             FROM dog;
         `);
 
-		// 2️⃣ TRAINER
+		// TRAINER
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'trainer', trainer.id,
@@ -28,7 +28,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             FROM trainer;
         `);
 
-		// 3️⃣ OWNER
+		// OWNER
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'owner', owner.id, 
@@ -42,7 +42,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             FROM owner;
         `);
 
-		// 4️⃣ EVENT
+		// EVENT
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'event', event.id, 
@@ -54,7 +54,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             FROM event;
         `);
 
-		// 5️⃣ FAVORITE
+		// FAVORITE
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'favorite', favorite.id,
@@ -65,7 +65,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             JOIN owner ON owner.id = favorite.owner_id;
         `);
 
-		// 6️⃣ PARTICIPATION
+		// PARTICIPATION
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'participation', participation.id,
@@ -76,7 +76,7 @@ export class PopulateSearchIndex1680000000000 implements MigrationInterface {
             JOIN event ON event.id = participation.event_id;
         `);
 
-		// 7️⃣ SERVICE
+		// SERVICE
 		await queryRunner.query(`
             INSERT INTO search_index (entity_type, entity_id, document)
             SELECT 'service', service.id, 
