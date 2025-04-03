@@ -1,17 +1,28 @@
 import { Resolver, Query, Arg } from "type-graphql";
+import { dataSource } from "../dataSource/dataSource";
+
 import { search } from "../services/search";
 import { SearchIndex } from "../entities/SearchIndex";
-import { Event } from "../entities/Event"; // Ajoute d'autres entités si besoin
-import { Dog } from "../entities/Dog";
-import { dataSource } from "../dataSource/dataSource";
+
 import { EntityDetails } from "../types/entityDetailsTypes";
+
+import { Event } from "../entities/Event";
+import { Dog } from "../entities/Dog";
+import { Trainer } from "../entities/Trainer";
+import { Owner } from "../entities/Owner";
+import { Favorite } from "../entities/Favorite";
+import { Participation } from "../entities/Participation";
+import { Service } from "../entities/Service";
 
 const entityMap = {
 	event: Event,
 	dog: Dog,
+	trainer: Trainer,
+	owner: Owner,
+	favorite: Favorite,
+	participation: Participation,
+	service: Service,
 } as const;
-
-type EntityType = keyof typeof entityMap;
 
 @Resolver()
 export class SearchResolver {
@@ -41,7 +52,14 @@ export class SearchResolver {
 
 		return {
 			type: entityType,
-			data: entity as Event | Dog,
+			entity: entity as
+				| Event
+				| Dog
+				| Trainer
+				| Owner
+				| Favorite
+				| Participation
+				| Service,
 		};
 	}
 }

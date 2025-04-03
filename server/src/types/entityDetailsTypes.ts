@@ -7,5 +7,5 @@ export class EntityDetails {
 	type!: string;
 
 	@Field(() => EntityUnionType)
-	data!: typeof EntityUnionType;
+	entity!: typeof EntityUnionType;
 }

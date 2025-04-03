@@ -1,0 +1,9 @@
+@use "@style" as *;
+
+.searchResultItem {
+    list-style: none;
+    background-color: #F1E6DA;
+    padding: 1rem;
+    border-radius: $windows-radius;
+    margin: 1rem;
+}
