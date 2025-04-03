@@ -3,6 +3,7 @@ import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import "./TextInput.scss";
 import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
+import validationRules from "@shared/validationRules";
 
 interface TextInputProps {
 	type: TextInputTypes;
@@ -45,6 +46,7 @@ const TextInput = React.forwardRef<
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
+		const [isFocused, setIsFocused] = useState(false);
 
 		const config = TEXT_INPUT_CONFIG[type];
 		const mappedLabel = label || config.mappedLabel || "";
@@ -66,12 +68,29 @@ const TextInput = React.forwardRef<
 			type === "password" || type === "confirmPassword";
 
 		const validateValue = () => {
-			if (isLogin) return;
+			if (isLogin) return true;
 
 			let errorMessage = "";
 
-			if (required && !value.trim()) {
+			// Special treatment for the password field during focus
+			if (type === "password" && isFocused) {
+				//  Always display password requirements without checking if the field is empty
+				errorMessage = validationRules.PASSWORD.message;
+				// If the password is valid, the error message is cleared.
+				if (validationRules.PASSWORD.pattern.test(value)) {
+					errorMessage = "";
+				}
+			}
+			// Special treatment for confirm password field during focus
+			else if (type === "confirmPassword" && isFocused) {
+				if (passwordRef !== value) {
+					errorMessage = "Les mots de passe ne correspondent pas.";
+				}
+			}
+			else if (required && !value.trim()) {
 				errorMessage = "Ce champ est requis";
+			} else if (type === "password" && !validationRules.PASSWORD.pattern.test(value)) {
+				errorMessage = validationRules.PASSWORD.message;
 			} else if (type === "confirmPassword" && passwordRef !== value) {
 				errorMessage = "Les mots de passe ne correspondent pas.";
 			} else if (validationPattern && typeof validationPattern === "object") {
@@ -93,7 +112,25 @@ const TextInput = React.forwardRef<
 			return errorMessage === "";
 		};
 
+		const handleFocus = () => {
+			setIsFocused(true);
+			
+			// For the password field, display the requirements in first
+			if (isPasswordField && type === "password") {
+				if (!validationRules.PASSWORD.pattern.test(value)) {
+					setError(validationRules.PASSWORD.message);
+				}
+			}
+			// For confirm password field, check if it matches with password
+			else if (type === "confirmPassword") {
+				if (passwordRef !== value) {
+					setError("Les mots de passe ne correspondent pas.");
+				}
+			}
+		};
+
 		const handleBlur = () => {
+			setIsFocused(false);
 			validateValue();
 		};
 
@@ -101,8 +138,31 @@ const TextInput = React.forwardRef<
 			e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		) => {
 			onChange(e);
-
-			if (error) {
+			
+			const newValue = e.target.value;
+			
+			// For the password field, check in real time if the format is correct
+			if (isPasswordField && type === "password") {
+				// Check is the format is correct
+				if (validationRules.PASSWORD.pattern.test(newValue)) {
+					// Format is correct so the error message is cleared
+					setError("");
+				} else {
+					// Format is incorrect so the error message is displayed
+					setError(validationRules.PASSWORD.message);
+				}
+			} 
+			// For confirm password field, check in real time if it matches with password
+			else if (type === "confirmPassword") {
+				if (passwordRef === newValue) {
+					// Passwords match, clear error
+					setError("");
+				} else {
+					// Passwords don't match, show error
+					setError("Les mots de passe ne correspondent pas.");
+				}
+			}
+			else if (error) {
 				validateValue();
 			}
 		};
@@ -116,12 +176,6 @@ const TextInput = React.forwardRef<
 					{mappedLabel}
 					{fieldRequired}
 				</label>
-				
-				{/* N'affiche le texte d'aide que si shouldDisplayHelp est true */}
-				{displayHelpText && shouldDisplayHelp && (
-					<p className="textInput__help-text">{displayHelpText}</p>
-				)}
-				
 				{inputType === "textarea" ? (
 					<textarea
 						id={inputId}
@@ -131,6 +185,7 @@ const TextInput = React.forwardRef<
 						required={required}
 						value={value}
 						onChange={handleChange}
+						onFocus={handleFocus}
 						onBlur={handleBlur}
 						maxLength={maxLength}
 						aria-invalid={!!error}
@@ -154,6 +209,7 @@ const TextInput = React.forwardRef<
 						required={required}
 						value={value}
 						onChange={handleChange}
+						onFocus={handleFocus}
 						onBlur={handleBlur}
 						maxLength={maxLength}
 						aria-invalid={!!error}
