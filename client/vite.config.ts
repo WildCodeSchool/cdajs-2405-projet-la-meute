@@ -21,6 +21,7 @@ export default defineConfig({
 		alias: {
 			"@": path.resolve(__dirname, "/src"),
 			"@style": path.resolve(__dirname, "/src/styles/global.scss"),
+			"@shared": path.resolve(__dirname, "../shared"),
 		},
 	},
 });

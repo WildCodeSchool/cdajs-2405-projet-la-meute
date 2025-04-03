@@ -4,14 +4,15 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useSearchParams } from "react-router-dom";
 import { useRef, useState } from "react";
+import { useForm } from "@/hooks/useForm";
 import { useMutation } from "@apollo/client";
 import { PASSWORDRESET } from "@/graphQL/mutations/user";
 
 function NewPassword() {
 	const [searchParams] = useSearchParams();
-	const token = searchParams.get("token");
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const confirmPasswordRef = useRef<HTMLInputElement>(null);
+	const token = searchParams.get("token");
 	const [message, setMessage] = useState("");
 
 	const [resetPassword, { loading }] = useMutation(PASSWORDRESET, {
@@ -24,59 +25,56 @@ function NewPassword() {
 		onError: (error) => setMessage(error.message),
 	});
 
-	const onFormSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		const password = passwordRef.current?.value;
-		const confirmPassword = confirmPasswordRef.current?.value;
-
-		if (!password || !confirmPassword) {
-			setMessage("Tous les champs sont requis");
-			return;
-		}
-
-		if (password !== confirmPassword) {
-			setMessage("Les mots de passe ne correspondent pas");
-			return;
-		}
-
-		if (password.length < 8) {
-			setMessage("Le mot de passe doit faire au moins 8 caractères");
-			return;
-		}
-
-		try {
-			await resetPassword({
-				variables: {
-					token,
-					newPassword: password,
-				},
-			});
-		} catch (err) {
-			console.error("Password reset error:", err);
-		}
-	};
+	const form = useForm({
+		initialValues: {
+			password: "",
+			confirmPassword: "",
+		},
+		onSubmit: async (values) => {
+			try {
+				await resetPassword({
+					variables: {
+						token,
+						newPassword: values.password,
+					},
+				});
+			} catch (err) {
+				console.error("Password reset error:", err);
+			}
+		},
+	});
 
 	return (
 		<main className="login">
 			<Form
 				className="login__form"
 				title="Renseignez un nouveau mot de passe"
-				onSubmit={onFormSubmit}
+				onSubmit={form.handleSubmit}
 			>
 				<p className="introductiveText">
 					Ajoutez un nouveau mot de passe puis valider votre nouveau mot de
 					passe.
 				</p>
-				<TextInput style="dark" type="password" ref={passwordRef} required />
+				<TextInput
+					style="dark"
+					type="password"
+					name="password"
+					ref={passwordRef}
+					value={form.values.password}
+					onChange={form.handleChange}
+					required
+				/>
 				<TextInput
 					style="dark"
 					type="confirmPassword"
-					ref={confirmPasswordRef}
-					passwordRef={passwordRef}
+					name="confirmPassword"
+					passwordRef={confirmPasswordRef}
+					value={form.values.confirmPassword}
+					onChange={form.handleChange}
 					required
 				/>
-				{message && <p className="message">{message}</p>}
-				<Button type="submit" style="submit" href="/login">
+				{message && <p className="login__errorMessage">{message}</p>}
+				<Button type="submit" style="submit">
 					{loading
 						? "Validation en cours..."
 						: "Valider mon nouveau mot de passe"}

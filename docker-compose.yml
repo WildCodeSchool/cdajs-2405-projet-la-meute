@@ -7,6 +7,7 @@ services:
       - 4200:4200
     volumes:
       - ./client:/client
+      - ./shared:/shared
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -21,6 +22,7 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
+      - ./shared:/shared
     env_file:
       - .env
 

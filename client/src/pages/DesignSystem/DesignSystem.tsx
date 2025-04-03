@@ -138,8 +138,25 @@ export default function DesignSystem() {
 				<div>
 					<h2>Form</h2>
 					<Form title="Connectez-vous ici">
-						<TextInput style="dark" type="email" />
-						<TextInput style="dark" type="password" />
+						<TextInput
+							type="email"
+							name="email"
+							style="dark"
+							required
+							isLogin
+							value=""
+							onChange={() => console.info("fakeOnchange")}
+						/>
+
+						<TextInput
+							type="password"
+							name="password"
+							style="dark"
+							required
+							isLogin
+							value=""
+							onChange={() => console.info("fakeOnchange")}
+						/>
 						<Button type="submit" style="btn-dark" href="">
 							Annuler
 						</Button>
