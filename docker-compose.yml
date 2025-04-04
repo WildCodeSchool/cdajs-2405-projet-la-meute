@@ -25,6 +25,7 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
+    command: sh -c "ln -sf /shared /@shared && npm run start"
     volumes_from:
       - shared
     depends_on:
@@ -34,10 +35,9 @@ services:
       - .env
 
   shared:
-    image: alpine:latest
+    build: ./shared
     volumes:
       - ./shared:/shared
-    command: sh -c "mkdir -p /shared && tail -f /dev/null" 
 
   db:
     image: postgres:16

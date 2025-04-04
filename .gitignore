@@ -29,3 +29,6 @@ dist-ssr
 
 # Upload 
 **server/upload
+
+# Shared temps file
+**shared/shared
