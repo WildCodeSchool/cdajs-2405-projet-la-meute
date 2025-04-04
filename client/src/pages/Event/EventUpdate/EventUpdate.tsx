@@ -37,7 +37,7 @@ function EventUpdate() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { user } = useUser();
-	const [endTimeStyle] = useState<endTimeStyleType>({});
+	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>({});
 	const [services, setServices] = useState<ServiceType[]>([]);
 	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([
 		{ lat: 0, lng: 0 },
@@ -91,18 +91,19 @@ function EventUpdate() {
 			await handleSubmit(formValues);
 		},
 	});
-	// const handleEndTimeBlur = () => {
-	// 	if (editForm.values.startTime && editForm.values.endTime) {
-	// 		if (editForm.values.startTime >= editForm.values.endTime) {
-	// 			setEndTimeStyle({ outline: "2px solid red" });
-	// 			toast.error(
-	// 				"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
-	// 			);
-	// 		} else {
-	// 			setEndTimeStyle({});
-	// 		}
-	// 	}
-	// };
+
+	const handleEndTimeBlur = () => {
+		if (editForm.values.startTime && editForm.values.endTime) {
+			if (editForm.values.startTime >= editForm.values.endTime) {
+				setEndTimeStyle({ outline: "2px solid red" });
+				toast.error(
+					"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+				);
+			} else {
+				setEndTimeStyle({});
+			}
+		}
+	};
 
 	const handleSubmit = async (formValues: EventFormValues) => {
 		if (user?.role === "trainer") {
@@ -217,7 +218,7 @@ function EventUpdate() {
 							name="endTime"
 							value={editForm.values.endTime}
 							onChange={editForm.handleChange}
-							// onBlur={handleEndTimeBlur}
+							onBlur={handleEndTimeBlur}
 							required
 						/>
 					</label>
