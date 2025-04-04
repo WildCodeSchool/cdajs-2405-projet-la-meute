@@ -38,7 +38,8 @@ import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
+// import Services from "@/pages/WelcomePage/Services.tsx";
+import FAQ from "@/pages/WelcomePage/FAQ.tsx";
 import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
 
 // FIXME: delete
@@ -59,8 +60,8 @@ const router = createBrowserRouter([
 						element: <Homepage />,
 					},
 					{
-						path: "services",
-						element: <Services />,
+						path: "FAQ",
+						element: <FAQ />,
 					},
 					{
 						path: "contact",

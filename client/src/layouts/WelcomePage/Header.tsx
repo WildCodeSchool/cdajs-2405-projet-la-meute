@@ -31,7 +31,7 @@ function Header() {
 			<nav>
 				<div className="welcomepage__header--links ">
 					<Link to="/">Accueil</Link>
-					<Link to="/services">Services</Link>
+					<Link to="/FAQ">FAQ</Link>
 					<Link to="/contact">Contact</Link>
 				</div>
 			</nav>
