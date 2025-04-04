@@ -7,7 +7,12 @@ type AccordionItemProps = {
 	children: React.ReactNode;
 };
 
-function AccordionItem({ title, isOpen, onClick, children }: AccordionItemProps) {
+function AccordionItem({
+	title,
+	isOpen,
+	onClick,
+	children,
+}: AccordionItemProps) {
 	return (
 		<div className="accordion-item">
 			<button onClick={onClick} aria-expanded={isOpen}>

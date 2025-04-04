@@ -11,7 +11,7 @@ function FAQ() {
 	return (
 		<section className="FAQ__section">
 			<h2>Foire aux questions</h2>
-            <div className="FAQ__container"></div>
+			<div className="FAQ__container"></div>
 			<div className="FAQ__accordion">
 				{/** Exemple avec plusieurs questions */}
 				{["Question 1", "Question 2", "Question 3"].map((question, index) => (
@@ -26,7 +26,8 @@ function FAQ() {
 						{openIndex === index && (
 							<div className="accordion-content">
 								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, natus.
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
+									natus.
 								</p>
 							</div>
 						)}
