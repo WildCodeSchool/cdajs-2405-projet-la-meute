@@ -14,7 +14,8 @@ function Footer() {
 					<ul className="welcomepage__footer--list">
 						<p className="welcomepage__footer--title">Pages</p>
 						<Link to="/">Accueil</Link>
-						<Link to="/services">Services</Link>
+						{/* 					<Link to="/services">Services</Link> */}
+						<Link to="/FAQ">FAQ</Link>
 						<Link to="/contact">Contact</Link>
 					</ul>
 					<ul className="welcomepage__footer--list">
