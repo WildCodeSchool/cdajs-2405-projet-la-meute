@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
+import { useForm } from "@/hooks/useForm";
 import { useMutation, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import LeafletMap, {
@@ -15,36 +16,93 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Service from "@/components/_atoms/Service/Service";
 import NewService from "@/components/_atoms/Service/NewService";
 import Button from "@/components/_atoms/Button/Button";
+// import { Participation } from "@/types/Event";
 
 type endTimeStyleType = {
 	outline?: string;
 };
 
+interface EventFormValues extends Record<string, unknown> {
+	id: number
+	title: string;
+	date: string;
+	startTime: string;
+	endTime: string;
+	description: string;
+	price: string;
+	groupMaxSize: string;
+}
+
 function EventUpdate() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { user } = useUser();
+	const [endTimeStyle] = useState<endTimeStyleType>({});
+	const [services, setServices] = useState<ServiceType[]>([]);
+	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([
+		{ lat: 0, lng: 0 },
+	]);
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId: Number(id) },
 		skip: !id,
 		fetchPolicy: "network-only",
 	});
 
-	// Références pour les champs du formulaire
-	const titleRef = useRef<HTMLInputElement>(null);
-	const dateRef = useRef<HTMLInputElement>(null);
-	const startTimeRef = useRef<HTMLInputElement>(null);
-	const endTimeRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
-	const priceRef = useRef<HTMLInputElement>(null);
-	const groupMaxSizeRef = useRef<HTMLInputElement>(null);
+	let initialFormValues = {
+		id: 0,
+		title: "",
+		date: "",
+		startTime: "",
+		endTime: "",
+		description: "",
+		price: "",
+		groupMaxSize: "",
+	};
+
+	if (data?.getEventById) {
+		const event = data.getEventById;
+
+		const startDate = new Date(event.startDate);
+		const endDate = new Date(event.endDate);
+		const formattedDate = startDate.toISOString().split("T")[0];
+		const formattedStartTime = startDate.toTimeString().slice(0, 5);
+		const formattedEndTime = endDate.toTimeString().slice(0, 5);
+
+		if (event.services && services.length === 0) {
+			setServices(event.services);
+		}
+
+		if (event.location && markerLocation[0].lat === 0 && markerLocation[0].lng === 0) {
+			setMarkerLocation([
+				{
+					lat: event.location.latitude,
+					lng: event.location.longitude,
+				},
+			]);
+		}
+
+		initialFormValues = {
+			id: event.id,
+			title: event.title,
+			date: formattedDate || "",
+			startTime: formattedStartTime || "",
+			endTime: formattedEndTime || "",
+			description: event.description || "",
+			price: String(event.price) || "",
+			groupMaxSize: String(event.group_max_size) || "",
+		};
+	}
+
+	// // Références pour les champs du formulaire
+	// const titleRef = useRef<HTMLInputElement>(null);
+	// const dateRef = useRef<HTMLInputElement>(null);
+	// const startTimeRef = useRef<HTMLInputElement>(null);
+	// const endTimeRef = useRef<HTMLInputElement>(null);
+	// const descriptionRef = useRef<HTMLTextAreaElement>(null);
+	// const priceRef = useRef<HTMLInputElement>(null);
+	// const groupMaxSizeRef = useRef<HTMLInputElement>(null);
 
 	// États pour les validations et données complexes
-	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>({});
-	const [services, setServices] = useState<ServiceType[]>([]);
-	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([
-		{ lat: 0, lng: 0 },
-	]);
 
 	const [updateEvent] = useMutation(UPDATE_EVENT);
 
@@ -53,54 +111,65 @@ function EventUpdate() {
 		return dateTime.toISOString();
 	};
 
-	// Datas of event id
-	useEffect(() => {
-		if (data?.getEventById) {
-			const event = data.getEventById;
-			const startDate = new Date(event.startDate);
-			const endDate = new Date(event.endDate);
+	const event = data?.getEventById;
 
-			if (titleRef.current) titleRef.current.value = event.title || "";
-			if (dateRef.current)
-				dateRef.current.value = startDate.toISOString().split("T")[0] || "";
-			if (startTimeRef.current)
-				startTimeRef.current.value = startDate.toTimeString().slice(0, 5) || "";
-			if (endTimeRef.current)
-				endTimeRef.current.value = endDate.toTimeString().slice(0, 5) || "";
-			if (descriptionRef.current)
-				descriptionRef.current.value = event.description || "";
-			if (priceRef.current) priceRef.current.value = String(event.price) || "";
-			if (groupMaxSizeRef.current)
-				groupMaxSizeRef.current.value = String(event.group_max_size) || "";
+	console.log(event);
 
-			// Services and Location states
-			setServices(event.services || []);
-			if (event.location) {
-				setMarkerLocation([
-					{
-						lat: event.location.latitude,
-						lng: event.location.longitude,
-					},
-				]);
-			}
-		}
-	}, [data]);
+	const editForm = useForm<EventFormValues>({
+		initialValues: initialFormValues,
+		onSubmit: async (formValues) => {
+			await handleSubmit(formValues);
+		},
+	});
 
-	const handleEndTimeBlur = () => {
-		if (startTimeRef.current?.value && endTimeRef.current?.value) {
-			if (startTimeRef.current.value >= endTimeRef.current.value) {
-				setEndTimeStyle({ outline: "2px solid red" });
-				toast.error(
-					"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
-				);
-			} else {
-				setEndTimeStyle({});
-			}
-		}
-	};
+	// // Datas of event id
+	// useEffect(() => {
+	// 	if (data?.getEventById) {
+	// 		const event = data.getEventById;
+	// 		const startDate = new Date(event.startDate);
+	// 		const endDate = new Date(event.endDate);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	// 		if (titleRef.current) titleRef.current.value = event.title || "";
+	// 		if (dateRef.current)
+	// 			dateRef.current.value = startDate.toISOString().split("T")[0] || "";
+	// 		if (startTimeRef.current)
+	// 			startTimeRef.current.value = startDate.toTimeString().slice(0, 5) || "";
+	// 		if (endTimeRef.current)
+	// 			endTimeRef.current.value = endDate.toTimeString().slice(0, 5) || "";
+	// 		if (descriptionRef.current)
+	// 			descriptionRef.current.value = event.description || "";
+	// 		if (priceRef.current) priceRef.current.value = String(event.price) || "";
+	// 		if (groupMaxSizeRef.current)
+	// 			groupMaxSizeRef.current.value = String(event.group_max_size) || "";
+
+	// 		// Services and Location states
+	// 		setServices(event.services || []);
+	// 		if (event.location) {
+	// 			setMarkerLocation([
+	// 				{
+	// 					lat: event.location.latitude,
+	// 					lng: event.location.longitude,
+	// 				},
+	// 			]);
+	// 		}
+	// 	}
+	// }, [data]);
+
+	// const handleEndTimeBlur = () => {
+	// 	if (editForm.values.startTime && editForm.values.endTime) {
+	// 		if (editForm.values.startTime >= editForm.values.endTime) {
+	// 			setEndTimeStyle({ outline: "2px solid red" });
+	// 			toast.error(
+	// 				"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+	// 			);
+	// 		} else {
+	// 			setEndTimeStyle({});
+	// 		}
+	// 	}
+	// };
+
+
+	const handleSubmit = async (formValues: EventFormValues) => {
 
 		if (user?.role === "trainer") {
 			try {
@@ -108,21 +177,21 @@ function EventUpdate() {
 
 				const eventData = {
 					eventId: Number(id),
-					title: titleRef.current?.value || "",
-					description: descriptionRef.current?.value || "",
+					title: formValues.title,
+					description: formValues.description,
 					startDate: formatDateTime(
-						dateRef.current?.value || "",
-						startTimeRef.current?.value || "",
+						formValues.date,
+						formValues.startTime,
 					),
 					endDate: formatDateTime(
-						dateRef.current?.value || "",
-						endTimeRef.current?.value || "",
+						formValues.date,
+						formValues.endTime,
 					),
-					price: Number(priceRef.current?.value || 0),
-					groupMaxSize: Number(groupMaxSizeRef.current?.value || 1),
+					price: Number(formValues.price),
+					groupMaxSize: Number(formValues.groupMaxSize),
 					location: {
-						latitude: markerLocation[0]?.lat || 48.853495,
-						longitude: markerLocation[0]?.lng || 2.349014,
+						latitude: markerLocation ? markerLocation[0].lat : 48.853495,
+						longitude: markerLocation ? markerLocation[0].lng : 2.349014,
 					},
 					trainerId: Number(user?.id),
 					serviceIds: servicesArray,
@@ -160,7 +229,7 @@ function EventUpdate() {
 
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={handleSubmit}>
+			<form className="createEvent" onSubmit={editForm.handleSubmit}>
 				<h1 className="createEvent__title">Modification de l'évènement</h1>
 
 				<TextInput
@@ -168,7 +237,9 @@ function EventUpdate() {
 					label="Nom de l'évènement"
 					required
 					type="title"
-					ref={titleRef}
+					name="title"
+					value={editForm.values.title}
+					onChange={editForm.handleChange}
 				/>
 
 				<label className="createEvent__event createEvent__event--services">
@@ -191,8 +262,10 @@ function EventUpdate() {
 						<input
 							className="createEvent__input"
 							type="date"
-							ref={dateRef}
 							required
+							name="date"
+							value={editForm.values.date}
+							onChange={editForm.handleChange}
 						/>
 					</label>
 					<label className="createEvent__event--startTime">
@@ -200,7 +273,9 @@ function EventUpdate() {
 						<input
 							className="createEvent__input"
 							type="time"
-							ref={startTimeRef}
+							name="startTime"
+							value={editForm.values.startTime}
+							onChange={editForm.handleChange}
 							required
 						/>
 					</label>
@@ -210,8 +285,10 @@ function EventUpdate() {
 							className="createEvent__input"
 							style={endTimeStyle}
 							type="time"
-							ref={endTimeRef}
-							onBlur={handleEndTimeBlur}
+							name="endTime"
+							value={editForm.values.endTime}
+							onChange={editForm.handleChange}
+							// onBlur={handleEndTimeBlur}
 							required
 						/>
 					</label>
@@ -223,7 +300,9 @@ function EventUpdate() {
 					placeholder="Détaillez ici l'évènement, son déroulé, les choses à prévoir."
 					inputType="textarea"
 					type="description"
-					ref={descriptionRef}
+					name="description"
+					value={editForm.values.description}
+					onChange={editForm.handleChange}
 					required
 				/>
 
@@ -236,7 +315,9 @@ function EventUpdate() {
 								placeholder="Prix TTC"
 								type="number"
 								min={0}
-								ref={priceRef}
+								name="price"
+								value={editForm.values.price}
+								onChange={editForm.handleChange}
 								required
 							/>
 							<p>€</p>
@@ -249,7 +330,9 @@ function EventUpdate() {
 							placeholder="1 minimum"
 							type="number"
 							min={1}
-							ref={groupMaxSizeRef}
+							name="groupMaxSize"
+							value={editForm.values.groupMaxSize}
+							onChange={editForm.handleChange}
 							required
 						/>
 					</label>

@@ -15,8 +15,8 @@ interface TextInputProps {
 	placeholder?: string;
 	className?: string;
 	name?: string;
-	value?: string;
-	onChange?: (
+	value: string;
+	onChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => void;
 }
@@ -70,7 +70,7 @@ const TextInput = React.forwardRef<
 
 			let errorMessage = "";
 
-			if (required && !value?.trim()) {
+			if (required && !value.trim()) {
 				errorMessage = "Ce champ est requis";
 			} else if (type === "confirmPassword" && passwordRef !== value) {
 				errorMessage = "Les mots de passe ne correspondent pas.";
