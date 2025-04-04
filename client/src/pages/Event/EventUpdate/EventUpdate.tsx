@@ -9,7 +9,7 @@ import LeafletMap, {
 } from "@/components/_atoms/LeafletMap/LeafletMap";
 
 import "./EventUpdate.scss";
-import { ServiceType } from "@/types/Service";
+import type { ServiceType } from "@/types/Service";
 import { UPDATE_EVENT } from "@/graphQL/mutations/event";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -48,66 +48,6 @@ function EventUpdate() {
 		fetchPolicy: "network-only",
 	});
 
-	let initialFormValues = {
-		id: 0,
-		title: "",
-		date: "",
-		startTime: "",
-		endTime: "",
-		description: "",
-		price: "",
-		groupMaxSize: "",
-	};
-
-	if (data?.getEventById) {
-		const event = data.getEventById;
-
-		const startDate = new Date(event.startDate);
-		const endDate = new Date(event.endDate);
-		const formattedDate = startDate.toISOString().split("T")[0];
-		const formattedStartTime = startDate.toTimeString().slice(0, 5);
-		const formattedEndTime = endDate.toTimeString().slice(0, 5);
-
-		if (event.services && services.length === 0) {
-			setServices(event.services);
-		}
-
-		if (
-			event.location &&
-			markerLocation[0].lat === 0 &&
-			markerLocation[0].lng === 0
-		) {
-			setMarkerLocation([
-				{
-					lat: event.location.latitude,
-					lng: event.location.longitude,
-				},
-			]);
-		}
-
-		initialFormValues = {
-			id: event.id,
-			title: event.title,
-			date: formattedDate || "",
-			startTime: formattedStartTime || "",
-			endTime: formattedEndTime || "",
-			description: event.description || "",
-			price: String(event.price) || "",
-			groupMaxSize: String(event.group_max_size) || "",
-		};
-	}
-
-	// // Références pour les champs du formulaire
-	// const titleRef = useRef<HTMLInputElement>(null);
-	// const dateRef = useRef<HTMLInputElement>(null);
-	// const startTimeRef = useRef<HTMLInputElement>(null);
-	// const endTimeRef = useRef<HTMLInputElement>(null);
-	// const descriptionRef = useRef<HTMLTextAreaElement>(null);
-	// const priceRef = useRef<HTMLInputElement>(null);
-	// const groupMaxSizeRef = useRef<HTMLInputElement>(null);
-
-	// États pour les validations et données complexes
-
 	const [updateEvent] = useMutation(UPDATE_EVENT);
 
 	const formatDateTime = (date: string, time: string) => {
@@ -115,50 +55,42 @@ function EventUpdate() {
 		return dateTime.toISOString();
 	};
 
-	const event = data?.getEventById;
+	useEffect(() => {
+		if (data?.getEventById) {
+			const startDate = new Date(data.getEventById.startDate);
+			const endDate = new Date(data.getEventById.endDate);
+			const formattedDate = startDate.toISOString().split("T")[0];
+			const formattedStartTime = startDate.toTimeString().slice(0, 5);
+			const formattedEndTime = endDate.toTimeString().slice(0, 5);
 
-	console.log(event);
+			editForm.setValues({
+				id: Number(id),
+				title: data.getEventById.title || "",
+				date: formattedDate || "",
+				startTime: formattedStartTime || "",
+				endTime: formattedEndTime || "",
+				description: data.getEventById.description || "",
+				price: String(data.getEventById.price || ""),
+				groupMaxSize: String(data.getEventById.group_max_size || ""),
+			});
+		}
+	}, [data, id]);
 
 	const editForm = useForm<EventFormValues>({
-		initialValues: initialFormValues,
+		initialValues: {
+			id: Number(id),
+			title: "",
+			date: "",
+			startTime: "",
+			endTime: "",
+			description: "",
+			price: "",
+			groupMaxSize: "",
+		},
 		onSubmit: async (formValues) => {
 			await handleSubmit(formValues);
 		},
 	});
-
-	// // Datas of event id
-	// useEffect(() => {
-	// 	if (data?.getEventById) {
-	// 		const event = data.getEventById;
-	// 		const startDate = new Date(event.startDate);
-	// 		const endDate = new Date(event.endDate);
-
-	// 		if (titleRef.current) titleRef.current.value = event.title || "";
-	// 		if (dateRef.current)
-	// 			dateRef.current.value = startDate.toISOString().split("T")[0] || "";
-	// 		if (startTimeRef.current)
-	// 			startTimeRef.current.value = startDate.toTimeString().slice(0, 5) || "";
-	// 		if (endTimeRef.current)
-	// 			endTimeRef.current.value = endDate.toTimeString().slice(0, 5) || "";
-	// 		if (descriptionRef.current)
-	// 			descriptionRef.current.value = event.description || "";
-	// 		if (priceRef.current) priceRef.current.value = String(event.price) || "";
-	// 		if (groupMaxSizeRef.current)
-	// 			groupMaxSizeRef.current.value = String(event.group_max_size) || "";
-
-	// 		// Services and Location states
-	// 		setServices(event.services || []);
-	// 		if (event.location) {
-	// 			setMarkerLocation([
-	// 				{
-	// 					lat: event.location.latitude,
-	// 					lng: event.location.longitude,
-	// 				},
-	// 			]);
-	// 		}
-	// 	}
-	// }, [data]);
-
 	// const handleEndTimeBlur = () => {
 	// 	if (editForm.values.startTime && editForm.values.endTime) {
 	// 		if (editForm.values.startTime >= editForm.values.endTime) {
@@ -238,6 +170,7 @@ function EventUpdate() {
 					onChange={editForm.handleChange}
 				/>
 
+				{/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
 				<label className="createEvent__event createEvent__event--services">
 					Etiquettes
 					<p className="createEvent__event--services--p">
@@ -335,6 +268,7 @@ function EventUpdate() {
 				</span>
 
 				<span className="createEvent__event--location">
+					{/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
 					<label>Localisation&nbsp;*</label>
 					<LeafletMap setMarkerLocation={setMarkerLocation} />
 				</span>

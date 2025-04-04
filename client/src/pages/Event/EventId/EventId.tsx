@@ -221,8 +221,8 @@ function EventId() {
 					</label>
 				</span>
 
-				{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
 				<span className="createEvent__event--location">
+					{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
 					<label>Localisation&nbsp;*</label>
 					<LeafletMap setMarkerLocation={setMarkerLocation} />
 				</span>

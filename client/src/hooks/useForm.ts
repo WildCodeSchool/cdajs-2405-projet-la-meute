@@ -61,5 +61,6 @@ export function useForm<T extends Record<string, unknown>>({
 		handleSubmit,
 		resetForm,
 		setError,
+		setValues,
 	};
 }
