@@ -23,7 +23,7 @@ type endTimeStyleType = {
 };
 
 interface EventFormValues extends Record<string, unknown> {
-	id: number
+	id: number;
 	title: string;
 	date: string;
 	startTime: string;
@@ -72,7 +72,11 @@ function EventUpdate() {
 			setServices(event.services);
 		}
 
-		if (event.location && markerLocation[0].lat === 0 && markerLocation[0].lng === 0) {
+		if (
+			event.location &&
+			markerLocation[0].lat === 0 &&
+			markerLocation[0].lng === 0
+		) {
 			setMarkerLocation([
 				{
 					lat: event.location.latitude,
@@ -168,9 +172,7 @@ function EventUpdate() {
 	// 	}
 	// };
 
-
 	const handleSubmit = async (formValues: EventFormValues) => {
-
 		if (user?.role === "trainer") {
 			try {
 				const servicesArray = services.map((service) => Number(service.id));
@@ -179,14 +181,8 @@ function EventUpdate() {
 					eventId: Number(id),
 					title: formValues.title,
 					description: formValues.description,
-					startDate: formatDateTime(
-						formValues.date,
-						formValues.startTime,
-					),
-					endDate: formatDateTime(
-						formValues.date,
-						formValues.endTime,
-					),
+					startDate: formatDateTime(formValues.date, formValues.startTime),
+					endDate: formatDateTime(formValues.date, formValues.endTime),
 					price: Number(formValues.price),
 					groupMaxSize: Number(formValues.groupMaxSize),
 					location: {
