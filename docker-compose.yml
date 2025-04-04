@@ -25,7 +25,7 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
-    command: sh -c "ln -sf /shared /@shared && npm run start"
+    command: sh -c "ln -sf /shared && npm run start"
     volumes_from:
       - shared
     depends_on:

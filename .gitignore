@@ -31,4 +31,6 @@ dist-ssr
 **server/upload
 
 # Shared temps file
+**server/shared
+**client/shared
 **shared/shared
