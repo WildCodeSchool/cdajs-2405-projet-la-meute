@@ -19,7 +19,7 @@
 
     &__form {
         margin-block-start: 3vh;
-        max-width: 600px;
+        width: 33%;
     }
 
     &__bottomLinks:nth-child(-n + 2) {
@@ -32,8 +32,23 @@
     }
 }
 
+@media screen and (max-width: $tablet) {
+    .login {
+        background-size: contain;
+
+        &__form {
+            margin-block-start: 3vh;
+            width: 60%;
+        }
+    }
+}
+
 @media screen and (max-width: $mobile) {
     .login {
         background-size: contain;
+
+        &__form {
+            width: 90%;
+        }
     }
 }

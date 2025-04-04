@@ -6,6 +6,7 @@ type ThinButtonColor = "orange" | "blue" | "green";
 type ButtonStyles =
 	| "submit"
 	| "btn-dark"
+	| "btn-dark-secondary"
 	| "btn-light"
 	| "invite"
 	| "event"
@@ -56,15 +57,17 @@ export default function Button({
 				? "btn-submit"
 				: style === "btn-dark"
 					? "btn-dark"
-					: style === "invite" || style === "event"
-						? "btn-invite"
-						: style === "role-select-left"
-							? "btn-role-select-left"
-							: style === "role-select-right"
-								? "btn-role-select-right"
-								: style === "none"
-									? ""
-									: "btn-light";
+					: style === "btn-dark-secondary"
+						? "btn-dark-secondary"
+						: style === "invite" || style === "event"
+							? "btn-invite"
+							: style === "role-select-left"
+								? "btn-role-select-left"
+								: style === "role-select-right"
+									? "btn-role-select-right"
+									: style === "none"
+										? ""
+										: "btn-light";
 	const navigate = useNavigate();
 
 	if (href) {

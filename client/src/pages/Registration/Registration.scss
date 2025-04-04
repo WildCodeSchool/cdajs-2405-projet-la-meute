@@ -8,75 +8,118 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 5vh 0;
+
+    &__section {
+        &--choice {
+            width: 60%;
+        }
+    }
+
+    &__div {
+        &--choice {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+            padding-bottom: 7vh;
+            gap: 2vw;
+        }
+
+        &--card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: $blue-500;
+            padding-inline: 3vw;
+            padding-block-end: 2vh;
+            width: 100%;
+            border-radius: $atoms-radius;
+        }
+
+        &--choice-title {
+            color: $primary-light;
+            font-size: $xl;
+            font-weight: $bold;
+        }
+
+        &--choice-text {
+            color: $blue-300;
+            font-size: $s;
+            line-height: 1.75rem;
+            text-align: left;
+        }
+    }
+
+    &__form {
+        width: 100%;
+        gap: 1rem;
+
+        &--columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1vh 2vw;
+            width: 100%;
+        }
+
+        &--footer {
+            padding: 3vh 0 5vh 0;
+        }
+    }
+
+    &__btn {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        width: 100%;
+        align-content: center;
+
+        &--comeback {
+            background-color: $blue-400;
+            text-align: center;
+            padding: 1rem;
+            border-radius: $atoms-radius;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: darken($blue-400, 10%);
+            }
+        }
+    }
+
+    .userMessage {
+        font-style: italic;
+    }
 }
 
-.registration__section--choice {
-    width: 60%;
-}
-
-.registration__div--choice {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    align-items: stretch;
-    padding-bottom: 7vh;
-    gap: 2vw;
-}
-
-.registration__div--card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $blue-500;
-    padding-inline: 3vw;
-    padding-block-end: 2vh;
-    width: 100%;
-    border-radius: $atoms-radius;
-}
-
-.registration__div--choice-title {
-    color: $primary-light;
-    font-size: $xl;
-    font-weight: $bold;
-}
-
-.registration__div--choice-text {
-    color: $blue-300;
-    font-size: $s;
-    line-height: 1.75rem;
-    text-align: left;
-}
-
-.registration__form {
-    margin-block-start: 3vh;
-    margin-bottom: 15vh;
-    max-width: 600px;
-}
-
-.userMessage {
-    font-style: italic;
-}
-
+// Responsive Design
 @media screen and (max-width: $tablet) {
-    .registration__section--choice {
-        width: 80%;
+    .registration {
+        &__section--choice {
+            width: 80%;
+        }
+
+        &__form {
+            &--columns {
+                grid-template-columns: 1fr;
+            }
+        }
     }
 }
 
 @media screen and (max-width: $mobile) {
     .registration {
         background-size: contain;
-    }
 
-    .homepage__title {
-        font-size: $xxxl;
-        margin-block: 1rem;
-    }
+        .homepage__title {
+            font-size: $xxxl;
+            margin-block: 1rem;
+        }
 
-    .registration__div--choice {
-        display: flex;
-        flex-direction: column;
+        &__div--choice {
+            flex-direction: column;
+        }
     }
 }
