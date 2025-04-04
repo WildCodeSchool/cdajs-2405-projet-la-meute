@@ -7,7 +7,10 @@ services:
       - 4200:4200
     volumes:
       - ./client:/client
-      - ./shared:/shared
+    volumes_from:
+      - shared
+    depends_on:
+      - shared
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -22,9 +25,19 @@ services:
       - 3200:3200
     volumes:
       - ./server:/server
-      - ./shared:/shared
+    volumes_from:
+      - shared
+    depends_on:
+      - shared
+      - db
     env_file:
       - .env
+
+  shared:
+    image: alpine:latest
+    volumes:
+      - ./shared:/shared
+    command: sh -c "mkdir -p /shared && tail -f /dev/null" 
 
   db:
     image: postgres:16
