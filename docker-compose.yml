@@ -26,7 +26,6 @@ services:
     volumes:
       - ./server:/server
       - ./shared:/shared
-    # Remplacement de la commande ln -sf pour la compatibilité Windows
     command: npm run start
     depends_on:
       - shared
