@@ -7,10 +7,10 @@
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
     "client-package": "./client-package.sh",
-    "migration": "cd server && npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts && cd ..",
-    "migration:revert": "cd server && npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts && cd .."
-  },
-  "devDependencies": {
+    "migration": "docker exec cdajs-2405-projet-la-meute-server-1 npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts",
+    "migration:revert": "docker exec cdajs-2405-projet-la-meute-server-1 npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
+    },
+    "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",

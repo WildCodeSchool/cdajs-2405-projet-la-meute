@@ -46,7 +46,7 @@ services:
     volumes:
       - ./db_data:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432
     container_name: pawplanner-db-1
     environment:
       - POSTGRES_USER=${DBUSERNAME}
