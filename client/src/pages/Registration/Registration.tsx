@@ -94,6 +94,8 @@ function Registration() {
 			);
 		}
 	};
+	const title =
+		role === "trainer" ? "🙋🏻‍♂️ Éducateur · rice" : "🐶 Propriétaire";
 
 	return (
 		<main className="registration">
@@ -130,126 +132,144 @@ function Registration() {
 					</section>
 				</>
 			) : (
-				<Form
-					className="registration__form"
-					title="Inscription"
-					onSubmit={form.handleSubmit}
-				>
-					{role === "trainer" && (
-						<TextInput
-							style="dark"
-							type="SIRET"
-							name="SIRET"
-							value={form.values.SIRET || ""}
-							onChange={form.handleChange}
-							required
-						/>
-					)}
+				<>
+					<section className="registration__section--choice">
+						<h2 className="homepage__title">Inscription</h2>
+						<div className="registration__div--choice">
+							<Form
+								className="registration__form"
+								title={title}
+								onSubmit={form.handleSubmit}
+							>
+								<div className="registration__form--columns">
+									{role === "trainer" && (
+										<TextInput
+											style="dark"
+											type="SIRET"
+											name="SIRET"
+											value={form.values.SIRET || ""}
+											onChange={form.handleChange}
+											required
+										/>
+									)}
 
-					{role === "trainer" && (
-						<TextInput
-							style="dark"
-							type="company_name"
-							name="company_name"
-							value={form.values.company_name || ""}
-							onChange={form.handleChange}
-							required
-						/>
-					)}
+									{role === "trainer" && (
+										<TextInput
+											style="dark"
+											type="company_name"
+											name="company_name"
+											value={form.values.company_name || ""}
+											onChange={form.handleChange}
+											required
+										/>
+									)}
 
-					<TextInput
-						style="dark"
-						type="lastname"
-						name="lastname"
-						value={form.values.lastname}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="firstname"
-						name="firstname"
-						value={form.values.firstname}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="email"
-						name="email"
-						value={form.values.email}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="password"
-						name="password"
-						value={form.values.password}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="confirmPassword"
-						name="confirmPassword"
-						value={form.values.confirmPassword}
-						passwordRef={form.values.password}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="city"
-						name="city"
-						value={form.values.city}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="postal_code"
-						name="postal_code"
-						value={form.values.postal_code}
-						onChange={form.handleChange}
-						required
-					/>
-					<TextInput
-						style="dark"
-						type="telephone"
-						name="telephone"
-						value={form.values.telephone}
-						onChange={form.handleChange}
-					/>
-					<input type="hidden" name="role" value={role} />
+									<TextInput
+										style="dark"
+										type="lastname"
+										name="lastname"
+										value={form.values.lastname}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="firstname"
+										name="firstname"
+										value={form.values.firstname}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="email"
+										name="email"
+										value={form.values.email}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="telephone"
+										name="telephone"
+										value={form.values.telephone}
+										onChange={form.handleChange}
+									/>
+									<TextInput
+										style="dark"
+										type="password"
+										name="password"
+										value={form.values.password}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="confirmPassword"
+										name="confirmPassword"
+										value={form.values.confirmPassword}
+										passwordRef={form.values.password}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="city"
+										name="city"
+										value={form.values.city}
+										onChange={form.handleChange}
+										required
+									/>
+									<TextInput
+										style="dark"
+										type="postal_code"
+										name="postal_code"
+										value={form.values.postal_code}
+										onChange={form.handleChange}
+										required
+									/>
+									{error && (
+										<div
+											className="error-message"
+											style={{ color: "red", marginTop: "10px" }}
+										>
+											{error}
+										</div>
+									)}
+								</div>
+								<div className="registration__form--columns registration__form--footer">
+									<div className="form-footer">
+										<p className="userMessage">
+											Les champs comportants une * sont obligatoires.
+										</p>
+										<p className="login-link">
+											Si vous avez déjà un compte vous pouvez{" "}
+											<Link to="/login">vous connecter ici</Link>.
+										</p>
+									</div>
+									<div className="registration__btn">
+										<Button
+											type="button"
+											style="btn-dark-secondary"
+											className="registration__btn--comeback"
+											onClick={() => setRole(null)}
+										>
+											Retour
+										</Button>
 
-					{error && (
-						<div
-							className="error-message"
-							style={{ color: "red", marginTop: "10px" }}
-						>
-							{error}
+										<Button
+											type="submit"
+											className="registration__btn--submit"
+											style="submit"
+										>
+											S'inscrire
+										</Button>
+									</div>
+								</div>
+							</Form>
 						</div>
-					)}
-
-					<Button type="button" style="btn-dark" onClick={() => setRole(null)}>
-						Retour
-					</Button>
-
-					<Button type="submit" style="submit">
-						S'inscrire
-					</Button>
-
-					<div className="form-footer">
-						<p className="userMessage">
-							Les champs comportants une * sont obligatoires.
-						</p>
-						<p className="login-link">
-							Si vous avez déjà un compte vous pouvez{" "}
-							<Link to="/login">vous connecter ici</Link>.
-						</p>
-					</div>
-				</Form>
+					</section>
+				</>
 			)}
 		</main>
 	);
