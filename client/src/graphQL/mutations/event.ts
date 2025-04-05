@@ -18,7 +18,7 @@ export const UPDATE_EVENT = gql`
     $location: LocationInput!, 
     $description: String!, 
     $title: String!, 
-    $serviceId: Float!, 
+    $serviceIds: [Float!], 
     $trainerId: Float!, 
     $eventId: Float!, 
     $startDate: DateTimeISO!, 
@@ -29,7 +29,7 @@ export const UPDATE_EVENT = gql`
     location: $location, 
     description: $description, 
     title: $title, 
-    serviceId: $serviceId, 
+    serviceIds: $serviceIds, 
     trainerId: $trainerId, 
     eventId: $eventId, 
     startDate: $startDate, 
@@ -83,4 +83,10 @@ mutation CreateEvent(
   ${EVENT_FRAGMENT}
   ${SERVICE_FRAGMENT}
   ${TRAINER_FRAGMENT}
+`;
+
+export const DELETE_EVENT_BY_ID = gql`
+  mutation DeleteEventById($eventId: Float!) {
+    deleteEvent(eventId: $eventId)
+  }
 `;

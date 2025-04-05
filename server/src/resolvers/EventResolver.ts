@@ -3,6 +3,9 @@ import { dataSource } from "../dataSource/dataSource";
 import { Event } from "../entities/Event";
 import { Service } from "../entities/Service";
 import { Trainer } from "../entities/Trainer";
+import { Participation } from "../entities/Participation";
+import { Dog } from "../entities/Dog";
+
 import { LocationInput } from "../types/inputTypes";
 
 import "dotenv/config";
@@ -10,6 +13,8 @@ import "dotenv/config";
 const eventRepository = dataSource.getRepository(Event);
 const trainerRepository = dataSource.getRepository(Trainer);
 const serviceRepository = dataSource.getRepository(Service);
+const participationRepository = dataSource.getRepository(Participation);
+const dogRepository = dataSource.getRepository(Dog);
 
 @Resolver()
 export class EventResolver {
@@ -17,7 +22,7 @@ export class EventResolver {
 	@Query(() => [Event])
 	async getAllEvents(): Promise<Event[]> {
 		const events: Event[] = await eventRepository.find({
-			relations: ["trainer", "services"],
+			relations: ["trainer", "services", "participation", "participation.dog"],
 		});
 		return events;
 	}
@@ -27,9 +32,32 @@ export class EventResolver {
 	async getEventById(@Arg("eventId") eventId: number): Promise<Event> {
 		const event: Event = await eventRepository.findOneOrFail({
 			where: { id: eventId },
-			relations: ["trainer", "services"],
+			relations: ["trainer", "services", "participation.dog"],
 		});
 		return event;
+	}
+
+	// Get events by owner_id
+	@Query(() => [Event])
+	async getAllEventsByOwnerId(
+		@Arg("ownerId") ownerId: number,
+	): Promise<Event[]> {
+		const eventsByOwnerId: Event[] = await eventRepository.find({
+			where: { id: ownerId },
+		});
+		return eventsByOwnerId;
+	}
+
+	// Get dog_id by event_id
+	@Query(() => [Participation])
+	async getDogsByEventsId(
+		@Arg("eventId") eventId: number,
+	): Promise<Participation[] | null> {
+		const dogsByEventsId = await participationRepository.find({
+			where: { event: { id: eventId } },
+			relations: ["dog"],
+		});
+		return dogsByEventsId || [];
 	}
 
 	// Create event

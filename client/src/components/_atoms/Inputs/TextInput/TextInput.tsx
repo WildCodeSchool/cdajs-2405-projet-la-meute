@@ -100,7 +100,9 @@ const TextInput = React.forwardRef<
 		const handleChange = (
 			e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		) => {
-			onChange(e);
+			if (onChange) {
+				onChange(e);
+			}
 
 			if (error) {
 				validateValue();
@@ -122,8 +124,8 @@ const TextInput = React.forwardRef<
 						name={fieldName}
 						ref={ref as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
-						required={required}
 						value={value}
+						required={required}
 						onChange={handleChange}
 						onBlur={handleBlur}
 						maxLength={maxLength}
@@ -145,8 +147,8 @@ const TextInput = React.forwardRef<
 									: "text"
 						}
 						placeholder={mappedPlaceholder}
-						required={required}
 						value={value}
+						required={required}
 						onChange={handleChange}
 						onBlur={handleBlur}
 						maxLength={maxLength}

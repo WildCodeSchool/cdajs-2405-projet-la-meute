@@ -12,7 +12,7 @@ export class Participation {
 
 	@ManyToOne(
 		() => Event,
-		(event) => event.id,
+		(event) => event.participation,
 		{ onDelete: "CASCADE" },
 	)
 	@JoinColumn({ name: "event_id" })
@@ -21,7 +21,7 @@ export class Participation {
 
 	@ManyToOne(
 		() => Dog,
-		(dog) => dog.id,
+		(dog) => dog.participation,
 		{ onDelete: "CASCADE" },
 	)
 	@JoinColumn({ name: "dog_id" })
