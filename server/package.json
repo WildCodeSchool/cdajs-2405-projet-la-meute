@@ -14,7 +14,7 @@
 	"author": "",
 	"license": "ISC",
 	"_moduleAliases": {
-		"@shared": "../shared"
+		"@validation": "src/validation"
 	},
 	"dependencies": {
 		"@apollo/server": "^4.10.5",

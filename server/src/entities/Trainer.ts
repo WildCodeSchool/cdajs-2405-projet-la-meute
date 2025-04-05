@@ -2,7 +2,7 @@ import { Field, ObjectType } from "type-graphql";
 import { Column, Entity, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
 import { User } from "./User";
 import { Event } from "./Event";
-import validationRules from "@shared/validationRules";
+import validationRules from "@validation/validationRules";
 
 // The Trainer class is a subclass of User; it inherits the properties and methods from User.
 
