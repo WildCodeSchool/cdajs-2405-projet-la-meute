@@ -1,4 +1,3 @@
-import { Bell } from "@/assets/icons/bell";
 import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
@@ -23,7 +22,6 @@ export default function DashHeader() {
 					Retour
 				</button>
 				<span className="dashHeader__right-corner">
-					<Bell className="dashHeader__notification" />
 					<Link className="dashHeader__avatar" to="/my-profile">
 						<img
 							src={
