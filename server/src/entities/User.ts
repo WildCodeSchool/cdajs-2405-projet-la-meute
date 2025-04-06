@@ -7,7 +7,7 @@ import {
 	BeforeUpdate,
 } from "typeorm";
 import bcrypt from "bcryptjs";
-import validationRules from "@shared/validationRules";
+import validationRules from "@validation/validationRules";
 
 // The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
 // If the role is "Owner," TypeORM loads an instance of the Owner class.

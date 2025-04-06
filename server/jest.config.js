@@ -6,6 +6,6 @@ module.exports = {
     "^.+.tsx?$": ["ts-jest",{}],
   },
   moduleNameMapper: {
-    "^@shared/(.*)$": "<rootDir>/../shared/$1",
+    "^@validation/(.*)$": "<rootDir>src/validation/$1",
   },
 };
