@@ -14,9 +14,6 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"_moduleAliases": {
-		"@validation": "src/validation"
-	},
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
 		"argon2": "^0.41.1",

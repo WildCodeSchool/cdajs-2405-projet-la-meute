@@ -1,4 +1,4 @@
-import validationRules from "@validation/validationRules";
+import validationRules from "@/helpers/readonly/validationRules";
 
 export type TextInputTypes =
 	| "email"

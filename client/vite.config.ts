@@ -21,7 +21,6 @@ export default defineConfig({
 		alias: {
 			"@": path.resolve(__dirname, "/src"),
 			"@style": path.resolve(__dirname, "/src/styles/global.scss"),
-			"@validation": path.resolve(__dirname, "/src/validation"),
 		},
 	},
 });
