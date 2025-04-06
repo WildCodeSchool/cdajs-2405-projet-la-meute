@@ -23,5 +23,3 @@ dist-ssr
 *.sw?
 
 *storybook.log
-
-src/helpers/readonly

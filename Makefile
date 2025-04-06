@@ -25,7 +25,6 @@ init-db:
 .PHONY: sync-validation
 sync-validation:
 	@echo "Synchronizing validation rules..."
-	@mkdir -p $(dir $(SERVER_VALIDATION_PATH)) $(dir $(CLIENT_VALIDATION_PATH))
 	cp $(VALIDATION_RULES_SRC) $(SERVER_VALIDATION_PATH)
 	cp $(VALIDATION_RULES_SRC) $(CLIENT_VALIDATION_PATH)
 
