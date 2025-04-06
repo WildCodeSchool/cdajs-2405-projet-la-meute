@@ -1,5 +1,4 @@
 import { dataSource } from "./dataSource";
-import { faker } from "@faker-js/faker";
 import { Owner } from "../entities/Owner";
 import { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
@@ -139,5 +138,3 @@ export async function initTestData() {
 	await createData();
 	console.info("Test data created successfully.");
 }
-
-initTestData();

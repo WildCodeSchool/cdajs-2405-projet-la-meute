@@ -6,7 +6,6 @@
 	"scripts": {
 		"test": "jest",
 		"test:hr": "jest --watchAll",
-		"db:seed": "ts-node src/dataSource/initTestData.ts",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
 		"format": "biome format --write ./src"
@@ -19,7 +18,6 @@
 	},
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
-		"@faker-js/faker": "^9.6.0",
 		"argon2": "^0.41.1",
 		"bcryptjs": "^2.4.3",
 		"express": "^4.21.0",

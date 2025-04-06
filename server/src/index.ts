@@ -11,6 +11,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 
 import { graphqlUploadExpress } from "graphql-upload-ts";
 import { dataSource } from "./dataSource/dataSource";
+import { initTestData } from "./dataSource/initTestData";
 
 import { UserResolvers } from "./resolvers/UserResolvers";
 import { DogResolver } from "./resolvers/DogResolver";
@@ -39,6 +40,9 @@ export async function startServerApollo() {
 		console.error("Failed to initialize data source:", error);
 	}
 
+	// FIXME: Comment this after first launch to avoid doubles
+	// initTestData() Drop table and reload data test in every launch
+	await initTestData();
 	await server.start();
 
 	app.use("/", express.json(), expressMiddleware(server));

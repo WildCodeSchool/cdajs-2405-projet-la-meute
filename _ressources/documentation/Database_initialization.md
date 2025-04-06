@@ -12,7 +12,7 @@ CREATE DATABASE paw_planner OWNER paw_planner_admin;
 GRANT ALL PRIVILEGES ON DATABASE paw_planner TO paw_planner_admin;
 exit
 ```
-But we worked on a simple command at initialization to do that for us: `npm run db:init`. It works like this: 
+But we worked on a simple command at initialization to do that for us: `npm run init:db`. It works like this: 
 ## Creating your PostgreSQL user through a npm command
 
 Here's what we needed to achieve with this script:
@@ -29,7 +29,7 @@ ___
 ```json
 {
   "scripts": {
-    "db:init": "node ./_ressources/scripts/init_db_user.ts"
+    "init:db": "node ./_ressources/scripts/init_db_user.ts"
   },
   "devDependencies": {
     "@types/node": "^22.5.5"
