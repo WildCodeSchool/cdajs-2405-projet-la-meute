@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "jest",
 		"test:hr": "jest --watchAll",
-		"db:seed": "ts-node src/dataSource/initTestData.ts",
+		"db:seed": "ts-node -r module-alias/register src/dataSource/initTestData.ts",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
 		"format": "biome format --write ./src"
