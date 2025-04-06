@@ -4,7 +4,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@style/*": ["src/styles/*"],
-      "@shared/*": ["../shared/*"]
+      "@validation/*": ["src/validation/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -27,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest", "jest"]
   },
-  "include": ["src","../shared"],
+  "include": ["src","../validation"],
 }

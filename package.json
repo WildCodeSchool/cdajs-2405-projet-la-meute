@@ -6,7 +6,8 @@
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
-    "client-package": "./client-package.sh"
+    "client-package": "./client-package.sh",
+    "copy:validation": "cpy validation/**/* client/src/validation && cpy validation/**/* server/src/validation"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -16,6 +17,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.5.5",
     "@types/sinon": "^17.0.3",
+    "cpy-cli": "^5.0.0",
     "dotenv": "^16.4.5",
     "husky": "^9.1.7",
     "mock-typeorm": "^1.0.2",

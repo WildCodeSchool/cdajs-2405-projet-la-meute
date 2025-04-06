@@ -1,4 +1,4 @@
-import validationRules from "@shared/validationRules";
+import validationRules from "@validation/validationRules";
 
 export type TextInputTypes =
 	| "email"
