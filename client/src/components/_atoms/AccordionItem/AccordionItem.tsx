@@ -1,10 +1,10 @@
 /**
  * AccordionItem.tsx
- * Composant atomique représentant un élément individuel d'accordéon
- * Gère l'affichage et l'interaction d'un seul élément (titre et contenu)
+ * Atomic component representing an individual accordion item
+ * Manages the display and interaction of a single item (title and content)
  */
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./AccordionItem.scss";
 
 interface AccordionItemProps {
@@ -20,9 +20,26 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 	isOpen,
 	onClick,
 }) => {
+	const buttonRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		if (buttonRef.current) {
+			if (isOpen) {
+				buttonRef.current.classList.add("accordion-button-active");
+			} else {
+				buttonRef.current.classList.remove("accordion-button-active");
+			}
+		}
+	}, [isOpen]);
+
 	return (
 		<div className="accordion-item">
-			<button aria-expanded={isOpen} onClick={onClick}>
+			<button
+				ref={buttonRef}
+				aria-expanded={isOpen}
+				onClick={onClick}
+				className={isOpen ? "accordion-button-active" : ""}
+			>
 				<span className="accordion-title">{title}</span>
 				<span className="icon" aria-hidden="true"></span>
 			</button>
