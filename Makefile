@@ -74,7 +74,7 @@ migrations:
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts"
 
 .PHONY: migrations-revert
-migrations:
+migrations-revert:
 	@echo "Reverting last migration..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
 
