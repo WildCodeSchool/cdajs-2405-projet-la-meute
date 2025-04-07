@@ -6,8 +6,7 @@
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
-    "client-package": "./client-package.sh",
-    "copy:validation": "cpy validation/**/* client/src/validation && cpy validation/**/* server/src/validation"
+    "client-package": "./client-package.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
