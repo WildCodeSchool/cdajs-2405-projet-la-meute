@@ -3,7 +3,7 @@
     "install:all": "npm install && cd server && npm install && cd .. && cd client && npm install && cd ..",
     "ci:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
     "db:init": "ts-node ./_ressources/scripts/init_db_user.ts",
-    "db:seed":"docker exec -it cdajs-2405-projet-la-meute-server-1 sh -c 'npm run db:seed'",
+    "db:seed":"docker exec -it pawplanner-server-1 sh -c 'npm run db:seed'",
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",

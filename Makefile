@@ -24,7 +24,7 @@ install:
 .PHONY: init-db
 init-db:
 	@echo "Initializing database..."
-	npm run init:db
+	npm run db:init
 
 .PHONY: sync-validation
 sync-validation:
