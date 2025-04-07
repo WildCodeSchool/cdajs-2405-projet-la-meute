@@ -32,6 +32,12 @@ sync-validation:
 	cp $(VALIDATION_RULES_SRC) $(SERVER_VALIDATION_PATH)
 	cp $(VALIDATION_RULES_SRC) $(CLIENT_VALIDATION_PATH)
 
+.PHONY: seed
+seed:
+	@echo "Seeding database..."
+	docker exec -it $(SERVER_CONTAINER) sh -c "npm run db:seed"
+	@echo "Database seeded."
+
 .PHONY: build
 build:
 	@echo "Starting Docker Compose..."
