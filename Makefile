@@ -24,13 +24,19 @@ install:
 .PHONY: init-db
 init-db:
 	@echo "Initializing database..."
-	npm run init:db
+	npm run db:init
 
 .PHONY: sync-validation
 sync-validation:
 	@echo "Synchronizing validation rules..."
 	cp $(VALIDATION_RULES_SRC) $(SERVER_VALIDATION_PATH)
 	cp $(VALIDATION_RULES_SRC) $(CLIENT_VALIDATION_PATH)
+
+.PHONY: seed
+seed:
+	@echo "Seeding database..."
+	docker exec -it $(SERVER_CONTAINER) sh -c "npm run db:seed"
+	@echo "Database seeded."
 
 .PHONY: build
 build:
