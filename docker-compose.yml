@@ -5,9 +5,9 @@ services:
     restart: unless-stopped
     ports:
       - 4200:4200
+    container_name: pawplanner-client-1
     volumes:
       - ./client:/client
-      - ./shared:/shared
     environment:
       - WDS_SOCKET=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
@@ -20,9 +20,9 @@ services:
     restart: unless-stopped
     ports:
       - 3200:3200
+    container_name: pawplanner-server-1
     volumes:
       - ./server:/server
-      - ./shared:/shared
     env_file:
       - .env
 

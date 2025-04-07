@@ -11,6 +11,7 @@ We are a team of four aspiring web developers working on this project: [Florence
     - **NodeJS** needs to be installed **globally**.
     - **npm**
     - **Docker**
+    - **Make**
 ___
 
 - General:
@@ -34,14 +35,15 @@ ___
 
 ### TLDR;
 1. **First Launch**
-    - Clone the `.env.sample` in a `.env` file, edit it.
-    - Run `npm run install:all`
-    - Run `npm run init:db`
-    - Run `docker compose up`
+    - Run `make env` and edit your .env file.
+    - Run `make first-launch` (it will install your dependencies, initialize your database and synchronize the forms validation rules)
+    - When your server is ready, run `make migrations`
 2. **Any other launch**
-    - Run `docker compose up`
+    - Launching docker containers: `make up`
+    - Building docker containers and launching project: `make build`
+    - Full launch: `make launch` (install dependencies, sync validation rules and build)
 
-Every new dependency asks for a rebuild (`npm run ci:all`, `docker compose down` then `docker compose up --build`).
+Don't forget to apply migrations when needed with `make migrations`.
 
 **Client**: http://localhost:4200/ </br>
 **Server**: http://localhost:3200/

@@ -8,14 +8,12 @@
 		"test:hr": "jest --watchAll",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
-		"format": "biome format --write ./src"
+		"format": "biome format --write ./src",
+		"typeorm": "typeorm-ts-node-commonjs"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"_moduleAliases": {
-		"@shared": "../shared"
-	},
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
 		"argon2": "^0.41.1",
