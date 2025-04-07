@@ -23,6 +23,11 @@
     padding: 4rem;
     width: 48rem;
     max-width: 100%;
+
+    p { 
+        white-space: pre-line;
+    }
+
     }
 
     @media screen and (max-width: $mobile) {
@@ -36,7 +41,8 @@
     @media screen and (max-width: $tablet) {
         .FAQ__section {
             h2 {
-                margin-top: 8rem;
+                margin-top: 10rem;
+                margin-left: 2rem;
             }
         }
     }

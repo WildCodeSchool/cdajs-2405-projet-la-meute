@@ -8,7 +8,7 @@ function FAQ() {
 		{
 			title: "Comment puis-je créer un compte ?",
 			content:
-				"Le formulaire de création de compte est accessible via le bouton 'S'inscrire' en haut à droite de la page. Il vous suffit de sélectionner le type de compte que vous souhaitez créer soit Éduateur·trice canin·e, soit propriétaire de chien. Pour finir, il vous faudra remplir les champs et cliquer sur 'S'inscrire' pour finaliser votre inscription.",
+				"Le formulaire de création de compte est accessible via le bouton 'S'inscrire' en haut à droite de la page. \n Il vous suffit de sélectionner le type de compte que vous souhaitez créer soit Éduateur·trice canin·e, soit propriétaire de chien. \n Pour finir, il vous faudra remplir les champs et cliquer sur 'S'inscrire' pour finaliser votre inscription.",
 		},
 		{
 			title:
@@ -29,12 +29,12 @@ function FAQ() {
 		{
 			title: "Puis-je limiter le nombre de participants à une activité ?",
 			content:
-				"Oui, pour chaque évènement que vous créez, vous pouvez définir un nombre maximum de participants. Une fois ce nombre atteint, l'évènement s’affiche comme complet et vos clients ne peuvent plus s’y inscrire. Cela vous permet de garder un bon équilibre dans vos groupes et de garantir un encadrement de qualité.",
+				"Oui, pour chaque évènement que vous créez, vous pouvez définir un nombre maximum de participants. \n Une fois ce nombre atteint, l'évènement s’affiche comme complet et vos clients ne peuvent plus s’y inscrire. \n Cela vous permet de garder un bon équilibre dans vos groupes et de garantir un encadrement de qualité.",
 		},
 		{
 			title: "Les paiements se font-ils directement sur la plateforme ?",
 			content:
-				"Actuellement, PawPlanner ne propose pas de système de paiement intégré. Vous pouvez toutefois indiquer les tarifs de vos services et préciser les modalités de règlement (virement, espèces, etc.). Un système de paiement en ligne pourra être ajouté dans une future version, en fonction des besoins des utilisateurs.",
+				"Actuellement, PawPlanner ne propose pas de système de paiement intégré. \n Vous pouvez toutefois indiquer les tarifs de vos services et préciser les modalités de règlement (virement, espèces, etc.). \n Un système de paiement en ligne pourra être ajouté dans une future version, en fonction des besoins des utilisateurs.",
 		},
 	];
 
