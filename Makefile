@@ -1,8 +1,11 @@
 # Variables
 SERVER_CONTAINER = pawplanner-server-1
 VALIDATION_RULES_SRC = ./validationRules/validationRules.ts
-SERVER_VALIDATION_PATH = server/src/services/readonly/validationRules.ts
+SERVER_PATH = server/src
+SERVER_VALIDATION_PATH = ${SERVER_PATH}/services/readonly/validationRules.ts
+SERVER_MIGRATION_PATH = ${SERVER_PATH}/migrations/
 CLIENT_VALIDATION_PATH = client/src/helpers/readonly/validationRules.ts
+OS := $(shell uname)
 
 .PHONY: default
 default: launch
@@ -37,6 +40,23 @@ seed:
 	@echo "Seeding database..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run db:seed"
 	@echo "Database seeded."
+
+.PHONY: mig-reindex
+mig-reindex:
+	@read -p "Nom de la nouvelle migration (ex: ReindexSearchIndex): " name; \
+	TIMESTAMP=$$(date +%s); \
+	FILE=${SERVER_MIGRATION_PATH}$$TIMESTAMP-$$name.ts; \
+	cp ${SERVER_MIGRATION_PATH}template/ReindexSearchIndex.ts $$FILE; \
+	if [ "$(OS)" = "Darwin" ]; then \
+		sed -i "" "s/PopulateSearchIndex/$$name$$TIMESTAMP/" $$FILE; \
+	else \
+		sed -i "s/PopulateSearchIndex/$$name$$TIMESTAMP/" $$FILE; \
+	fi; \
+	echo "Created : $$FILE"
+	@echo $(OS)
+
+.PHONY: seed-reindex
+seed-reindex: seed mig-reindex migrations
 
 .PHONY: build
 build:
