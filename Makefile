@@ -73,6 +73,11 @@ migrations:
 	@echo "Running migrations..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts"
 
+.PHONY: migrations-revert
+migrations:
+	@echo "Reverting last migration..."
+	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
+
 .PHONY: first-launch
 first-launch: install init-db sync-validation build
 	@echo "Congrats, your first launch is complete. ✨"
