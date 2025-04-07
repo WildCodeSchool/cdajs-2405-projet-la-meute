@@ -62,23 +62,70 @@ export const GET_EVENT_BY_ID = gql`
     ${SERVICE_FRAGMENT}
 `;
 
-export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
-query GetAllEventsByOwnerId($ownerId: Float!) {
-    getAllEventsByOwnerId(ownerId: $ownerId) {
-        id
-        title
-        date
-        startDate
-        endDate
-        description
-        location {
-        latitude
-        longitude
+export const GET_ALL_EVENTS_BY_TRAINER_ID = gql`
+    query GetAllEventsByTrainerId($trainerId: Float!) {
+        getAllEventsByTrainerId(trainerId: $trainerId) {
+            id
+            title
+            description
+            location {
+                latitude
+                longitude
+            }
+            startDate
+            endDate
+            group_max_size
+            price
+            services {
+                id
+                title
+                smiley
+                color
+            }
+            participation {
+                id
+                dog {
+                    picture
+                    id
+                    name
+                }
+            }
         }
-        group_max_size
-        price
     }
-  }
+`;
+
+export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
+    query GetAllEventsByOwnerId($ownerId: Float!) {
+        getAllEventsByOwnerId(ownerId: $ownerId) {
+            id
+            title
+            description
+            location {
+                latitude
+                longitude
+            }
+            startDate
+            endDate
+            group_max_size
+            price
+            services {
+                id
+                title
+                smiley
+                color
+            }
+            trainer {
+                id
+                avatar
+                city
+                company_name
+                description
+                email
+                firstname
+                lastname
+            }
+        }
+    }
 `;
 
 export const GET_DOGS_BY_EVENTS_ID = gql`
