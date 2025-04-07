@@ -149,7 +149,7 @@ function Profile() {
 
 	return (
 		<>
-			<PlanningHeader title="Mon profil" button={false} />
+			<PlanningHeader title="Mon profil" />
 
 			<main className="profile">
 				<nav className="profile__nav">
