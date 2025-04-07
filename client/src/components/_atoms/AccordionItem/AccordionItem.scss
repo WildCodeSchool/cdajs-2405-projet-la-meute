@@ -3,11 +3,10 @@
 .accordion-item {
 	border-bottom: 1px solid $primary-dark;
 
-	button[aria-expanded='true'] {
-	border-bottom: 1px solid $orange-400;
-	}
-
 	button {
+		display: flex;
+    	justify-content: space-between;
+   		align-items: center;
 		position: relative;
 		display: block;
 		text-align: left;
@@ -28,7 +27,7 @@
 				cursor: pointer;
 				color: $orange-400;
 				border: 1px solid $orange-400;
-				}
+			}
 		}
 
 		.accordion-title {
@@ -69,22 +68,41 @@
 		}
 	}
 
-		button[aria-expanded='true'] {
+	.accordion-button-active {
+		color: $orange-400;
+		border-bottom: 1px solid $orange-400;
+		border-radius: 0 0 4px 4px;
+		
+		.icon {
 			color: $orange-400;
+			border-color: $orange-400;
 			
-			.icon {
-				&::after {
+			&::after {
 				width: 0;
-				}
-			}
-			
-			+ .accordion-content {
-				opacity: 1;
-				max-height: 9em;
-				transition: all 200ms linear;
-				will-change: opacity, max-height;
 			}
 		}
+	}
+
+	button[aria-expanded='true'] {
+		color: $orange-400;
+		
+		.icon {
+			color: $orange-400;
+			border-color: $orange-400;
+			margin-left: auto;
+			
+			&::after {
+				width: 0;
+			}
+		}
+		
+		+ .accordion-content {
+			opacity: 1;
+			max-height: 1000px;
+			transition: all 200ms linear;
+			will-change: opacity, max-height;
+		}
+	}
 
 	.accordion-content {
 		opacity: 0;
@@ -92,11 +110,25 @@
 		overflow: hidden;
 		transition: opacity 200ms linear, max-height 200ms linear;
 		will-change: opacity, max-height;
+		margin-bottom: 0.7rem;
+	
 		
 		p {
-		font-size: 1rem;
-		font-weight: 300;
-		margin: 2em 0;
+			font-size: 1rem;
+			font-weight: 300;
+			margin: 2em 0;
+			line-height: 1.6;
+		}
+	}
+}
+
+
+@media screen and (max-width: $mobile) {
+	.accordion-item {
+		button {
+			.icon {
+			right: -3rem;
+			}
 		}
 	}
 }
