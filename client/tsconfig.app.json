@@ -3,8 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@style/*": ["src/styles/*"],
-      "@validation/*": ["src/validation/*"]
+      "@style/*": ["src/styles/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

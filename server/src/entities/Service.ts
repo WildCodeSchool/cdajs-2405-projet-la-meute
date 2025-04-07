@@ -1,14 +1,5 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import {
-	Column,
-	Entity,
-	ManyToOne,
-	OneToMany,
-	JoinColumn,
-	PrimaryGeneratedColumn,
-	ManyToMany,
-} from "typeorm";
-import { Trainer } from "./Trainer";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
 import { Event } from "./Event";
 
 @Entity()

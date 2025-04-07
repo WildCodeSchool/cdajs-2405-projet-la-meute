@@ -4,8 +4,5 @@ module.exports = {
   preset: "ts-jest",
   transform: {
     "^.+.tsx?$": ["ts-jest",{}],
-  },
-  moduleNameMapper: {
-    "^@validation/(.*)$": "<rootDir>src/validation/$1",
-  },
+  }
 };

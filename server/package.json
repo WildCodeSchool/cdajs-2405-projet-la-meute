@@ -9,14 +9,12 @@
 		"db:seed": "ts-node -r module-alias/register src/dataSource/initTestData.ts",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
-		"format": "biome format --write ./src"
+		"format": "biome format --write ./src",
+		"typeorm": "typeorm-ts-node-commonjs"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"_moduleAliases": {
-		"@validation": "src/validation"
-	},
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
 		"@faker-js/faker": "^9.6.0",

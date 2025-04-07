@@ -1,4 +1,4 @@
-import { Dog } from "./Dog";
+import type { Dog } from "./Dog";
 
 export interface Location {
 	latitude: number;

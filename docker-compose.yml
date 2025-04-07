@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - 4200:4200
+    container_name: pawplanner-client-1
     volumes:
       - ./client:/client
     environment:
@@ -19,6 +20,7 @@ services:
     restart: unless-stopped
     ports:
       - 3200:3200
+    container_name: pawplanner-server-1
     volumes:
       - ./server:/server
     env_file:
