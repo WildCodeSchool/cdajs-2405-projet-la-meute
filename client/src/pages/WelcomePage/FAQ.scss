@@ -7,15 +7,15 @@
     flex-direction: column;
     align-items: center;
 
-    h2 {
-        text-align: center;
-        color: $primary-dark;
-        font-size: 3.75rem;
-        font-weight: $semiBold;
-        font-style: normal;
-        letter-spacing: 1px;
-        margin-bottom: 2rem;
-    }
+        h2 {
+            font-size: 4rem;
+            font-weight: $bold;
+            letter-spacing: 1px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            margin-top: 5rem;
+        }
     }
 
     .FAQ__container {
@@ -23,4 +23,20 @@
     padding: 4rem;
     width: 48rem;
     max-width: 100%;
+    }
+
+    @media screen and (max-width: $mobile) {
+        .FAQ__section {
+            h2 {
+                margin-top: 8rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: $tablet) {
+        .FAQ__section {
+            h2 {
+                margin-top: 8rem;
+            }
+        }
     }
