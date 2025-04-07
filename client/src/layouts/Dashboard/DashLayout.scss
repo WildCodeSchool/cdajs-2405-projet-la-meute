@@ -169,6 +169,15 @@
             flex-direction: row;
             gap: 10vw;
         }
+
+        &__logout {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            svg {
+                fill: $green-400;
+            }
+        }
     }
 
     // CONTENT MOBILE
