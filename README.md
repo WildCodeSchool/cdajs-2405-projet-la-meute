@@ -11,6 +11,7 @@ We are a team of four aspiring web developers working on this project: [Florence
     - **NodeJS** needs to be installed **globally**.
     - **npm**
     - **Docker**
+    - **Make**
 ___
 
 - General:
