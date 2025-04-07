@@ -1,10 +1,10 @@
 /**
  * Accordion.tsx
- * Composant moléculaire qui gère une liste d'éléments d'accordéon
- * Contrôle l'état (ouvert/fermé) de chaque élément et orchestre leur affichage
+ * Molecular component that manages a list of accordion items
+ * Controls the state (open/closed) of each item and orchestrates their display
  */
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import AccordionItem from "../../_atoms/AccordionItem/AccordionItem";
 import "./Accordion.scss";
 
@@ -20,13 +20,14 @@ interface AccordionProps {
 
 const Accordion: React.FC<AccordionProps> = ({ items, className = "" }) => {
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
+	const accordionRef = useRef<HTMLDivElement>(null);
 
 	const toggleAccordion = (index: number) => {
 		setOpenIndex(openIndex === index ? null : index);
 	};
 
 	return (
-		<div className={`accordion ${className}`}>
+		<div className={`accordion ${className}`} ref={accordionRef}>
 			{items.map((item, index) => (
 				<AccordionItem
 					key={index}
