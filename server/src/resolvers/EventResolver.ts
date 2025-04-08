@@ -9,6 +9,8 @@ import { Dog } from "../entities/Dog";
 import { LocationInput } from "../types/inputTypes";
 
 import "dotenv/config";
+import { MainEventPublisher } from "src/services/eventPublisher";
+import e from "express";
 
 const eventRepository = dataSource.getRepository(Event);
 const trainerRepository = dataSource.getRepository(Trainer);
@@ -84,19 +86,8 @@ export class EventResolver {
 			services = await serviceRepository.findByIds(serviceIds);
 		}
 
-		const event = new Event(
-			trainer,
-			services,
-			title,
-			description,
-			location,
-			startDate,
-			endDate,
-			group_max_size,
-			price,
-		);
-
-		return await eventRepository.save(event);
+		const publisher = new MainEventPublisher(eventRepository);
+		return await publisher.createEvent(endDate, startDate, price, group_max_size, location, description, title, trainer, services);
 	}
 
 	// Update event
