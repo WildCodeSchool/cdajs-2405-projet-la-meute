@@ -30,7 +30,7 @@ export class Dog {
 
 	@Column({
 		type: "varchar",
-		length: 30,
+		length: 50,
 	})
 	@Field()
 	breed: string;

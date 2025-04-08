@@ -57,7 +57,7 @@ On first launch, **the variables you'll put in this file will be used to create 
 
 Then run `npm run install:all` to run the `npm install` commands in the /root, /client and /server folders in one go. 
 
-On first launch, create your PostgreSQL user, either inside your container (run `npm run init:db`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
+On first launch, create your PostgreSQL user, either inside your container (run `npm run db:init`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
 
 You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME - replace the variables).
 

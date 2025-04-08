@@ -161,13 +161,11 @@ function Planning() {
 
 	return (
 		<>
-			{user?.role === "trainer" && (
-				<PlanningHeader
-					title={title}
-					buttonLabel="event"
-					href="/trainer/planning/new"
-				/>
-			)}
+			<PlanningHeader
+				title={title}
+				buttonLabel="event"
+				href="/trainer/planning/new"
+			/>
 			<div className="calendar-container">
 				<FullCalendar
 					plugins={[
