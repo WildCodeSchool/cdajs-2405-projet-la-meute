@@ -42,6 +42,7 @@ import ResetPassword from "./pages/Login/ResetPassword.tsx";
 // import Services from "@/pages/WelcomePage/Services.tsx";
 import FAQ from "@/pages/WelcomePage/FAQ.tsx";
 import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
+import PrivacyPolicy from "./pages/WelcomePage/PrivacyPolicy.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
 					{
 						path: "FAQ",
 						element: <FAQ />,
+					},
+					{
+						path: "PrivacyPolicy",
+						element: <PrivacyPolicy />,
 					},
 					{
 						path: "contact",
