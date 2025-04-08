@@ -100,14 +100,11 @@ function EventDetail() {
 
 	return (
 		<>
-			{user?.role === "trainer" && (
-				<PlanningHeader
-					title="Planning"
-					buttonLabel="event"
-					href="/trainer/planning/new"
-				/>
-			)}
-
+			<PlanningHeader
+				title="Planning"
+				buttonLabel="event"
+				href="/trainer/planning/new"
+			/>
 			<section className="eventDetail__section">
 				<div className="eventDetail__event">
 					<div className="eventDetail__event--card">
@@ -150,8 +147,10 @@ function EventDetail() {
 							className="createEvent__event eventDetail__description eventDetail__margin"
 							label="Description"
 							inputType="textarea"
+							name="description"
 							type="description"
-							placeholder={event.description}
+							value={event.description}
+							onChange={() => ""}
 						/>
 						{/*<label className="createEvent__event eventDetail__event--location eventDetail__margin">
 							Localisation
