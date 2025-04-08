@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg } from "type-graphql";
 import { dataSource } from "../dataSource/dataSource";
 
-import { search } from "../services/search";
+import { search, SearchOptions } from "../services/search";
 import { SearchIndex } from "../entities/SearchIndex";
 
 import { EntityDetails } from "../types/entityDetailsTypes";
