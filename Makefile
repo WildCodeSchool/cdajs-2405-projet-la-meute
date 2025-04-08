@@ -35,14 +35,21 @@ sync-validation:
 	cp $(VALIDATION_RULES_SRC) $(SERVER_VALIDATION_PATH)
 	cp $(VALIDATION_RULES_SRC) $(CLIENT_VALIDATION_PATH)
 
+.PHONY: check-server-container
+check-server-container:
+	@if ! docker ps --filter "name=$(SERVER_CONTAINER)" --filter "status=running" | grep $(SERVER_CONTAINER) > /dev/null; then \
+		echo "Error: $(SERVER_CONTAINER) must be running."; \
+		exit 1; \
+	fi
+
 .PHONY: seed
-seed:
+seed: check-server-container
 	@echo "Seeding database..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run db:seed"
 	@echo "Database seeded."
 
 .PHONY: mig-reindex
-mig-reindex:
+mig-reindex: check-server-container
 	@read -p "Nom de la nouvelle migration (ex: ReindexSearchIndex): " name; \
 	TIMESTAMP=$$(date +%s); \
 	FILE=${SERVER_MIGRATION_PATH}$$TIMESTAMP-$$name.ts; \
@@ -69,12 +76,12 @@ up:
 	docker compose up -d
 
 .PHONY: migrations
-migrations:
+migrations: check-server-container
 	@echo "Running migrations..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts"
 
 .PHONY: migrations-revert
-migrations-revert:
+migrations-revert: check-server-container
 	@echo "Reverting last migration..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
 
