@@ -18,7 +18,11 @@ function CustomerList() {
 
 	return (
 		<>
-			<PlanningHeader title="Clients" />
+			<PlanningHeader
+				title="Clients"
+				buttonLabel="invite"
+				href="mailto:contact@pawplanner.com"
+			/>
 			<SearchBar onSearch={setSearchTerm} />
 
 			{loading && <p>Chargement...</p>}
