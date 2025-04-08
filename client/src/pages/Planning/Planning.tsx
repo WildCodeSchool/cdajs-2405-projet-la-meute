@@ -89,6 +89,7 @@ function Planning() {
 				group_max_size: event.group_max_size,
 				location: event.location,
 				price: event.price,
+				services: event.services || [],
 			},
 		})) || [];
 
