@@ -28,16 +28,14 @@ export default function DashHeader() {
 				</button>
 				<span className="dashHeader__right-corner">
 					{isMobile && (
-						<>
-							<button
-								onClick={logout}
-								type="button"
-								className="dashSideBar__logout"
-								aria-label="Se déconnecter"
-							>
-								<Exit className="dashSideBar__icon" />
-							</button>
-						</>
+						<button
+							onClick={logout}
+							type="button"
+							className="dashSideBar__logout"
+							aria-label="Se déconnecter"
+						>
+							<Exit className="dashSideBar__icon dashHeader__icon" />
+						</button>
 					)}
 					<Link className="dashHeader__avatar" to="/my-profile">
 						<img

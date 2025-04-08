@@ -1,0 +1,25 @@
+@use "@style" as *;
+
+$color : $beige-500;
+
+.filterItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: $color;
+    background-color: $beige-300;
+    border: 1px solid $color;
+    border-radius: $atoms-radius;
+    padding: 0.4rem 0.6rem;
+    margin: 0.15rem;
+    cursor: pointer;
+    &__close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 1.1rem;
+        width: 1.1rem;
+        border-left: 1px solid $color;
+        padding-left: 0.4rem; 
+    }
+}
