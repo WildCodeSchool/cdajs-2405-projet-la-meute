@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle, useEffect } from "react";
 import "./CheckboxInput.scss";
 import {
 	CHECKBOX_INPUT_CONFIG,
@@ -32,6 +32,7 @@ const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputProps>(
 		ref,
 	) => {
 		const [error, setError] = useState<string>("");
+		const [touched, setTouched] = useState<boolean>(false);
 
 		const config = CHECKBOX_INPUT_CONFIG[type];
 		const mappedLabel = label || config.mappedLabel || "";
@@ -42,6 +43,14 @@ const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputProps>(
 		useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
 		const inputId = `checkboxInput-${type}`;
+
+		useEffect(() => {
+			if (touched) {
+				validateValue();
+			} else if (checked) {
+				setError("");
+			}
+		}, [checked]);
 
 		const validateValue = () => {
 			let errorMessage = "";
@@ -55,6 +64,7 @@ const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputProps>(
 		};
 
 		const handleBlur = () => {
+			setTouched(true);
 			validateValue();
 		};
 
@@ -63,8 +73,8 @@ const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputProps>(
 				onChange(e);
 			}
 
-			if (error) {
-				validateValue();
+			if (!touched) {
+				setTouched(true);
 			}
 		};
 
