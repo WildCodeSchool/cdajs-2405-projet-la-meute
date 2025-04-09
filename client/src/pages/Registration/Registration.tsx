@@ -239,7 +239,7 @@ function Registration() {
 										label={
 											<>
 												J'accepte les{" "}
-												<Link to="/general-terms">
+												<Link to="/general-terms" target="_blank">
 													Conditions Générales d'Utilisation (CGU)
 												</Link>
 											</>
