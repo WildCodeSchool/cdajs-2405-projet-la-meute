@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
+import { useDateFormatter } from "@/hooks/useDateFormatter";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import { DELETE_EVENT_BY_ID } from "@/graphQL/mutations/event";
 import Service from "@/components/_atoms/Service/Service";
@@ -9,9 +10,6 @@ import { toast } from "react-toastify";
 
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-/*import LeafletMap, {
-	type leafletMarkerType,
-} from "@/components/_atoms/LeafletMap/LeafletMap";*/
 
 import "./EventDetail.scss";
 
@@ -25,6 +23,7 @@ function EventDetail() {
 	const { id } = useParams();
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
+	const { extractDate, extractTime } = useDateFormatter();
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
@@ -92,19 +91,6 @@ function EventDetail() {
 	// Function to redirect on edit page of an event
 	const handleEditClick = () => {
 		navigate(`/trainer/planning/my-events/${id}/edit`);
-	};
-
-	// Function to extract date at format YYYY-MM-DD
-	const extractDate = (dateString: string) => {
-		const date = new Date(dateString);
-		return date.toISOString().split("T")[0];
-	};
-
-	// Function to extract time at format HH:MM
-	const extractTime = (dateString: string) => {
-		const date = new Date(dateString);
-		// Get only HH:MM in UTC format to not be impact by hour change between seasons
-		return date.toISOString().substring(11, 16);
 	};
 
 	// Function to get the real number of available slots

@@ -1,29 +1,25 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
+import { useDateFormatter } from "@/hooks/useDateFormatter";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import Service from "@/components/_atoms/Service/Service";
 import type { ServiceType } from "@/types/Service";
-import { toast } from "react-toastify";
 
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-/*import LeafletMap, {
-	type leafletMarkerType,
-} from "@/components/_atoms/LeafletMap/LeafletMap";*/
 
 import "@/pages/Event/EventDetail/EventDetail.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
-import { Participation } from "@/types/Event";
 
 function SearchEventDetail() {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
+	const { extractDate, extractTime } = useDateFormatter();
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
@@ -37,19 +33,6 @@ function SearchEventDetail() {
 	if (!data?.getEventById) return <div>Aucun événement trouvé.</div>;
 
 	const event = data?.getEventById;
-	const dogs = event.participation;
-
-	/* const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([]);
-	
-	// Mettre à jour markerLocation lorsque event change
-	useEffect(() => {
-		if (event && event.location) {
-			setMarkerLocation([{
-				lat: event.location.latitude || 48.853495,
-				lng: event.location.longitude || 2.349014,
-			}]);
-		}
-	}, [event]);*/
 
 	interface Trainer {
 		id: number;
@@ -62,19 +45,6 @@ function SearchEventDetail() {
 	// Function to redirect on edit page of an event
 	const handleEditClick = () => {
 		navigate(`/trainer/planning/my-events/${id}/edit`);
-	};
-
-	// Function to extract date at format YYYY-MM-DD
-	const extractDate = (dateString: string) => {
-		const date = new Date(dateString);
-		return date.toISOString().split("T")[0];
-	};
-
-	// Function to extract time at format HH:MM
-	const extractTime = (dateString: string) => {
-		const date = new Date(dateString);
-		// Get only HH:MM in UTC format to not be impact by hour change between seasons
-		return date.toISOString().substring(11, 16);
 	};
 
 	// Function to get the real number of available slots
@@ -163,15 +133,6 @@ function SearchEventDetail() {
 							value={event.description}
 							onChange={() => ""}
 						/>
-						{/*<label className="createEvent__event eventDetail__event--location eventDetail__margin">
-							Localisation
-							<LeafletMap
-								markerLocation={markerLocation}
-								readOnly={true}
-								className="eventDetail__event--map"
-							/>
-						</label>*/}
-
 						{user?.role === "owner" ? (
 							<span className="createEvent__event createEvent__event--buttons">
 								<Button
