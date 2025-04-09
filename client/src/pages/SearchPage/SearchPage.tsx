@@ -1,16 +1,18 @@
 import "./SearchPage.scss";
+
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
+
 import {
 	SEARCH_AVAILABLE_EVENTS,
 	SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 } from "@/graphQL/queries/search";
 import type { SearchIndex } from "@/types/Search";
+import { useUser } from "@/hooks/useUser";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Search from "@/components/_molecules/Search/Search";
 import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
-import { useUser } from "@/hooks/useUser";
 
 const mappedArray = [
 	{
@@ -45,13 +47,8 @@ function SearchPage() {
 			searchField: filter,
 			...(isTrainer && { trainerId: Number(user?.id) }),
 		},
-		skip: !searchTerm,
+		skip: isTrainer && !searchTerm,
 	});
-
-	// biome-ignore lint/suspicious/noConsoleLog: FIXME: delete when filters are used
-	console.log("applied filter waiting to be implemented", filter);
-	// biome-ignore lint/suspicious/noConsoleLog: <explanation>
-	console.log("trainer id", user?.id);
 
 	return (
 		<>
