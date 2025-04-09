@@ -14,7 +14,7 @@ function Footer() {
 					<ul className="welcomepage__footer--list">
 						<p className="welcomepage__footer--title">Pages</p>
 						<Link to="/">Accueil</Link>
-						{/* 					<Link to="/services">Services</Link> */}
+						{/*<Link to="/services">Services</Link> */}
 						<Link to="/FAQ">FAQ</Link>
 						<Link to="/contact">Contact</Link>
 					</ul>
@@ -24,6 +24,9 @@ function Footer() {
 						<Link to="/">Politique de confidentialité</Link>
 						{/* <Link to="/offres">Conditions générales de vente</Link>
 						<Link to="/contact">Conditions générales d'utilisation</Link> */}
+						<Link to="/general-terms">
+							Condiitons Générales d'utilisation (CGU)
+						</Link>
 					</ul>
 				</div>
 				<div className="welcomepage__footer--contact">
