@@ -28,8 +28,8 @@ export interface Participation {
 	dog: Dog;
 }
 
-export interface GetAllEventsData {
-	getAllEvents: Event[];
+export interface GetAllEventsByTrainerId {
+	getAllEventsByTrainerId: Event[];
 }
 
 export interface GetAllEventsByOwnerId {
