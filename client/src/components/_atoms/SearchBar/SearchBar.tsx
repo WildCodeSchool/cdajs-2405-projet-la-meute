@@ -36,7 +36,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
 				name="q"
 				placeholder="Rechercher..."
 				aria-label="Rechercher un contenu"
-				required
 				className="searchbar__input"
 			/>
 		</form>
