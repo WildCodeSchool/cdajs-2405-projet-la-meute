@@ -70,12 +70,12 @@ const router = createBrowserRouter([
 					{
 						path: "privacy-policy",
 						element: <PrivacyPolicy />,
-          },
-          {
+					},
+					{
 						path: "legal-notice",
 						element: <LegalNotice />,
-          },
-          {
+					},
+					{
 						path: "general-terms",
 						element: <GeneralTerms />,
 					},

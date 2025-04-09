@@ -5,15 +5,15 @@ import "./Search.scss";
 
 interface SearchProps {
 	setSearchTerm: (query: string) => void;
-	setFilters: React.Dispatch<React.SetStateAction<string[]>>;
+	setFilter: React.Dispatch<React.SetStateAction<string>>;
 	filterOptions: string[];
 }
 
-function Search({ setSearchTerm, setFilters, filterOptions }: SearchProps) {
+function Search({ setSearchTerm, setFilter, filterOptions }: SearchProps) {
 	return (
 		<section className="search">
 			<SearchBar onSearch={setSearchTerm} />
-			<SearchFilters setFilters={setFilters} filterOptions={filterOptions} />
+			<SearchFilters setFilter={setFilter} filterOptions={filterOptions} />
 		</section>
 	);
 }
