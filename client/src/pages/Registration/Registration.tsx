@@ -6,6 +6,7 @@ import { REGISTER_USER } from "@/graphQL/mutations/user";
 import Form from "@/components/_molecules/Form/Form";
 import "./Registration.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import CheckboxInput from "@/components/_atoms/Inputs/CheckboxInput/CheckboxInput";
 import Button from "@/components/_atoms/Button/Button";
 import { toast } from "react-toastify";
 
@@ -20,6 +21,7 @@ interface RegistrationFormValues extends Record<string, unknown> {
 	telephone: string;
 	SIRET?: string;
 	company_name?: string;
+	acceptTerms: boolean;
 }
 
 function Registration() {
@@ -42,6 +44,7 @@ function Registration() {
 			telephone: "",
 			SIRET: "",
 			company_name: "",
+			acceptTerms: false,
 		},
 		onSubmit: async (formValues) => {
 			await handleSubmit(formValues);
@@ -51,12 +54,11 @@ function Registration() {
 	const handleSubmit = async (formValues: RegistrationFormValues) => {
 		setError(null);
 
-		// Vérification des mots de passe
+		// Check password
 		if (formValues.password !== formValues.confirmPassword) {
 			setError("Les mots de passe ne correspondent pas");
 			return;
 		}
-
 		try {
 			const userData = {
 				lastname: formValues.lastname,
@@ -228,6 +230,22 @@ function Registration() {
 										onChange={form.handleChange}
 										required
 									/>
+									<CheckboxInput
+										style="dark"
+										type="acceptTerms"
+										checked={form.values.acceptTerms as boolean}
+										onChange={form.handleChange}
+										required
+										label={
+											<>
+												J'accepte les{" "}
+												<Link to="/general-terms">
+													Conditions Générales d'Utilisation (CGU)
+												</Link>
+											</>
+										}
+									/>
+
 									{error && (
 										<div
 											className="error-message"
