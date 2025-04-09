@@ -9,7 +9,7 @@ import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
-	GET_ALL_EVENTS,
+	GET_ALL_EVENTS_BY_TRAINER_ID,
 	GET_ALL_EVENTS_BY_OWNER_ID,
 } from "@/graphQL/queries/event";
 import Service from "@/components/_atoms/Service/Service";
@@ -27,33 +27,42 @@ import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
 
 // Interfaces
-import { Event, GetAllEventsData, GetAllEventsByOwnerId } from "@/types/Event";
+import {
+	Event,
+	GetAllEventsByTrainerId,
+	GetAllEventsByOwnerId,
+} from "@/types/Event";
 
 function Planning() {
 	/* Business logic */
 
 	const navigate = useNavigate();
 	const { user, role } = useUser();
-	const { data: allEventsData } = useQuery<GetAllEventsData>(GET_ALL_EVENTS, {
-		fetchPolicy: "no-cache",
-	});
+	const { data: trainerEventsData } = useQuery<GetAllEventsByTrainerId>(
+		GET_ALL_EVENTS_BY_TRAINER_ID,
+		{
+			variables: {
+				trainerId: user?.id ? Number(user.id) : null,
+			},
+			fetchPolicy: "no-cache",
+		},
+	);
 	const { data: ownerEventsData } = useQuery<GetAllEventsByOwnerId>(
 		GET_ALL_EVENTS_BY_OWNER_ID,
 		{
 			variables: {
 				ownerId: user?.id ? Number(user.id) : null,
 			},
+			fetchPolicy: "no-cache",
 		},
 	);
-
-	console.log(ownerEventsData);
 
 	// Check if the role is trainer or owner
 	const isTrainer = role === "trainer";
 
-	// All events
-	const events =
-		allEventsData?.getAllEvents.map((event: Event) => ({
+	// Events associates to specific trainer
+	const trainerEvents =
+		trainerEventsData?.getAllEventsByTrainerId.map((event: Event) => ({
 			id: event.id.toString(),
 			title: event.title,
 			start: new Date(event.startDate),
@@ -80,6 +89,7 @@ function Planning() {
 				group_max_size: event.group_max_size,
 				location: event.location,
 				price: event.price,
+				services: event.services || [],
 			},
 		})) || [];
 
@@ -170,7 +180,7 @@ function Planning() {
 					locale={frLocale}
 					timeZone="Europe/Paris"
 					height="auto"
-					events={isTrainer ? events : ownerEvents}
+					events={isTrainer ? trainerEvents : ownerEvents}
 					views={{
 						dayGridMonth: { buttonText: "Mois" },
 						timeGridWeek: {
@@ -294,7 +304,7 @@ function Planning() {
 						if (userRole === "trainer") {
 							navigate(`/trainer/planning/my-events/${eventId}`);
 						} else if (userRole === "owner") {
-							navigate(`/owner/planning/${eventId}`);
+							navigate(`/owner/planning/my-events/${eventId}`);
 						} else {
 							// If an unauthorized user tries to force the URL
 							console.error("Vous n'êtes pas autorisé à voir cet événement");

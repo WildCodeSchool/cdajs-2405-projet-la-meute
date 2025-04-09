@@ -52,7 +52,11 @@ function SearchPage() {
 
 	return (
 		<>
-			<PlanningHeader title={switchData.title} />
+			<PlanningHeader
+				title="Clients"
+				buttonLabel="invite"
+				href="mailto:contact@pawplanner.com"
+			/>
 			<Search
 				setSearchTerm={setSearchTerm}
 				setFilter={setFilter}

@@ -1,0 +1,29 @@
+@use "@style" as *;
+
+.checkboxInput {
+    margin-bottom: 15px;
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            font-size: 16px;
+
+            a {
+                color: $green-200;
+
+                &:hover {
+                    color: $green-400;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
