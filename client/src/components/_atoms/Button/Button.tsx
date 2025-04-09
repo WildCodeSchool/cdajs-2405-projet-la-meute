@@ -47,8 +47,9 @@ export default function Button({
 	children,
 	href,
 	className,
+	disabled = false,
 	onClick,
-}: ButtonProps) {
+}: ButtonProps & { disabled?: boolean }) {
 	const buttonType = style === "submit" ? "submit" : "button";
 	const buttonClassName =
 		typeof style === "object"
@@ -90,6 +91,7 @@ export default function Button({
 		<button
 			type={type || buttonType}
 			className={`button ${buttonClassName} ${className}`}
+			disabled={disabled}
 			onClick={onClick}
 		>
 			{style === "invite" && !children
