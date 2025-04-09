@@ -2,20 +2,17 @@ import { useState } from "react";
 import "./SearchFilters.scss";
 
 interface SearchFiltersProps {
-	setFilters: React.Dispatch<React.SetStateAction<string[]>>;
+	setFilter: React.Dispatch<React.SetStateAction<string>>;
 	filterOptions: string[];
 }
 
-function SearchFilters({ setFilters, filterOptions }: SearchFiltersProps) {
+function SearchFilters({ setFilter, filterOptions }: SearchFiltersProps) {
 	const [selectedFilter, setSelectedFilter] = useState("");
 
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const newFilter = e.target.value;
 		setSelectedFilter(newFilter);
-		setFilters((prev: string[]) =>
-			prev.includes(newFilter) ? prev : [...prev, newFilter],
-		);
-		setSelectedFilter("");
+		setFilter(newFilter);
 	};
 
 	return (
@@ -26,8 +23,9 @@ function SearchFilters({ setFilters, filterOptions }: SearchFiltersProps) {
 				onChange={handleChange}
 			>
 				<option className="searchFilters__option" value="">
-					Filtrer par type de liste
+					Filtrer par ...
 				</option>
+				<option value="">Aucun filtre appliqué</option>
 				{filterOptions.map((filter) => (
 					<option className="searchFilters__option" key={filter} value={filter}>
 						{filter}

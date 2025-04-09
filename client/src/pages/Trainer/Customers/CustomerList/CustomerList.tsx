@@ -7,11 +7,10 @@ import type { SearchIndex } from "@/types/Search";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Search from "@/components/_molecules/Search/Search";
 import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
-import FilterItem from "@/components/_atoms/FilterItem/FilterItem";
 
 function CustomerList() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [filters, setFilters] = useState<string[]>([]);
+	const [filter, setFilter] = useState("");
 	const filterOptions = ["Éducateur", "Lieu", "Evènement", "Date", "Chien"];
 
 	const { data, loading, error } = useQuery(SEARCH_QUERY, {
@@ -19,19 +18,17 @@ function CustomerList() {
 		skip: !searchTerm,
 	});
 
+	// biome-ignore lint/suspicious/noConsoleLog: FIXME: delete when filters are used
+	console.log("applied filter waiting to be implemented", filter);
+
 	return (
 		<>
 			<PlanningHeader title="Clients" />
 			<Search
 				setSearchTerm={setSearchTerm}
-				setFilters={setFilters}
+				setFilter={setFilter}
 				filterOptions={filterOptions}
 			/>
-			<ul className="filterItemsList">
-				{filters.map((filter) => (
-					<FilterItem key={filter} filter={filter} setFilters={setFilters} />
-				))}
-			</ul>
 
 			{loading && <p>Chargement...</p>}
 			{error && <p>Erreur : {error.message}</p>}
