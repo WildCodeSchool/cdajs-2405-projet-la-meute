@@ -55,23 +55,20 @@ function EventCard({ event }: EventCardProps) {
 				<div className="event-card">
 					<div className="event-title">{event.title}</div>
 					<div className="eventDetail__event--service">
-						{event.extendedProps.services.map(
-							(service: ServiceType, index: number) => (
-								<Service
-									service={service}
-									key={service.id || `service-${index}`}
-								/>
-							),
-						)}
+						{event.services.map((service: ServiceType, index: number) => (
+							<Service
+								service={service}
+								key={service.id || `service-${index}`}
+							/>
+						))}
 					</div>
 					<div className="event-date-and-time">
 						<CalendarWithClock className="event__icons" />
-						{formatEventDateTime(event.start, event.end)}
+						{formatEventDateTime(event.startDate, event.endDate)}
 					</div>
 					<div className="event-location">
 						<MapPin className="event__icons" />
-						{event.extendedProps.location.latitude},
-						{event.extendedProps.location.longitude}
+						{event.location.latitude},{event.location.longitude}
 					</div>
 				</div>
 			</div>
@@ -79,8 +76,8 @@ function EventCard({ event }: EventCardProps) {
 				<div className="participants-title">Participants</div>
 				<div className="participants-wrapper">
 					<DogBubbles
-						dogs={event.extendedProps.dogs}
-						maxSize={event.extendedProps.group_max_size}
+						dogs={event}
+						maxSize={event.group_max_size}
 						onDogClick={handleDogClick}
 					/>
 				</div>

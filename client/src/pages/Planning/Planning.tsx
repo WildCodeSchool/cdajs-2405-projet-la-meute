@@ -1,7 +1,9 @@
 import "@/pages/Planning/Planning.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
+import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
 
+import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useEffect, useState } from "react";
@@ -10,6 +12,8 @@ import {
 	GET_ALL_EVENTS,
 	GET_ALL_EVENTS_BY_OWNER_ID,
 } from "@/graphQL/queries/event";
+import Service from "@/components/_atoms/Service/Service";
+import type { ServiceType } from "@/types/Service";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -17,17 +21,17 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import frLocale from "@fullcalendar/core/locales/fr";
 import interactionPlugin from "@fullcalendar/interaction";
-import EventCard from "@/components/_molecules/EventCard/EventCard";
+
+// Icons
+import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
+import { MapPin } from "@/assets/icons/map-pin";
 
 // Interfaces
-import type {
-	Event,
-	GetAllEventsData,
-	GetAllEventsByOwnerId,
-} from "@/types/Event";
-import { useNavigate } from "react-router-dom";
+import { Event, GetAllEventsData, GetAllEventsByOwnerId } from "@/types/Event";
 
 function Planning() {
+	/* Business logic */
+
 	const navigate = useNavigate();
 	const { user, role } = useUser();
 	const { data: allEventsData } = useQuery<GetAllEventsData>(GET_ALL_EVENTS, {
@@ -41,6 +45,8 @@ function Planning() {
 			},
 		},
 	);
+
+	console.log(ownerEventsData);
 
 	// Check if the role is trainer or owner
 	const isTrainer = role === "trainer";
@@ -76,6 +82,16 @@ function Planning() {
 				price: event.price,
 			},
 		})) || [];
+
+	// Navigate to dog's profile when you click on bubble image
+	interface Dog {
+		id: number;
+		name: string;
+	}
+
+	const handleDogClick = (dog: Dog) => {
+		navigate(`/trainer/dogs/${dog.id}`);
+	};
 
 	/* FullCalendar views */
 
@@ -134,8 +150,6 @@ function Planning() {
 		}
 	}, [currentView]);
 
-	console.log(arg.event);
-
 	return (
 		<>
 			<PlanningHeader
@@ -175,10 +189,10 @@ function Planning() {
 					}}
 					eventContent={(arg) => {
 						// View Month
-						// On monthly view, show a circle
+						// Si on est en vue mensuelle et en mode mobile, afficher un rond
 						if (currentView === "dayGridMonth") {
 							if (isMobile) {
-								return <div className="event-dot" />;
+								return <div className="event-dot"></div>;
 							}
 							return (
 								<div className="event-dayGridMonth">
@@ -195,6 +209,35 @@ function Planning() {
 							);
 						}
 						// View listWeek
+						// Function to formate the date with startDate and endDate
+						const formatEventDateTime = (startDate: Date, endDate: Date) => {
+							const formatDate = (date: Date) => {
+								const days = [
+									"dimanche",
+									"lundi",
+									"mardi",
+									"mercredi",
+									"jeudi",
+									"vendredi",
+									"samedi",
+								];
+								const day = days[date.getDay()];
+								const dayNum = date.getDate().toString().padStart(2, "0");
+								const month = (date.getMonth() + 1).toString().padStart(2, "0");
+								const year = date.getFullYear();
+
+								return `${day} ${dayNum}/${month}/${year}`;
+							};
+
+							const formatTime = (date: Date) => {
+								const hours = date.getHours().toString().padStart(2, "0");
+								const minutes = date.getMinutes().toString().padStart(2, "0");
+
+								return `${hours}h${minutes}`;
+							};
+
+							return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
+						};
 
 						// Checking if start or end is null
 						if (arg.event.start === null || arg.event.end === null) {
@@ -202,7 +245,44 @@ function Planning() {
 						}
 
 						if (currentView === "listWeek") {
-							return <EventCard event={arg.event} />;
+							return (
+								<section className="event__section--global">
+									<div className="event-content-list">
+										<div className="event-card">
+											<div className="event-title">{arg.event.title}</div>
+											<div className="eventDetail__event--service">
+												{arg.event.extendedProps.services.map(
+													(service: ServiceType, index: number) => (
+														<Service
+															service={service}
+															key={service.id || `service-${index}`}
+														/>
+													),
+												)}
+											</div>
+											<div className="event-date-and-time">
+												<CalendarWithClock className="event__icons" />
+												{formatEventDateTime(arg.event.start, arg.event.end)}
+											</div>
+											<div className="event-location">
+												<MapPin className="event__icons" />
+												{arg.event.extendedProps.location.latitude},
+												{arg.event.extendedProps.location.longitude}
+											</div>
+										</div>
+									</div>
+									<div className="event__div--participation">
+										<div className="participants-title">Participants</div>
+										<div className="participants-wrapper">
+											<DogBubbles
+												dogs={arg.event.extendedProps.dogs}
+												maxSize={arg.event.extendedProps.group_max_size}
+												onDogClick={handleDogClick}
+											/>
+										</div>
+									</div>
+								</section>
+							);
 						}
 					}}
 					// Navigate to event details where we can update or delete the event
@@ -210,7 +290,7 @@ function Planning() {
 						// Get event id to use it in the path
 						const eventId = clickInfo.event.id;
 						const userRole = user?.role;
-						// Navigate to the event depending on the role
+						// Navigate to the event in function of the role
 						if (userRole === "trainer") {
 							navigate(`/trainer/planning/my-events/${eventId}`);
 						} else if (userRole === "owner") {

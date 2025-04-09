@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 
