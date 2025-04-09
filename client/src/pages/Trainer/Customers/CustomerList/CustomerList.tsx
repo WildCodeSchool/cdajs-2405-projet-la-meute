@@ -23,7 +23,6 @@ function CustomerList() {
 
 	return (
 		<>
-
 			<PlanningHeader
 				title="Clients"
 				buttonLabel="invite"
@@ -34,7 +33,6 @@ function CustomerList() {
 				setFilter={setFilter}
 				filterOptions={filterOptions}
 			/>
-
 
 			{loading && <p>Chargement...</p>}
 			{error && <p>Erreur : {error.message}</p>}
