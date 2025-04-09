@@ -1,6 +1,0 @@
-import{j as e}from"./jsx-runtime-DR9Q75dM.js";import"./index-DRjF_FHU.js";function c({filter:r,setFilters:o}){const s=()=>{o(l=>l.filter(m=>m!==r))};return e.jsx(e.Fragment,{children:e.jsxs("p",{onClick:s,onKeyUp:s,className:"filterItem",children:[r,"  ",e.jsx("span",{className:"filterItem__close",children:"x"})]})})}c.__docgenInfo={description:"",methods:[],displayName:"FilterItem",props:{filter:{required:!0,tsType:{name:"string"},description:""},setFilters:{required:!0,tsType:{name:"ReactDispatch",raw:"React.Dispatch<React.SetStateAction<string[]>>",elements:[{name:"ReactSetStateAction",raw:"React.SetStateAction<string[]>",elements:[{name:"Array",elements:[{name:"string"}],raw:"string[]"}]}]},description:""}}};const u={title:"atoms/FilterItem",component:c,tags:["autodocs"],parameters:{layout:"centered"},argTypes:{filter:{control:"text"},setFilters:{action:"clicked"}}},t={args:{filter:"filter",setFilters:()=>{}}};var a,n,i;t.parameters={...t.parameters,docs:{...(a=t.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    filter: "filter",
-    setFilters: () => {}
-  }
-}`,...(i=(n=t.parameters)==null?void 0:n.docs)==null?void 0:i.source}}};const f=["Default"];export{t as Default,f as __namedExportsOrder,u as default};
