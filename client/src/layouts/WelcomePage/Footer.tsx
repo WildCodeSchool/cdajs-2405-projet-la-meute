@@ -20,8 +20,8 @@ function Footer() {
 					</ul>
 					<ul className="welcomepage__footer--list">
 						<p className="welcomepage__footer--title">Protection des données</p>
+						<Link to="/privacy-policy">Politique de confidentialité</Link>
 						<Link to="/legal-notice">Mentions Légales</Link>
-						<Link to="/">Politique de confidentialité</Link>
 						{/* <Link to="/offres">Conditions générales de vente</Link>
 						<Link to="/contact">Conditions générales d'utilisation</Link> */}
 						<Link to="/general-terms">
