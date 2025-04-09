@@ -19,13 +19,14 @@ function Footer() {
 						<Link to="/contact">Contact</Link>
 					</ul>
 					<ul className="welcomepage__footer--list">
-						<p className="welcomepage__footer--title">Mentions légales</p>
+						<p className="welcomepage__footer--title">Protection des données</p>
+						<Link to="/legal-notice">Mentions Légales</Link>
 						<Link to="/">Politique de confidentialité</Link>
+						{/* <Link to="/offres">Conditions générales de vente</Link>
+						<Link to="/contact">Conditions générales d'utilisation</Link> */}
 						<Link to="/general-terms">
 							Condiitons Générales d'utilisation (CGU)
 						</Link>
-						<Link to="/offres">Conditions générales de vente</Link>
-						<Link to="/general-terms">Conditions générales d'utilisation</Link>
 					</ul>
 				</div>
 				<div className="welcomepage__footer--contact">
