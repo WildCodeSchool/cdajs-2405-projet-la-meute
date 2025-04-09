@@ -1,0 +1,134 @@
+@use "@style" as *;
+
+.accordion-item {
+	border-bottom: 1px solid $primary-dark;
+
+	button {
+		display: flex;
+    	justify-content: space-between;
+   		align-items: center;
+		position: relative;
+		display: block;
+		text-align: left;
+		width: 100%;
+		padding: 1em 0;
+		color: $primary-dark;
+		font-size: 1.15rem;
+		font-weight: 400;
+		border: none;
+		background: none;
+		outline: none;
+
+		&:hover, &:focus {
+			cursor: pointer;
+			color: $orange-400;
+			
+			&::after {
+				cursor: pointer;
+				color: $orange-400;
+				border: 1px solid $orange-400;
+			}
+		}
+
+		.accordion-title {
+			padding: 1em 1.5em 1em 0;
+		}
+
+		.icon {
+			display: inline-block;
+			position: absolute;
+			top: 18px;
+			right: 0;
+			width: 22px;
+			height: 22px;
+			border: 1px solid;
+			border-radius: 22px;
+			
+			&::before {
+				display: block;
+				position: absolute;
+				content: '';
+				top: 9px;
+				left: 5px;
+				width: 10px;
+				height: 2px;
+				background: currentColor;
+			}
+				
+			&::after {
+				display: block;
+				position: absolute;
+				content: '';
+				top: 5px;
+				left: 9px;
+				width: 2px;
+				height: 10px;
+				background: currentColor;
+			}
+		}
+	}
+
+	.accordion-button-active {
+		color: $orange-400;
+		border-bottom: 1px solid $orange-400;
+		border-radius: 0 0 4px 4px;
+		
+		.icon {
+			color: $orange-400;
+			border-color: $orange-400;
+			
+			&::after {
+				width: 0;
+			}
+		}
+	}
+
+	button[aria-expanded='true'] {
+		color: $orange-400;
+		
+		.icon {
+			color: $orange-400;
+			border-color: $orange-400;
+			margin-left: auto;
+			
+			&::after {
+				width: 0;
+			}
+		}
+		
+		+ .accordion-content {
+			opacity: 1;
+			max-height: 1000px;
+			transition: all 200ms linear;
+			will-change: opacity, max-height;
+		}
+	}
+
+	.accordion-content {
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+		transition: opacity 200ms linear, max-height 200ms linear;
+		will-change: opacity, max-height;
+		margin-bottom: 0.7rem;
+	
+		
+		p {
+			font-size: 1rem;
+			font-weight: 300;
+			margin: 2em 0;
+			line-height: 1.6;
+		}
+	}
+}
+
+
+@media screen and (max-width: $mobile) {
+	.accordion-item {
+		button {
+			.icon {
+			right: -3rem;
+			}
+		}
+	}
+}

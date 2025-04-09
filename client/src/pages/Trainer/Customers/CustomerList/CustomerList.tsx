@@ -5,25 +5,36 @@ import { SEARCH_QUERY } from "@/graphQL/queries/search";
 import type { SearchIndex } from "@/types/Search";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import SearchBar from "@/components/_atoms/SearchBar/SearchBar";
+import Search from "@/components/_molecules/Search/Search";
 import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
 
 function CustomerList() {
 	const [searchTerm, setSearchTerm] = useState("");
+	const [filter, setFilter] = useState("");
+	const filterOptions = ["Éducateur", "Lieu", "Evènement", "Date", "Chien"];
 
 	const { data, loading, error } = useQuery(SEARCH_QUERY, {
 		variables: { query: searchTerm },
 		skip: !searchTerm,
 	});
 
+	// biome-ignore lint/suspicious/noConsoleLog: FIXME: delete when filters are used
+	console.log("applied filter waiting to be implemented", filter);
+
 	return (
 		<>
+
 			<PlanningHeader
 				title="Clients"
 				buttonLabel="invite"
 				href="mailto:contact@pawplanner.com"
 			/>
-			<SearchBar onSearch={setSearchTerm} />
+			<Search
+				setSearchTerm={setSearchTerm}
+				setFilter={setFilter}
+				filterOptions={filterOptions}
+			/>
+
 
 			{loading && <p>Chargement...</p>}
 			{error && <p>Erreur : {error.message}</p>}

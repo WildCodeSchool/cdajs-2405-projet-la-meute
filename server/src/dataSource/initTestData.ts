@@ -1,5 +1,6 @@
 import { dataSource } from "./dataSource";
-import { faker } from "@faker-js/faker";
+import { fakerFR as faker } from "@faker-js/faker";
+import * as frenchData from "./frenchDataOptions";
 import { Owner } from "../entities/Owner";
 import { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
@@ -115,7 +116,9 @@ async function createData() {
 					phone_number: generateFrenchPhone(),
 					city: faker.location.city(),
 					postal_code: faker.location.zipCode("#####"),
-					description: faker.lorem.sentences(2),
+					description: faker.helpers.arrayElement(
+						frenchData.trainerDescriptions,
+					),
 					siret: faker.string.numeric(14),
 					company_name: faker.company.name(),
 				}),
@@ -139,38 +142,14 @@ async function createData() {
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const colorOptions = [
-			"#1D7AFC",
-			"#2898BD",
-			"#1F845A",
-			"#5B7F24",
-			"#B38600",
-			"#A84900",
-			"#C9372C",
-			"#AE4787",
-			"#352C63",
-		];
-
-		const smileyOptions = [
-			"🏋️‍♀️",
-			"🧘‍♂️",
-			"🏃‍♂️",
-			"🚴‍♀️",
-			"🏊‍♀️",
-			"🤸‍♂️",
-			"🎾",
-			"🏀",
-			"⚽",
-			"🏌️‍♀️",
-		];
 
 		const services: Service[] = [];
 		for (let i = 0; i < 10; i++) {
 			services.push(
 				serviceRepository.create({
-					title: faker.commerce.productName(),
-					smiley: faker.helpers.arrayElement(smileyOptions),
-					color: faker.helpers.arrayElement(colorOptions),
+					title: faker.helpers.arrayElement(frenchData.serviceTitles),
+					smiley: faker.helpers.arrayElement(frenchData.serviceSmileyOptions),
+					color: faker.helpers.arrayElement(frenchData.serviceColorOptions),
 				}),
 			);
 		}
@@ -179,15 +158,17 @@ async function createData() {
 
 		// 5. Create Event
 		const eventRepository = dataSource.getRepository(Event);
+
 		const events: Event[] = [];
 		for (let i = 0; i < 30; i++) {
 			const start = faker.date.soon({ days: 15 });
 			const end = new Date(start.getTime() + 1000 * 60 * 60);
+			const randomEvent = faker.helpers.arrayElement(frenchData.events);
 
 			events.push(
 				eventRepository.create({
-					title: faker.lorem.sentence(),
-					description: faker.lorem.paragraph(),
+					title: randomEvent.title,
+					description: randomEvent.description,
 					location: {
 						longitude: faker.location.latitude(),
 						latitude: faker.location.longitude(),
