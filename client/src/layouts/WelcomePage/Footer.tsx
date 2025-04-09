@@ -25,7 +25,7 @@ function Footer() {
 						{/* <Link to="/offres">Conditions générales de vente</Link>
 						<Link to="/contact">Conditions générales d'utilisation</Link> */}
 						<Link to="/general-terms">
-							Condiitons Générales d'utilisation (CGU)
+							Conditions Générales d'utilisation (CGU)
 						</Link>
 					</ul>
 				</div>
