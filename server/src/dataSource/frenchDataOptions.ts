@@ -35,15 +35,15 @@ export const serviceTitles = [
 ];
 
 export const serviceColorOptions = [
-	"#1D7AFC",
-	"#2898BD",
-	"#1F845A",
-	"#5B7F24",
-	"#B38600",
-	"#A84900",
-	"#C9372C",
-	"#AE4787",
-	"#352C63",
+	"#7DADEB",
+	"#76C6C5",
+	"#76C39E",
+	"#B2C98F",
+	"#E2C478",
+	"#E09A6C",
+	"#E37D7D",
+	"#C48FCB",
+	"#9E9CCF",
 ];
 
 export const serviceSmileyOptions = [
