@@ -117,6 +117,10 @@
             align-items: center;
         }
     }
+
+    &__leftSlot {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: $tablet) {

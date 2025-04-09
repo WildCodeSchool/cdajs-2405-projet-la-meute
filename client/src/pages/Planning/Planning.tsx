@@ -304,7 +304,7 @@ function Planning() {
 						if (userRole === "trainer") {
 							navigate(`/trainer/planning/my-events/${eventId}`);
 						} else if (userRole === "owner") {
-							navigate(`/owner/planning/${eventId}`);
+							navigate(`/owner/planning/my-events/${eventId}`);
 						} else {
 							// If an unauthorized user tries to force the URL
 							console.error("Vous n'êtes pas autorisé à voir cet événement");

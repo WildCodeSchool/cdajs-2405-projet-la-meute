@@ -17,6 +17,7 @@ import "./EventDetail.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
 import { Participation } from "@/types/Event";
 
 function EventDetail() {
@@ -68,11 +69,19 @@ function EventDetail() {
 		name: string;
 	}
 
+	interface Trainer {
+		id: number;
+	}
+
 	const handleDogClick = (dog: Dog) => {
 		navigate(`/trainer/dogs/${dog.id}`);
 	};
 
-	// Fonction de suppression -> Ajouter la logique avec la modal ici
+	const handleTrainerClick = (trainer: Trainer) => {
+		navigate(`/owner/search/trainer/${trainer.id}`);
+	};
+
+	// Function to delete /!\ need to be replace by modal logic /!\
 	const handleDeleteClick = async () => {
 		if (window.confirm("Voulez-vous vraiment supprimer cet événement ?")) {
 			await deleteEventById({ variables: { eventId: Number(id) } });
@@ -80,7 +89,7 @@ function EventDetail() {
 		}
 	};
 
-	// Fonction pour rediriger vers la page de modification
+	// Function to redirect on edit page of an event
 	const handleEditClick = () => {
 		navigate(`/trainer/planning/my-events/${id}/edit`);
 	};
@@ -98,6 +107,23 @@ function EventDetail() {
 		return date.toISOString().substring(11, 16);
 	};
 
+	// Function to get the real number of available slots
+	const calculateAvailableSlots = (
+		group_max_size: number,
+		participations: any[] | undefined,
+	) => {
+		// Check if participations exist and is an Array
+		const participantsCount =
+			participations && Array.isArray(participations)
+				? participations.length
+				: 0;
+		return Math.max(0, group_max_size - participantsCount);
+	};
+	const availableSlots = calculateAvailableSlots(
+		event.group_max_size,
+		event.participation,
+	);
+
 	return (
 		<>
 			<PlanningHeader
@@ -114,6 +140,21 @@ function EventDetail() {
 								<Service service={service} key={service.id} />
 							))}
 						</div>
+						{user?.role === "owner" && (
+							<span className="createEvent__event eventDetail__margin">
+								<label className="eventDetail__leftSlot">
+									Nombre de place(s) disponible(s) restante(s)
+									<input
+										className="createEvent__input"
+										type="string"
+										defaultValue={
+											availableSlots > 0 ? availableSlots : "Complet"
+										}
+										disabled={true}
+									/>
+								</label>
+							</span>
+						)}
 						<span className="createEvent__event createEvent__event--dates eventDetail__margin">
 							<label className="createEvent__event--date">
 								Date de l'évènement
@@ -161,7 +202,7 @@ function EventDetail() {
 							/>
 						</label>*/}
 
-						{user?.role === "trainer" && (
+						{user?.role === "trainer" ? (
 							<span className="createEvent__event createEvent__event--buttons">
 								<Button
 									type="button"
@@ -178,18 +219,45 @@ function EventDetail() {
 									Modifier l'événement
 								</Button>
 							</span>
-						)}
+						) : user?.role === "owner" ? (
+							<span className="createEvent__event createEvent__event--buttons">
+								{/*<Button
+									type="button"
+									style="btn-dark"
+									onClick={handleEditClick}
+								>
+									Se désinscrire de l'événement
+								</Button>*/}
+							</span>
+						) : null}
 					</div>
 				</div>
+
 				<div className="eventDetail__participation">
-					<div className="eventDetail__participation--title">Participants</div>
-					<div className="eventDetail__participation--wrapper">
-						<DogBubbles
-							dogs={dogs.map((p: Participation) => p.dog)}
-							maxSize={event.group_max_size}
-							onDogClick={handleDogClick}
-						/>
-					</div>
+					{user?.role === "trainer" ? (
+						<>
+							<div className="eventDetail__participation--title">
+								Participants
+							</div>
+							<div className="eventDetail__participation--wrapper">
+								<DogBubbles
+									dogs={dogs.map((p: Participation) => p.dog)}
+									maxSize={event.group_max_size}
+									onDogClick={handleDogClick}
+								/>
+							</div>
+						</>
+					) : user?.role === "owner" ? (
+						<>
+							<div className="eventDetail__participation--title">Éducateur</div>
+							<div className="eventDetail__participation--wrapper">
+								<TrainerBubble
+									trainer={event.trainer}
+									onTrainerClick={handleTrainerClick}
+								/>
+							</div>
+						</>
+					) : null}
 					<div className="eventDetail__price--container">
 						<div className="eventDetail__price--divText">
 							<p className="eventDetail__price--title">Prix TTC</p>
