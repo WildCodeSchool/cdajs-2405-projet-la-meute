@@ -5,8 +5,8 @@ WORKDIR /client
 RUN rm -rf node_modules
 
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 
 COPY . .
-# Build is needed for build in github action
-RUN npm run build
+# # Build is needed for build in github action
+# RUN npm run build

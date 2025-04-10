@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 // Override toastify css variables
 :root {
     --toastify-color-info: #{$blue-100};
@@ -11,7 +13,7 @@
     --toastify-icon-color-error: var(--toastify-color-error);
 
 //   --toastify-container-width: fit-content;
-//   --toastify-toast-width: 320px;
+    --toastify-toast-width: max(25vw, 320px);
 //   --toastify-toast-offset: 16px;
 //   --toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));
 //   --toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));

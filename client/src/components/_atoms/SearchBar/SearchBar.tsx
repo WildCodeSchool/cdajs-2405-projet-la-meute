@@ -1,14 +1,19 @@
 import { Search } from "@/assets/icons/search";
 import "./SearchBar.scss";
 
-const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-	event.preventDefault();
-	const query = event.currentTarget.q.value;
-	// biome-ignore lint/suspicious/noConsoleLog: console.log
-	console.log("Recherche pour :", query);
+type SearchBarProps = {
+	onSearch: (query: string) => void;
 };
 
-function SearchBar() {
+function SearchBar({ onSearch }: SearchBarProps) {
+	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const query = event.currentTarget.q.value.trim();
+		if (query) {
+			onSearch(query);
+		}
+	};
+
 	return (
 		<form
 			aria-label="Rechercher sur le site"

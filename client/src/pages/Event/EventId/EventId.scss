@@ -1,17 +1,24 @@
-@import "@style";
+@use "@style" as *;
+
+.sectionEvent {
+    display: flex;
+    justify-content: center;
+}
 
 .createEvent {
     display: flex;
     flex-direction: column;
     background-color: $beige-200;
     margin: 1rem;
-    margin-block-start: calc(1rem + 1vh);
+    margin-block-start: calc(1rem + 3vh);
     border-radius: $windows-radius;
-    padding-inline: 1rem;
+    padding: 2vh 3vw 2vh 3vw;
     padding-bottom: 1rem;
-    gap: 1rem;
+    gap: 3vh;
+    width: 70%;
     &__title {
         font-weight: $bold;
+        font-size: $xxl;
     }
     &__input {
         background-color: $beige-300;
@@ -100,6 +107,11 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            margin-inline: -3vw;
+            font-weight: $bold;
+            label {
+                margin-inline: 3vw;
+            }
         }
         &--buttons {
             display: flex;
@@ -110,6 +122,16 @@
 }
 
 @media screen and (max-width: $tablet) {
+
+    .sectionEvent {
+        display: flex;
+        justify-content: center;
+    }
+
+    .createEvent {
+        width: 100%;
+    }
+
     .createEvent__event {
         &--dates {
             grid-template-columns: repeat(2, 1fr);

@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 // HEADER DESKTOP
 .dashHeader {
@@ -141,6 +141,10 @@
     }
 }
 
+.dashHeader__icon {
+    width: 1.35rem;
+}
+
 // CONTENT DESKTOP
 .dashLayout__content {
     padding: $dashInlinePadding;
@@ -168,6 +172,15 @@
         &__list {
             flex-direction: row;
             gap: 10vw;
+        }
+
+        &__logout {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            svg {
+                fill: $green-400;
+            }
         }
     }
 

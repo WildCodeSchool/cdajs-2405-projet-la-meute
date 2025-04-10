@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 
 import type { Dog } from "@/types/Dog";
+import { useEffect } from "react";
 
 function MyDogList() {
 	const alert = () => {
@@ -21,12 +22,18 @@ function MyDogList() {
 	};
 
 	const { user } = useUser();
-	const { data, loading } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
+	const { data, loading, refetch } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
 		variables: {
 			ownerId: user?.id ? Number(user.id) : null,
 		},
 		skip: !user?.id,
 	});
+
+	useEffect(() => {
+		if (user?.id) {
+			refetch();
+		}
+	}, [refetch, user?.id]);
 
 	const dogs = data?.getAllDogsByOwnerId || [];
 

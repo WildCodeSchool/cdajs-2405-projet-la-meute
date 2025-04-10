@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .login {
     background-image: url("@/assets/illustrations/chien-attendant-sages-restaurant-proprietaires.png");
@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 
     &__logo {
         width: 30rem;
@@ -18,6 +19,7 @@
 
     &__form {
         margin-block-start: 3vh;
+        width: 33%;
     }
 
     &__bottomLinks:nth-child(-n + 2) {
@@ -25,13 +27,28 @@
     }
 
     &__errorMessage{
-        color: red;
+        color: $error-color;
         text-align: center;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .login {
+        background-size: contain;
+
+        &__form {
+            margin-block-start: 3vh;
+            width: 60%;
+        }
     }
 }
 
 @media screen and (max-width: $mobile) {
     .login {
         background-size: contain;
+
+        &__form {
+            width: 90%;
+        }
     }
 }

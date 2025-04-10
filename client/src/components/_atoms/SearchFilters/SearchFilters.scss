@@ -1,0 +1,28 @@
+@use "@style" as *;
+
+.searchFilters {
+    border: none;
+    background-color: $beige-300;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: $atoms-radius;
+    font-size: $s;
+    width: 30%;
+    & * {
+        border: none;
+    }
+    &__option {
+        background-color: $beige-300;
+        color: $blue-400;
+        border: 2px solid $blue-400;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .searchFilters {
+        width: 100%;
+    }
+}

@@ -73,12 +73,12 @@ export class Event {
 	@Field(() => [Service], { nullable: true })
 	services?: Service[];
 
+	@Field(() => [Participation])
 	@OneToMany(
 		() => Participation,
 		(participation) => participation.event,
 	)
 	participation?: Participation[];
-
 	constructor(
 		trainer: Trainer,
 		services: Service[],

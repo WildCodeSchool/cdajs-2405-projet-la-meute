@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .textInput {
     display: flex;
@@ -28,30 +28,35 @@
         }
     }
 
-        &__dark {
+    &__dark {
+        color: $blue-100;
+
+        ::placeholder {
             color: $blue-100;
-            input,
-            textarea {
-                border: 2px solid $blue-300;
-                background-color: $blue-500;
-                color: $font-light;
-            }
         }
 
-        &__light {
-
-            label {
-                font-weight: $bold;
-                color: $blue-400;
-            }
-
-            input,
-            textarea {
-                border: 2px solid $beige-300;
-                background-color: $beige-300;
-                color: $blue-300;
-            }
+        input,
+        textarea {
+            border: 2px solid $blue-200;
+            background-color: $blue-400;
+            color: $font-light;
         }
+    }
+
+    &__light {
+
+        label {
+            font-weight: $bold;
+            color: $blue-400;
+        }
+
+        input,
+        textarea {
+            border: 2px solid $beige-300;
+            background-color: $beige-300;
+            color: $blue-300;
+        }
+    }
 
     .password-toggle {
         position: absolute;
@@ -65,7 +70,8 @@
         padding: 0;
 
         .eyes {
-            mix-blend-mode: difference;
+            stroke: $primary-light;
+            fill: none;
         }
     }
 }

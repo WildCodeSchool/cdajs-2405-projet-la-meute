@@ -5,45 +5,50 @@ import {
 	RouterProvider,
 	Navigate,
 } from "react-router-dom";
-import client from "./graphQL/apolloClient.ts";
+import client from "@/graphQL/apolloClient.ts";
 
 // Style
-import "./styles/global.scss";
+import "@/styles/global.scss";
 
 // Providers
 import { ApolloProvider } from "@apollo/client";
-import { AuthProvider } from "./context/AuthContext.tsx";
-import AuthGuard from "./layouts/AuthGuard/AuthGuard.tsx";
+import { AuthProvider } from "@/context/AuthContext.tsx";
+import AuthGuard from "@/layouts/AuthGuard/AuthGuard.tsx";
 
 // Layouts
-import DashLayout from "./layouts/Dashboard/DashLayout.tsx";
+import DashLayout from "@/layouts/Dashboard/DashLayout.tsx";
 import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
 // Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
-import CreateDog from "./pages/Owner/Dogs/CreateDog/CreateDog.tsx";
-import CustomerId from "./pages/Trainer/Customers/CustomerId/CustomerId.tsx";
-import CustomerList from "./pages/Trainer/Customers/CustomerList/CustomerList.tsx";
+import CreateDog from "@/pages/Owner/Dogs/CreateDog/CreateDog.tsx";
+import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId.tsx";
+import CustomerList from "@/pages/Trainer/Customers/CustomerList/CustomerList.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
-import ErrorPage from "./pages/ErrorPage/ErrorPage.tsx";
-import EventId from "./pages/Event/EventId/EventId.tsx";
-import EventList from "./pages/Event/EventList/EventList.tsx";
+import ErrorPage from "@/pages/ErrorPage/ErrorPage.tsx";
+import EventId from "@/pages/Event/EventId/EventId.tsx";
+import EventList from "@/pages/Event/EventList/EventList.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Login from "@/pages/Login/Login.tsx";
-import NewPassword from "./pages/Login/NewPassword.tsx";
-import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
-import Planning from "./pages/Planning/Planning.tsx";
-import EventDetail from "./pages/Events/EventDetail.tsx";
+import NewPassword from "@/pages/Login/NewPassword.tsx";
+import MyDogList from "@/pages/Owner/Dogs/DogList/MyDogList.tsx";
+import Planning from "@/pages/Planning/Planning.tsx";
+import EventDetail from "@/pages/Event/EventDetail/EventDetail.tsx";
+import EventUpdate from "@/pages/Event/EventUpdate/EventUpdate.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
-import Registration from "./pages/Registration/Registration.tsx";
-import ResetLink from "./pages/Login/ResetLink.tsx";
-import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
-import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
+import Registration from "@/pages/Registration/Registration.tsx";
+import ResetLink from "@/pages/Login/ResetLink.tsx";
+import ResetPassword from "@/pages/Login/ResetPassword.tsx";
+import FAQ from "@/pages/WelcomePage/FAQ.tsx";
+import UpdateDog from "@/pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
+import PrivacyPolicy from "@/pages/WelcomePage/PrivacyPolicy.tsx";
+import LegalNotice from "@/pages/WelcomePage/LegalNotice.tsx";
+import GeneralTerms from "@/pages/WelcomePage/GeneralTerms.tsx";
+import SearchEventDetail from "@/pages/Event/SearchEventDetail/SearchEventDetail.tsx";
 
 // FIXME: delete
-import TestME from "./components/TestME.tsx";
-import TestModal from "./components/TestModal.tsx";
+import TestME from "@/components/TestME.tsx";
+import TestModal from "@/components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
@@ -59,8 +64,20 @@ const router = createBrowserRouter([
 						element: <Homepage />,
 					},
 					{
-						path: "services",
-						element: <Services />,
+						path: "FAQ",
+						element: <FAQ />,
+					},
+					{
+						path: "privacy-policy",
+						element: <PrivacyPolicy />,
+					},
+					{
+						path: "legal-notice",
+						element: <LegalNotice />,
+					},
+					{
+						path: "general-terms",
+						element: <GeneralTerms />,
 					},
 					{
 						path: "contact",
@@ -102,7 +119,21 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "planning",
-						element: <Planning />,
+						children: [
+							{
+								index: true,
+								element: <Planning />,
+							},
+							{
+								path: "my-events",
+								children: [
+									{
+										path: ":id",
+										element: <EventDetail />,
+									},
+								],
+							},
+						],
 					},
 					{
 						path: "search",
@@ -111,9 +142,14 @@ const router = createBrowserRouter([
 								index: true,
 								element: <p>search List</p>,
 							},
+						],
+					},
+					{
+						path: "events",
+						children: [
 							{
 								path: ":id",
-								element: <p>search/:id</p>,
+								element: <SearchEventDetail />,
 							},
 						],
 					},
@@ -169,6 +205,10 @@ const router = createBrowserRouter([
 									{
 										path: ":id",
 										element: <EventDetail />,
+									},
+									{
+										path: ":id/edit",
+										element: <EventUpdate />,
 									},
 								],
 							},
