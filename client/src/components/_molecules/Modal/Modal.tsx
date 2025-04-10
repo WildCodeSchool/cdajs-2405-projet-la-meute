@@ -103,7 +103,6 @@ export default function Modal({
 					name="selected"
 					className="modal__selectInput"
 					onChange={handleSelectChange}
-					tabIndex={0}
 				>
 					<option value="">Sélectionnez une option</option>
 					{selectMenu.map((item) => (
