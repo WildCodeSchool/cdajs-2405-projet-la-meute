@@ -83,13 +83,10 @@ function SearchEventDetail() {
 			const eventParticipations: Participation[] =
 				data.getEventById.participation;
 
-			// Identifier les chiens de l'utilisateur qui sont déjà inscrits
 			const registeredDogsArray: Dog[] = [];
 			const availableDogsArray: Dog[] = [];
 
-			// Pour chaque chien de l'utilisateur
 			for (const dog of userDogs) {
-				// Vérifier s'il est déjà inscrit à l'événement
 				let isRegistered = false;
 
 				for (const participation of eventParticipations) {
@@ -111,7 +108,6 @@ function SearchEventDetail() {
 		}
 	}, [dogsData, data]);
 
-	// Extraire les noms pour les menus déroulants
 	const availableDogsNames: string[] = availableDogs.map(
 		(dog: Dog): string => dog.name,
 	);
