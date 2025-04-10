@@ -17,7 +17,7 @@ const meta = {
 				disable: true,
 			},
 		},
-		setFilters: {
+		setFilter: {
 			table: {
 				disable: true,
 			},
@@ -33,6 +33,6 @@ export const Default: Story = {
 	args: {
 		filterOptions: ["Chien", "Propriétaire", "Evènement"],
 		setSearchTerm: () => {},
-		setFilters: () => {},
+		setFilter: () => {},
 	},
 };
