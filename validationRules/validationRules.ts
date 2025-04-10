@@ -36,6 +36,10 @@ const validationRules: ValidationRules = {
 		pattern: /^\d{14}$/,
 		message: "Le numéro SIRET doit contenir exactement 14 chiffres.",
 	},
+	TERMS: {
+		pattern: /^true$/,
+		message: " Vous devez accepter les Conditions Générales d'Utilisation (CGU) pour vous inscrire.",
+	},
 };
 
 export default validationRules;
