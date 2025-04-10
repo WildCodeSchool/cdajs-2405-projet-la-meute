@@ -10,6 +10,8 @@ type ModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	filePreview?: File | null;
+	selectMenu?: string[];
+	onSelectChange?: (value: string) => void;
 };
 
 export default function Modal({
@@ -19,6 +21,8 @@ export default function Modal({
 	isOpen,
 	onClose,
 	filePreview = null,
+	selectMenu,
+	onSelectChange,
 }: ModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -74,6 +78,12 @@ export default function Modal({
 			onClose();
 	};
 
+	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (onSelectChange) {
+			onSelectChange(e.target.value);
+		}
+	};
+
 	return (
 		<dialog
 			ref={dialogRef}
@@ -88,6 +98,22 @@ export default function Modal({
 			/>
 
 			<div className="modal__prompt">{promptMessage}</div>
+
+			{selectMenu && (
+				<select
+					id="selected"
+					name="selected"
+					className="modal__selectInput"
+					onChange={handleSelectChange}
+				>
+					<option value="">Sélectionnez une option</option>
+					{selectMenu.map((item) => (
+						<option key={item} value={item}>
+							{item}
+						</option>
+					))}
+				</select>
+			)}
 
 			<div className="modal__actions">
 				<button
