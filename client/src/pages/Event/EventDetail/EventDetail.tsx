@@ -167,7 +167,7 @@ function EventDetail() {
 							<span className="createEvent__event createEvent__event--buttons">
 								<Button
 									type="button"
-									style="btn-light"
+									style="btn-cancel"
 									onClick={handleDeleteClick}
 								>
 									Supprimer l'événement

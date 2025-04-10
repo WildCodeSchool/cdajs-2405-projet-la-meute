@@ -11,6 +11,7 @@ import type { Trainer } from "@/types/User";
 import type { Dog } from "@/types/Dog";
 
 import "@/pages/Event/EventDetail/EventDetail.scss";
+import ImgModal from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
 
 import Service from "@/components/_atoms/Service/Service";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -213,12 +214,17 @@ function SearchEventDetail() {
 				type="info"
 				isOpen={showModal}
 				onClose={() => setShowModal(false)}
+				customImage={ImgModal}
 				selectMenu={dogsNames}
 				selectPlaceholder="Choisissez un chien"
 				onSelectChange={handleDogSelection}
 			>
 				<p>Avec quel chien souhaitez-vous participer à cet événement ?</p>
-				<Button style="btn-dark" onClick={handleConfirmDog}>
+				<Button
+					style="button"
+					onClick={handleConfirmDog}
+					className="eventDetail__btn--confirm"
+				>
 					Confirmer
 				</Button>
 			</Modal>

@@ -9,6 +9,7 @@ type ButtonStyles =
 	| "btn-dark-secondary"
 	| "btn-light"
 	| "invite"
+	| "btn-cancel"
 	| "event"
 	| "button"
 	| "role-select-left"
@@ -63,13 +64,15 @@ export default function Button({
 						? "btn-dark-secondary"
 						: style === "invite" || style === "event"
 							? "btn-invite"
-							: style === "role-select-left"
-								? "btn-role-select-left"
-								: style === "role-select-right"
-									? "btn-role-select-right"
-									: style === "none"
-										? ""
-										: "btn-light";
+							: style === "btn-cancel"
+								? "btn-cancel"
+								: style === "role-select-left"
+									? "btn-role-select-left"
+									: style === "role-select-right"
+										? "btn-role-select-right"
+										: style === "none"
+											? ""
+											: "btn-light";
 	const navigate = useNavigate();
 
 	if (href) {
