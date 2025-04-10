@@ -7,7 +7,7 @@ import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 interface TextInputProps {
 	type: TextInputTypes;
 	required?: boolean;
-	passwordRef?: string;
+	passwordRef?: string | React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
