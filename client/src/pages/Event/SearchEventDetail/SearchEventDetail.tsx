@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
+import { GET_ALL_DOGS_BY_OWNER_ID } from "@/graphQL/queries/dog";
 
 import type { ServiceType } from "@/types/Service";
 import type { Trainer } from "@/types/User";
+import type { Dog } from "@/types/Dog";
 
 import "@/pages/Event/EventDetail/EventDetail.scss";
 
@@ -14,6 +17,7 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
+import Modal from "@/components/_molecules/Modal/Modal";
 
 function SearchEventDetail() {
 	const navigate = useNavigate();
@@ -21,6 +25,17 @@ function SearchEventDetail() {
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
 	const { extractDate, extractTime } = useDateFormatter();
+	const [showModal, setShowModal] = useState(false);
+	const [selectedDog, setSelectedDog] = useState("");
+
+	const { data: dogsData } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
+		variables: {
+			ownerId: user?.id ? Number(user.id) : null,
+		},
+		skip: !user?.id,
+	});
+
+	const dogsNames = dogsData?.getAllDogsByOwnerId.map((dog: Dog) => dog.name) || [];
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
@@ -39,11 +54,6 @@ function SearchEventDetail() {
 		navigate(`/owner/search/trainer/${trainer.id}`);
 	};
 
-	// Function to redirect on edit page of an event
-	const handleEditClick = () => {
-		navigate(`/trainer/planning/my-events/${id}/edit`);
-	};
-
 	// Function to get the real number of available slots
 	const calculateAvailableSlots = (
 		group_max_size: number,
@@ -60,6 +70,36 @@ function SearchEventDetail() {
 		event.group_max_size,
 		event.participation,
 	);
+
+	const handleDogSelection = (value: string) => {
+		setSelectedDog(value);
+	};	
+
+	const handleConfirmDog = () => {
+		if (selectedDog && dogsData && dogsData?.getAllDogsByOwnerId) {
+		  let findDogId = null;
+	  
+		  for (let i = 0; i < dogsData.getAllDogsByOwnerId.length; i++) {
+			const dog = dogsData.getAllDogsByOwnerId[i];
+			console.log(dog.name, dog.id);
+	  
+			if (dog.name === selectedDog) {
+			  findDogId = dog.id;
+			  break;
+			}
+		  }
+
+	  
+		  if (findDogId) {
+			const dogId = findDogId;
+			// queries 
+			console.log(`dog id ${dogId}`);
+			setShowModal(false);
+		  }
+		} else {
+		  alert("Veuillez sélectionner un chien");
+		}
+	  }
 
 	return (
 		<>
@@ -135,7 +175,7 @@ function SearchEventDetail() {
 								<Button
 									type="button"
 									style="btn-dark"
-									onClick={handleEditClick}
+									onClick={() => setShowModal(true)}
 									className={availableSlots === 0 ? "btn-disabled" : ""}
 									disabled={availableSlots === 0}
 								>
@@ -169,6 +209,22 @@ function SearchEventDetail() {
 					</div>
 				</div>
 			</section>
+			<Modal
+				type="info"
+				isOpen={showModal}
+				onClose={() => setShowModal(false)}
+				selectMenu={dogsNames}
+				selectPlaceholder="Choisissez un chien"
+				onSelectChange={handleDogSelection}
+			>
+				<p>Avec quel chien souhaitez-vous participer à cet événement ?</p>
+				<Button
+					style="btn-dark"
+					onClick={handleConfirmDog}
+				>
+					Confirmer
+				</Button>
+			</Modal>
 		</>
 	);
 }

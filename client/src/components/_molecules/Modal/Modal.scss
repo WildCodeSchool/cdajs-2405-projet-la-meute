@@ -8,7 +8,7 @@ $types: (
         "color": $font-dark,
     ),
     "info": (
-        "base-color": $blue-100,
+        "base-color": $blue-400,
         "accent": $blue-200,
         "color": $font-light,
     ),
@@ -51,24 +51,29 @@ $types: (
     }
 
     &__selectInput {
+        background-color: $blue-200;
         width: 100%;
         padding: 0.75rem 1rem;
-        border-radius: 10px;
-        color: $font-dark;
+        border-radius: $atoms-radius;
+        color: $primary-light;
         font-weight: $regular;
         font-size: inherit;
         cursor: pointer;
-        
+        border: 2px solid $blue-100;        
         &:focus {
           outline: none;
         }
 
         & option {
-            color: $font-dark;
+            color: $primary-light;
             font-weight: $regular;
             font-size: 1rem;
+            &:hover {
+                background-color: $orange-400;
+            }
+
             &:focus {
-                border-radius: 5px;
+                border-radius: $atoms-radius;
             }
         }
     }
