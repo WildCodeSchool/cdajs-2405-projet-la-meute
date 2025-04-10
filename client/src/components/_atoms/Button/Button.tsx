@@ -21,6 +21,7 @@ interface BaseButtonProps {
 	children?: string;
 	href?: string;
 	className?: string;
+	disabled?: boolean;
 	onClick?: () => void;
 }
 
@@ -47,9 +48,9 @@ export default function Button({
 	children,
 	href,
 	className,
-	disabled = false,
+	disabled,
 	onClick,
-}: ButtonProps & { disabled?: boolean }) {
+}: ButtonProps) {
 	const buttonType = style === "submit" ? "submit" : "button";
 	const buttonClassName =
 		typeof style === "object"

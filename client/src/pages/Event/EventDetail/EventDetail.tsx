@@ -96,7 +96,7 @@ function EventDetail() {
 	// Function to get the real number of available slots
 	const calculateAvailableSlots = (
 		group_max_size: number,
-		participations: any[] | undefined,
+		participations: [],
 	) => {
 		// Check if participations exist and is an Array
 		const participantsCount =

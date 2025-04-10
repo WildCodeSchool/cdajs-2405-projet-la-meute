@@ -143,6 +143,11 @@ const router = createBrowserRouter([
 								index: true,
 								element: <p>search List</p>,
 							},
+						],
+					},
+					{
+						path: "events",
+						children: [
 							{
 								path: ":id",
 								element: <SearchEventDetail />,

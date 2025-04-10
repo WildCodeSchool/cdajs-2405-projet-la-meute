@@ -1,4 +1,3 @@
-// src/hooks/useDateFormatter.ts
 import { useCallback } from "react";
 
 export const useDateFormatter = () => {
