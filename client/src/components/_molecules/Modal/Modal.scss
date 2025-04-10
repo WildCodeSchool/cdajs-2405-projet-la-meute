@@ -58,10 +58,6 @@ $types: (
         font-weight: $regular;
         font-size: inherit;
         cursor: pointer;
-        
-        &:focus {
-          outline: none;
-        }
 
         & option {
             color: $font-dark;
