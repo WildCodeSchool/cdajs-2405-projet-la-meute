@@ -47,7 +47,6 @@ function SearchPage() {
 			searchField: filter,
 			...(isTrainer && { trainerId: Number(user?.id) }),
 		},
-		skip: isTrainer && !searchTerm,
 	});
 
 	return (
