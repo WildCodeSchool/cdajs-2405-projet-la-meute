@@ -4,6 +4,13 @@ import Button from "./_atoms/Button/Button";
 
 function TestModal() {
 	const [showModal, setShowModal] = useState(false);
+	const [selectedService, setSelectedService] = useState("");
+
+	const serviceOptions = ["a", "b", "c", "d", "e"];
+
+	const handleServiceSelection = (value: string) => {
+		setSelectedService(value);
+	};
 
 	return (
 		<>
@@ -12,18 +19,24 @@ function TestModal() {
 			</Button>
 
 			<Modal
-				type="warning"
+				type="info"
 				isOpen={showModal}
 				onClose={() => setShowModal(false)}
+				selectMenu={serviceOptions}
+				onSelectChange={handleServiceSelection}
 			>
-				<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+				<p>Veuillez sélectionner un service avant de confirmer</p>
 				<Button
 					style="btn-dark"
 					onClick={() => {
-						setShowModal(false);
+						if (selectedService) {
+							setShowModal(false);
+						} else {
+							alert("Veuillez sélectionner un service");
+						}
 					}}
 				>
-					Supprimer l’événement
+					Confirmer
 				</Button>
 			</Modal>
 		</>

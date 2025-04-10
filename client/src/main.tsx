@@ -50,6 +50,7 @@ import GeneralTerms from "./pages/WelcomePage/GeneralTerms.tsx";
 import TestME from "./components/TestME.tsx";
 import TestModal from "./components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
+import SearchEventDetail from "./pages/Event/SearchEventDetail/SearchEventDetail.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -141,6 +142,15 @@ const router = createBrowserRouter([
 							{
 								index: true,
 								element: <SearchPage />,
+							},
+						],
+					},
+					{
+						path: "events",
+						children: [
+							{
+								path: ":id",
+								element: <SearchEventDetail />,
 							},
 						],
 					},

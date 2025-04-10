@@ -49,6 +49,11 @@ $colors: (
 		}
 	}
 
+	&.btn-disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
 	&.btn-dark {
 		$background-color: $blue-500;
 		background-color: $background-color;

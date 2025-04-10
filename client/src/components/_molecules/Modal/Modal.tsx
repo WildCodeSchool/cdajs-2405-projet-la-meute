@@ -10,6 +10,9 @@ type ModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	filePreview?: File | null;
+	selectMenu?: string[];
+	selectPlaceholder?: string;
+	onSelectChange?: (value: string) => void;
 };
 
 export default function Modal({
@@ -19,6 +22,9 @@ export default function Modal({
 	isOpen,
 	onClose,
 	filePreview = null,
+	selectMenu,
+	selectPlaceholder,
+	onSelectChange,
 }: ModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -45,10 +51,14 @@ export default function Modal({
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
-
 		if (!dialog) return;
 
-		isOpen ? dialog.showModal() : dialog.close();
+		if (isOpen) {
+			dialog.showModal();
+			dialogRef.current?.focus();
+		} else {
+			dialog.close();
+		}
 	}, [isOpen]);
 
 	useEffect(() => {
@@ -64,14 +74,14 @@ export default function Modal({
 	}, [filePreview]);
 
 	const backdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-		const rect = e.currentTarget.getBoundingClientRect();
-		if (
-			e.clientY < rect.top ||
-			e.clientY > rect.bottom ||
-			e.clientX < rect.left ||
-			e.clientX > rect.right
-		)
-			onClose();
+		if (e.target !== dialogRef.current) return;
+		onClose();
+	};
+
+	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (onSelectChange) {
+			onSelectChange(e.target.value);
+		}
 	};
 
 	return (
@@ -88,6 +98,23 @@ export default function Modal({
 			/>
 
 			<div className="modal__prompt">{promptMessage}</div>
+
+			{selectMenu && (
+				<select
+					id="selected"
+					name="selected"
+					className="modal__selectInput"
+					onChange={handleSelectChange}
+					defaultValue=""
+				>
+					<option value="">{selectPlaceholder}</option>
+					{selectMenu.map((item) => (
+						<option key={item} value={item}>
+							{item}
+						</option>
+					))}
+				</select>
+			)}
 
 			<div className="modal__actions">
 				<button

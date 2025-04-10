@@ -53,7 +53,6 @@
     }
 
     &__form {
-        width: 100%;
         gap: 1rem;
 
         &--columns {
@@ -103,7 +102,7 @@
 
         &__form {
             &--columns {
-                grid-template-columns: 1fr;
+                display: unset;
             }
         }
     }
@@ -113,9 +112,17 @@
     .registration {
         background-size: contain;
 
+        &__form {
+            width: 85%;
+        }
+
+        &__section--choice {
+            width: fit-content;
+        }
         .homepage__title {
             font-size: $xxxl;
             margin-block: 1rem;
+            text-align: center;
         }
 
         &__div--choice {

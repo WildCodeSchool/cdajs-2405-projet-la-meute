@@ -15,6 +15,7 @@ import { dataSource } from "./dataSource/dataSource";
 import { UserResolvers } from "./resolvers/UserResolvers";
 import { DogResolver } from "./resolvers/DogResolver";
 import { EventResolver } from "./resolvers/EventResolver";
+import { ParticipationResolver } from "./resolvers/ParticipationResolver";
 import { ServicesResolvers } from "./resolvers/ServicesResolvers";
 import { SearchResolvers } from "./resolvers/SearchResolvers";
 
@@ -27,6 +28,7 @@ export async function startServerApollo() {
 			UserResolvers,
 			DogResolver,
 			EventResolver,
+			ParticipationResolver,
 			ServicesResolvers,
 			SearchResolvers,
 		],
