@@ -28,6 +28,9 @@
             color: $font-dark;
             font-weight: $regular;
             font-size: 1rem;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
             & option {
                 color: $font-dark;
                 font-weight: $regular;

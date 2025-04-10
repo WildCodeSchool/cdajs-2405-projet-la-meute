@@ -23,10 +23,17 @@ export default function ServiceModal({
 	setServices: Dispatch<SetStateAction<ServiceType[]>>;
 	onClose: () => void;
 }) {
+	const defaultService = {
+		title: "",
+		smiley: "😊",
+		color: "#E37D7D",
+	};
 	const [chosenServices, setChosenServices] = useState<ServiceType[]>([]);
-	const [newServiceTitle, setNewServiceTitle] = useState("");
-	const [newServiceSmiley, setNewServiceSmiley] = useState("😊");
-	const [newServiceColor, setNewServiceColor] = useState("#FF5733");
+	const [newServiceTitle, setNewServiceTitle] = useState(defaultService.title);
+	const [newServiceSmiley, setNewServiceSmiley] = useState(
+		defaultService.smiley,
+	);
+	const [newServiceColor, setNewServiceColor] = useState(defaultService.color);
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 	const emojiPickerRef = useRef<HTMLDivElement>(null);
@@ -35,15 +42,15 @@ export default function ServiceModal({
 	const [createService] = useMutation(CREATE_SERVICE);
 
 	const colorOptions = [
-		"#1D7AFC",
-		"#2898BD",
-		"#1F845A",
-		"#5B7F24",
-		"#B38600",
-		"#A84900",
-		"#C9372C",
-		"#AE4787",
-		"#352C63",
+		"#7DADEB",
+		"#76C6C5",
+		"#76C39E",
+		"#B2C98F",
+		"#E2C478",
+		"#E09A6C",
+		"#E37D7D",
+		"#C48FCB",
+		"#9E9CCF",
 	];
 
 	useEffect(() => {
@@ -106,9 +113,9 @@ export default function ServiceModal({
 
 			if (data?.createService) {
 				setChosenServices((prev) => [...prev, data.createService]);
-				setNewServiceTitle("");
-				setNewServiceSmiley("😊");
-				setNewServiceColor("#FF5733");
+				setNewServiceTitle(defaultService.title);
+				setNewServiceSmiley(defaultService.smiley);
+				setNewServiceColor(defaultService.color);
 				refetch();
 			}
 		} catch (error) {
