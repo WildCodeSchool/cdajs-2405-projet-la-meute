@@ -27,7 +27,7 @@ import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
 
 // Interfaces
-import {
+import type {
 	Event,
 	GetAllEventsByTrainerId,
 	GetAllEventsByOwnerId,
@@ -202,7 +202,7 @@ function Planning() {
 						// Si on est en vue mensuelle et en mode mobile, afficher un rond
 						if (currentView === "dayGridMonth") {
 							if (isMobile) {
-								return <div className="event-dot"></div>;
+								return <div className="event-dot" />;
 							}
 							return (
 								<div className="event-dayGridMonth">

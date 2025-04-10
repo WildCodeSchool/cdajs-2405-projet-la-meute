@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 
@@ -49,6 +49,12 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						style={{ zIndex: dogs.length - index }}
 						onClick={() => handleDogClick(dog)}
 						title={dog.name}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								handleDogClick(dog);
+								e.preventDefault();
+							}
+						}}
 					>
 						<img
 							src={
