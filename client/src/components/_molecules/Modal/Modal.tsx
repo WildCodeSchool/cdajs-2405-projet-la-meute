@@ -11,6 +11,7 @@ type ModalProps = {
 	onClose: () => void;
 	filePreview?: File | null;
 	selectMenu?: string[];
+	selectPlaceholder?: string;
 	onSelectChange?: (value: string) => void;
 };
 
@@ -22,6 +23,7 @@ export default function Modal({
 	onClose,
 	filePreview = null,
 	selectMenu,
+	selectPlaceholder,
 	onSelectChange,
 }: ModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -103,8 +105,9 @@ export default function Modal({
 					name="selected"
 					className="modal__selectInput"
 					onChange={handleSelectChange}
+					defaultValue=""
 				>
-					<option value="">Sélectionnez une option</option>
+					<option value="">{selectPlaceholder}</option>
 					{selectMenu.map((item) => (
 						<option key={item} value={item}>
 							{item}
