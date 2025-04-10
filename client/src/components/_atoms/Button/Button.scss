@@ -91,6 +91,15 @@ $colors: (
 		}
 	}
 
+	&.btn-confirm {
+		$background-color: $green-400;
+		background-color: $background-color;
+
+		&:hover {
+			background-color: color.adjust($background-color, $lightness: 10%);
+		}
+	}
+
 	&.btn-cancel {
 		$background-color: $error-color;
 		background-color: $background-color;

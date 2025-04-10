@@ -2,7 +2,7 @@
 @use "@style" as *;
 
 $types: (
-    "success": ("base-color": $green-100,
+    "success": ("base-color": $green-200,
         "accent": $green-400,
         "color": $font-dark,
     ),
@@ -37,7 +37,7 @@ $types: (
     }
 
     &__picture {
-        height: 200px;
+        height: 250px;
         aspect-ratio: 1;
         object-fit: scale-down;
     }
@@ -81,7 +81,6 @@ $types: (
         gap: 1rem;
 
         &--cancel {
-            background-color: $blue-400 !important;
             min-height: $btn-height;
             color: $primary-light;
             font-weight: $semiBold;
@@ -106,6 +105,39 @@ $types: (
 
             .modal__actions--cancel {
                 background-color: map.get($props, "accent");
+            }
+        }
+    }
+
+    &__btn {
+        &--cancelOrange {
+            background-color: $orange-500 !important;
+            &:hover {
+                background-color: $orange-400 !important;
+            }
+        }
+        &--cancelBlue {
+            background-color: $blue-400 !important;
+            &:hover {
+                background-color: $blue-300 !important;
+            }
+        }
+        &--cancelGreen {
+            background-color: $green-400 !important;
+            &:hover {
+                background-color: $green-300 !important;
+            }
+        }
+        &--successGreen {
+            background-color: $green-400 !important;
+            &:hover {
+                background-color: $green-300 !important;
+            }
+        }
+        &--confirm {
+            background-color: $blue-500 !important;
+            &:hover {
+                background-color: $blue-400 !important;
             }
         }
     }

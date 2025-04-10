@@ -124,16 +124,7 @@ export default function Modal({
 				</select>
 			)}
 
-			<div className="modal__actions">
-				<button
-					type="button"
-					className="modal__actions--cancel"
-					onClick={onClose}
-				>
-					Annuler
-				</button>
-				{action}
-			</div>
+			<div className="modal__actions">{action}</div>
 		</dialog>
 	);
 }

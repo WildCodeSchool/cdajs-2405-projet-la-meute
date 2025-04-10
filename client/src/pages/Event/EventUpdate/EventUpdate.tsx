@@ -16,6 +16,10 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Service from "@/components/_atoms/Service/Service";
 import NewService from "@/components/_atoms/Service/NewService";
 import Button from "@/components/_atoms/Button/Button";
+
+import Modal from "@/components/_molecules/Modal/Modal";
+import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
+import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
 // import { Participation } from "@/types/Event";
 
 type endTimeStyleType = {
@@ -42,6 +46,8 @@ function EventUpdate() {
 	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([
 		{ lat: 0, lng: 0 },
 	]);
+	const [showCancelModal, setShowCancelModal] = useState(false);
+	const [showSaveModal, setShowSaveModal] = useState(false);
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId: Number(id) },
 		skip: !id,
@@ -152,13 +158,35 @@ function EventUpdate() {
 		}
 	};
 
+	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (editForm.values.startTime >= editForm.values.endTime) {
+			setEndTimeStyle({ outline: "2px solid red" });
+			toast.error(
+				"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+			);
+			return;
+		}
+		setShowSaveModal(true);
+	};
+
+	const handleConfirmSave = async () => {
+		await handleSubmit(editForm.values);
+		setShowSaveModal(false);
+	};
+
+	const handleConfirmCancel = () => {
+		setShowCancelModal(false);
+		navigate(-1);
+	};
+
 	if (loading) return <p>Chargement de l'événement...</p>;
 	if (error) return <p>Erreur: Impossible de charger l'événement</p>;
 	if (!data || !data.getEventById) return <p>Aucun événement trouvé.</p>;
 
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={editForm.handleSubmit}>
+			<form className="createEvent" onSubmit={handleFormSubmit}>
 				<h1 className="createEvent__title">Modification de l'évènement</h1>
 
 				<TextInput
@@ -275,7 +303,11 @@ function EventUpdate() {
 				</span>
 
 				<span className="createEvent__event createEvent__event--buttons">
-					<Button type="button" style="btn-light" onClick={() => navigate(-1)}>
+					<Button
+						type="button"
+						style="btn-cancel"
+						onClick={() => setShowCancelModal(true)}
+					>
 						Annuler les modifications
 					</Button>
 					<Button type="submit" style="btn-dark">
@@ -283,6 +315,47 @@ function EventUpdate() {
 					</Button>
 				</span>
 			</form>
+			<Modal
+				type="warning"
+				isOpen={showCancelModal}
+				onClose={() => setShowCancelModal(false)}
+				customImage={ImgModalWarning}
+			>
+				<p>Êtes-vous sûr de vouloir annuler vos modifications ?</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelOrange"
+					onClick={() => setShowCancelModal(false)}
+				>
+					Continuer à modifier
+				</Button>
+				<Button style="btn-dark" onClick={handleConfirmCancel}>
+					Annuler les modifications
+				</Button>
+			</Modal>
+
+			<Modal
+				type="info"
+				isOpen={showSaveModal}
+				onClose={() => setShowSaveModal(false)}
+				customImage={ImgModalSuccess}
+			>
+				<p>Confirmez-vous les modifications de cet événement ?</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelBlue"
+					onClick={() => setShowSaveModal(false)}
+				>
+					Continuer à modifier
+				</Button>
+				<Button
+					style="btn-dark"
+					className="modal__btn--successGreen"
+					onClick={handleConfirmSave}
+				>
+					Confirmer les modifications
+				</Button>
+			</Modal>
 		</section>
 	);
 }
