@@ -1,5 +1,4 @@
 import "./PrivacyPolicy.scss";
-import { Link } from "react-router-dom";
 
 function PrivacyPolicy() {
 	return (

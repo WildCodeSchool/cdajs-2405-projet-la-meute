@@ -1,6 +1,5 @@
-import React from "react";
 import Accordion from "@/components/_molecules/Accordion/Accordion";
-import { AccordionItemData } from "@/components/_molecules/Accordion/Accordion";
+import type { AccordionItemData } from "@/components/_molecules/Accordion/Accordion";
 import "@/pages/WelcomePage/FAQ.scss";
 
 function FAQ() {

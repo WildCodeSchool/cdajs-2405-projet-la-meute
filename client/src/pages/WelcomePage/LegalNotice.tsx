@@ -1,5 +1,4 @@
 import "./LegalNotice.scss";
-import { Link } from "react-router-dom";
 
 function LegalNotice() {
 	return (
@@ -29,19 +28,35 @@ function LegalNotice() {
 					<h2>1. 👤 Directeur de la publication</h2>
 					<p>
 						L'équipe PawPlanner, composée de{" "}
-						<a href="https://github.com/Dolpheus89" target="_blank">
+						<a
+							href="https://github.com/Dolpheus89"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Florian
 						</a>
 						,{" "}
-						<a href="https://github.com/FlorenceBuchelet" target="_blank">
+						<a
+							href="https://github.com/FlorenceBuchelet"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Florence
 						</a>
 						,{" "}
-						<a href="https://github.com/Carcali" target="_blank">
+						<a
+							href="https://github.com/Carcali"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Julien
 						</a>{" "}
 						et{" "}
-						<a href="https://github.com/Melprcllr" target="_blank">
+						<a
+							href="https://github.com/Melprcllr"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Mélissa
 						</a>
 						, quatre humains passionnés par les animaux et l'organisation
