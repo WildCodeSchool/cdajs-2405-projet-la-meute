@@ -7,7 +7,7 @@ import {
 	SEARCH_AVAILABLE_EVENTS,
 	SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 } from "@/graphQL/queries/search";
-import type { SearchIndex } from "@/types/Search";
+import type { SearchableEntity, SearchIndex } from "@/types/Search";
 import { useUser } from "@/hooks/useUser";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
@@ -71,7 +71,10 @@ function SearchPage() {
 
 			<div>
 				{data?.[switchData.backendQuery].map(({ entity }: SearchIndex) => (
-					<SearchResultItem key={entity.id} entity={entity} />
+					<SearchResultItem
+						key={entity.id}
+						entity={entity as SearchableEntity}
+					/>
 				))}
 			</div>
 		</>
