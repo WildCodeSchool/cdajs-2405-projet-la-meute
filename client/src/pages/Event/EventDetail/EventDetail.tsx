@@ -1,22 +1,26 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import { useUser } from "@/hooks/useUser";
-import { useDateFormatter } from "@/hooks/useDateFormatter";
-import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
-import { DELETE_EVENT_BY_ID } from "@/graphQL/mutations/event";
-import Service from "@/components/_atoms/Service/Service";
-import type { ServiceType } from "@/types/Service";
 import { toast } from "react-toastify";
 
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import Button from "@/components/_atoms/Button/Button";
+import { useUser } from "@/hooks/useUser";
+import { useDateFormatter } from "@/hooks/useDateFormatter";
+
+import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
+import { DELETE_EVENT_BY_ID } from "@/graphQL/mutations/event";
+
+import type { ServiceType } from "@/types/Service";
+import type { Participation } from "@/types/Event";
 
 import "./EventDetail.scss";
 
+import Service from "@/components/_atoms/Service/Service";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
-import { Participation } from "@/types/Event";
+import type { Dog } from "@/types/Dog";
+import type { Trainer } from "@/types/User";
 
 function EventDetail() {
 	const navigate = useNavigate();
@@ -51,32 +55,11 @@ function EventDetail() {
 	const event = data?.getEventById;
 	const dogs = event.participation;
 
-	/* const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([]);
-	
-	// Mettre à jour markerLocation lorsque event change
-	useEffect(() => {
-		if (event && event.location) {
-			setMarkerLocation([{
-				lat: event.location.latitude || 48.853495,
-				lng: event.location.longitude || 2.349014,
-			}]);
-		}
-	}, [event]);*/
-
-	interface Dog {
-		id: number;
-		name: string;
-	}
-
-	interface Trainer {
-		id: number;
-	}
-
-	const handleDogClick = (dog: Dog) => {
+	const handleDogClick = (dog: Partial<Dog>) => {
 		navigate(`/trainer/dogs/${dog.id}`);
 	};
 
-	const handleTrainerClick = (trainer: Trainer) => {
+	const handleTrainerClick = (trainer: Partial<Trainer>) => {
 		navigate(`/owner/search/trainer/${trainer.id}`);
 	};
 
@@ -84,11 +67,11 @@ function EventDetail() {
 	const handleDeleteClick = async () => {
 		if (window.confirm("Voulez-vous vraiment supprimer cet événement ?")) {
 			await deleteEventById({ variables: { eventId: Number(id) } });
-			navigate(`/trainer/planning/`);
+			navigate("/trainer/planning/");
 		}
 	};
 
-	// Function to redirect on edit page of an event
+	// Function to redirect on the edit page of an event
 	const handleEditClick = () => {
 		navigate(`/trainer/planning/my-events/${id}/edit`);
 	};
@@ -179,14 +162,6 @@ function EventDetail() {
 							value={event.description}
 							onChange={() => ""}
 						/>
-						{/*<label className="createEvent__event eventDetail__event--location eventDetail__margin">
-							Localisation
-							<LeafletMap
-								markerLocation={markerLocation}
-								readOnly={true}
-								className="eventDetail__event--map"
-							/>
-						</label>*/}
 
 						{user?.role === "trainer" ? (
 							<span className="createEvent__event createEvent__event--buttons">
@@ -206,15 +181,7 @@ function EventDetail() {
 								</Button>
 							</span>
 						) : user?.role === "owner" ? (
-							<span className="createEvent__event createEvent__event--buttons">
-								{/*<Button
-									type="button"
-									style="btn-dark"
-									onClick={handleEditClick}
-								>
-									Se désinscrire de l'événement
-								</Button>*/}
-							</span>
+							<span className="createEvent__event createEvent__event--buttons" />
 						) : null}
 					</div>
 				</div>

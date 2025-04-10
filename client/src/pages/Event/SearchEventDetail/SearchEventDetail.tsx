@@ -3,14 +3,15 @@ import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
-import Service from "@/components/_atoms/Service/Service";
-import type { ServiceType } from "@/types/Service";
 
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import Button from "@/components/_atoms/Button/Button";
+import type { ServiceType } from "@/types/Service";
+import type { Trainer } from "@/types/User";
 
 import "@/pages/Event/EventDetail/EventDetail.scss";
 
+import Service from "@/components/_atoms/Service/Service";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
 
@@ -34,11 +35,7 @@ function SearchEventDetail() {
 
 	const event = data?.getEventById;
 
-	interface Trainer {
-		id: number;
-	}
-
-	const handleTrainerClick = (trainer: Trainer) => {
+	const handleTrainerClick = (trainer: Partial<Trainer>) => {
 		navigate(`/owner/search/trainer/${trainer.id}`);
 	};
 
@@ -52,7 +49,7 @@ function SearchEventDetail() {
 		group_max_size: number,
 		participations: [],
 	) => {
-		// Check if participations exist and is an Array
+		// Check if participation exists and is an Array
 		const participantsCount =
 			participations && Array.isArray(participations)
 				? participations.length
@@ -140,7 +137,7 @@ function SearchEventDetail() {
 									style="btn-dark"
 									onClick={handleEditClick}
 									className={availableSlots === 0 ? "btn-disabled" : ""}
-									disabled={availableSlots === 0 ? true : false}
+									disabled={availableSlots === 0}
 								>
 									S'inscrire à l'événement
 								</Button>
