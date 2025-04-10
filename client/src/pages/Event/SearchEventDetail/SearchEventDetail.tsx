@@ -35,7 +35,8 @@ function SearchEventDetail() {
 		skip: !user?.id,
 	});
 
-	const dogsNames = dogsData?.getAllDogsByOwnerId.map((dog: Dog) => dog.name) || [];
+	const dogsNames =
+		dogsData?.getAllDogsByOwnerId.map((dog: Dog) => dog.name) || [];
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
@@ -73,33 +74,32 @@ function SearchEventDetail() {
 
 	const handleDogSelection = (value: string) => {
 		setSelectedDog(value);
-	};	
+	};
 
 	const handleConfirmDog = () => {
 		if (selectedDog && dogsData && dogsData?.getAllDogsByOwnerId) {
-		  let findDogId = null;
-	  
-		  for (let i = 0; i < dogsData.getAllDogsByOwnerId.length; i++) {
-			const dog = dogsData.getAllDogsByOwnerId[i];
-			console.log(dog.name, dog.id);
-	  
-			if (dog.name === selectedDog) {
-			  findDogId = dog.id;
-			  break;
-			}
-		  }
+			let findDogId = null;
 
-	  
-		  if (findDogId) {
-			const dogId = findDogId;
-			// queries 
-			console.log(`dog id ${dogId}`);
-			setShowModal(false);
-		  }
+			for (let i = 0; i < dogsData.getAllDogsByOwnerId.length; i++) {
+				const dog = dogsData.getAllDogsByOwnerId[i];
+				console.log(dog.name, dog.id);
+
+				if (dog.name === selectedDog) {
+					findDogId = dog.id;
+					break;
+				}
+			}
+
+			if (findDogId) {
+				const dogId = findDogId;
+				// queries
+				console.log(`dog id ${dogId}`);
+				setShowModal(false);
+			}
 		} else {
-		  alert("Veuillez sélectionner un chien");
+			alert("Veuillez sélectionner un chien");
 		}
-	  }
+	};
 
 	return (
 		<>
@@ -218,10 +218,7 @@ function SearchEventDetail() {
 				onSelectChange={handleDogSelection}
 			>
 				<p>Avec quel chien souhaitez-vous participer à cet événement ?</p>
-				<Button
-					style="btn-dark"
-					onClick={handleConfirmDog}
-				>
+				<Button style="btn-dark" onClick={handleConfirmDog}>
 					Confirmer
 				</Button>
 			</Modal>
