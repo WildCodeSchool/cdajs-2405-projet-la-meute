@@ -71,7 +71,7 @@ function SearchPage() {
 
 			<div>
 				{data?.[switchData.backendQuery].map(({ entity }: SearchIndex) => (
-					<SearchResultItem key={entity.id} type={filter} entity={entity} />
+					<SearchResultItem key={entity.id} entity={entity} />
 				))}
 			</div>
 		</>

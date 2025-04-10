@@ -1,10 +1,5 @@
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
-import Service from "@/components/_atoms/Service/Service";
-import type { ServiceType } from "@/types/Service";
-import DogBubbles from "../DogsBubbles/DogsBubbles";
-import { useNavigate } from "react-router-dom";
-import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 
 interface EventCardProps {
@@ -12,12 +7,6 @@ interface EventCardProps {
 }
 
 function EventCard({ event }: EventCardProps) {
-	const navigate = useNavigate();
-
-	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/trainer/dogs/${dog.id}`);
-	};
-
 	console.log("event in EventCard", event);
 
 	// Function to formate the date with startDate and endDate
@@ -47,7 +36,7 @@ function EventCard({ event }: EventCardProps) {
 			return `${hours}h${minutes}`;
 		};
 
-		return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
+		return `Le ${formatDate(new Date(startDate))} de ${formatTime(new Date(startDate))} jusqu'à ${formatTime(new Date(endDate))}`;
 	};
 	return (
 		<section className="event__section--global">
@@ -55,12 +44,12 @@ function EventCard({ event }: EventCardProps) {
 				<div className="event-card">
 					<div className="event-title">{event.title}</div>
 					<div className="eventDetail__event--service">
-						{event.services.map((service: ServiceType, index: number) => (
+						{/* 						{event.services.map((service: ServiceType, index: number) => (
 							<Service
 								service={service}
 								key={service.id || `service-${index}`}
 							/>
-						))}
+						))} */}
 					</div>
 					<div className="event-date-and-time">
 						<CalendarWithClock className="event__icons" />
@@ -70,16 +59,6 @@ function EventCard({ event }: EventCardProps) {
 						<MapPin className="event__icons" />
 						{event.location.latitude},{event.location.longitude}
 					</div>
-				</div>
-			</div>
-			<div className="event__div--participation">
-				<div className="participants-title">Participants</div>
-				<div className="participants-wrapper">
-					<DogBubbles
-						dogs={event}
-						maxSize={event.group_max_size}
-						onDogClick={handleDogClick}
-					/>
 				</div>
 			</div>
 		</section>

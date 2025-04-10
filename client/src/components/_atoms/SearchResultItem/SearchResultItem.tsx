@@ -1,14 +1,34 @@
 import "./SearchResultItem.scss";
+import type { SearchableEntity } from "@/types/Search";
+import IdCard from "@/components/_molecules/Card/IdCard";
+import type { Owner } from "@/types/User";
+import type { Dog } from "@/types/Dog";
+import EventCard from "@/components/_molecules/EventCard/EventCard";
+import type { Event } from "@/types/Event";
 
-function SearchResultItem({ type, entity }: { type: string; entity: any }) {
-	console.log("entity type", type);
+function SearchResultItem({ entity }: { entity: SearchableEntity }) {
+	const type = entity.__typename.toLowerCase();
 
-	return (
-		<article className="searchResultItem">
-			<h2>{type}</h2>
-			<pre>{JSON.stringify(entity, null, 2)}</pre>
-		</article>
-	);
+	if (type === "owner") {
+		const dogs = (entity as Owner & { dogs: Dog[] }).dogs;
+		return (
+			<div className="searchResultItem__owner">
+				<IdCard type="owner" data={entity as Owner} ownerView={false} />
+				<ul>
+					{dogs.map((dog: Dog) => (
+						<IdCard
+							key={dog.id}
+							type="dog"
+							data={dog as Dog}
+							ownerView={false}
+						/>
+					))}
+				</ul>
+			</div>
+		);
+	}
+
+	return <EventCard event={entity as Event} />;
 }
 
 export default SearchResultItem;

@@ -6,4 +6,11 @@
     padding: 1rem;
     border-radius: $windows-radius;
     margin: 1rem;
+    &__owner {
+        display: flex;
+        & ul {
+            padding: 0;
+            margin: 0;
+        }
+    }
 }
