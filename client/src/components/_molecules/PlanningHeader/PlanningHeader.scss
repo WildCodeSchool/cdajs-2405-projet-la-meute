@@ -1,4 +1,4 @@
-@import "@style";
+@use "@style" as *;
 
 .planningHeader {
     display: flex;
@@ -6,14 +6,16 @@
     justify-content: space-between;
     gap: 1rem;
     background-color: $beige-200;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 0.5rem 1.75rem;
+    margin: 1rem 0;
     border-radius: $windows-radius;
 }
 
 .planningHeader__title {
     @include title;
-    letter-spacing: 0.15ch;
+    letter-spacing: 0.05ch;
+    font-weight: $bold;
+    font-size: $xl;
 }
 
 @media screen and (max-width: $mobile) {

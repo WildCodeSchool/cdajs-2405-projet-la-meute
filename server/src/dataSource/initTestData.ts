@@ -1,4 +1,6 @@
 import { dataSource } from "./dataSource";
+import { fakerFR as faker } from "@faker-js/faker";
+import * as frenchData from "./frenchDataOptions";
 import { Owner } from "../entities/Owner";
 import { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
@@ -35,95 +37,183 @@ async function createData() {
 		// Let TypeORM recreate the tables with proper inheritance
 		await dataSource.synchronize();
 
+		const generateFrenchPhone = () => {
+			const phoneNumber = `06${faker.number.int({ min: 10000000, max: 99999999 })}`;
+			return phoneNumber;
+		};
+
 		//1. Create owners
 		const ownerRepository = dataSource.getRepository(Owner);
 		const dogRepository = dataSource.getRepository(Dog);
 
-		const owner = new Owner();
-		owner.lastname = "Doe";
-		owner.firstname = "John";
-		owner.email = "john@example.com";
-		owner.password_hashed = "pulseform";
-		owner.phone_number = "0123456789";
-		owner.city = "Paris";
-		owner.postal_code = "75000";
+		//Fix owners
+		const owners: Owner[] = [];
+		const john = ownerRepository.create({
+			lastname: "Doe",
+			firstname: "John",
+			email: "john@example.com",
+			password_hashed: "C@niche22",
+			phone_number: generateFrenchPhone(),
+			city: "Paris",
+			postal_code: "75000",
+		});
+		const marie = ownerRepository.create({
+			lastname: "Chantal",
+			firstname: "Marie",
+			email: "marie-chantal@example.com",
+			password_hashed: "C@niche22",
+			phone_number: generateFrenchPhone(),
+			city: "Lille",
+			postal_code: "59000",
+		});
 
-		const savedOwner1 = await ownerRepository.save(owner);
+		const fixOwners = await ownerRepository.save([john, marie]);
 
-		const owner2 = new Owner();
-		owner2.lastname = "Chantal";
-		owner2.firstname = "Marie";
-		owner2.email = "marie-chantal@example.com";
-		owner2.password_hashed = "linux4ever";
-		owner2.phone_number = "0612456789";
-		owner2.city = "Lille";
-		owner2.postal_code = "59000";
-
-		const savedOwner2 = await ownerRepository.save(owner2);
+		// === Random owners ===
+		for (let i = 0; i < 50; i++) {
+			owners.push(
+				ownerRepository.create({
+					firstname: faker.person.firstName(),
+					lastname: faker.person.lastName(),
+					email: faker.internet.email(),
+					password_hashed: "C@niche22",
+					phone_number: generateFrenchPhone(),
+					city: faker.location.city(),
+					postal_code: faker.location.zipCode("#####"),
+				}),
+			);
+		}
+		const savedOwners = await ownerRepository.save(owners);
+		const allOwners = [...fixOwners, ...savedOwners];
 
 		//2. Create trainers
 		const trainerRepository = dataSource.getRepository(Trainer);
-		const trainer = new Trainer("12345678901234", "educ de Lyon");
-		trainer.lastname = "Smith";
-		trainer.firstname = "Jane";
-		trainer.email = "jane@example.com";
-		trainer.password_hashed = "mdpdefou";
-		trainer.phone_number = "0987654321";
-		trainer.city = "Lyon";
-		trainer.postal_code = "69000";
-		trainer.description = "Je suis un très bon éducateur et je sens bon.";
 
-		const savedTrainer = await trainerRepository.save(trainer);
+		//Fix Trainer
+		const trainers: Trainer[] = [];
+		const jane = trainerRepository.create({
+			firstname: "Jane",
+			lastname: "Smith",
+			email: "jane@example.com",
+			password_hashed: "C@niche22",
+			phone_number: generateFrenchPhone(),
+			city: "Lyon",
+			postal_code: "69000",
+			description: "Je suis un très bon éducateur et je sens bon.",
+			siret: faker.string.numeric(14),
+			company_name: faker.company.name(),
+		});
+		trainers.push(jane);
+
+		// === Random trainers ===
+		for (let i = 0; i < 10; i++) {
+			trainers.push(
+				trainerRepository.create({
+					firstname: faker.person.firstName(),
+					lastname: faker.person.lastName(),
+					email: faker.internet.email(),
+					password_hashed: "C@niche22",
+					phone_number: generateFrenchPhone(),
+					city: faker.location.city(),
+					postal_code: faker.location.zipCode("#####"),
+					description: faker.helpers.arrayElement(
+						frenchData.trainerDescriptions,
+					),
+					siret: faker.string.numeric(14),
+					company_name: faker.company.name(),
+				}),
+			);
+		}
+		const savedTrainers = await trainerRepository.save(trainers);
 
 		//3. Create dog
-		const dog1 = new Dog(
-			savedOwner1,
-			"Rex",
-			new Date("2020-01-01"),
-			"Caniche de Siberie",
-		);
-		const savedDog1 = await dogRepository.save(dog1);
-
-		const dog2 = new Dog(
-			savedOwner1,
-			"Luna",
-			new Date("2023-04-15"),
-			"Golden Retriever",
-		);
-		const savedDog2 = await dogRepository.save(dog2);
+		const dogs: Dog[] = [];
+		for (let i = 0; i < 100; i++) {
+			dogs.push(
+				dogRepository.create({
+					name: faker.animal.petName(),
+					birthDate: faker.date.past({ years: 10 }),
+					breed: faker.animal.dog(),
+					owner: faker.helpers.arrayElement(allOwners),
+				}),
+			);
+		}
+		const savedDogs = await dogRepository.save(dogs);
 
 		// 4. Create Service
 		const serviceRepository = dataSource.getRepository(Service);
-		const service = new Service("Manger des chips", "🥔", "#B38600");
-		const savedService = await serviceRepository.save(service);
+
+		const services: Service[] = [];
+		for (let i = 0; i < 10; i++) {
+			services.push(
+				serviceRepository.create({
+					title: faker.helpers.arrayElement(frenchData.serviceTitles),
+					smiley: faker.helpers.arrayElement(frenchData.serviceSmileyOptions),
+					color: faker.helpers.arrayElement(frenchData.serviceColorOptions),
+				}),
+			);
+		}
+
+		const savedServices = await serviceRepository.save(services);
 
 		// 5. Create Event
 		const eventRepository = dataSource.getRepository(Event);
-		const event = new Event(
-			savedTrainer,
-			[savedService],
-			"Formation Super spéciale du jour",
-			"Formation complète pour que votre chien apprenne à raporter la baballe ! (⚽ baballe non fournie)",
-			{
-				latitude: 45.7771392,
-				longitude: 4.8560401,
-			},
-			new Date("2025-03-05T09:00:00"),
-			new Date("2025-03-05T09:45:00"),
-			5,
-			40,
-		);
-		const savedEvent = await eventRepository.save(event);
+
+		const events: Event[] = [];
+		for (let i = 0; i < 30; i++) {
+			const start = faker.date.soon({ days: 15 });
+			const end = new Date(start.getTime() + 1000 * 60 * 60);
+			const randomEvent = faker.helpers.arrayElement(frenchData.events);
+
+			events.push(
+				eventRepository.create({
+					title: randomEvent.title,
+					description: randomEvent.description,
+					location: {
+						longitude: faker.location.latitude(),
+						latitude: faker.location.longitude(),
+					},
+					startDate: start,
+					endDate: end,
+					group_max_size: faker.number.int({ min: 5, max: 20 }),
+					price: Number.parseFloat(faker.commerce.price({ max: 80 })),
+					trainer: faker.helpers.arrayElement(savedTrainers),
+					services: faker.helpers.arrayElements(savedServices, {
+						min: 1,
+						max: 3,
+					}),
+				}),
+			);
+		}
+
+		const savedEvents = await eventRepository.save(events);
 
 		// 6. Create Participation
 		const participationRepository = dataSource.getRepository(Participation);
-		const participation = new Participation(savedEvent, savedDog1);
-		await participationRepository.save(participation);
+		const participations: Participation[] = [];
+		for (let i = 0; i < 30; i++) {
+			participations.push(
+				participationRepository.create({
+					dog: faker.helpers.arrayElement(savedDogs),
+					event: faker.helpers.arrayElement(savedEvents),
+				}),
+			);
+		}
+		await participationRepository.save(participations);
 
 		// 7. Create Favorite
 		const favoriteRepository = dataSource.getRepository(Favorite);
-		const favorite = new Favorite(savedTrainer, savedOwner1, new Date());
-		await favoriteRepository.save(favorite);
+		const favorites: Favorite[] = [];
+		for (let i = 0; i < 15; i++) {
+			favorites.push(
+				favoriteRepository.create({
+					owner: faker.helpers.arrayElement(allOwners),
+					trainer: faker.helpers.arrayElement(savedTrainers),
+					add_date: faker.date.recent(),
+				}),
+			);
+		}
+		await favoriteRepository.save(favorites);
 
 		console.info("Test data created successfully.");
 	} catch (error) {
@@ -137,3 +227,5 @@ export async function initTestData() {
 	await createData();
 	console.info("Test data created successfully.");
 }
+
+initTestData();

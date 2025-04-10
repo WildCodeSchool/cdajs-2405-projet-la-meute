@@ -4,6 +4,10 @@ import LogoMobile from "@/assets/logo/night-blue/symbol/logo-pawplanner-symbol-n
 import { Link } from "react-router-dom";
 
 function Header() {
+	const scrollToTop = () => {
+		window.scrollTo(0, 0);
+	};
+
 	return (
 		<header className="welcomepage__header">
 			<nav className="welcomepage__header--all">
@@ -30,9 +34,15 @@ function Header() {
 			</nav>
 			<nav>
 				<div className="welcomepage__header--links ">
-					<Link to="/">Accueil</Link>
-					<Link to="/services">Services</Link>
-					<Link to="/contact">Contact</Link>
+					<Link to="/" onClick={scrollToTop}>
+						Accueil
+					</Link>
+					<Link to="/FAQ" onClick={scrollToTop}>
+						FAQ
+					</Link>
+					<Link to="/contact" onClick={scrollToTop}>
+						Contact
+					</Link>
 				</div>
 			</nav>
 		</header>

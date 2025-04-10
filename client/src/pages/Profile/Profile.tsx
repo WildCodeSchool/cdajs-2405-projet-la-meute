@@ -6,28 +6,29 @@ import Button from "@/components/_atoms/Button/Button";
 import Modal from "@/components/_molecules/Modal/Modal";
 import { toast } from "react-toastify";
 import { useUser } from "@/hooks/useUser";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
 import { useImageUrl } from "@/hooks/useImageUrl";
+import { useForm } from "@/hooks/useForm";
+import type { Trainer } from "@/types/User";
+
+interface ProfileFormValues extends Record<string, unknown> {
+	firstname: string;
+	lastname: string;
+	city: string;
+	description: string;
+	email: string;
+	phone_number: string;
+	siret: string;
+	company_name: string;
+}
 
 function Profile() {
 	const { role, user, refetch } = useUser();
-	const navigate = useNavigate();
 	const [view, setView] = useState<"profile" | "personal" | "preferences">(
 		"profile",
 	);
-
-	const avatarRef = useRef<HTMLInputElement>(null);
-	const firstnameRef = useRef<HTMLInputElement>(null);
-	const lastnameRef = useRef<HTMLInputElement>(null);
-	const emailRef = useRef<HTMLInputElement>(null);
-	const phoneRef = useRef<HTMLInputElement>(null);
-	const cityRef = useRef<HTMLInputElement>(null);
-	const siretRef = useRef<HTMLInputElement>(null);
-	const companyNameRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	const [confirmModal, setConfirmModal] = useState(false);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -37,30 +38,31 @@ function Profile() {
 	const [updateUserMutation] = useMutation(UPDATE_USER);
 	const isTrainer = role === "trainer";
 
-	useEffect(() => {
-		if (!user) {
-			navigate("/login");
-			return;
-		}
+	const initialTrainerFields =
+		isTrainer && user
+			? {
+					siret: (user as Trainer).siret || "",
+					company_name: (user as Trainer).company_name || "",
+				}
+			: {
+					siret: "",
+					company_name: "",
+				};
 
-		if (view === "profile") {
-			if (firstnameRef.current)
-				firstnameRef.current.value = user.firstname || "";
-			if (lastnameRef.current) lastnameRef.current.value = user.lastname || "";
-			if (cityRef.current) cityRef.current.value = user.city || "";
-			if (descriptionRef.current)
-				descriptionRef.current.value = user.description || "";
-		}
-
-		if (view === "personal") {
-			if (emailRef.current) emailRef.current.value = user.email || "";
-			if (phoneRef.current) phoneRef.current.value = user.phone_number || "";
-			if (siretRef.current && user.role === "trainer")
-				siretRef.current.value = user.siret || "";
-			if (companyNameRef.current && user.role === "trainer")
-				companyNameRef.current.value = user.company_name || "";
-		}
-	}, [user, navigate, view]);
+	const form = useForm<ProfileFormValues>({
+		initialValues: {
+			firstname: user?.firstname || "",
+			lastname: user?.lastname || "",
+			city: user?.city || "",
+			description: user?.description || "",
+			email: user?.email || "",
+			phone_number: user?.phone_number || "",
+			...initialTrainerFields,
+		},
+		onSubmit: async (formValues) => {
+			await handleUpdateFormSubmit(formValues);
+		},
+	});
 
 	useEffect(() => {
 		if (selectedFile) {
@@ -71,11 +73,33 @@ function Profile() {
 		setPreviewUrl(null);
 	}, [selectedFile]);
 
-	const handleUpdateFormSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-	) => {
-		e.preventDefault();
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files.length > 0) {
+			const file = e.target.files[0];
+			setTempFile(file);
+			setConfirmModal(true);
+		} else {
+			setTempFile(null);
+		}
+	};
 
+	const confirmFileSelection = () => {
+		setSelectedFile(tempFile);
+		setConfirmModal(false);
+	};
+
+	const cancelFileSelection = () => {
+		setTempFile(null);
+		setConfirmModal(false);
+		const fileInput = document.querySelector(
+			'input[type="file"]',
+		) as HTMLInputElement;
+		if (fileInput) {
+			fileInput.value = "";
+		}
+	};
+
+	const handleUpdateFormSubmit = async (formValues: ProfileFormValues) => {
 		let updatedUser = {};
 
 		if (view === "profile") {
@@ -83,19 +107,19 @@ function Profile() {
 				id: Number(user?.id),
 				role: user?.role,
 				avatar: selectedFile,
-				firstname: firstnameRef.current?.value,
-				lastname: lastnameRef.current?.value,
-				city: cityRef.current?.value,
-				description: descriptionRef.current?.value,
+				firstname: formValues.firstname,
+				lastname: formValues.lastname,
+				city: formValues.city,
+				description: formValues.description,
 			};
 		} else {
 			updatedUser = {
 				id: Number(user?.id),
 				role: user?.role,
-				email: emailRef.current?.value,
-				phone_number: phoneRef.current?.value,
-				siret: siretRef.current?.value,
-				company_name: companyNameRef.current?.value,
+				email: formValues.email,
+				phone_number: formValues.phone_number,
+				siret: formValues.siret,
+				company_name: formValues.company_name,
 			};
 		}
 
@@ -123,32 +147,9 @@ function Profile() {
 		}
 	};
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files.length > 0) {
-			const file = e.target.files[0];
-			setTempFile(file);
-			setConfirmModal(true);
-		} else {
-			setTempFile(null);
-		}
-	};
-
-	const confirmFileSelection = () => {
-		setSelectedFile(tempFile);
-		setConfirmModal(false);
-	};
-
-	const cancelFileSelection = () => {
-		setTempFile(null);
-		setConfirmModal(false);
-		if (avatarRef.current) {
-			avatarRef.current.value = "";
-		}
-	};
-
 	return (
 		<>
-			<PlanningHeader title="Mon profil" button={false} />
+			<PlanningHeader title="Mon profil" />
 
 			<main className="profile">
 				<nav className="profile__nav">
@@ -178,7 +179,7 @@ function Profile() {
 					</p>
 				</nav>
 
-				<form className="profile__form" onSubmit={handleUpdateFormSubmit}>
+				<form className="profile__form" onSubmit={form.handleSubmit}>
 					<span className="profile__form--title">
 						<img
 							src={
@@ -198,16 +199,33 @@ function Profile() {
 					{view === "profile" && (
 						<>
 							<FileInput
-								ref={avatarRef}
 								label="Photo de profil"
 								accept="image/*"
 								onChange={handleFileChange}
 							/>
 							<span className="profile__form--names">
-								<TextInput style="light" type="firstname" ref={firstnameRef} />
-								<TextInput style="light" type="lastname" ref={lastnameRef} />
+								<TextInput
+									style="light"
+									type="firstname"
+									name="firstname"
+									value={form.values.firstname}
+									onChange={form.handleChange}
+								/>
+								<TextInput
+									style="light"
+									type="lastname"
+									name="lastname"
+									value={form.values.lastname}
+									onChange={form.handleChange}
+								/>
 							</span>
-							<TextInput style="light" type="city" ref={cityRef} />
+							<TextInput
+								style="light"
+								type="city"
+								name="city"
+								value={form.values.city}
+								onChange={form.handleChange}
+							/>
 							{isTrainer && (
 								<p>
 									Indiquez une adresse générale pour donner un périmètre à vos
@@ -218,21 +236,43 @@ function Profile() {
 								style="light"
 								type="description"
 								inputType="textarea"
-								ref={descriptionRef}
+								name="description"
+								value={form.values.description}
+								onChange={form.handleChange}
 							/>
 						</>
 					)}
 					{view === "personal" && (
 						<>
-							<TextInput style="light" type="email" ref={emailRef} />
-							<TextInput style="light" type="telephone" ref={phoneRef} />
+							<TextInput
+								style="light"
+								type="email"
+								name="email"
+								value={form.values.email}
+								onChange={form.handleChange}
+							/>
+							<TextInput
+								style="light"
+								type="telephone"
+								name="phone_number"
+								value={form.values.phone_number}
+								onChange={form.handleChange}
+							/>
 							{isTrainer && (
 								<>
-									<TextInput style="light" type="SIRET" ref={siretRef} />
+									<TextInput
+										style="light"
+										type="SIRET"
+										name="siret"
+										value={form.values.siret}
+										onChange={form.handleChange}
+									/>
 									<TextInput
 										style="light"
 										type="company_name"
-										ref={companyNameRef}
+										name="company_name"
+										value={form.values.company_name}
+										onChange={form.handleChange}
 									/>
 								</>
 							)}

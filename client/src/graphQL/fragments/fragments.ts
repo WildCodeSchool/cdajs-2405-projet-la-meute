@@ -16,12 +16,37 @@ export const TRAINER_FRAGMENT = gql`
     }
 `;
 
+export const OWNER_FRAGMENT = gql`
+    fragment OwnerFragment on Owner {
+        id
+        lastname
+        firstname
+        email
+        phone_number
+        city
+        postal_code
+        avatar
+    }
+`;
+
 export const SERVICE_FRAGMENT = gql`
     fragment ServiceFragment on Service {
         id
         title
         smiley
         color
+    }
+`;
+
+export const FAVORITE_FRAGMENT = gql`
+    fragment FavoriteFragment on Favorite {
+        id
+    }
+`;
+
+export const PARTICIPATION_FRAGMENT = gql`
+    fragment ParticipationFragment on Participation {
+        id
     }
 `;
 
@@ -38,5 +63,17 @@ export const EVENT_FRAGMENT = gql`
         endDate
         group_max_size
         price
+    }
+`;
+
+export const DOG_FRAGMENT = gql`
+    fragment DogFragment on Dog {
+        id
+        name
+        birthDate
+        breed
+        picture
+        info
+        getAge
     }
 `;

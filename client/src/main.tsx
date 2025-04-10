@@ -33,18 +33,24 @@ import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "./pages/Login/NewPassword.tsx";
 import MyDogList from "./pages/Owner/Dogs/DogList/MyDogList.tsx";
 import Planning from "./pages/Planning/Planning.tsx";
-import EventDetail from "./pages/Events/EventDetail.tsx";
+import EventDetail from "./pages/Event/EventDetail/EventDetail.tsx";
+import EventUpdate from "./pages/Event/EventUpdate/EventUpdate.tsx";
 import Profile from "@/pages/Profile/Profile.tsx";
 import Registration from "./pages/Registration/Registration.tsx";
 import ResetLink from "./pages/Login/ResetLink.tsx";
 import ResetPassword from "./pages/Login/ResetPassword.tsx";
-import Services from "@/pages/WelcomePage/Services.tsx";
+// import Services from "@/pages/WelcomePage/Services.tsx";
+import FAQ from "@/pages/WelcomePage/FAQ.tsx";
 import UpdateDog from "./pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
+import PrivacyPolicy from "./pages/WelcomePage/PrivacyPolicy.tsx";
+import LegalNotice from "./pages/WelcomePage/LegalNotice.tsx";
+import GeneralTerms from "./pages/WelcomePage/GeneralTerms.tsx";
 
 // FIXME: delete
 import TestME from "./components/TestME.tsx";
 import TestModal from "./components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
+import SearchEventDetail from "./pages/Event/SearchEventDetail/SearchEventDetail.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -59,8 +65,20 @@ const router = createBrowserRouter([
 						element: <Homepage />,
 					},
 					{
-						path: "services",
-						element: <Services />,
+						path: "FAQ",
+						element: <FAQ />,
+					},
+					{
+						path: "privacy-policy",
+						element: <PrivacyPolicy />,
+					},
+					{
+						path: "legal-notice",
+						element: <LegalNotice />,
+					},
+					{
+						path: "general-terms",
+						element: <GeneralTerms />,
 					},
 					{
 						path: "contact",
@@ -102,7 +120,21 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "planning",
-						element: <Planning />,
+						children: [
+							{
+								index: true,
+								element: <Planning />,
+							},
+							{
+								path: "my-events",
+								children: [
+									{
+										path: ":id",
+										element: <EventDetail />,
+									},
+								],
+							},
+						],
 					},
 					{
 						path: "search",
@@ -111,9 +143,14 @@ const router = createBrowserRouter([
 								index: true,
 								element: <p>search List</p>,
 							},
+						],
+					},
+					{
+						path: "events",
+						children: [
 							{
 								path: ":id",
-								element: <p>search/:id</p>,
+								element: <SearchEventDetail />,
 							},
 						],
 					},
@@ -169,6 +206,10 @@ const router = createBrowserRouter([
 									{
 										path: ":id",
 										element: <EventDetail />,
+									},
+									{
+										path: ":id/edit",
+										element: <EventUpdate />,
 									},
 								],
 							},

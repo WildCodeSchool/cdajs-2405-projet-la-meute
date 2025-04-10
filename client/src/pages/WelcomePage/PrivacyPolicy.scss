@@ -1,0 +1,115 @@
+@use "@style" as *;
+
+.page-privacy__section {
+    padding: 2rem 1rem;
+    max-width: 100%;
+    white-space: pre-line;
+    
+    .container_privacy {
+        max-width: 800px;
+        margin: 2rem auto;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    h1 {
+        color: $primary-dark;
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid $primary-dark;
+    }
+    
+    .last-update {
+        text-align: center;
+        color: $primary-dark;
+        font-style: italic;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    
+    .introduction {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    .term-section {
+        margin-bottom: 2rem;
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            
+            &:before {
+                content: '';
+                display: block;
+                width: 8px;
+                height: 8px;
+                background-color: $primary-dark;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            
+            li {
+                position: relative;
+                margin-bottom: 0.5rem;
+                line-height: 1.5;
+                
+                &:before {
+                    content: '•';
+                    color: $primary-dark;
+                    font-weight: bold;
+                    position: absolute;
+                    left: -1rem;
+                }
+            }
+        }
+    }
+    
+    .conclusion {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 1.1rem;
+        color: #4a5568;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    a {
+        color: $blue-400;
+        text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+        padding: 1rem 0.5rem;
+        
+        .container_privacy {
+            padding: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 1.75rem;
+        }
+        
+        .term-section h2 {
+            font-size: 1.1rem;
+        }
+    }
+}

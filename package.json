@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "install:all": "npm install && cd server && npm install && cd .. && cd client && npm install && cd ..",
     "ci:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
-    "init:db": "ts-node ./_ressources/scripts/init_db_user.ts",
+    "db:init": "ts-node ./_ressources/scripts/init_db_user.ts",
     "check-format": "npx @biomejs/biome format ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
@@ -16,6 +16,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.5.5",
     "@types/sinon": "^17.0.3",
+    "cpy-cli": "^5.0.0",
     "dotenv": "^16.4.5",
     "husky": "^9.1.7",
     "mock-typeorm": "^1.0.2",

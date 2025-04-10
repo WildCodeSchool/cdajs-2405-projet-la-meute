@@ -3,13 +3,20 @@ import { dataSource } from "../dataSource/dataSource";
 import { Event } from "../entities/Event";
 import { Service } from "../entities/Service";
 import { Trainer } from "../entities/Trainer";
+import { Participation } from "../entities/Participation";
+import { Dog } from "../entities/Dog";
+
 import { LocationInput } from "../types/inputTypes";
+
+import { In } from "typeorm";
 
 import "dotenv/config";
 
 const eventRepository = dataSource.getRepository(Event);
 const trainerRepository = dataSource.getRepository(Trainer);
 const serviceRepository = dataSource.getRepository(Service);
+const participationRepository = dataSource.getRepository(Participation);
+const dogRepository = dataSource.getRepository(Dog);
 
 @Resolver()
 export class EventResolver {
@@ -17,7 +24,7 @@ export class EventResolver {
 	@Query(() => [Event])
 	async getAllEvents(): Promise<Event[]> {
 		const events: Event[] = await eventRepository.find({
-			relations: ["trainer", "services"],
+			relations: ["trainer", "services", "participation", "participation.dog"],
 		});
 		return events;
 	}
@@ -27,9 +34,59 @@ export class EventResolver {
 	async getEventById(@Arg("eventId") eventId: number): Promise<Event> {
 		const event: Event = await eventRepository.findOneOrFail({
 			where: { id: eventId },
-			relations: ["trainer", "services"],
+			relations: ["trainer", "services", "participation.dog"],
 		});
 		return event;
+	}
+
+	// Get all events by trainer_id
+	@Query(() => [Event])
+	async getAllEventsByTrainerId(
+		@Arg("trainerId") trainerId: number,
+	): Promise<Event[]> {
+		const eventsByTrainerId = await eventRepository.find({
+			where: { trainer: { id: trainerId } },
+			relations: ["trainer", "services", "participation.dog"],
+		});
+		return eventsByTrainerId;
+	}
+
+	// Get all events by owner_id
+	@Query(() => [Event])
+	async getAllEventsByOwnerId(
+		@Arg("ownerId") ownerId: number,
+	): Promise<Event[]> {
+		// Owners has events by the participation of their dog so we need to map on dog first
+		const dogsOfOwner = await dogRepository.find({
+			where: { owner: { id: ownerId } },
+		});
+		// We get dog.id to find participation on event
+		const dogIds = dogsOfOwner.map((dog) => dog.id);
+		// We search events where dog participate
+		const eventsByOwnerId = await eventRepository.find({
+			where: {
+				participation: {
+					dog: {
+						// In() is operator of TypeORM to find values in array
+						id: In(dogIds),
+					},
+				},
+			},
+			relations: ["trainer", "services", "participation.dog"],
+		});
+		return eventsByOwnerId;
+	}
+
+	// Get dog_id by event_id
+	@Query(() => [Participation])
+	async getDogsByEventsId(
+		@Arg("eventId") eventId: number,
+	): Promise<Participation[] | null> {
+		const dogsByEventsId = await participationRepository.find({
+			where: { event: { id: eventId } },
+			relations: ["dog"],
+		});
+		return dogsByEventsId || [];
 	}
 
 	// Create event

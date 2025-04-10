@@ -7,6 +7,7 @@ import {
 	BeforeUpdate,
 } from "typeorm";
 import bcrypt from "bcryptjs";
+import validationRules from "../services/readonly/validationRules";
 
 // The User class is the parent class for the "Owner" and "Trainer" classes; they inherit properties and methods from User.
 // If the role is "Owner," TypeORM loads an instance of the Owner class.
@@ -14,7 +15,8 @@ import bcrypt from "bcryptjs";
 @Entity()
 @ObjectType()
 export abstract class User {
-	private static readonly PASSWORD_REGEX = /^.{8,}$/; // FIXME: reinforce that regex
+	private static readonly PASSWORD_REGEX = validationRules.PASSWORD.pattern;
+	private static readonly EMAIL_REGEX = validationRules.EMAIL.pattern;
 
 	private async hashPassword(password: string): Promise<string> {
 		return bcrypt.hash(password, 10);
@@ -22,12 +24,38 @@ export abstract class User {
 
 	@BeforeInsert()
 	@BeforeUpdate()
-	private async validateAndHashPassword() {
+	private async validateFields() {
+		const keys = Object.keys(this) as Array<keyof User>;
+
+		for (const key of keys) {
+			if (typeof this[key] === "string" && key !== "password_hashed") {
+				(this[key] as string) = (this[key] as string).trim();
+			}
+		}
+
 		if (this.password_hashed && !this.isPasswordAlreadyHashed()) {
 			if (!User.PASSWORD_REGEX.test(this.password_hashed)) {
-				throw new Error("Le mot de passe doit contenir au moins 8 caractères");
+				throw new Error(validationRules.PASSWORD.message);
 			}
 			this.password_hashed = await this.hashPassword(this.password_hashed);
+		}
+
+		if (this.email && !User.EMAIL_REGEX.test(this.email)) {
+			throw new Error(validationRules.EMAIL.message);
+		}
+
+		if (
+			this.phone_number &&
+			!validationRules.PHONE.pattern.test(this.phone_number)
+		) {
+			throw new Error(validationRules.PHONE.message);
+		}
+
+		if (
+			this.postal_code &&
+			!validationRules.POSTAL_CODE.pattern.test(this.postal_code)
+		) {
+			throw new Error(validationRules.POSTAL_CODE.message);
 		}
 	}
 
@@ -45,7 +73,7 @@ export abstract class User {
 
 	public async resetPassword(newPassword: string): Promise<void> {
 		if (!User.PASSWORD_REGEX.test(newPassword)) {
-			throw new Error("Le mot de passe doit contenir au moins 8 caractères");
+			throw new Error(validationRules.PASSWORD.message);
 		}
 		// BeforeInsert hash the password
 		this.password_hashed = newPassword;

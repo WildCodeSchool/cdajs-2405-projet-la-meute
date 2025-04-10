@@ -1,0 +1,175 @@
+@use "@style" as *;
+
+.eventDetail {
+
+    &__section {
+        display: flex;
+        flex-direction: row;
+        background-color: none;
+        gap: 2rem;
+        margin-top: 3vh;
+    }
+
+    &__event {
+        width: 60%;
+        padding: 0px;
+
+        &--card {
+            background-color: $beige-200;
+            border-radius: $atoms-radius;
+            padding: 3%;
+        }
+
+        &--title {
+            font-size: $xxl;
+            font-weight: $bold;
+            color: $blue-400;
+            margin-bottom: 2rem;
+        }
+
+        &--service {
+            margin: 1.5rem 0;
+        }
+
+        &--map {
+            margin-inline: -3vw;
+        }
+    }
+
+    &__margin {
+        margin: 2rem 0;
+    }
+
+    &__description {
+        textarea,
+        input {
+            pointer-events: none;
+            color: $blue-400;
+        }
+    }
+
+    &__price {
+
+        &--container {
+            background-color: $green-100;
+            border-radius: $atoms-radius;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 3%;
+        }
+
+        &--divText {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        &--title {
+            font-weight: $bold;
+            font-size: $m;
+        }
+
+        &--paranthesis {
+            font-weight: $regular;
+            font-style: italic;
+            margin-left: 0.5rem;
+        }
+
+        &--number {
+            font-weight: $bold;
+            font-size: $m;
+            color: $blue-200;
+        }
+    }
+
+    &__participation {
+        width: 40%;
+        background-color: none;
+        display: flex;
+        flex-direction: column;
+
+        &--wrapper {
+            display: flex;
+            flex-grow: 0.3;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+        }
+
+        &--title {
+            font-size: $l;
+            font-weight: bold;
+            text-align: left;
+            color: $blue-400;
+        }
+
+        &--card {
+            background-color: $blue-200;
+            border-radius: $atoms-radius;
+            padding: 12px;
+            margin-bottom: 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__leftSlot {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .eventDetail {
+
+        &__section {
+            display: flex;
+            flex-direction: column-reverse;
+            background-color: none;
+            gap: 2rem;
+            margin-top: 3vh;
+        }
+
+        &__event {
+            width: 100%;
+            padding: 0px;
+
+            &--card {
+                background-color: $beige-200;
+                border-radius: $atoms-radius;
+                padding: 3%;
+            }
+
+            &--title {
+                font-size: $xl;
+            }
+
+            &--service {
+                margin: 1rem 0;
+            }
+
+            &--map {
+                margin-inline: -3vw;
+            }
+        }
+
+        &__participation {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            &--wrapper {
+                display: flex;
+                flex-grow: 0.3;
+                flex-direction: column;
+                align-items: left;
+                justify-content: center;
+                margin: 2rem 0;
+            }
+        }
+    }
+}

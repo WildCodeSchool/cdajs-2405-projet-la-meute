@@ -1,8 +1,10 @@
-@import "@style";
+@use "@style" as *;
+@use "sass:color";
 
 $btn-types: (
 	"submit",
 	"dark",
+	"dark-secondary",
 	"light",
 	"invite",
 	"role-select-left",
@@ -41,38 +43,57 @@ $colors: (
 	&.btn-submit {
 		$background-color: $blue-200;
 		background-color: $background-color;
+
 		&:hover {
-			background-color: lighten($background-color, 10%);
+			background-color: color.adjust($background-color, $lightness: 10%);
 		}
+	}
+
+	&.btn-disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	&.btn-dark {
 		$background-color: $blue-500;
 		background-color: $background-color;
+
 		&:hover {
-			background-color: lighten($background-color, 10%);
+			background-color: color.adjust($background-color, $lightness: 10%);
+		}
+	}
+
+	&.btn-dark-secondary {
+		$background-color: $blue-400;
+		background-color: $background-color;
+
+		&:hover {
+			background-color: color.adjust($background-color, $lightness: 10%);
 		}
 	}
 
 	&.btn-light {
 		$background-color: $blue-200;
 		background-color: $background-color;
+
 		&:hover {
-			background-color: lighten($background-color, 10%);
+			background-color: color.adjust($background-color, $lightness: 10%);
 		}
 	}
 
 	&.btn-invite {
 		$background-color: $blue-500;
 		background-color: $background-color;
+
 		&:hover {
-			background-color: lighten($background-color, 10%);
+			background-color: color.adjust($background-color, $lightness: 10%);
 		}
 	}
 
 	&.btn-role-select-left {
 		$background-color: $green-400;
 		background-color: $background-color;
+
 		&:hover {
 			background-color: $green-300;
 		}
@@ -98,7 +119,7 @@ $colors: (
 				background-color: $base-color;
 
 				&:hover {
-					background-color: lighten($base-color, 5%);
+					background-color: color.adjust($base-color, $lightness: 5%);
 					color: $font-light;
 				}
 			}

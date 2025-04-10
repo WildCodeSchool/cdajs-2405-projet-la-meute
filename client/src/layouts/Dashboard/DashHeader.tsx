@@ -1,13 +1,17 @@
-import { Bell } from "@/assets/icons/bell";
+import { Exit } from "@/assets/icons/exit";
 import { LeftChevron } from "@/assets/icons/left-chevron";
+import { useIsMobile } from "@/hooks/checkIsMobile";
+import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function DashHeader() {
 	const { user } = useUser();
-
+	const { logout } = useAuth();
 	const navigate = useNavigate();
+	const isMobile = useIsMobile();
+
 	return (
 		<>
 			<header className="dashHeader">
@@ -23,7 +27,16 @@ export default function DashHeader() {
 					Retour
 				</button>
 				<span className="dashHeader__right-corner">
-					<Bell className="dashHeader__notification" />
+					{isMobile && (
+						<button
+							onClick={logout}
+							type="button"
+							className="dashSideBar__logout"
+							aria-label="Se déconnecter"
+						>
+							<Exit className="dashSideBar__icon dashHeader__icon" />
+						</button>
+					)}
 					<Link className="dashHeader__avatar" to="/my-profile">
 						<img
 							src={

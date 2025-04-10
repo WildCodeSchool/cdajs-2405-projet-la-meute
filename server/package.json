@@ -4,16 +4,20 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest --watchAll",
+		"test": "jest",
+		"test:hr": "jest --watchAll",
+		"db:seed": "ts-node -r module-alias/register src/dataSource/initTestData.ts",
 		"start": "ts-node-dev --respawn --poll ./src/index.ts",
 		"lint": "biome lint --write ./src",
-		"format": "biome format --write ./src"
+		"format": "biome format --write ./src",
+		"typeorm": "typeorm-ts-node-commonjs"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
+		"@faker-js/faker": "^9.6.0",
 		"argon2": "^0.41.1",
 		"bcryptjs": "^2.4.3",
 		"express": "^4.21.0",
@@ -22,6 +26,7 @@
 		"graphql-upload": "^17.0.0",
 		"graphql-upload-ts": "^2.1.2",
 		"jsonwebtoken": "^9.0.2",
+		"module-alias": "^2.2.3",
 		"nodemailer": "^6.9.16",
 		"pg": "^8.12.0",
 		"reflect-metadata": "^0.2.2",
@@ -33,6 +38,7 @@
 		"@types/bcryptjs": "^2.4.6",
 		"@types/cors": "^2.8.17",
 		"@types/graphql-upload": "^17.0.0",
+		"@types/jest": "^29.5.14",
 		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "^22.10.1",
 		"@types/nodemailer": "^6.4.17",

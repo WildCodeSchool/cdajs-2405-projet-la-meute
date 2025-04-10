@@ -6,6 +6,7 @@ type ThinButtonColor = "orange" | "blue" | "green";
 type ButtonStyles =
 	| "submit"
 	| "btn-dark"
+	| "btn-dark-secondary"
 	| "btn-light"
 	| "invite"
 	| "event"
@@ -20,6 +21,7 @@ interface BaseButtonProps {
 	children?: string;
 	href?: string;
 	className?: string;
+	disabled?: boolean;
 	onClick?: () => void;
 }
 
@@ -46,6 +48,7 @@ export default function Button({
 	children,
 	href,
 	className,
+	disabled,
 	onClick,
 }: ButtonProps) {
 	const buttonType = style === "submit" ? "submit" : "button";
@@ -56,15 +59,17 @@ export default function Button({
 				? "btn-submit"
 				: style === "btn-dark"
 					? "btn-dark"
-					: style === "invite" || style === "event"
-						? "btn-invite"
-						: style === "role-select-left"
-							? "btn-role-select-left"
-							: style === "role-select-right"
-								? "btn-role-select-right"
-								: style === "none"
-									? ""
-									: "btn-light";
+					: style === "btn-dark-secondary"
+						? "btn-dark-secondary"
+						: style === "invite" || style === "event"
+							? "btn-invite"
+							: style === "role-select-left"
+								? "btn-role-select-left"
+								: style === "role-select-right"
+									? "btn-role-select-right"
+									: style === "none"
+										? ""
+										: "btn-light";
 	const navigate = useNavigate();
 
 	if (href) {
@@ -87,6 +92,7 @@ export default function Button({
 		<button
 			type={type || buttonType}
 			className={`button ${buttonClassName} ${className}`}
+			disabled={disabled}
 			onClick={onClick}
 		>
 			{style === "invite" && !children
