@@ -50,6 +50,29 @@ $types: (
     line-height: 1.5rem;
     }
 
+    &__selectInput {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        color: $font-dark;
+        font-weight: $regular;
+        font-size: inherit;
+        cursor: pointer;
+        
+        &:focus {
+          outline: none;
+        }
+
+        & option {
+            color: $font-dark;
+            font-weight: $regular;
+            font-size: 1rem;
+            &:focus {
+                border-radius: 5px;
+            }
+        }
+    }
+
     &__actions {
         display: flex;
         flex-wrap: wrap;
