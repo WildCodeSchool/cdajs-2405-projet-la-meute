@@ -84,10 +84,22 @@ export const SEARCH_AVAILABLE_EVENTS = gql`
                         id
                         firstname
                         lastname
+                        avatar
+                    }
+                    services {
+                        ...ServiceFragment
+                    }
+                    participation {
+                        id
+                        dog {
+                            ...DogFragment
+                        }
                     }
                 }
             }
         }
     }
 ${EVENT_FRAGMENT}
+${SERVICE_FRAGMENT}
+${DOG_FRAGMENT}
 `;
