@@ -68,14 +68,8 @@ export default function Modal({
 	}, [filePreview]);
 
 	const backdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-		const rect = e.currentTarget.getBoundingClientRect();
-		if (
-			e.clientY < rect.top ||
-			e.clientY > rect.bottom ||
-			e.clientX < rect.left ||
-			e.clientX > rect.right
-		)
-			onClose();
+		if (e.target !== dialogRef.current) return;
+		onClose();
 	};
 
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
