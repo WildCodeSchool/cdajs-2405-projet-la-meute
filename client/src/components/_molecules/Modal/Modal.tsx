@@ -49,10 +49,14 @@ export default function Modal({
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
-
 		if (!dialog) return;
 
-		isOpen ? dialog.showModal() : dialog.close();
+		if (isOpen) {
+			dialog.showModal();
+			dialogRef.current?.focus();
+		} else {
+			dialog.close();
+		}
 	}, [isOpen]);
 
 	useEffect(() => {
@@ -99,6 +103,7 @@ export default function Modal({
 					name="selected"
 					className="modal__selectInput"
 					onChange={handleSelectChange}
+					tabIndex={0}
 				>
 					<option value="">Sélectionnez une option</option>
 					{selectMenu.map((item) => (
