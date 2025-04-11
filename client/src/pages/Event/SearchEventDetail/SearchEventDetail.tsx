@@ -22,6 +22,8 @@ import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
 import Modal from "@/components/_molecules/Modal/Modal";
+import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
+import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
 
 function SearchEventDetail() {
 	const navigate = useNavigate();
@@ -47,11 +49,13 @@ function SearchEventDetail() {
 			ownerId: user?.id ? Number(user.id) : null,
 		},
 		skip: !user?.id,
+		fetchPolicy: "no-cache",
 	});
 
 	const { data, loading, error, refetch } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
 		skip: !id,
+		fetchPolicy: "no-cache",
 	});
 
 	const event = data?.getEventById;
@@ -270,7 +274,7 @@ function SearchEventDetail() {
 							<span className="createEvent__event createEvent__event--buttons">
 								<Button
 									type="button"
-									style="btn-light"
+									style="btn-cancel"
 									onClick={() => setShowModalDelete(true)}
 									className={
 										registeredDogsNames.length === 0 ? "btn-disabled" : ""
@@ -327,19 +331,32 @@ function SearchEventDetail() {
 				type="info"
 				isOpen={showModalAdd}
 				onClose={() => setShowModalAdd(false)}
+				customImage={ImgModalSuccess}
 				selectMenu={availableDogsNames}
 				selectPlaceholder="Choisissez un chien"
 				onSelectChange={handleDogSelection}
 			>
 				<p>Avec quel chien souhaitez-vous participer à cet événement ?</p>
-				<Button style="btn-dark" onClick={handleConfirmDogParticipation}>
-					Confirmer
+				<Button
+					style="button"
+					className="modal__btn--cancelBlue"
+					onClick={() => setShowModalAdd(false)}
+				>
+					Annuler
+				</Button>
+				<Button
+					style="btn-confirm"
+					onClick={handleConfirmDogParticipation}
+					className="eventDetail__btn--confirm"
+				>
+					Confirmer l'inscription
 				</Button>
 			</Modal>
 			<Modal
-				type="info"
+				type="warning"
 				isOpen={showModalDelete}
 				onClose={() => setShowModalDelete(false)}
+				customImage={ImgModalWarning}
 				selectMenu={registeredDogsNames}
 				selectPlaceholder="Choisissez un chien"
 				onSelectChange={handleDogSelection}
@@ -347,8 +364,15 @@ function SearchEventDetail() {
 				<p>
 					Avec quel chien souhaitez-vous vous désinscrire de cet événement ?
 				</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelOrange"
+					onClick={() => setShowModalDelete(false)}
+				>
+					Annuler
+				</Button>
 				<Button style="btn-dark" onClick={handleDeleteDogParticipation}>
-					Confirmer
+					Confirmer la désinscription
 				</Button>
 			</Modal>
 		</>

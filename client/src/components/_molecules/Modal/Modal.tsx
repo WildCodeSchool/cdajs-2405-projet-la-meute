@@ -10,6 +10,7 @@ type ModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	filePreview?: File | null;
+	customImage?: string;
 	selectMenu?: string[];
 	selectPlaceholder?: string;
 	onSelectChange?: (value: string) => void;
@@ -22,6 +23,7 @@ export default function Modal({
 	isOpen,
 	onClose,
 	filePreview = null,
+	customImage,
 	selectMenu,
 	selectPlaceholder,
 	onSelectChange,
@@ -92,8 +94,14 @@ export default function Modal({
 			onKeyDown={() => ""}
 		>
 			<img
-				src={previewUrl ? previewUrl : icons[type]}
-				alt={previewUrl ? "selected file" : `${type} icon`}
+				src={previewUrl || customImage || icons[type]}
+				alt={
+					previewUrl
+						? "selected file"
+						: customImage
+							? "illustration"
+							: `${type} icon`
+				}
 				className="modal__picture"
 			/>
 
@@ -116,16 +124,7 @@ export default function Modal({
 				</select>
 			)}
 
-			<div className="modal__actions">
-				<button
-					type="button"
-					className="modal__actions--cancel"
-					onClick={onClose}
-				>
-					Annuler
-				</button>
-				{action}
-			</div>
+			<div className="modal__actions">{action}</div>
 		</dialog>
 	);
 }
