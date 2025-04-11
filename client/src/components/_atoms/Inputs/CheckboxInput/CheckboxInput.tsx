@@ -50,7 +50,7 @@ const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputProps>(
 			} else if (checked) {
 				setError("");
 			}
-		}, [checked]);
+		}, [checked, touched]);
 
 		const validateValue = () => {
 			let errorMessage = "";

@@ -4,7 +4,8 @@
  * Manages the display and interaction of a single item (title and content)
  */
 
-import React, { useRef, useEffect } from "react";
+import type React from "react";
+import { useRef, useEffect } from "react";
 import "./AccordionItem.scss";
 
 interface AccordionItemProps {
@@ -35,13 +36,14 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 	return (
 		<div className="accordion-item">
 			<button
+				type="button"
 				ref={buttonRef}
 				aria-expanded={isOpen}
 				onClick={onClick}
 				className={isOpen ? "accordion-button-active" : ""}
 			>
 				<span className="accordion-title">{title}</span>
-				<span className="icon" aria-hidden="true"></span>
+				<span className="icon" aria-hidden="true" />
 			</button>
 			<div className="accordion-content">
 				{typeof content === "string" ? <p>{content}</p> : content}
