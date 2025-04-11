@@ -7,7 +7,7 @@ import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 interface TextInputProps {
 	type: TextInputTypes;
 	required?: boolean;
-	passwordRef?: string;
+	passwordRef?: string | React.RefObject<HTMLInputElement>;
 	isLogin?: boolean;
 	inputType?: "input" | "textarea" | "date";
 	style?: "dark" | "light";
@@ -45,12 +45,15 @@ const TextInput = React.forwardRef<
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
+		const [inputTouched, setInputTouched] = useState(false);
 
 		const config = TEXT_INPUT_CONFIG[type];
 		const mappedLabel = label || config.mappedLabel || "";
 		const mappedPlaceholder = placeholder || config.mappedPlaceholder || "";
 		const maxLength = config.maxLength;
 		const validationPattern = config.validationRules?.pattern;
+		const validationMessage =
+			config.validationRules?.message || "Format invalide";
 
 		const fieldName = name || config.mappedName || type;
 
@@ -65,36 +68,44 @@ const TextInput = React.forwardRef<
 		const isPasswordField: boolean =
 			type === "password" || type === "confirmPassword";
 
-		const validateValue = () => {
-			if (isLogin) return;
+		// Specific password validation function
+		const validatePasswordFormat = (value: string): boolean => {
+			if (!validationPattern) return true;
+			return validationPattern.test(value);
+		};
 
+		const validate = (): boolean => {
+			if (isLogin) return true;
+
+			let isValid = true;
 			let errorMessage = "";
 
 			if (required && !value.trim()) {
-				errorMessage = "Ce champ est requis";
+				isValid = false;
+				errorMessage =
+					type === "password" ? validationMessage : "Ce champ est requis";
+			} else if (type === "password" && !validatePasswordFormat(value)) {
+				isValid = false;
+				errorMessage = validationMessage;
 			} else if (type === "confirmPassword" && passwordRef !== value) {
+				isValid = false;
 				errorMessage = "Les mots de passe ne correspondent pas.";
-			} else if (validationPattern && typeof validationPattern === "object") {
-				const pattern =
-					"value" in validationPattern
-						? (validationPattern.value as RegExp)
-						: null;
-				const message =
-					"message" in validationPattern
-						? (validationPattern.message as string)
-						: "Format invalide";
-
-				if (pattern && value && !pattern.test(value)) {
-					errorMessage = message;
-				}
+			} else if (
+				validationPattern &&
+				value.trim() &&
+				!validationPattern.test(value)
+			) {
+				isValid = false;
+				errorMessage = validationMessage;
 			}
 
 			setError(errorMessage);
-			return errorMessage === "";
+			return isValid;
 		};
 
 		const handleBlur = () => {
-			validateValue();
+			setInputTouched(true);
+			validate();
 		};
 
 		const handleChange = (
@@ -104,8 +115,15 @@ const TextInput = React.forwardRef<
 				onChange(e);
 			}
 
-			if (error) {
-				validateValue();
+			if (type === "password" || inputTouched) {
+				if (type === "password") {
+					const isValid = validationPattern
+						? validationPattern.test(e.target.value)
+						: true;
+					setError(isValid ? "" : validationMessage);
+				} else {
+					validate();
+				}
 			}
 		};
 
@@ -176,6 +194,13 @@ const TextInput = React.forwardRef<
 							<Eye className="eyes" fill="none" />
 						)}
 					</button>
+				)}
+				{type === "password" && (
+					// Password info
+					<div className="password-info">
+						Le mot de passe doit contenir au moins 8 caractères, une majuscule,
+						une minuscule, un chiffre et un caractère spécial.
+					</div>
 				)}
 			</div>
 		);

@@ -19,8 +19,13 @@ import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
 import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
+
+import Modal from "@/components/_molecules/Modal/Modal";
+import ImgModal from "@/assets/illustrations/chien-ville-point-exclamation.png";
+
 import type { Dog } from "@/types/Dog";
 import type { Trainer } from "@/types/User";
+import { useState } from "react";
 
 function EventDetail() {
 	const navigate = useNavigate();
@@ -28,6 +33,7 @@ function EventDetail() {
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
 	const { extractDate, extractTime } = useDateFormatter();
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId },
@@ -36,10 +42,8 @@ function EventDetail() {
 
 	const [deleteEventById] = useMutation(DELETE_EVENT_BY_ID, {
 		onCompleted: () => {
-			toast.success("L'événement a été supprimé avec succès !");
-			setTimeout(() => {
-				navigate("/trainer/planning");
-			}, 1500);
+			toast.info("L'événement a été supprimé avec succès !");
+			navigate("/trainer/planning");
 		},
 		onError: (err) => {
 			toast.error(`Erreur lors de la suppression : ${err.message}`);
@@ -65,10 +69,12 @@ function EventDetail() {
 
 	// Function to delete /!\ need to be replace by modal logic /!\
 	const handleDeleteClick = async () => {
-		if (window.confirm("Voulez-vous vraiment supprimer cet événement ?")) {
-			await deleteEventById({ variables: { eventId: Number(id) } });
-			navigate("/trainer/planning/");
-		}
+		setShowDeleteModal(true);
+	};
+
+	const handleConfirmDelete = async () => {
+		await deleteEventById({ variables: { eventId: Number(id) } });
+		setShowDeleteModal(false);
 	};
 
 	// Function to redirect on the edit page of an event
@@ -167,7 +173,7 @@ function EventDetail() {
 							<span className="createEvent__event createEvent__event--buttons">
 								<Button
 									type="button"
-									style="btn-light"
+									style="btn-cancel"
 									onClick={handleDeleteClick}
 								>
 									Supprimer l'événement
@@ -222,6 +228,28 @@ function EventDetail() {
 					</div>
 				</div>
 			</section>
+			<Modal
+				type="warning"
+				isOpen={showDeleteModal}
+				onClose={() => setShowDeleteModal(false)}
+				customImage={ImgModal}
+			>
+				<p> Êtes-vous sûr de vouloir supprimer cet événement ?</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelOrange"
+					onClick={() => setShowDeleteModal(false)}
+				>
+					Annuler
+				</Button>
+				<Button
+					style="button"
+					className="modal__btn--confirm"
+					onClick={handleConfirmDelete}
+				>
+					Supprimer l'événement
+				</Button>
+			</Modal>
 		</>
 	);
 }

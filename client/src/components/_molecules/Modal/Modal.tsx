@@ -10,7 +10,9 @@ type ModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	filePreview?: File | null;
+	customImage?: string;
 	selectMenu?: string[];
+	selectPlaceholder?: string;
 	onSelectChange?: (value: string) => void;
 };
 
@@ -21,7 +23,9 @@ export default function Modal({
 	isOpen,
 	onClose,
 	filePreview = null,
+	customImage,
 	selectMenu,
+	selectPlaceholder,
 	onSelectChange,
 }: ModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -49,10 +53,14 @@ export default function Modal({
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
-
 		if (!dialog) return;
 
-		isOpen ? dialog.showModal() : dialog.close();
+		if (isOpen) {
+			dialog.showModal();
+			dialogRef.current?.focus();
+		} else {
+			dialog.close();
+		}
 	}, [isOpen]);
 
 	useEffect(() => {
@@ -68,14 +76,8 @@ export default function Modal({
 	}, [filePreview]);
 
 	const backdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-		const rect = e.currentTarget.getBoundingClientRect();
-		if (
-			e.clientY < rect.top ||
-			e.clientY > rect.bottom ||
-			e.clientX < rect.left ||
-			e.clientX > rect.right
-		)
-			onClose();
+		if (e.target !== dialogRef.current) return;
+		onClose();
 	};
 
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -92,8 +94,14 @@ export default function Modal({
 			onKeyDown={() => ""}
 		>
 			<img
-				src={previewUrl ? previewUrl : icons[type]}
-				alt={previewUrl ? "selected file" : `${type} icon`}
+				src={previewUrl || customImage || icons[type]}
+				alt={
+					previewUrl
+						? "selected file"
+						: customImage
+							? "illustration"
+							: `${type} icon`
+				}
 				className="modal__picture"
 			/>
 
@@ -105,8 +113,9 @@ export default function Modal({
 					name="selected"
 					className="modal__selectInput"
 					onChange={handleSelectChange}
+					defaultValue=""
 				>
-					<option value="">Sélectionnez une option</option>
+					<option value="">{selectPlaceholder}</option>
 					{selectMenu.map((item) => (
 						<option key={item} value={item}>
 							{item}
@@ -115,16 +124,7 @@ export default function Modal({
 				</select>
 			)}
 
-			<div className="modal__actions">
-				<button
-					type="button"
-					className="modal__actions--cancel"
-					onClick={onClose}
-				>
-					Annuler
-				</button>
-				{action}
-			</div>
+			<div className="modal__actions">{action}</div>
 		</dialog>
 	);
 }

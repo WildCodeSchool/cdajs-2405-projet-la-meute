@@ -12,7 +12,7 @@ const meta = {
 		filterOptions: {
 			control: "object",
 		},
-		setFilters: {
+		setFilter: {
 			table: {
 				disable: true,
 			},
@@ -27,6 +27,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		filterOptions: ["Chien", "Propriétaire", "Evènement"],
-		setFilters: () => {},
+		setFilter: () => {},
 	},
 };

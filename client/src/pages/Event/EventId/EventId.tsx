@@ -14,6 +14,9 @@ import { CREATE_EVENT } from "@/graphQL/mutations/event";
 import LeafletMap, {
 	type leafletMarkerType,
 } from "@/components/_atoms/LeafletMap/LeafletMap";
+import Modal from "@/components/_molecules/Modal/Modal";
+import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
+import ImgModalSuccess from "@/assets/illustrations/chien-porte-welcome.png";
 
 type endTimeStyleType = {
 	outline?: string;
@@ -35,6 +38,8 @@ function EventId() {
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
 	const [services, setServices] = useState<ServiceType[]>([]);
 	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>();
+	const [showCancelModal, setShowCancelModal] = useState(false);
+	const [showCreateModal, setShowCreateModal] = useState(false);
 
 	const [createEvent] = useMutation(CREATE_EVENT);
 
@@ -107,9 +112,31 @@ function EventId() {
 		}
 	};
 
+	const handleFormValidate = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (form.values.startTime >= form.values.endTime) {
+			setEndTimeStyle({ outline: "2px solid red" });
+			toast.error(
+				"Attention : L'heure de fin de l'évènement doit avoir lieu après l'heure de début 🐶",
+			);
+			return;
+		}
+		setShowCreateModal(true);
+	};
+
+	const handleConfirmCreate = async () => {
+		await handleSubmit(form.values);
+		setShowCreateModal(false);
+	};
+
+	const handleConfirmCancel = () => {
+		setShowCancelModal(false);
+		navigate(-1);
+	};
+
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={form.handleSubmit}>
+			<form className="createEvent" onSubmit={handleFormValidate}>
 				<h1 className="createEvent__title">Création d'évènement</h1>
 
 				<TextInput
@@ -227,7 +254,11 @@ function EventId() {
 					<LeafletMap setMarkerLocation={setMarkerLocation} />
 				</span>
 				<span className="createEvent__event createEvent__event--buttons">
-					<Button type="button" style="btn-light" onClick={() => navigate(-1)}>
+					<Button
+						type="button"
+						style="btn-cancel"
+						onClick={() => setShowCancelModal(true)}
+					>
 						Annuler
 					</Button>
 					<Button type="submit" style="btn-dark">
@@ -235,6 +266,43 @@ function EventId() {
 					</Button>
 				</span>
 			</form>
+			<Modal
+				type="warning"
+				isOpen={showCancelModal}
+				onClose={() => setShowCancelModal(false)}
+				customImage={ImgModalWarning}
+			>
+				<p>Êtes-vous sûr de vouloir annuler la création de cet évènement ?</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelOrange"
+					onClick={() => setShowCancelModal(false)}
+				>
+					Continuer à créer
+				</Button>
+				<Button style="btn-dark" onClick={handleConfirmCancel}>
+					Annuler la création
+				</Button>
+			</Modal>
+
+			<Modal
+				type="success"
+				isOpen={showCreateModal}
+				onClose={() => setShowCreateModal(false)}
+				customImage={ImgModalSuccess}
+			>
+				<p>Confirmez-vous la création de cet évènement ?</p>
+				<Button
+					style="button"
+					className="modal__btn--cancelGreen"
+					onClick={() => setShowCreateModal(false)}
+				>
+					Continuer à créer
+				</Button>
+				<Button style="btn-dark" onClick={handleConfirmCreate}>
+					Confirmer la création
+				</Button>
+			</Modal>
 		</section>
 	);
 }

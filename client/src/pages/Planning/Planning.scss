@@ -5,6 +5,10 @@
     margin-top: 3vh;
     /* Under -> Allow to modify element per view */
 
+    .fc-event-past {
+        opacity: 0.7;
+    }
+
     /* dayGridMonth */
     .event-dayGridMonth {
         padding: 5px;
