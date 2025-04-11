@@ -12,8 +12,8 @@ import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { formatEventDateTime } from "@/pages/Planning/Planning";
 import { MapPin } from "@/assets/icons/map-pin";
 
-import Service from "../Service/Service";
 import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import Service from "@/components/_atoms/Service/Service";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const type = entity.__typename.toLowerCase();
@@ -32,7 +32,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						<p className="searchResultItem__owner--name">
 							{owner.firstname} {owner.lastname}
 						</p>
-						<p className="searchResultItem__owner--email">{owner.email}</p>
+						<p className="searchResultItem__owner--email">{owner.email.toLowerCase()}</p>
 						<p className="searchResultItem__owner--location">
 							{owner.postal_code} {owner.city}
 						</p>
