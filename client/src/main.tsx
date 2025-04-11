@@ -23,7 +23,7 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 import Contact from "@/pages/WelcomePage/Contact.tsx";
 import CreateDog from "@/pages/Owner/Dogs/CreateDog/CreateDog.tsx";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId.tsx";
-import CustomerList from "@/pages/Trainer/Customers/CustomerList/CustomerList.tsx";
+import SearchPage from "@/pages/SearchPage/SearchPage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage.tsx";
 import EventId from "@/pages/Event/EventId/EventId.tsx";
@@ -140,7 +140,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <p>search List</p>,
+								element: <SearchPage />,
 							},
 						],
 					},
@@ -219,7 +219,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <CustomerList />,
+								element: <SearchPage />,
 							},
 							{
 								path: ":id",

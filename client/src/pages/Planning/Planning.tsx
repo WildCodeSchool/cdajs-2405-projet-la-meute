@@ -27,11 +27,40 @@ import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
 
 // Interfaces
-import {
+import type {
 	Event,
 	GetAllEventsByTrainerId,
 	GetAllEventsByOwnerId,
 } from "@/types/Event";
+
+export const formatEventDateTime = (startDate: Date, endDate: Date) => {
+	const formatDate = (date: Date) => {
+		const days = [
+			"dimanche",
+			"lundi",
+			"mardi",
+			"mercredi",
+			"jeudi",
+			"vendredi",
+			"samedi",
+		];
+		const day = days[date.getDay()];
+		const dayNum = date.getDate().toString().padStart(2, "0");
+		const month = (date.getMonth() + 1).toString().padStart(2, "0");
+		const year = date.getFullYear();
+
+		return `${day} ${dayNum}/${month}/${year}`;
+	};
+
+	const formatTime = (date: Date) => {
+		const hours = date.getHours().toString().padStart(2, "0");
+		const minutes = date.getMinutes().toString().padStart(2, "0");
+
+		return `${hours}h${minutes}`;
+	};
+
+	return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
+};
 
 function Planning() {
 	/* Business logic */
@@ -202,7 +231,7 @@ function Planning() {
 						// Si on est en vue mensuelle et en mode mobile, afficher un rond
 						if (currentView === "dayGridMonth") {
 							if (isMobile) {
-								return <div className="event-dot"></div>;
+								return <div className="event-dot" />;
 							}
 							return (
 								<div className="event-dayGridMonth">
@@ -220,34 +249,6 @@ function Planning() {
 						}
 						// View listWeek
 						// Function to formate the date with startDate and endDate
-						const formatEventDateTime = (startDate: Date, endDate: Date) => {
-							const formatDate = (date: Date) => {
-								const days = [
-									"dimanche",
-									"lundi",
-									"mardi",
-									"mercredi",
-									"jeudi",
-									"vendredi",
-									"samedi",
-								];
-								const day = days[date.getDay()];
-								const dayNum = date.getDate().toString().padStart(2, "0");
-								const month = (date.getMonth() + 1).toString().padStart(2, "0");
-								const year = date.getFullYear();
-
-								return `${day} ${dayNum}/${month}/${year}`;
-							};
-
-							const formatTime = (date: Date) => {
-								const hours = date.getHours().toString().padStart(2, "0");
-								const minutes = date.getMinutes().toString().padStart(2, "0");
-
-								return `${hours}h${minutes}`;
-							};
-
-							return `Le ${formatDate(startDate)} de ${formatTime(startDate)} jusqu'à ${formatTime(endDate)}`;
-						};
 
 						// Checking if start or end is null
 						if (arg.event.start === null || arg.event.end === null) {

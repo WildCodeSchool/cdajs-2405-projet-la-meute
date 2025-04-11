@@ -1,16 +1,7 @@
-import React from "react";
+import type React from "react";
 import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
-
-interface Dog {
-	id: number;
-	name: string;
-	picture?: string;
-	birthDate?: Date;
-	getAge?: number;
-	breed?: string;
-	info?: string;
-}
+import type { Dog } from "@/types/Dog";
 
 interface DogBubblesProps {
 	dogs: Dog[];
@@ -27,7 +18,7 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 		return (
 			<div className="participants-wrapper">
 				<div className="participants-count">
-					{`0 participant pour le moment / ${maxSize} places disponibles`}
+					{`Aucun participant pour le moment / ${maxSize} places disponibles`}
 				</div>
 			</div>
 		);
@@ -48,6 +39,7 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						className="dog__bubble"
 						style={{ zIndex: dogs.length - index }}
 						onClick={() => handleDogClick(dog)}
+						onKeyDown={() => handleDogClick(dog)}
 						title={dog.name}
 					>
 						<img
