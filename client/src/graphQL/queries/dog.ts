@@ -16,12 +16,26 @@ query GetAllDogsByOwnerId($ownerId: Float!) {
 export const GET_DOG_BY_ID = gql`
 query GetDogById($getDogByIdId: Float!) {
   getDogById(id: $getDogByIdId) {
+    id
+    name
     breed
     birthDate
-    id
     info
-    name
     picture
+  }
+}
+`;
+
+export const GET_OWNER_BY_DOG_ID = gql`
+query GetOwnerByDogId($dogId: Float!) {
+  getOwnerByDogId(dogId: $dogId) {
+    id
+    lastname
+    firstname
+    email
+    phone_number
+    postal_code
+    avatar
   }
 }
 `;

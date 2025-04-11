@@ -28,6 +28,20 @@ export class DogResolver {
 		return dog;
 	}
 
+	@Query(() => Owner, { nullable: true })
+	async getOwnerByDogId(@Arg("dogId") dogId: number): Promise<Owner | null> {
+		const dog = await dogRepository.findOne({
+			where: { id: dogId },
+			relations: ["owner"],
+		});
+
+		if (!dog) {
+			throw new Error(`Dog with ID ${dogId} not found`);
+		}
+
+		return dog.owner;
+	}
+
 	@Mutation(() => Dog)
 	async createDog(
 		@Arg("ownerId") ownerId: number,
