@@ -34,6 +34,7 @@ export default function NewService({
 					services={services}
 					setServices={setServices}
 					onClose={() => setShowModal(false)}
+					isOpen={showModal}
 				/>
 			)}
 		</>
