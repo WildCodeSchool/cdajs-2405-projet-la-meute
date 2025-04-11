@@ -51,6 +51,7 @@ import TestME from "./components/TestME.tsx";
 import TestModal from "./components/TestModal.tsx";
 import { ToastContainer } from "react-toastify";
 import SearchEventDetail from "./pages/Event/SearchEventDetail/SearchEventDetail.tsx";
+import DogId from "./pages/Trainer/Dogs/DogId.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -237,7 +238,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: ":id",
-								element: <p>dogs/:id</p>,
+								element: <DogId />,
 							},
 						],
 					},
