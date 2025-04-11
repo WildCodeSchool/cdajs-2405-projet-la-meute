@@ -157,7 +157,7 @@ function EventUpdate() {
 		}
 	};
 
-	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleFormValidate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (editForm.values.startTime >= editForm.values.endTime) {
 			setEndTimeStyle({ outline: "2px solid red" });
@@ -185,7 +185,7 @@ function EventUpdate() {
 
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={handleFormSubmit}>
+			<form className="createEvent" onSubmit={handleFormValidate}>
 				<h1 className="createEvent__title">Modification de l'évènement</h1>
 
 				<TextInput
