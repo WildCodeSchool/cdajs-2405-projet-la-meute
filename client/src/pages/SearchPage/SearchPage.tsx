@@ -48,6 +48,7 @@ function SearchPage() {
 			...(isTrainer && { trainerId: Number(user?.id) }),
 		},
 		skip: isTrainer && !searchTerm,
+		fetchPolicy: "no-cache",
 	});
 
 	return (
