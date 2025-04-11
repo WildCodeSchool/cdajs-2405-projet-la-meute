@@ -112,7 +112,7 @@ function EventId() {
 		}
 	};
 
-	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleFormValidate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (form.values.startTime >= form.values.endTime) {
 			setEndTimeStyle({ outline: "2px solid red" });
@@ -136,7 +136,7 @@ function EventId() {
 
 	return (
 		<section className="sectionEvent">
-			<form className="createEvent" onSubmit={handleFormSubmit}>
+			<form className="createEvent" onSubmit={handleFormValidate}>
 				<h1 className="createEvent__title">Création d'évènement</h1>
 
 				<TextInput

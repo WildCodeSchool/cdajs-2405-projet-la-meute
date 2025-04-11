@@ -20,7 +20,6 @@ import Button from "@/components/_atoms/Button/Button";
 import Modal from "@/components/_molecules/Modal/Modal";
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
-// import { Participation } from "@/types/Event";
 
 type endTimeStyleType = {
 	outline?: string;
