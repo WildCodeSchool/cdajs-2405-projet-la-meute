@@ -1,0 +1,74 @@
+@use "@style" as *;
+
+.participantsOverview{
+
+    &__price {
+    
+        &--container {
+            background-color: $green-100;
+            border-radius: $atoms-radius;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 3%;
+        }
+    
+        &--divText {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    
+        &--title {
+            font-weight: $bold;
+            font-size: $m;
+        }
+    
+        &--paranthesis {
+            font-weight: $regular;
+            font-style: italic;
+            margin-left: 0.5rem;
+        }
+    
+        &--number {
+            font-weight: $bold;
+            font-size: $m;
+            color: $blue-200;
+        }
+    }
+    
+    &__participation {
+        width: 40%;
+        background-color: none;
+        display: flex;
+        flex-direction: column;
+    
+        &--wrapper {
+            display: flex;
+            flex-grow: 0.3;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+        }
+    
+        &--title {
+            font-size: $l;
+            font-weight: bold;
+            text-align: left;
+            color: $blue-400;
+        }
+    
+        &--card {
+            background-color: $blue-200;
+            border-radius: $atoms-radius;
+            padding: 12px;
+            margin-bottom: 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}

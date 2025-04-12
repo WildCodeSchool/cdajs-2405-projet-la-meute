@@ -14,8 +14,10 @@ import { MapPin } from "@/assets/icons/map-pin";
 
 import Service from "../Service/Service";
 import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import { useUser } from "@/hooks/useUser";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
+	const { role } = useUser();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
@@ -65,7 +67,10 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const event = entity as unknown as Event & { trainer: Trainer };
 	const dogs = event.participation.map((participation) => participation.dog);
 	return (
-		<Link to={`/event/${entity.id}`} className="searchResultItem">
+		<Link
+			to={`/${role}/planning/events/${entity.id}`}
+			className="searchResultItem"
+		>
 			<span className="searchResultItem__event">
 				<h2 className="searchResultItem__event--title">{event.title}</h2>
 				<span className="searchResultItem__event--trainer">

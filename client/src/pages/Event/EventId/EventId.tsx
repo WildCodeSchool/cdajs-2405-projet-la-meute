@@ -102,7 +102,7 @@ function EventId() {
 					},
 				});
 				toast.success("L'évènement a été créé avec succès.");
-				navigate(`/trainer/planning/my-events/${data.createEvent.id}`);
+				navigate(`/trainer/planning/events/${data.createEvent.id}`);
 			} catch (error) {
 				console.error("Erreur lors de la création de l'évènement:", error);
 				toast.error(
