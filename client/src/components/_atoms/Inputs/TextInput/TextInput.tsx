@@ -15,6 +15,7 @@ interface TextInputProps {
 	placeholder?: string;
 	className?: string;
 	name?: string;
+	count?: boolean;
 	value: string;
 	onChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,18 +40,20 @@ const TextInput = React.forwardRef<
 			className = "",
 			name,
 			value,
+			count,
 			onChange,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
+		const [lengthCount, setLengthCount] = useState(0);
 		const [inputTouched, setInputTouched] = useState(false);
 
 		const config = TEXT_INPUT_CONFIG[type];
 		const mappedLabel = label || config.mappedLabel || "";
 		const mappedPlaceholder = placeholder || config.mappedPlaceholder || "";
-		const maxLength = config.maxLength;
+		const maxLength = config.maxLength || 1000;
 		const validationPattern = config.validationRules?.pattern;
 		const validationMessage =
 			config.validationRules?.message || "Format invalide";
@@ -115,6 +118,8 @@ const TextInput = React.forwardRef<
 				onChange(e);
 			}
 
+			setLengthCount(e.target.value.length);
+
 			if (type === "password" || inputTouched) {
 				if (type === "password") {
 					const isValid = validationPattern
@@ -127,10 +132,21 @@ const TextInput = React.forwardRef<
 			}
 		};
 
+		const remaining = maxLength - lengthCount;
+		let countColor = "default";
+		if (remaining <= maxLength * 0.2) {
+			countColor = "warning";
+		}
+		if (remaining === 0) {
+			countColor = "error";
+		}
+
 		return (
 			<div
-				className={`textInput ${className} textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
+				className={`textInput ${className} textInput__${style} ${!isLogin && error ? "has-error" : ""} ${count && "length-counter"}`}
 				data-error={error}
+				data-count={`Caractères restants : ${remaining}`}
+				data-color={countColor}
 			>
 				<label htmlFor={inputId}>
 					{mappedLabel}

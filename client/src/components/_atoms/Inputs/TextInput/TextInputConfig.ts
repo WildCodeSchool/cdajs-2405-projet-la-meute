@@ -141,7 +141,7 @@ export const TEXT_INPUT_CONFIG: Record<TextInputTypes, TextInputConfigItem> = {
 		mappedLabel: "Informations complémentaires",
 		mappedPlaceholder: "Entrez un commentaire sur votre chien",
 		mappedName: "info",
-		maxLength: 1000,
+		maxLength: 255,
 	},
 	title: {
 		mappedLabel: "Nom de l'évènement",
