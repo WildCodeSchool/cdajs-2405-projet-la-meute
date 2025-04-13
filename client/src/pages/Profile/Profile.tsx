@@ -239,6 +239,7 @@ function Profile() {
 								name="description"
 								value={form.values.description}
 								onChange={form.handleChange}
+								count
 							/>
 						</>
 					)}
