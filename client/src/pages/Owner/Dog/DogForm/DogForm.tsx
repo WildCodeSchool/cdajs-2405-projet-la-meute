@@ -182,6 +182,7 @@ export default function DogForm({
 					value={form.values.info}
 					onChange={form.handleChange}
 					className="dogForm__form__description"
+					count
 				/>
 				<span className="dogForm__button">
 					{mode === "update" && (
