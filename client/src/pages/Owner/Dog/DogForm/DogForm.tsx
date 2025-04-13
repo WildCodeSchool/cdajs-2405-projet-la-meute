@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { toast } from "react-toastify";
-import DogDeleteAction from "./Controls/DogDeleteAction";
+import DogDeleteAction from "@/pages/Owner/Dog/DogForm/Controls/DogDeleteAction";
 
 interface DogFormProps {
 	mode: "create" | "update";
