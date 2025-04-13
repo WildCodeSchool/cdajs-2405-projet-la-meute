@@ -39,7 +39,6 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						className="dog__bubble"
 						style={{ zIndex: dogs.length - index }}
 						onClick={() => handleDogClick(dog)}
-						onKeyDown={() => handleDogClick(dog)}
 						title={dog.name}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" || e.key === " ") {
