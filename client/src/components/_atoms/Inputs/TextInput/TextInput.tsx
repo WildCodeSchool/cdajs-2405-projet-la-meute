@@ -211,7 +211,7 @@ const TextInput = React.forwardRef<
 						)}
 					</button>
 				)}
-				{type === "password" && (
+				{type === "password" && !isLogin && (
 					// Password info
 					<div className="password-info">
 						Le mot de passe doit contenir au moins 8 caractères, une majuscule,
