@@ -66,7 +66,9 @@ const TextInput = React.forwardRef<
 
 		const inputId = `textInput-${type}`;
 		const isPasswordField: boolean =
-			type === "password" || type === "confirmPassword";
+			type === "password" ||
+			type === "confirmPassword" ||
+			type === "oldPassword";
 
 		// Specific password validation function
 		const validatePasswordFormat = (value: string): boolean => {

@@ -13,6 +13,7 @@ import type { ViewType } from "./ProfileMenu";
 import ProfileView from "./View/ProfileView";
 import PersonalView from "./View/PersonalView";
 import ProfileMenu from "./ProfileMenu";
+import AccountManagementView from "./View/AccountManagementView";
 
 export interface ProfileFormValues extends Record<string, unknown> {
 	firstname: string;
@@ -34,6 +35,7 @@ function Profile() {
 
 	const [updateUserMutation] = useMutation(UPDATE_USER);
 	const isTrainer = role === "trainer";
+	const accountView = view === "account";
 
 	const initialTrainerFields =
 		isTrainer && user
@@ -116,43 +118,47 @@ function Profile() {
 			<main className="profile">
 				<ProfileMenu isTrainer={isTrainer} setView={setView} />
 
-				<form className="profile__form" onSubmit={form.handleSubmit}>
-					<span className="profile__form--title">
-						<img
-							src={
-								previewUrl
-									? previewUrl
-									: user?.avatar
-										? useImageUrl(user?.avatar)
-										: useImageUrl("/upload/images/defaultuserprofile.jpg")
-							}
-							alt="avatar de l'utilisateur"
-						/>
+				{!accountView && (
+					<form className="profile__form" onSubmit={form.handleSubmit}>
+						<span className="profile__form--title">
+							<img
+								src={
+									previewUrl
+										? previewUrl
+										: user?.avatar
+											? useImageUrl(user?.avatar)
+											: useImageUrl("/upload/images/defaultuserprofile.jpg")
+								}
+								alt="avatar de l'utilisateur"
+							/>
 
-						<h2>
-							{user?.firstname} {user?.lastname}
-						</h2>
-					</span>
-					{view === "profile" && (
-						<ProfileView
-							form={form}
-							isTrainer={isTrainer}
-							setPreviewUrl={setPreviewUrl}
-							selectedFile={selectedFile}
-							setSelectedFile={setSelectedFile}
-						/>
-					)}
-					{view === "personal" && (
-						<PersonalView form={form} isTrainer={isTrainer} />
-					)}
-					<Button
-						className="profile__form--button"
-						type="submit"
-						style="btn-dark"
-					>
-						Sauvegarder le profil
-					</Button>
-				</form>
+							<h2>
+								{user?.firstname} {user?.lastname}
+							</h2>
+						</span>
+						{view === "profile" && (
+							<ProfileView
+								form={form}
+								isTrainer={isTrainer}
+								setPreviewUrl={setPreviewUrl}
+								selectedFile={selectedFile}
+								setSelectedFile={setSelectedFile}
+							/>
+						)}
+						{view === "personal" && (
+							<PersonalView form={form} isTrainer={isTrainer} />
+						)}
+						<Button
+							className="profile__form--button"
+							type="submit"
+							style="btn-dark"
+						>
+							Sauvegarder le profil
+						</Button>
+					</form>
+				)}
+
+				{accountView && <AccountManagementView />}
 			</main>
 		</>
 	);

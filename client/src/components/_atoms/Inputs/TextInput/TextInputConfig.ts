@@ -4,6 +4,7 @@ export type TextInputTypes =
 	| "email"
 	| "password"
 	| "confirmPassword"
+	| "oldPassword"
 	| "lastname"
 	| "firstname"
 	| "city"
@@ -55,6 +56,12 @@ export const TEXT_INPUT_CONFIG: Record<TextInputTypes, TextInputConfigItem> = {
 		mappedLabel: "Confirmation mot de passe",
 		mappedPlaceholder: "Confirmer le mot de passe",
 		mappedName: "confirmPassword",
+		maxLength: 255,
+	},
+	oldPassword: {
+		mappedLabel: "Ancien mot de passe",
+		mappedPlaceholder: "Entrez votre ancien mot de passe",
+		mappedName: "oldPassword",
 		maxLength: 255,
 	},
 	lastname: {

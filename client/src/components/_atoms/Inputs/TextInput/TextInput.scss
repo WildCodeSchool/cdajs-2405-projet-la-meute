@@ -41,6 +41,12 @@
             background-color: $blue-400;
             color: $font-light;
         }
+
+        .password-toggle {  
+            .eyes {
+                stroke: $primary-light;
+            }
+        }
     }
 
     &__light {
@@ -56,6 +62,12 @@
             background-color: $beige-300;
             color: $blue-300;
         }
+
+        .password-toggle {  
+            .eyes {
+                stroke: $primary-dark;
+            }
+        }
     }
 
     .password-toggle {
@@ -68,10 +80,5 @@
         height: min-content;
         line-height: 0;
         padding: 0;
-
-        .eyes {
-            stroke: $primary-light;
-            fill: none;
-        }
     }
 }

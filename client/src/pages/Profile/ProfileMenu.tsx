@@ -22,12 +22,21 @@ function ProfileMenu({ isTrainer, setView }: ProfileMenuProps) {
 			</Button>
 			<Button
 				className="profile__nav--button"
-				style="btn-light"
+				style="btn-dark-secondary"
 				onClick={() => {
 					setView("personal");
 				}}
 			>
 				Informations personnelles
+			</Button>
+			<Button
+				className="profile__nav--button"
+				style="btn-light"
+				onClick={() => {
+					setView("account");
+				}}
+			>
+				Paramètres de l’application
 			</Button>
 			<p>
 				{isTrainer

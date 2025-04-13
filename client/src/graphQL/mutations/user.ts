@@ -47,13 +47,22 @@ export const REQUESTPASSWORDRESET = gql`
   }
 `;
 
-export const PASSWORDRESET = gql`
-  mutation PasswordReset($newPassword: String!, $token: String!) {
-    PasswordReset(newPassword: $newPassword, token: $token) {
+export const PASSWORDRESET_BY_EMAIL = gql`
+  mutation PasswordResetByEmail($newPassword: String!, $token: String!) {
+    PasswordResetByEmail(newPassword: $newPassword, token: $token) {
       message
       success
     }
   }
+`;
+
+export const PASSWORDRESET = gql`
+mutation passwordReset($email: String!, $newPassword: String!, $oldPassword: String!) {
+  passwordReset(email: $email, newPassword: $newPassword, oldPassword: $oldPassword) {
+    message
+    success
+  }
+}
 `;
 
 export const UPDATE_USER = gql`
