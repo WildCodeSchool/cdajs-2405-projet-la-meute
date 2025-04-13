@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import "./TrainerBubble.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 
@@ -34,6 +34,12 @@ const TrainerBubble: React.FC<TrainerBubbleProps> = ({
 					className="trainer__bubble"
 					onClick={() => handleTrainerClick(trainer)}
 					title={trainer.firstname}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							handleTrainerClick(trainer);
+							e.preventDefault();
+						}
+					}}
 				>
 					<img
 						src={

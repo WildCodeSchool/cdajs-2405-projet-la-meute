@@ -129,7 +129,7 @@ function Planning() {
 	}
 
 	const handleDogClick = (dog: Dog) => {
-		navigate(`/trainer/dogs/${dog.id}`);
+		navigate(`/trainer/dog/${dog.id}`);
 	};
 
 	/* FullCalendar views */

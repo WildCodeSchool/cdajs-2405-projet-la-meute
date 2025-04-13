@@ -60,7 +60,7 @@ function EventDetail() {
 	const dogs = event.participation;
 
 	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/trainer/dogs/${dog.id}`);
+		navigate(`/trainer/dog/${dog.id}`);
 	};
 
 	const handleTrainerClick = (trainer: Partial<Trainer>) => {
