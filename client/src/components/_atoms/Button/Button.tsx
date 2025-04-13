@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import "./Button.scss";
 
-type ThinButtonColor = "orange" | "blue" | "green";
+type ThinButtonColor = "orange" | "blue" | "green" | "red";
 
 type ButtonStyles =
 	| "submit"

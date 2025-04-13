@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { toast } from "react-toastify";
+import DogDeleteAction from "./Controls/DogDeleteAction";
 
 interface DogFormProps {
 	mode: "create" | "update";
@@ -183,6 +184,13 @@ export default function DogForm({
 					className="dogForm__form__description"
 				/>
 				<span className="dogForm__button">
+					{mode === "update" && (
+						<DogDeleteAction
+							ownerId={Number(user?.id)}
+							dogId={Number(initialData?.id)}
+							dogName={initialData?.name}
+						/>
+					)}
 					<Button
 						type="submit"
 						style={{ type: "thin-btn-light", color: "orange" }}
@@ -201,7 +209,14 @@ export default function DogForm({
 					Voulez-vous utiliser cette image comme photo pour{" "}
 					{mode === "create" ? "votre chien" : `${initialData?.name}`} ?
 				</p>
-				<Button onClick={confirmFileSelection} style="btn-dark">
+				<Button
+					style="button"
+					className="modal__btn--cancelBlue"
+					onClick={cancelFileSelection}
+				>
+					Annuler
+				</Button>
+				<Button onClick={confirmFileSelection} style="btn-light">
 					Confirmer
 				</Button>
 			</Modal>
