@@ -54,7 +54,7 @@ function EventDetail() {
 	}, [data]);
 
 	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/trainer/dogs/${dog.id}`);
+		navigate(`/dog/${dog.id}`);
 	};
 
 	const handleTrainerClick = (trainer: Partial<Trainer>) => {
