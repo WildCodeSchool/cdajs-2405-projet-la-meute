@@ -41,6 +41,12 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						onClick={() => handleDogClick(dog)}
 						onKeyDown={() => handleDogClick(dog)}
 						title={dog.name}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								handleDogClick(dog);
+								e.preventDefault();
+							}
+						}}
 					>
 						<img
 							src={

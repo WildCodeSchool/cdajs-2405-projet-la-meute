@@ -1,5 +1,5 @@
-npm run check-format || {
-  echo "🚨 Your code is not properly formatted. Please run 'npm run format' in the root directory to fix the formatting."
-  echo "Once formatted, you will need to run 'git add' again before committing."
+npm run check || {
+  echo "🚨 Your code is not properly formatted or has linting errors. Please run 'npm run format' and 'npm run lint' in the root directory to fix the issues."
+  echo "Once fixed, make sure to run 'git add' again before committing."
   exit 1
 }

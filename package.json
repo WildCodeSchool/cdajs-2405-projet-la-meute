@@ -3,7 +3,8 @@
     "install:all": "npm install && cd server && npm install && cd .. && cd client && npm install && cd ..",
     "ci:all": "npm ci && cd server && npm ci && cd .. && cd client && npm ci && cd ..",
     "db:init": "ts-node ./_ressources/scripts/init_db_user.ts",
-    "check-format": "npx @biomejs/biome format ./server/src ./client/src",
+    "check": "npx @biomejs/biome check ./server/src ./client/src",
+    "lint": "npx @biomejs/biome lint --write ./server/src ./client/src",
     "format": "npx @biomejs/biome format --write ./server/src ./client/src",
     "prepare": "husky",
     "client-package": "./client-package.sh"
