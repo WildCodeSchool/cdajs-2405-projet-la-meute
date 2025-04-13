@@ -7,26 +7,8 @@ import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import OwnerBubble from "@/components/_molecules/OwnerBubble/OwnerBubble";
-
-interface Owner {
-	id: number;
-	lastname: string;
-	firstname: string;
-	email?: string;
-	phone_number?: string;
-	postal_code: string;
-	avatar: string;
-}
-
-interface Dog {
-	id: number;
-	name: string;
-	picture?: string;
-	birthDate?: string;
-	getAge?: number;
-	breed?: string;
-	info?: string;
-}
+import type { Dog } from "@/types/Dog";
+import type { Owner } from "@/types/User";
 
 function DogId() {
 	const { id } = useParams();
@@ -63,13 +45,12 @@ function DogId() {
 		? new Date(dog.birthDate).toLocaleDateString()
 		: "Non renseignée";
 
-	// Function to return to the previous page
 	const handleGoBack = () => {
 		navigate(-1);
 	};
 
 	const handleOwnerClick = (owner: Owner) => {
-		navigate(`/trainer/owners/${owner.id}`);
+		navigate(`/owner/${owner.id}`);
 	};
 
 	return (
@@ -104,18 +85,18 @@ function DogId() {
 
 						<div className="dogProfile__form--info">
 							<div className="dogProfile__form--detail">
-								<label>Race</label>
+								<h3>Race</h3>
 								<p>{dog.breed || "Non renseignée"}</p>
 							</div>
 
 							<div className="dogProfile__form--detail">
-								<label>Date de naissance</label>
+								<h3>Date de naissance</h3>
 								<p>{formattedBirthDate}</p>
 							</div>
 
 							{dog.info && (
 								<div className="dogProfile__form--detail">
-									<label>Description</label>
+									<h3>Description</h3>
 									<p className="dogProfile__form--description">{dog.info}</p>
 								</div>
 							)}
@@ -137,7 +118,6 @@ function DogId() {
 						)}
 
 						<div className="dogProfile__nav--button">
-							{/* Button to return to the previous page */}
 							<Button
 								style={{ type: "thin-btn-light", color: "blue" }}
 								onClick={handleGoBack}

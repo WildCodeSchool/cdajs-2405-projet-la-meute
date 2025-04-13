@@ -1,16 +1,7 @@
-import React from "react";
+import type React from "react";
 import "./OwnerBubble.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
-
-interface Owner {
-	id: number;
-	lastname: string;
-	firstname: string;
-	email?: string;
-	phone_number?: string;
-	postal_code: string;
-	avatar: string;
-}
+import type { Owner } from "@/types/User";
 
 interface OwnerBubbleProps {
 	owner: Owner;
@@ -30,6 +21,7 @@ const OwnerBubble: React.FC<OwnerBubbleProps> = ({ owner, onOwnerClick }) => {
 				<div
 					className="owner__bubble"
 					onClick={() => handleOwnerClick(owner)}
+					onKeyDown={() => handleOwnerClick(owner)}
 					title={owner.firstname}
 				>
 					<img

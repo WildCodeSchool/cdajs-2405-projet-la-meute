@@ -6,6 +6,7 @@ import {
 	Navigate,
 } from "react-router-dom";
 import client from "@/graphQL/apolloClient.ts";
+import { ToastContainer } from "react-toastify";
 
 // Style
 import "@/styles/global.scss";
@@ -21,7 +22,7 @@ import WelcomePageLayout from "@/layouts/WelcomePage/WelcomePageLayout.tsx";
 
 // Components
 import Contact from "@/pages/WelcomePage/Contact.tsx";
-import CreateDog from "@/pages/Owner/Dogs/CreateDog/CreateDog.tsx";
+import CreateDog from "@/pages/Owner/Dog/CreateDog/CreateDog.tsx";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId.tsx";
 import SearchPage from "@/pages/SearchPage/SearchPage.tsx";
 import DesignSystem from "@/pages/DesignSystem/DesignSystem.tsx";
@@ -31,7 +32,7 @@ import EventList from "@/pages/Event/EventList/EventList.tsx";
 import Homepage from "@/pages/Homepage/Homepage.tsx";
 import Login from "@/pages/Login/Login.tsx";
 import NewPassword from "@/pages/Login/NewPassword.tsx";
-import MyDogList from "@/pages/Owner/Dogs/DogList/MyDogList.tsx";
+import MyDogList from "@/pages/Owner/Dog/DogList/MyDogList.tsx";
 import Planning from "@/pages/Planning/Planning.tsx";
 import EventDetail from "@/pages/Event/EventDetail/EventDetail.tsx";
 import EventUpdate from "@/pages/Event/EventUpdate/EventUpdate.tsx";
@@ -40,17 +41,16 @@ import Registration from "@/pages/Registration/Registration.tsx";
 import ResetLink from "@/pages/Login/ResetLink.tsx";
 import ResetPassword from "@/pages/Login/ResetPassword.tsx";
 import FAQ from "@/pages/WelcomePage/FAQ.tsx";
-import UpdateDog from "@/pages/Owner/Dogs/UpdateDog/UpdateDog.tsx";
+import UpdateDog from "@/pages/Owner/Dog/UpdateDog/UpdateDog.tsx";
 import PrivacyPolicy from "@/pages/WelcomePage/PrivacyPolicy.tsx";
 import LegalNotice from "@/pages/WelcomePage/LegalNotice.tsx";
 import GeneralTerms from "@/pages/WelcomePage/GeneralTerms.tsx";
 import SearchEventDetail from "@/pages/Event/SearchEventDetail/SearchEventDetail.tsx";
-import DogId from "./pages/Trainer/Dogs/DogId.tsx";
+import DogId from "@/pages/Trainer/DogId/DogId.tsx";
 
 // FIXME: delete
 import TestME from "@/components/TestME.tsx";
 import TestModal from "@/components/TestModal.tsx";
-import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
 	{
@@ -229,17 +229,27 @@ const router = createBrowserRouter([
 						],
 					},
 					{
-						path: "dogs",
+						path: "dog",
 						children: [
 							{
 								index: true,
 								element: <p>dogs List</p>,
 							},
-							{
-								path: ":id",
-								element: <DogId />,
-							},
 						],
+					},
+				],
+			},
+			{
+				path: "dog",
+				element: (
+					<AuthGuard allowedRoles={["trainer", "owner"]}>
+						<DashLayout />
+					</AuthGuard>
+				),
+				children: [
+					{
+						path: ":id",
+						element: <DogId />,
 					},
 				],
 			},
