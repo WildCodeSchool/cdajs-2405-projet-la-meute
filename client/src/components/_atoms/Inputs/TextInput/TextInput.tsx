@@ -47,7 +47,7 @@ const TextInput = React.forwardRef<
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
-		const [lengthCount, setLengthCount] = useState(0);
+		const [lengthCount, setLengthCount] = useState(value.length);
 		const [inputTouched, setInputTouched] = useState(false);
 
 		const config = TEXT_INPUT_CONFIG[type];
