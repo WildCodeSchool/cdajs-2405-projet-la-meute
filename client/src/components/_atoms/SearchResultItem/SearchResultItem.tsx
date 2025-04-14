@@ -21,7 +21,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
 		return (
-			<Link to={`/owner/${owner.id}`} className="searchResultItem">
+			<Link to={`/profile/owner/${owner.id}`} className="searchResultItem">
 				<span className="searchResultItem__owner">
 					<img
 						src={useImageUrl(owner.avatar)}

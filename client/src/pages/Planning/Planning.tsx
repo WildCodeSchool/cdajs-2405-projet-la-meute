@@ -303,9 +303,9 @@ function Planning() {
 						const userRole = user?.role;
 						// Navigate to the event in function of the role
 						if (userRole === "trainer") {
-							navigate(`/trainer/planning/my-events/${eventId}`);
+							navigate(`/event/${eventId}`);
 						} else if (userRole === "owner") {
-							navigate(`/owner/planning/my-events/${eventId}`);
+							navigate(`/owner/planning/events/${eventId}`);
 						} else {
 							// If an unauthorized user tries to force the URL
 							console.error("Vous n'êtes pas autorisé à voir cet événement");

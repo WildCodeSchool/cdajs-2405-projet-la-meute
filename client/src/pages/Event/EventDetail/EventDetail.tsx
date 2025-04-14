@@ -64,7 +64,7 @@ function EventDetail() {
 	};
 
 	const handleTrainerClick = (trainer: Partial<Trainer>) => {
-		navigate(`/owner/search/trainer/${trainer.id}`);
+		navigate(`/profile/trainer/${trainer.id}`);
 	};
 
 	// Function to delete /!\ need to be replace by modal logic /!\
@@ -79,7 +79,7 @@ function EventDetail() {
 
 	// Function to redirect on the edit page of an event
 	const handleEditClick = () => {
-		navigate(`/trainer/planning/my-events/${id}/edit`);
+		navigate(`/event/${id}/edit`);
 	};
 
 	// Function to get the real number of available slots

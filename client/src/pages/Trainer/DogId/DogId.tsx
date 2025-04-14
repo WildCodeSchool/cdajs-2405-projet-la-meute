@@ -50,7 +50,7 @@ function DogId() {
 	};
 
 	const handleOwnerClick = (owner: Owner) => {
-		navigate(`/owner/${owner.id}`);
+		navigate(`/profile/owner/${owner.id}`);
 	};
 
 	return (

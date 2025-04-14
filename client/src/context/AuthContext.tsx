@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			isTrainer: tokenRole === "trainer",
 		},
 		skip: !token,
+		fetchPolicy: "no-cache",
 	});
 
 	const user = data?.me
