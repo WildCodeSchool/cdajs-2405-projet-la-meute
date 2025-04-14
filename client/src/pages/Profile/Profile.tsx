@@ -239,6 +239,7 @@ function Profile() {
 								name="description"
 								value={form.values.description}
 								onChange={form.handleChange}
+								count
 							/>
 						</>
 					)}
@@ -293,7 +294,14 @@ function Profile() {
 					filePreview={tempFile}
 				>
 					<p>Voulez-vous utiliser cette image comme avatar ?</p>
-					<Button onClick={confirmFileSelection} style="btn-dark">
+					<Button
+						style="button"
+						className="modal__btn--cancelBlue"
+						onClick={cancelFileSelection}
+					>
+						Annuler
+					</Button>
+					<Button onClick={confirmFileSelection} style="btn-light">
 						Confirmer
 					</Button>
 				</Modal>

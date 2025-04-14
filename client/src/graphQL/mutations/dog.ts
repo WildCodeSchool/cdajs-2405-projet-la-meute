@@ -28,3 +28,9 @@ mutation UpdateDog($ownerId: Float!, $dogId: Float!, $name: String, $birthDate: 
     }
 }
 `;
+
+export const DELETE_DOG = gql`
+mutation DeleteDog($ownerId: Float!, $dogId: Float!) {
+    deleteDog(ownerId: $ownerId, dogId: $dogId)
+}
+`;
