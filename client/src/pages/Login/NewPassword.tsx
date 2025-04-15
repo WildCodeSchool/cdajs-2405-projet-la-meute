@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useForm } from "@/hooks/useForm";
 import { useMutation } from "@apollo/client";
-import { PASSWORDRESET_BY_EMAIL } from "@/graphQL/mutations/user";
+import { PASSWORD_RESET_BY_EMAIL } from "@/graphQL/mutations/user";
 
 function NewPassword() {
 	const [searchParams] = useSearchParams();
@@ -16,7 +16,7 @@ function NewPassword() {
 	const [message, setMessage] = useState("");
 
 	const [resetPasswordByEmail, { loading }] = useMutation(
-		PASSWORDRESET_BY_EMAIL,
+		PASSWORD_RESET_BY_EMAIL,
 		{
 			onCompleted: (data) => {
 				if (data.PasswordResetByEmail.success) {

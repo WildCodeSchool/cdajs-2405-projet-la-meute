@@ -40,8 +40,8 @@ function ProfileMenu({ isTrainer, setView }: ProfileMenuProps) {
 			</Button>
 			<p>
 				{isTrainer
-					? "Modifiez les informations visibles par vos clients dans votre Profil Educateur et les informations non-visibles dans Informations personnelles."
-					: "Modifiez les informations visibles par les éducateurs dans votre Profil et les informations non-visibles dans Informations personnelles."}
+					? "Modifiez les informations visibles par vos clients dans votre Profil Éducateur et les informations non visibles dans Informations personnelles."
+					: "Modifiez les informations visibles par les éducateurs dans votre Profil et les informations non visibles dans Informations personnelles."}
 			</p>
 		</nav>
 	);

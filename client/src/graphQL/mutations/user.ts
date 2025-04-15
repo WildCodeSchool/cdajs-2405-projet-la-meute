@@ -38,7 +38,7 @@ export const LOGIN = gql`
     }
 `;
 
-export const REQUESTPASSWORDRESET = gql`
+export const REQUEST_PASSWORD_RESET = gql`
   mutation RequestPasswordReset($email: String!) {
     RequestPasswordReset(email: $email) {
       message
@@ -47,7 +47,7 @@ export const REQUESTPASSWORDRESET = gql`
   }
 `;
 
-export const PASSWORDRESET_BY_EMAIL = gql`
+export const PASSWORD_RESET_BY_EMAIL = gql`
   mutation PasswordResetByEmail($newPassword: String!, $token: String!) {
     PasswordResetByEmail(newPassword: $newPassword, token: $token) {
       message
@@ -56,7 +56,7 @@ export const PASSWORDRESET_BY_EMAIL = gql`
   }
 `;
 
-export const PASSWORDRESET = gql`
+export const PASSWORD_RESET = gql`
 mutation passwordReset($email: String!, $newPassword: String!, $oldPassword: String!) {
   passwordReset(email: $email, newPassword: $newPassword, oldPassword: $oldPassword) {
     message

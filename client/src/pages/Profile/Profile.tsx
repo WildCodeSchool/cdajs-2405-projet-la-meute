@@ -1,14 +1,16 @@
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import "./Profile.scss";
-import Button from "@/components/_atoms/Button/Button";
 import { toast } from "react-toastify";
-import { useUser } from "@/hooks/useUser";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@/graphQL/mutations/user";
+import { useUser } from "@/hooks/useUser";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useForm } from "@/hooks/useForm";
 import type { Trainer } from "@/types/User";
+
+import Button from "@/components/_atoms/Button/Button";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+
 import type { ViewType } from "./ProfileMenu";
 import ProfileView from "./View/ProfileView";
 import PersonalView from "./View/PersonalView";

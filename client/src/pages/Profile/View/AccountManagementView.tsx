@@ -1,6 +1,6 @@
 import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import { PASSWORDRESET } from "@/graphQL/mutations/user";
+import { PASSWORD_RESET } from "@/graphQL/mutations/user";
 import { useForm } from "@/hooks/useForm";
 import { useUser } from "@/hooks/useUser";
 import { useMutation } from "@apollo/client";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 function AccountManagementView() {
 	const { user } = useUser();
-	const [resetPassword] = useMutation(PASSWORDRESET);
+	const [resetPassword] = useMutation(PASSWORD_RESET);
 
 	const resetPasswordForm = useForm({
 		initialValues: {
