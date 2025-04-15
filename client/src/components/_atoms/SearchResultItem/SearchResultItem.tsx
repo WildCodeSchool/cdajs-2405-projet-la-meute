@@ -13,7 +13,7 @@ import { formatEventDateTime } from "@/pages/Planning/Planning";
 import { MapPin } from "@/assets/icons/map-pin";
 
 import Service from "../Service/Service";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
 import { useUser } from "@/hooks/useUser";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {

@@ -1,6 +1,6 @@
 import "./ParticipantsOverview.scss";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
-import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
+import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
+import TrainerBubble from "@/components/_atoms/TrainerBubble/TrainerBubble";
 import type { Dog } from "@/types/Dog";
 
 import type { Event } from "@/types/Event";

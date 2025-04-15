@@ -1,7 +1,7 @@
 import "@/pages/Planning/Planning.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
 
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";

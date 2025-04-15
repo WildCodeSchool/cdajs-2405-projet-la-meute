@@ -18,7 +18,7 @@ import type { Dog } from "@/types/Dog";
 import type { Trainer } from "@/types/User";
 import EventActionsByRole from "./Controls/EventActionsByRole";
 import { useEffect, useState } from "react";
-import ParticipantsOverview from "@/components/_organisms/ParticipantsOverview/ParticipantsOverview";
+import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
 
 function EventDetail() {
 	const navigate = useNavigate();
