@@ -194,7 +194,7 @@ function Planning() {
 			<PlanningHeader
 				title={title}
 				buttonLabel="event"
-				href="/trainer/planning/new"
+				href="/trainer/planning/events/new"
 			/>
 			<div className="calendar-container">
 				<FullCalendar
