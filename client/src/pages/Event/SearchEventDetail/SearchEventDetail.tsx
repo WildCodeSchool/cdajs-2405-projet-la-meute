@@ -20,7 +20,7 @@ import Service from "@/components/_atoms/Service/Service";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
+import TrainerBubble from "@/components/_atoms/TrainerBubble/TrainerBubble";
 import Modal from "@/components/_molecules/Modal/Modal";
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
