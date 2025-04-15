@@ -21,7 +21,10 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
 		return (
-			<Link to={`/profile/owner/${owner.id}`} className="searchResultItem">
+			<Link
+				to={`/profile/public/owner/${owner.id}`}
+				className="searchResultItem"
+			>
 				<span className="searchResultItem__owner">
 					<img
 						src={useImageUrl(owner.avatar)}
@@ -44,7 +47,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 				<span className="searchResultItem__owner--dogs">
 					{owner.dogs.map((dog) => (
 						<Link
-							to={`/dog/${dog.id}`}
+							to={`/profile/public/dog/${dog.id}`}
 							key={dog.id}
 							className="searchResultItem__owner--dog"
 						>

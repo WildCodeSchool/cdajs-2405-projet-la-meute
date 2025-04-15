@@ -60,11 +60,11 @@ function EventDetail() {
 	const dogs = event.participation;
 
 	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/dog/${dog.id}`);
+		navigate(`/profile/public/dog/${dog.id}`);
 	};
 
 	const handleTrainerClick = (trainer: Partial<Trainer>) => {
-		navigate(`/profile/trainer/${trainer.id}`);
+		navigate(`/profile/public/trainer/${trainer.id}`);
 	};
 
 	// Function to delete /!\ need to be replace by modal logic /!\

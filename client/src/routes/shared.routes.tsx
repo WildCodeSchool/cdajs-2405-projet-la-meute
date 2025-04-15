@@ -5,21 +5,6 @@ import Profile from "@/pages/Profile/Profile";
 import DogId from "@/pages/Trainer/DogId/DogId";
 import type { RouteObject } from "react-router-dom";
 
-export const sharedDogRoutes: RouteObject = {
-	path: "dog",
-	element: (
-		<AuthGuard allowedRoles={["trainer", "owner"]}>
-			<DashLayout />
-		</AuthGuard>
-	),
-	children: [
-		{
-			path: ":id",
-			element: <DogId />,
-		},
-	],
-};
-
 export const sharedEventRoutes: RouteObject = {
 	path: "event",
 	element: (
@@ -48,12 +33,16 @@ export const sharedProfileRoutes: RouteObject = {
 			element: <Profile />,
 		},
 		{
-			path: "trainer/:id",
+			path: "public/trainer/:id",
 			element: "trainer profile",
 		},
 		{
-			path: "owner/:id",
+			path: "public/owner/:id",
 			element: "owner profile",
+		},
+		{
+			path: "public/dog/:id",
+			element: <DogId />,
 		},
 	],
 };
