@@ -300,16 +300,7 @@ function Planning() {
 					eventClick={(clickInfo) => {
 						// Get event id to use it in the path
 						const eventId = clickInfo.event.id;
-						const userRole = user?.role;
-						// Navigate to the event in function of the role
-						if (userRole === "trainer") {
-							navigate(`/event/${eventId}`);
-						} else if (userRole === "owner") {
-							navigate(`/owner/planning/events/${eventId}`);
-						} else {
-							// If an unauthorized user tries to force the URL
-							console.error("Vous n'êtes pas autorisé à voir cet événement");
-						}
+						navigate(`/event/${eventId}`);
 					}}
 				/>
 			</div>
