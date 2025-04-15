@@ -29,14 +29,12 @@ export default function NewService({
 				{children}
 			</Button>
 
-			{showModal && (
-				<ServiceModal
-					services={services}
-					setServices={setServices}
-					onClose={() => setShowModal(false)}
-					isOpen={showModal}
-				/>
-			)}
+			<ServiceModal
+				services={services}
+				setServices={setServices}
+				onClose={() => setShowModal(false)}
+				isOpen={showModal}
+			/>
 		</>
 	);
 }
