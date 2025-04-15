@@ -145,11 +145,14 @@ export class UserResolvers {
 			}
 			throw new Error("Rôle invalide");
 		} catch (error) {
-			console.error("Erreur lors de l'inscription:", error);
-			throw new Error("Erreur lors de l'inscription");
+			if (error instanceof Error) {
+				console.error("Erreur :", error.message);
+				throw new Error(error.message);
+			}
+			console.error("Erreur inconnue :", error);
+			throw new Error("Une erreur inconnue est survenue.");
 		}
 	}
-
 	// Login
 	// User logs in with email and password
 	@Mutation(() => String, { nullable: true })
