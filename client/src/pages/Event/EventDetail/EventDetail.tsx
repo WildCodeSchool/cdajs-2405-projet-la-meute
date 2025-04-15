@@ -17,13 +17,12 @@ import Service from "@/components/_atoms/Service/Service";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
-import TrainerBubble from "@/components/_molecules/TrainerBubble/TrainerBubble";
+import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
+import TrainerBubble from "@/components/_atoms/TrainerBubble/TrainerBubble";
 
 import Modal from "@/components/_molecules/Modal/Modal";
 import ImgModal from "@/assets/illustrations/chien-ville-point-exclamation.png";
 
-import type { Dog } from "@/types/Dog";
 import type { Trainer } from "@/types/User";
 import { useState } from "react";
 
@@ -58,10 +57,6 @@ function EventDetail() {
 
 	const event = data?.getEventById;
 	const dogs = event.participation;
-
-	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/dog/${dog.id}`);
-	};
 
 	const handleTrainerClick = (trainer: Partial<Trainer>) => {
 		navigate(`/owner/search/trainer/${trainer.id}`);
@@ -202,7 +197,6 @@ function EventDetail() {
 								<DogBubbles
 									dogs={dogs.map((p: Participation) => p.dog)}
 									maxSize={event.group_max_size}
-									onDogClick={handleDogClick}
 								/>
 							</div>
 						</>

@@ -9,11 +9,11 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
-import { formatEventDateTime } from "@/pages/Planning/Planning";
+import { formatEventDateTime } from "@/helpers/formatEventDate";
 import { MapPin } from "@/assets/icons/map-pin";
 
 import Service from "../Service/Service";
-import DogBubbles from "@/components/_molecules/DogsBubbles/DogsBubbles";
+import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const type = entity.__typename.toLowerCase();
