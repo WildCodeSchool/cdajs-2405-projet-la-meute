@@ -258,7 +258,7 @@ export class UserResolvers {
 	// request password reset
 	// User have a valid token and reset password.
 	@Mutation(() => authTypes.ResetPasswordResponse)
-	async PasswordReset(
+	async PasswordResetByEmail(
 		@Arg("token") token: string,
 		@Arg("newPassword") newPassword: string,
 	): Promise<authTypes.ResetPasswordResponse> {
@@ -319,6 +319,84 @@ export class UserResolvers {
 			};
 		} catch (error) {
 			console.error("Erreur changement mot de passe:", error);
+			return {
+				success: false,
+				message:
+					error instanceof Error
+						? error.message
+						: "Une erreur est survenue lors du changement de mot de passe",
+			};
+		}
+	}
+
+	@Mutation(() => authTypes.ResetPasswordResponse)
+	async passwordReset(
+		@Arg("oldPassword") oldPassword: string,
+		@Arg("newPassword") newPassword: string,
+		@Arg("email") email: string,
+	): Promise<authTypes.ResetPasswordResponse> {
+		try {
+			if (!oldPassword || !newPassword || !email) {
+				throw new Error("Passwords and email are required");
+			}
+
+			const secretKey = process.env.JWTSECRETKEY;
+			if (!secretKey) {
+				throw new Error("JWT secret key is not defined");
+			}
+
+			const user = await this.findUserByEmail(email.trim(), {
+				select: ["id", "password_hashed", "role"],
+			});
+
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			// Using bcrypt to compare submitted password with hashed password
+			const validPassword = await user.checkPassword(oldPassword);
+			if (!validPassword) {
+				throw new Error("L'ancien mot de passe est incorrect");
+			}
+
+			if (user.role === "owner") {
+				const ownerRepository = dataSource.getRepository(Owner);
+				const owner = await ownerRepository.findOne({
+					where: { id: user.id },
+				});
+
+				if (!owner) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await owner.resetPassword(newPassword);
+				await ownerRepository.save(owner);
+			} else {
+				const trainerRepository = dataSource.getRepository(Trainer);
+				const trainer = await trainerRepository.findOne({
+					where: { id: user.id },
+				});
+
+				if (!trainer) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await trainer.resetPassword(newPassword);
+				await trainerRepository.save(trainer);
+			}
+
+			return {
+				success: true,
+				message: "Votre mot de passe a été modifié avec succès",
+			};
+		} catch (error) {
+			console.error("Erreur lors du changement de mot de passe:", error);
 			return {
 				success: false,
 				message:
