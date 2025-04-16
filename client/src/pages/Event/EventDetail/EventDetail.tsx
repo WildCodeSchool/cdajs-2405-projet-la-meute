@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
 import { useUser } from "@/hooks/useUser";
@@ -14,14 +14,11 @@ import Service from "@/components/_atoms/Service/Service";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 
-import type { Dog } from "@/types/Dog";
-import type { Trainer } from "@/types/User";
 import EventActionsByRole from "./Controls/EventActionsByRole";
 import { useEffect, useState } from "react";
 import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
 
 function EventDetail() {
-	const navigate = useNavigate();
 	const { id } = useParams();
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
@@ -52,14 +49,6 @@ function EventDetail() {
 			setAvailableSlots(slots);
 		}
 	}, [data]);
-
-	const handleDogClick = (dog: Partial<Dog>) => {
-		navigate(`/dog/${dog.id}`);
-	};
-
-	const handleTrainerClick = (trainer: Partial<Trainer>) => {
-		navigate(`/owner/search/trainer/${trainer.id}`);
-	};
 
 	// States loading management
 	if (!user) return <div>Chargement de l'utilisateur...</div>;
@@ -149,14 +138,12 @@ function EventDetail() {
 							type="dogs"
 							event={event}
 							dogs={dogs}
-							bubbleAction={handleDogClick}
 						/>
 					) : (
 						<ParticipantsOverview
 							title="Éducateur"
 							type="trainer"
 							event={event}
-							bubbleAction={handleTrainerClick}
 						/>
 					)}
 				</div>

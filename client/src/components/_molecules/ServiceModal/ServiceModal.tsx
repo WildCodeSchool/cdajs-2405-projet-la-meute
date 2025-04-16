@@ -18,10 +18,12 @@ export default function ServiceModal({
 	services,
 	setServices,
 	onClose,
+	isOpen,
 }: {
 	services: ServiceType[];
 	setServices: Dispatch<SetStateAction<ServiceType[]>>;
 	onClose: () => void;
+	isOpen: boolean;
 }) {
 	const defaultService = {
 		title: "",
@@ -37,9 +39,22 @@ export default function ServiceModal({
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 	const emojiPickerRef = useRef<HTMLDivElement>(null);
+	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	const { data, loading, error, refetch } = useQuery(GET_ALL_SERVICES);
 	const [createService] = useMutation(CREATE_SERVICE);
+
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen) {
+			dialog.showModal();
+			dialogRef.current?.focus();
+		} else {
+			dialog.close();
+		}
+	}, [isOpen]);
 
 	const colorOptions = [
 		"#7DADEB",
@@ -56,10 +71,6 @@ export default function ServiceModal({
 	useEffect(() => {
 		services ? setChosenServices(services) : setChosenServices([]);
 	}, [services]);
-
-	if (loading) return <p>Chargement des étiquettes...</p>;
-	if (error) return <p>Erreur : {error.message}</p>;
-	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
 
 	const handleSelectService = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedService = data.getAllServices.find(
@@ -133,8 +144,31 @@ export default function ServiceModal({
 		onClose();
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === "Escape" && isOpen) {
+			onClose();
+		}
+	};
+
+	const backdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+		if (e.target === dialogRef.current) {
+			e.preventDefault();
+			onClose();
+		}
+	};
+
+	if (loading) return <p>Chargement des étiquettes...</p>;
+	if (error) return <p>Erreur : {error.message}</p>;
+	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
+
 	return (
-		<dialog className="serviceModal">
+		<dialog
+			className="serviceModal"
+			ref={dialogRef}
+			onClick={backdropClick}
+			onCancel={onClose}
+			onKeyDown={handleKeyDown}
+		>
 			<div className="serviceModal__content">
 				{/* Pick an existing service */}
 				<label htmlFor="services" className="serviceModal__content--title">

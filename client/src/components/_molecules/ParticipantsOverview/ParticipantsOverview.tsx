@@ -4,21 +4,18 @@ import TrainerBubble from "@/components/_atoms/TrainerBubble/TrainerBubble";
 import type { Dog } from "@/types/Dog";
 
 import type { Event } from "@/types/Event";
-import type { Trainer } from "@/types/User";
 
 type ParticipantsOverviewProps = {
 	title: string;
 	type: "trainer" | "dogs";
 	event: Event;
 	dogs?: Dog[];
-	bubbleAction: (entity: Trainer | Dog) => void;
 };
 
 function ParticipantsOverview({
 	title,
 	type,
 	event,
-	bubbleAction,
 	dogs,
 }: ParticipantsOverviewProps) {
 	return (
@@ -28,7 +25,6 @@ function ParticipantsOverview({
 				{type === "trainer" ? (
 					<TrainerBubble
 						trainer={event.trainer}
-						onTrainerClick={() => bubbleAction(event.trainer)} // Passe directement event.trainer
 					/>
 				) : (
 					type === "dogs" &&
@@ -36,7 +32,6 @@ function ParticipantsOverview({
 						<DogBubbles
 							dogs={dogs.map((dog) => dog)}
 							maxSize={event.group_max_size}
-							onDogClick={bubbleAction}
 						/>
 					)
 				)}

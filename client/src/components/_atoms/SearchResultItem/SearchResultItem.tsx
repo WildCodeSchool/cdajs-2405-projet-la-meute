@@ -9,7 +9,7 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
-import { formatEventDateTime } from "@/pages/Planning/Planning";
+import { formatEventDateTime } from "@/helpers/formatEventDate";
 import { MapPin } from "@/assets/icons/map-pin";
 
 import Service from "../Service/Service";
