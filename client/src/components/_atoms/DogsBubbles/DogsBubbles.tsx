@@ -22,8 +22,8 @@ const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
 		);
 	}
 
-	const handleDogClick = (dog: Dog) => {
-		navigate(`/dog/${dog.id}`);
+	const handleDogClick = (dogId: number) => {
+		navigate(`/dog/${Number(dogId)}`);
 	};
 
 	return (
@@ -34,11 +34,11 @@ const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
 						key={dog.id}
 						className="dog__bubble"
 						style={{ zIndex: dogs.length - index }}
-						onClick={() => handleDogClick(dog)}
+						onClick={() => handleDogClick(Number(dog.id))}
 						title={dog.name}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" || e.key === " ") {
-								handleDogClick(dog);
+								handleDogClick(Number(dog.id));
 								e.preventDefault();
 							}
 						}}

@@ -4,7 +4,10 @@ import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
 
-import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
+import {
+	GET_DOGS_BY_EVENTS_ID,
+	GET_EVENT_BY_ID,
+} from "@/graphQL/queries/event";
 
 import type { ServiceType } from "@/types/Service";
 
@@ -26,6 +29,12 @@ function EventDetail() {
 	const [availableSlots, setAvailableSlots] = useState(0);
 
 	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
+		variables: { eventId },
+		skip: !id,
+		fetchPolicy: "no-cache",
+	});
+
+	const { data: dataDogs } = useQuery(GET_DOGS_BY_EVENTS_ID, {
 		variables: { eventId },
 		skip: !id,
 		fetchPolicy: "no-cache",
@@ -54,9 +63,10 @@ function EventDetail() {
 	if (!user) return <div>Chargement de l'utilisateur...</div>;
 	if (loading) return <div>Chargement de l'événement...</div>;
 	if (error) return <div>Erreur : {error.message}</div>;
-	if (!data?.getEventById) return <div>Aucun événement trouvé.</div>;
+	if (!data?.getEventById || !dataDogs?.getDogsByEventsId)
+		return <div>Aucun événement trouvé.</div>;
 
-	const dogs = event.participation || [];
+	const dogs = dataDogs?.getDogsByEventsId || [];
 
 	return (
 		<>
