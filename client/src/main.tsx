@@ -45,7 +45,6 @@ import UpdateDog from "@/pages/Owner/Dog/UpdateDog/UpdateDog.tsx";
 import PrivacyPolicy from "@/pages/WelcomePage/PrivacyPolicy.tsx";
 import LegalNotice from "@/pages/WelcomePage/LegalNotice.tsx";
 import GeneralTerms from "@/pages/WelcomePage/GeneralTerms.tsx";
-import SearchEventDetail from "@/pages/Event/SearchEventDetail/SearchEventDetail.tsx";
 import DogId from "@/pages/Trainer/DogId/DogId.tsx";
 
 // FIXME: delete
@@ -126,8 +125,12 @@ const router = createBrowserRouter([
 								element: <Planning />,
 							},
 							{
-								path: "my-events",
+								path: "events",
 								children: [
+									{
+										index: true,
+										element: <EventList />,
+									},
 									{
 										path: ":id",
 										element: <EventDetail />,
@@ -142,15 +145,6 @@ const router = createBrowserRouter([
 							{
 								index: true,
 								element: <SearchPage />,
-							},
-						],
-					},
-					{
-						path: "events",
-						children: [
-							{
-								path: ":id",
-								element: <SearchEventDetail />,
 							},
 						],
 					},
@@ -197,7 +191,7 @@ const router = createBrowserRouter([
 								element: <EventId />,
 							},
 							{
-								path: "my-events",
+								path: "events",
 								children: [
 									{
 										index: true,

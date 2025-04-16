@@ -1,36 +1,27 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "react-toastify";
-import { useDateFormatter } from "@/hooks/useDateFormatter";
+
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 import { GET_ALL_DOGS_BY_OWNER_ID } from "@/graphQL/queries/dog";
 import { CREATE_PARTICIPATION } from "@/graphQL/mutations/participation";
 import { DELETE_PARTICIPATION_BY_EVENT_AND_DOG_ID } from "@/graphQL/mutations/participation";
 
-import type { ServiceType } from "@/types/Service";
-import type { Trainer } from "@/types/User";
 import type { Dog } from "@/types/Dog";
 import type { Participation } from "@/types/Event";
 
-import "@/pages/Event/EventDetail/EventDetail.scss";
-
-import Service from "@/components/_atoms/Service/Service";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import TrainerBubble from "@/components/_atoms/TrainerBubble/TrainerBubble";
 import Modal from "@/components/_molecules/Modal/Modal";
+
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
 
-function SearchEventDetail() {
-	const navigate = useNavigate();
+function EventOwnerActions() {
 	const { id } = useParams();
 	const eventId = id ? Number(id) : null;
 	const { user } = useUser();
-	const { extractDate, extractTime } = useDateFormatter();
 
 	const [createParticipation] = useMutation(CREATE_PARTICIPATION);
 	const [deleteParticipation] = useMutation(
@@ -57,12 +48,6 @@ function SearchEventDetail() {
 		skip: !id,
 		fetchPolicy: "no-cache",
 	});
-
-	const event = data?.getEventById;
-
-	const handleTrainerClick = (trainer: Partial<Trainer>) => {
-		navigate(`/owner/search/trainer/${trainer.id}`);
-	};
 
 	useEffect(() => {
 		if (data?.getEventById) {
@@ -198,135 +183,37 @@ function SearchEventDetail() {
 		}
 	};
 
-	// States loading management
 	if (!user) return <div>Chargement de l'utilisateur...</div>;
 	if (loading) return <div>Chargement de l'événement...</div>;
 	if (error) return <div>Erreur : {error.message}</div>;
-	if (!data?.getEventById) return <div>Aucun événement trouvé.</div>;
+
 	return (
 		<>
-			<PlanningHeader
-				title="Planning"
-				buttonLabel="event"
-				href="/trainer/planning/new"
-			/>
-			<section className="eventDetail__section">
-				<div className="eventDetail__event">
-					<div className="eventDetail__event--card">
-						<div className="eventDetail__event--title">{event.title}</div>
-						<div className="eventDetail__event--service">
-							{event.services.map((service: ServiceType) => (
-								<Service service={service} key={service.id} />
-							))}
-						</div>
-						{user?.role === "owner" && (
-							<span className="createEvent__event eventDetail__margin">
-								<label className="eventDetail__leftSlot">
-									Nombre de place(s) disponible(s) restante(s)
-									<input
-										className="createEvent__input"
-										type="string"
-										value={availableSlots > 0 ? availableSlots : "Complet"}
-										disabled={true}
-									/>
-								</label>
-							</span>
-						)}
-						<span className="createEvent__event createEvent__event--dates eventDetail__margin">
-							<label className="createEvent__event--date">
-								Date de l'évènement
-								<input
-									className="createEvent__input"
-									type="date"
-									defaultValue={extractDate(event.startDate)}
-									disabled={true}
-								/>
-							</label>
-							<label className="createEvent__event--startTime">
-								Heure de début
-								<input
-									className="createEvent__input"
-									type="time"
-									defaultValue={extractTime(event.startDate)}
-									disabled={true}
-								/>
-							</label>
-							<label className="createEvent__event--endDate">
-								Heure de fin
-								<input
-									className="createEvent__input"
-									type="time"
-									defaultValue={extractTime(event.endDate)}
-									disabled={true}
-								/>
-							</label>
-						</span>
-						<TextInput
-							className="createEvent__event eventDetail__description eventDetail__margin"
-							label="Description"
-							inputType="textarea"
-							name="description"
-							type="description"
-							value={event.description}
-							onChange={() => ""}
-						/>
-						{user?.role === "owner" ? (
-							<span className="createEvent__event createEvent__event--buttons">
-								<Button
-									type="button"
-									style="btn-cancel"
-									onClick={() => setShowModalDelete(true)}
-									className={
-										registeredDogsNames.length === 0 ? "btn-disabled" : ""
-									}
-									disabled={registeredDogsNames.length === 0}
-								>
-									Se désinscrire de l'événement
-								</Button>
+			<span className="createEvent__event createEvent__event--buttons">
+				<Button
+					type="button"
+					style="btn-cancel"
+					onClick={() => setShowModalDelete(true)}
+					className={registeredDogsNames.length === 0 ? "btn-disabled" : ""}
+					disabled={registeredDogsNames.length === 0}
+				>
+					Se désinscrire de l'événement
+				</Button>
 
-								<Button
-									type="button"
-									style="btn-dark"
-									onClick={() => setShowModalAdd(true)}
-									className={
-										availableSlots === 0 || availableDogsNames.length === 0
-											? "btn-disabled"
-											: ""
-									}
-									disabled={
-										availableSlots === 0 || availableDogsNames.length === 0
-									}
-								>
-									S'inscrire à l'événement
-								</Button>
-							</span>
-						) : null}
-					</div>
-				</div>
-
-				<div className="eventDetail__participation">
-					{user?.role === "owner" ? (
-						<>
-							<div className="eventDetail__participation--title">Éducateur</div>
-							<div className="eventDetail__participation--wrapper">
-								<TrainerBubble
-									trainer={event.trainer}
-									onTrainerClick={handleTrainerClick}
-								/>
-							</div>
-						</>
-					) : null}
-					<div className="eventDetail__price--container">
-						<div className="eventDetail__price--divText">
-							<p className="eventDetail__price--title">Prix TTC</p>
-							<p className="eventDetail__price--paranthesis">
-								(par participant)
-							</p>
-						</div>
-						<p className="eventDetail__price--number">{event.price} €</p>
-					</div>
-				</div>
-			</section>
+				<Button
+					type="button"
+					style="btn-dark"
+					onClick={() => setShowModalAdd(true)}
+					className={
+						availableSlots === 0 || availableDogsNames.length === 0
+							? "btn-disabled"
+							: ""
+					}
+					disabled={availableSlots === 0 || availableDogsNames.length === 0}
+				>
+					S'inscrire à l'événement
+				</Button>
+			</span>
 			<Modal
 				type="info"
 				isOpen={showModalAdd}
@@ -379,4 +266,4 @@ function SearchEventDetail() {
 	);
 }
 
-export default SearchEventDetail;
+export default EventOwnerActions;
