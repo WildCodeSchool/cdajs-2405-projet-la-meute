@@ -23,9 +23,7 @@ function ParticipantsOverview({
 			<div className="participantsOverview__participation--title">{title}</div>
 			<div className="participantsOverview__participation--wrapper">
 				{type === "trainer" ? (
-					<TrainerBubble
-						trainer={event.trainer}
-					/>
+					<TrainerBubble trainer={event.trainer} />
 				) : (
 					type === "dogs" &&
 					dogs && (
