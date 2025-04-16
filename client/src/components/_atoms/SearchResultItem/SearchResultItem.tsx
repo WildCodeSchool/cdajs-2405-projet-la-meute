@@ -2,6 +2,8 @@ import "./SearchResultItem.scss";
 
 import { Link } from "react-router-dom";
 import { useImageUrl } from "@/hooks/useImageUrl";
+import { useUser } from "@/hooks/useUser";
+import { formatEventDateTime } from "@/helpers/formatEventDate";
 
 import type { Owner, Trainer } from "@/types/User";
 import type { SearchableEntity } from "@/types/Search";
@@ -9,12 +11,10 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
-import { formatEventDateTime } from "@/helpers/formatEventDate";
 import { MapPin } from "@/assets/icons/map-pin";
 
-import Service from "../Service/Service";
+import Service from "@/components/_atoms/Service/Service";
 import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
-import { useUser } from "@/hooks/useUser";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const { role } = useUser();

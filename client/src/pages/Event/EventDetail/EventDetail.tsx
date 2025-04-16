@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -16,10 +17,9 @@ import "./EventDetail.scss";
 import Service from "@/components/_atoms/Service/Service";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
+import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
 
 import EventActionsByRole from "./Controls/EventActionsByRole";
-import { useEffect, useState } from "react";
-import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
 
 function EventDetail() {
 	const { id } = useParams();

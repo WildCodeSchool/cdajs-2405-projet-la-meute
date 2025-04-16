@@ -92,15 +92,10 @@ export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
 `;
 
 export const GET_DOGS_BY_EVENTS_ID = gql`
-query Query($eventId: Float!) {
-  getDogsByEventsId(eventId: $eventId) {
-    id
-    name
-    birthDate
-    breed
-    picture
-    info
-    getAge
-  }
-}
+    query GetDogsByEventsId($eventId: Float!) {
+        getDogsByEventsId(eventId: $eventId) {
+            ...DogFragment
+        }
+    }
+    ${DOG_FRAGMENT}
 `;
