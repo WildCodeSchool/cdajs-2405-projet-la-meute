@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import OwnerBubble from "@/components/_molecules/OwnerBubble/OwnerBubble";
+import OwnerBubble from "@/components/_atoms/OwnerBubble/OwnerBubble";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 

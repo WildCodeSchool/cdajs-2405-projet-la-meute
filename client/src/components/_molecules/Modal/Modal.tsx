@@ -86,12 +86,18 @@ export default function Modal({
 		}
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === "Escape" && isOpen) {
+			onClose();
+		}
+	};
+
 	return (
 		<dialog
 			ref={dialogRef}
 			className={`modal modal--${type} modal--${variant}`}
 			onClick={backdropClick}
-			onKeyDown={() => ""}
+			onKeyDown={handleKeyDown}
 		>
 			<img
 				src={previewUrl || customImage || icons[type]}

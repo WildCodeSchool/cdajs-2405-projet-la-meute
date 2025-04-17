@@ -2,18 +2,16 @@ import type React from "react";
 import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Dog } from "@/types/Dog";
+import { useNavigate } from "react-router-dom";
 
 interface DogBubblesProps {
 	dogs: Dog[];
 	maxSize: number;
-	onDogClick?: (dog: Dog) => void;
 }
 
-const DogBubbles: React.FC<DogBubblesProps> = ({
-	dogs,
-	maxSize,
-	onDogClick,
-}) => {
+const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
+	const navigate = useNavigate();
+
 	if (!dogs || dogs.length === 0) {
 		return (
 			<div className="participants-wrapper">
@@ -24,10 +22,8 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 		);
 	}
 
-	const handleDogClick = (dog: Dog) => {
-		if (onDogClick) {
-			onDogClick(dog);
-		}
+	const handleDogClick = (dogId: number) => {
+		navigate(`/dog/${Number(dogId)}`);
 	};
 
 	return (
@@ -38,11 +34,11 @@ const DogBubbles: React.FC<DogBubblesProps> = ({
 						key={dog.id}
 						className="dog__bubble"
 						style={{ zIndex: dogs.length - index }}
-						onClick={() => handleDogClick(dog)}
+						onClick={() => handleDogClick(Number(dog.id))}
 						title={dog.name}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" || e.key === " ") {
-								handleDogClick(dog);
+								handleDogClick(Number(dog.id));
 								e.preventDefault();
 							}
 						}}
