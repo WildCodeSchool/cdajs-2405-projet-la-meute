@@ -1,6 +1,7 @@
 import type React from "react";
 import "./TrainerBubble.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
+import { useNavigate } from "react-router-dom";
 
 interface Trainer {
 	id: number;
@@ -14,17 +15,13 @@ interface Trainer {
 
 interface TrainerBubbleProps {
 	trainer: Trainer;
-	onTrainerClick?: (trainer: Trainer) => void;
 }
 
-const TrainerBubble: React.FC<TrainerBubbleProps> = ({
-	trainer,
-	onTrainerClick,
-}) => {
+const TrainerBubble: React.FC<TrainerBubbleProps> = ({ trainer }) => {
+	const navigate = useNavigate();
+
 	const handleTrainerClick = (trainer: Trainer) => {
-		if (onTrainerClick) {
-			onTrainerClick(trainer);
-		}
+		navigate(`/profile/public/trainer/${Number(trainer.id)}`);
 	};
 
 	return (

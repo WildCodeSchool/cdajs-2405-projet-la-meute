@@ -84,7 +84,7 @@ function Planning() {
 		})) || [];
 
 	const handleEventClick = (eventId: string) => {
-		navigate(`/event/${eventId}`); // TODO: change to /event/${eventId} when merging routes refactor
+		navigate(`/event/${eventId}`);
 	};
 
 	/* FullCalendar views */
