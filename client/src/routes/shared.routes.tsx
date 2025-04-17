@@ -1,9 +1,11 @@
+import type { RouteObject } from "react-router-dom";
+
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
+
 import EventDetail from "@/pages/Event/EventDetail/EventDetail";
 import Profile from "@/pages/Profile/Profile";
 import DogId from "@/pages/Trainer/DogId/DogId";
-import type { RouteObject } from "react-router-dom";
 
 export const sharedEventRoutes: RouteObject = {
 	path: "event",
@@ -33,7 +35,7 @@ export const sharedProfileRoutes: RouteObject = {
 			element: <Profile />,
 		},
 		{
-			path: "public/trainer/:id",
+			path: "public/trainer/:id", // FIXME: "public" est-il necessaire du coup ? Si on considère que les profils sont public, pas besoin de le préciser dans la route
 			element: "trainer profile",
 		},
 		{

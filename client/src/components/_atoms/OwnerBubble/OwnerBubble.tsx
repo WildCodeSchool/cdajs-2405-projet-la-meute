@@ -1,8 +1,8 @@
 import type React from "react";
+import { useNavigate } from "react-router-dom";
 import "./OwnerBubble.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Owner } from "@/types/User";
-import { useNavigate } from "react-router-dom";
 
 interface OwnerBubbleProps {
 	owner: Owner;

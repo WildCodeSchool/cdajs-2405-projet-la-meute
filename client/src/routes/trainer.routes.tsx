@@ -1,12 +1,14 @@
+import { Navigate } from "react-router-dom";
+
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
+
 import EventId from "@/pages/Event/EventId/EventId";
 import EventList from "@/pages/Event/EventList/EventList";
 import EventUpdate from "@/pages/Event/EventUpdate/EventUpdate";
 import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId";
-import { Navigate } from "react-router-dom";
 
 export const trainerRoutes = {
 	path: "trainer",
@@ -32,11 +34,11 @@ export const trainerRoutes = {
 					children: [
 						{
 							index: true,
-							element: <EventList />, // To Do split planning comp and move events list here
+							element: <EventList />, // TODO: split planning comp and move events list here
 						},
 						{
 							path: "new",
-							element: <EventId />,
+							element: <EventId />, // FIXME: renommer ce composant ?
 						},
 						{
 							path: ":id/edit",
@@ -64,7 +66,7 @@ export const trainerRoutes = {
 			children: [
 				{
 					index: true,
-					element: <p>dogs List</p>,
+					element: <p>dogs List</p>, // FIXME: commenter ce à quoi cette route va servir ++
 				},
 			],
 		},
