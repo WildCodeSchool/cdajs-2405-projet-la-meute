@@ -13,6 +13,7 @@ import { useUser } from "@/hooks/useUser";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Search from "@/components/_molecules/Search/Search";
 import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 const mappedArray = [
 	{
@@ -64,7 +65,7 @@ function SearchPage() {
 				filterOptions={filterOptions}
 			/>
 
-			{loading && <p>Chargement...</p>}
+			{loading && <LoadingIndicator />}
 			{error && <p>Erreur : {error.message}</p>}
 			{data?.[switchData.backendQuery]?.length === 0 && !loading && (
 				<p>Aucun résultat trouvé.</p>

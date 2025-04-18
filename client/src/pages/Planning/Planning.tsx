@@ -2,57 +2,33 @@ import "@/pages/Planning/Planning.scss";
 
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 
-import { useNavigate } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { Await, useLoaderData, useNavigate } from "react-router-dom";
+import { Suspense, useState } from "react";
 import { useIsMobile } from "@/hooks/checkIsMobile";
-import {
-	GET_ALL_EVENTS_BY_TRAINER_ID,
-	GET_ALL_EVENTS_BY_OWNER_ID,
-} from "@/graphQL/queries/event";
 import PlanningCalendar from "./PlanningCalendar";
 
 // Interfaces
-import type {
-	Event,
-	GetAllEventsByTrainerId,
-	GetAllEventsByOwnerId,
-} from "@/types/Event";
+import type { Event } from "@/types/Event";
 import type { EventContentArg } from "@fullcalendar/core/index.js";
 import PlanningEventsListView from "./PlanningEventListView";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 function Planning() {
 	/* Business logic */
 
 	const navigate = useNavigate();
 	const isMobile = useIsMobile();
-	const { user, role } = useUser();
-	const { data: trainerEventsData } = useQuery<GetAllEventsByTrainerId>(
-		GET_ALL_EVENTS_BY_TRAINER_ID,
-		{
-			variables: {
-				trainerId: user?.id ? Number(user.id) : null,
-			},
-			fetchPolicy: "no-cache",
-		},
-	);
-	const { data: ownerEventsData } = useQuery<GetAllEventsByOwnerId>(
-		GET_ALL_EVENTS_BY_OWNER_ID,
-		{
-			variables: {
-				ownerId: user?.id ? Number(user.id) : null,
-			},
-			fetchPolicy: "no-cache",
-		},
-	);
+
+	const { events, role } = useLoaderData() as {
+		events: Event[];
+		role: "trainer" | "owner";
+	};
 
 	// Check if the role is trainer or owner
 	const isTrainer = role === "trainer";
 
-	// Events associates to specific trainer
-	const trainerEvents =
-		trainerEventsData?.getAllEventsByTrainerId.map((event: Event) => ({
+	const formatEvents = (eventsToFormat: Event[]) => {
+		return eventsToFormat.map((event) => ({
 			id: event.id.toString(),
 			title: event.title,
 			start: new Date(event.startDate),
@@ -65,23 +41,8 @@ function Planning() {
 				dogs: event.participation?.map((p) => p.dog) || [],
 				services: event.services || [],
 			},
-		})) || [];
-
-	// Events associates to specific owner
-	const ownerEvents =
-		ownerEventsData?.getAllEventsByOwnerId.map((event: Event) => ({
-			id: event.id.toString(),
-			title: event.title,
-			start: new Date(event.startDate),
-			end: new Date(event.endDate),
-			description: event.description,
-			extendedProps: {
-				group_max_size: event.group_max_size,
-				location: event.location,
-				price: event.price,
-				services: event.services || [],
-			},
-		})) || [];
+		}));
+	};
 
 	const handleEventClick = (eventId: string) => {
 		navigate(`/event/${eventId}`);
@@ -146,15 +107,28 @@ function Planning() {
 			<PlanningHeader
 				title={title}
 				buttonLabel="event"
-				href="/trainer/planning/event/new"
+				href={isTrainer ? "/trainer/planning/event/new" : undefined}
 			/>
-			<PlanningCalendar
-				events={isTrainer ? trainerEvents : ownerEvents}
-				currentView={currentView}
-				onViewChange={setCurrentView}
-				onEventClick={handleEventClick}
-				eventContent={viewRender}
-			/>
+			<Suspense fallback={<LoadingIndicator />}>
+				<Await
+					resolve={events}
+					errorElement={
+						<div className="error-message">
+							Erreur lors du chargement des événements
+						</div>
+					}
+				>
+					{(events) => (
+						<PlanningCalendar
+							events={formatEvents(events)}
+							currentView={currentView}
+							onViewChange={setCurrentView}
+							onEventClick={handleEventClick}
+							eventContent={viewRender}
+						/>
+					)}
+				</Await>
+			</Suspense>
 		</>
 	);
 }

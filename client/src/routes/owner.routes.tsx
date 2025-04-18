@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { planningLoader } from "@/routesLoaders/planning.loader";
 
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
@@ -8,6 +9,7 @@ import MyDogList from "@/pages/Owner/Dog/DogList/MyDogList";
 import UpdateDog from "@/pages/Owner/Dog/UpdateDog/UpdateDog";
 import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
+import { myDogListLoader } from "@/routesLoaders/myDogList.loader";
 
 export const ownerRoutes = {
 	path: "owner",
@@ -24,6 +26,7 @@ export const ownerRoutes = {
 		{
 			path: "planning",
 			element: <Planning />,
+			loader: planningLoader,
 		},
 		{
 			path: "search",
@@ -40,6 +43,7 @@ export const ownerRoutes = {
 				{
 					index: true,
 					element: <MyDogList />,
+					loader: myDogListLoader,
 				},
 				{
 					path: "new",

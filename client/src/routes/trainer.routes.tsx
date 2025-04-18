@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { planningLoader } from "@/routesLoaders/planning.loader";
 
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
@@ -27,6 +28,7 @@ export const trainerRoutes = {
 				{
 					index: true,
 					element: <Planning />,
+					loader: planningLoader,
 				},
 				{
 					path: "event",
