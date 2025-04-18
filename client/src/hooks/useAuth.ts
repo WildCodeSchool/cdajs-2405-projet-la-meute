@@ -98,15 +98,13 @@ export const useAuth = () => {
 				};
 			}
 		} catch (loginError) {
-			const error =
-				loginError instanceof Error ? loginError : new Error("Erreur inconnue");
 			updateAuth({
 				isLoading: false,
 				error: loginError instanceof ApolloError ? loginError : null,
 			});
 			return {
 				success: false,
-				message: error.message || "Identifiants invalides",
+				message: "Identifiants invalides",
 			};
 		}
 	};
