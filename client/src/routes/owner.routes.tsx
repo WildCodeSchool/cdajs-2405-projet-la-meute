@@ -21,21 +21,7 @@ export const ownerRoutes = {
 		},
 		{
 			path: "planning",
-			children: [
-				{
-					index: true,
-					element: <Planning />,
-				},
-				{
-					path: "events",
-					children: [
-						{
-							index: true,
-							element: "events list",
-						},
-					],
-				},
-			],
+			element: <Planning />,
 		},
 		{
 			path: "search",
@@ -43,15 +29,6 @@ export const ownerRoutes = {
 				{
 					index: true,
 					element: <SearchPage />,
-				},
-			],
-		},
-		{
-			path: "events",
-			children: [
-				{
-					index: true,
-					element: "Events list",
 				},
 			],
 		},
