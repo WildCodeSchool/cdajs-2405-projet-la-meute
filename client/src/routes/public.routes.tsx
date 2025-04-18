@@ -44,7 +44,7 @@ export const publicRoutes = {
 			element: <Login />,
 		},
 		{
-			path: "registration",
+			path: "registration", // FIXME: diviser les deux registrations ?
 			element: <Registration />,
 		},
 		{
@@ -52,7 +52,7 @@ export const publicRoutes = {
 			element: <ResetPassword />,
 		},
 		{
-			path: "reset-link",
+			path: "forgot-password",
 			element: <ResetLink />,
 		},
 		{

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
-import "./EventId.scss";
+import "./EventCreator.scss";
 import Service from "@/components/_atoms/Service/Service";
 import NewService from "@/components/_atoms/Service/NewService";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ interface EventFormValues extends Record<string, unknown> {
 	groupMaxSize: string;
 }
 
-function EventId() {
+function EventCreator() {
 	const navigate = useNavigate();
 	const { user } = useUser();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
@@ -307,4 +307,4 @@ function EventId() {
 	);
 }
 
-export default EventId;
+export default EventCreator;

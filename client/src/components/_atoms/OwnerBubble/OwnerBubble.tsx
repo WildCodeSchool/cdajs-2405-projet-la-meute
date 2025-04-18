@@ -1,8 +1,8 @@
 import type React from "react";
+import { useNavigate } from "react-router-dom";
 import "./OwnerBubble.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Owner } from "@/types/User";
-import { useNavigate } from "react-router-dom";
 
 interface OwnerBubbleProps {
 	owner: Owner;
@@ -12,7 +12,7 @@ const OwnerBubble: React.FC<OwnerBubbleProps> = ({ owner }) => {
 	const navigate = useNavigate();
 
 	const handleOwnerClick = (owner: Owner) => {
-		navigate(`/profile/public/owner/${Number(owner.id)}`);
+		navigate(`/profile/view/owner/${Number(owner.id)}`);
 	};
 
 	return (

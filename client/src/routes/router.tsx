@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage";
+
 import { publicRoutes } from "./public.routes";
 import { ownerRoutes } from "./owner.routes";
 import { trainerRoutes } from "./trainer.routes";

@@ -21,7 +21,7 @@ const TrainerBubble: React.FC<TrainerBubbleProps> = ({ trainer }) => {
 	const navigate = useNavigate();
 
 	const handleTrainerClick = (trainer: Trainer) => {
-		navigate(`/profile/public/trainer/${Number(trainer.id)}`);
+		navigate(`/profile/view/trainer/${Number(trainer.id)}`);
 	};
 
 	return (

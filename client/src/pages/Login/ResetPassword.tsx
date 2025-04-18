@@ -12,7 +12,7 @@ function ResetPassword() {
 		{
 			onCompleted: (data) => {
 				if (data.RequestPasswordReset.success) {
-					window.location.href = "/reset-link";
+					window.location.href = "/forgot-password";
 				}
 			},
 			onError: (error) => {
