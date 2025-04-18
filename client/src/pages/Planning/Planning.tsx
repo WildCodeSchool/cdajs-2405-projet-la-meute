@@ -146,7 +146,7 @@ function Planning() {
 			<PlanningHeader
 				title={title}
 				buttonLabel="event"
-				href="/trainer/planning/events/new"
+				href="/trainer/planning/event/new"
 			/>
 			<PlanningCalendar
 				events={isTrainer ? trainerEvents : ownerEvents}

@@ -72,7 +72,7 @@ function EventDetail() {
 			<PlanningHeader
 				title="Planning"
 				buttonLabel="event"
-				href="/trainer/planning/new"
+				href="/trainer/planning/event/new"
 			/>
 			<section className="eventDetail__section">
 				<div className="eventDetail__event">

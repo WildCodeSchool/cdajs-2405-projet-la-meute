@@ -23,21 +23,7 @@ export const ownerRoutes = {
 		},
 		{
 			path: "planning",
-			children: [
-				{
-					index: true,
-					element: <Planning />,
-				},
-				{
-					path: "events",
-					children: [
-						{
-							index: true,
-							element: "events list", // FIXME: commenter ce à quoi cette route va servir ++
-						},
-					],
-				},
-			],
+			element: <Planning />,
 		},
 		{
 			path: "search",
@@ -45,15 +31,6 @@ export const ownerRoutes = {
 				{
 					index: true,
 					element: <SearchPage />,
-				},
-			],
-		},
-		{
-			path: "events",
-			children: [
-				{
-					index: true,
-					element: "Events list", // FIXME: commenter ce à quoi cette route va servir ++
 				},
 			],
 		},

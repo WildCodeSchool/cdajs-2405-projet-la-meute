@@ -4,7 +4,6 @@ import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
 
 import EventId from "@/pages/Event/EventId/EventId";
-import EventList from "@/pages/Event/EventList/EventList";
 import EventUpdate from "@/pages/Event/EventUpdate/EventUpdate";
 import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
@@ -30,12 +29,8 @@ export const trainerRoutes = {
 					element: <Planning />,
 				},
 				{
-					path: "events",
+					path: "event",
 					children: [
-						{
-							index: true,
-							element: <EventList />, // TODO: split planning comp and move events list here
-						},
 						{
 							path: "new",
 							element: <EventId />, // FIXME: renommer ce composant ?
