@@ -2,7 +2,6 @@ import "./SearchResultItem.scss";
 
 import { Link } from "react-router-dom";
 import { useImageUrl } from "@/hooks/useImageUrl";
-import { useUser } from "@/hooks/useUser";
 import { formatEventDateTime } from "@/helpers/formatEventDate";
 
 import type { Owner, Trainer } from "@/types/User";
@@ -17,13 +16,12 @@ import Service from "@/components/_atoms/Service/Service";
 import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
-	const { role } = useUser();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
 		return (
-			<Link to={`/owner/${owner.id}`} className="searchResultItem">
+			<Link to={`/profile/view/owner/${owner.id}`} className="searchResultItem">
 				<span className="searchResultItem__owner">
 					<img
 						src={useImageUrl(owner.avatar)}
@@ -46,7 +44,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 				<span className="searchResultItem__owner--dogs">
 					{owner.dogs.map((dog) => (
 						<Link
-							to={`/dog/${dog.id}`}
+							to={`/profile/view/dog/${dog.id}`}
 							key={dog.id}
 							className="searchResultItem__owner--dog"
 						>
@@ -67,10 +65,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const event = entity as unknown as Event & { trainer: Trainer };
 	const dogs = event.participation.map((participation) => participation.dog);
 	return (
-		<Link
-			to={`/${role}/planning/events/${entity.id}`}
-			className="searchResultItem"
-		>
+		<Link to={`/event/${entity.id}`} className="searchResultItem">
 			<span className="searchResultItem__event">
 				<h2 className="searchResultItem__event--title">{event.title}</h2>
 				<span className="searchResultItem__event--trainer">

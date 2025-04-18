@@ -23,7 +23,7 @@ const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
 	}
 
 	const handleDogClick = (dogId: number) => {
-		navigate(`/dog/${Number(dogId)}`);
+		navigate(`/profile/view/dog/${Number(dogId)}`);
 	};
 
 	return (

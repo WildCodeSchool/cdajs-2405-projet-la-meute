@@ -30,7 +30,7 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				link:
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
-						: `/dog/${dogData.id}`,
+						: `/profile/view/dog/${dogData.id}`,
 				buttonText: ownerView ? "Modifier le profil" : "Voir le profil",
 			};
 		}

@@ -37,7 +37,7 @@ export default function DashHeader() {
 							<Exit className="dashSideBar__icon dashHeader__icon" />
 						</button>
 					)}
-					<Link className="dashHeader__avatar" to="/my-profile">
+					<Link className="dashHeader__avatar" to="/profile">
 						<img
 							src={
 								user?.avatar

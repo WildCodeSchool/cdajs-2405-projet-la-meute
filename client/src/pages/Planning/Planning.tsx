@@ -84,7 +84,7 @@ function Planning() {
 		})) || [];
 
 	const handleEventClick = (eventId: string) => {
-		navigate(`events/${eventId}`); // TODO: change to /event/${eventId} when merging routes refactor
+		navigate(`/event/${eventId}`);
 	};
 
 	/* FullCalendar views */
@@ -146,7 +146,7 @@ function Planning() {
 			<PlanningHeader
 				title={title}
 				buttonLabel="event"
-				href="/trainer/planning/events/new"
+				href="/trainer/planning/event/new"
 			/>
 			<PlanningCalendar
 				events={isTrainer ? trainerEvents : ownerEvents}

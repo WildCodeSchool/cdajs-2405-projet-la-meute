@@ -30,7 +30,7 @@ function EventTrainerActions() {
 	};
 
 	const handleEditClick = () => {
-		navigate(`/trainer/planning/events/${id}/edit`);
+		navigate(`/trainer/planning/event/${id}/edit`);
 	};
 
 	const handleConfirmDelete = async () => {

@@ -41,6 +41,7 @@ function EventDetail() {
 	});
 
 	const event = data?.getEventById;
+	const dogs = dataDogs?.getDogsByEventsId || [];
 
 	useEffect(() => {
 		if (data?.getEventById) {
@@ -66,14 +67,12 @@ function EventDetail() {
 	if (!data?.getEventById || !dataDogs?.getDogsByEventsId)
 		return <div>Aucun événement trouvé.</div>;
 
-	const dogs = dataDogs?.getDogsByEventsId || [];
-
 	return (
 		<>
 			<PlanningHeader
 				title="Planning"
 				buttonLabel="event"
-				href="/trainer/planning/new"
+				href="/trainer/planning/event/new"
 			/>
 			<section className="eventDetail__section">
 				<div className="eventDetail__event">
