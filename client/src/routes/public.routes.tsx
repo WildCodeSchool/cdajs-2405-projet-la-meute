@@ -52,7 +52,7 @@ export const publicRoutes = {
 			element: <ResetPassword />,
 		},
 		{
-			path: "reset-link", // FIXME: plus clair ?
+			path: "forgot-password",
 			element: <ResetLink />,
 		},
 		{

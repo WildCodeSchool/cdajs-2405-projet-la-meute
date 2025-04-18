@@ -9,7 +9,7 @@ export default function WelcomePageLayout() {
 		"/login",
 		"/registration",
 		"/reset-password",
-		"/reset-link",
+		"/forgot-password",
 		"/new-password",
 	];
 	const hideFooter = authRoutes.some((route) => location.pathname === route);

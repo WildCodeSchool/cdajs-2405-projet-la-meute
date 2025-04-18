@@ -32,19 +32,19 @@ export const sharedProfileRoutes: RouteObject = {
 	children: [
 		{
 			index: true,
-			element: <Profile />,
+			element: <Profile />, // Private profile of the authenticated user
 		},
 		{
-			path: "public/trainer/:id", // FIXME: "public" est-il necessaire du coup ? Si on considère que les profils sont public, pas besoin de le préciser dans la route
-			element: "trainer profile",
+			path: "view/trainer/:id",
+			element: "trainer profile", // View another trainer's profile
 		},
 		{
-			path: "public/owner/:id",
-			element: "owner profile",
+			path: "view/owner/:id",
+			element: "owner profile", // View another owner's profile
 		},
 		{
-			path: "public/dog/:id",
-			element: <DogId />,
+			path: "view/dog/:id",
+			element: <DogId />, // View another owner's dog profile
 		},
 	],
 };

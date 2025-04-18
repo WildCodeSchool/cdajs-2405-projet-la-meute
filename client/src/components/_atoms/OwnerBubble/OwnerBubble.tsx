@@ -12,7 +12,7 @@ const OwnerBubble: React.FC<OwnerBubbleProps> = ({ owner }) => {
 	const navigate = useNavigate();
 
 	const handleOwnerClick = (owner: Owner) => {
-		navigate(`/profile/public/owner/${Number(owner.id)}`);
+		navigate(`/profile/view/owner/${Number(owner.id)}`);
 	};
 
 	return (
