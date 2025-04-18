@@ -2,13 +2,9 @@ import "./MyDogList.scss";
 import { toast } from "react-toastify";
 import Button from "@/components/_atoms/Button/Button";
 import IdCard from "@/components/_molecules/Card/IdCard";
-import { GET_ALL_DOGS_BY_OWNER_ID } from "@/graphQL/queries/dog";
-
-import { useQuery } from "@apollo/client";
-import { useUser } from "@/hooks/useUser";
 
 import type { Dog } from "@/types/Dog";
-import { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 
 function MyDogList() {
 	const alert = () => {
@@ -21,25 +17,9 @@ function MyDogList() {
 		}
 	};
 
-	const { user } = useUser();
-	const { data, loading, refetch } = useQuery(GET_ALL_DOGS_BY_OWNER_ID, {
-		variables: {
-			ownerId: user?.id ? Number(user.id) : null,
-		},
-		skip: !user?.id,
-	});
-
-	useEffect(() => {
-		if (user?.id) {
-			refetch();
-		}
-	}, [refetch, user?.id]);
-
-	const dogs = data?.getAllDogsByOwnerId || [];
-
-	if (loading) {
-		return <p>loading...</p>;
-	}
+	const { dogs } = useLoaderData() as {
+		dogs: Dog[];
+	};
 
 	return (
 		<main className="myDogList" onLoad={alert}>
