@@ -1,20 +1,20 @@
+import "./EventForm.scss";
 import { useState } from "react";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import Button from "@/components/_atoms/Button/Button";
-import "./EventCreator.scss";
-import Service from "@/components/_atoms/Service/Service";
-import NewService from "@/components/_atoms/Service/NewService";
+import type { Event } from "@/types/Event";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
+import Button from "@/components/_atoms/Button/Button";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
+import Modal from "@/components/_molecules/Modal/Modal";
 import { useForm } from "@/hooks/useForm";
-import { toast } from "react-toastify";
+import { useUser } from "@/hooks/useUser";
 import type { ServiceType } from "@/types/Service";
 import { useMutation } from "@apollo/client";
-import { CREATE_EVENT } from "@/graphQL/mutations/event";
-import LeafletMap, {
-	type leafletMarkerType,
-} from "@/components/_atoms/LeafletMap/LeafletMap";
-import Modal from "@/components/_molecules/Modal/Modal";
+import { toast } from "react-toastify";
+import LeafletMap from "@/components/_atoms/LeafletMap/LeafletMap";
+import NewService from "@/components/_atoms/Service/NewService";
+import Service from "@/components/_atoms/Service/Service";
+import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-porte-welcome.png";
 
@@ -22,17 +22,23 @@ type endTimeStyleType = {
 	outline?: string;
 };
 
+interface EventFormProps {
+	mode: "create" | "update";
+	initialData?: Event | null;
+}
+
 interface EventFormValues extends Record<string, unknown> {
+	id?: number;
 	title: string;
 	date: string;
 	startTime: string;
 	endTime: string;
 	description: string;
-	price: string;
-	groupMaxSize: string;
+	price: string | number;
+	groupMaxSize: string | number;
 }
 
-function EventCreator() {
+function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 	const navigate = useNavigate();
 	const { user } = useUser();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
@@ -41,17 +47,24 @@ function EventCreator() {
 	const [showCancelModal, setShowCancelModal] = useState(false);
 	const [showCreateModal, setShowCreateModal] = useState(false);
 
-	const [createEvent] = useMutation(CREATE_EVENT);
+	const query = mode === "create" ? CREATE_EVENT : UPDATE_EVENT;
+	const [selectedQuery] = useMutation(query);
+	const formTitle =
+		mode === "create" ? "Création d'évènement" : "Modification de l'évènement";
+	const formattedDate = initialData?.startDate
+		? new Date(initialData.startDate).toISOString().split("T")[0]
+		: "";
 
 	const form = useForm<EventFormValues>({
 		initialValues: {
-			title: "",
-			date: "",
-			startTime: "",
-			endTime: "",
-			description: "",
-			price: "",
-			groupMaxSize: "",
+			id: Number(initialData?.id),
+			title: initialData?.title || "",
+			date: formattedDate,
+			startTime: initialData?.startTime || "",
+			endTime: initialData?.endTime || "",
+			description: initialData?.description || "",
+			price: initialData?.price || "",
+			groupMaxSize: initialData?.group_max_size || "",
 		},
 		onSubmit: async (formValues) => {
 			await handleSubmit(formValues);
@@ -81,6 +94,7 @@ function EventCreator() {
 			const servicesArray = services.map((service) => Number(service.id));
 
 			const eventData = {
+				eventId: Number(formValues.id),
 				endDate: formatDateTime(formValues.date, formValues.endTime),
 				startDate: formatDateTime(formValues.date, formValues.startTime),
 				price: Number(formValues.price),
@@ -96,17 +110,24 @@ function EventCreator() {
 			};
 
 			try {
-				const { data } = await createEvent({
+				const { data } = await selectedQuery({
 					variables: {
 						...eventData,
 					},
 				});
-				toast.success("L'évènement a été créé avec succès.");
-				navigate(`/event/${data.createEvent.id}`);
+				toast.success(
+					`L'évènement a été ${mode === "create" ? "créé" : "mis à jour"} avec succès.`,
+				);
+				navigate(
+					`/event/${mode === "create" ? data.createEvent.id : eventData.eventId}`,
+				);
 			} catch (error) {
-				console.error("Erreur lors de la création de l'évènement:", error);
+				console.error(
+					`Erreur lors de la ${mode === "create" ? "création" : "mise à jour"} de l'évènement:`,
+					error,
+				);
 				toast.error(
-					"Une erreur s'est produite lors de la création de l'événement.",
+					`Une erreur s'est produite lors de la ${mode === "create" ? "création" : "mise à jour"} de l'événement.`,
 				);
 			}
 		}
@@ -137,7 +158,7 @@ function EventCreator() {
 	return (
 		<section className="sectionEvent">
 			<form className="createEvent" onSubmit={handleFormValidate}>
-				<h1 className="createEvent__title">Création d'évènement</h1>
+				<h1 className="createEvent__title">{formTitle}</h1>
 
 				<TextInput
 					className="createEvent__event createEvent__event--title"
@@ -307,4 +328,4 @@ function EventCreator() {
 	);
 }
 
-export default EventCreator;
+export default EventForm;
