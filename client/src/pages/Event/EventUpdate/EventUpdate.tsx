@@ -6,7 +6,7 @@ import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
 export default function EventUpdate() {
 	const { id } = useParams();
 
-	const { data, loading } = useQuery(GET_EVENT_BY_ID, {
+	const { data, loading, refetch } = useQuery(GET_EVENT_BY_ID, {
 		variables: {
 			eventId: Number(id),
 		},
@@ -16,5 +16,11 @@ export default function EventUpdate() {
 		return <p>loading...</p>;
 	}
 
-	return <EventForm mode="update" initialData={data.getEventById} />;
+	return (
+		<EventForm
+			mode="update"
+			initialData={data.getEventById}
+			refetch={refetch}
+		/>
+	);
 }

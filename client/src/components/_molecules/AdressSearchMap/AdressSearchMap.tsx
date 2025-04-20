@@ -151,7 +151,7 @@ function AddressSearchMap({
 
 					updateMarkerPosition({
 						...newPosition,
-						postal_code: value,
+						postal_code: value.toString(),
 						city: newCity,
 					});
 				}
