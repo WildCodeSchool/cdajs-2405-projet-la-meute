@@ -47,6 +47,7 @@ import LegalNotice from "@/pages/WelcomePage/LegalNotice.tsx";
 import GeneralTerms from "@/pages/WelcomePage/GeneralTerms.tsx";
 import SearchEventDetail from "@/pages/Event/SearchEventDetail/SearchEventDetail.tsx";
 import DogId from "@/pages/Trainer/DogId/DogId.tsx";
+import DogsList from "@/pages/Trainer/DogsList/DogsList.tsx";
 
 // FIXME: delete
 import TestME from "@/components/TestME.tsx";
@@ -229,11 +230,11 @@ const router = createBrowserRouter([
 						],
 					},
 					{
-						path: "dog",
+						path: "dogs-list",
 						children: [
 							{
 								index: true,
-								element: <p>dogs List</p>,
+								element: <DogsList/>,
 							},
 						],
 					},
