@@ -31,7 +31,7 @@ export default function IdCard({
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
-				age: `${dogData.getAge} ans`,
+				age: dogData.getAge,
 				info: dogData.info,
 				link:
 					role === "owner"

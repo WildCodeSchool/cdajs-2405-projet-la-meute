@@ -22,6 +22,22 @@ export interface Event {
 	endDate: Date;
 	participation: Participation[];
 	services: ServiceType[];
+	trainer?: Trainer | null;
+}
+
+export interface CalendarEvent {
+	id: string;
+	title: string;
+	start: Date;
+	end: Date;
+	description: string;
+	extendedProps: {
+		group_max_size: number;
+		location: Location;
+		price: number;
+		dogs: Dog[];
+		services: ServiceType[];
+	};
 }
 
 export interface Participation {

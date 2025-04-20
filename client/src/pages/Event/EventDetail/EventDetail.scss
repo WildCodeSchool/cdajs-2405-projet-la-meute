@@ -1,7 +1,6 @@
 @use "@style" as *;
 
 .eventDetail {
-
     &__section {
         display: flex;
         flex-direction: row;
@@ -41,7 +40,6 @@
     }
 
     &__description {
-
         textarea,
         input {
             pointer-events: none;
@@ -50,7 +48,6 @@
     }
 
     &__price {
-
         &--container {
             background-color: $green-100;
             border-radius: $atoms-radius;
@@ -73,7 +70,7 @@
             font-size: $m;
         }
 
-        &--paranthesis {
+        &--parenthesis {
             font-weight: $regular;
             font-style: italic;
             margin-left: 0.5rem;
@@ -126,7 +123,6 @@
 
 @media screen and (max-width: $tablet) {
     .eventDetail {
-
         &__section {
             display: flex;
             flex-direction: column-reverse;

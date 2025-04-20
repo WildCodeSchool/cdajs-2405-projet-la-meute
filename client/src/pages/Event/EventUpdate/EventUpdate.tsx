@@ -147,7 +147,7 @@ function EventUpdate() {
 					},
 				});
 				toast.success("L'évènement a été mis à jour avec succès.");
-				navigate(`/trainer/planning/my-events/${id}`);
+				navigate(`/event/${id}`);
 			} catch (error) {
 				console.error("Erreur lors de la mise à jour de l'évènement:", error);
 				toast.error(

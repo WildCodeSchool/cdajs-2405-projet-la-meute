@@ -1,12 +1,11 @@
 import "./DogId.scss";
 import Button from "@/components/_atoms/Button/Button";
-import { useUser } from "@/hooks/useUser";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import OwnerBubble from "@/components/_molecules/OwnerBubble/OwnerBubble";
+import OwnerBubble from "@/components/_atoms/OwnerBubble/OwnerBubble";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 
@@ -38,19 +37,12 @@ function DogId() {
 	const loading = dogLoading || ownerLoading;
 	const error = dogError || ownerError;
 
-	const { user } = useUser();
-	const isTrainer = user?.role === "trainer";
-
 	const formattedBirthDate = dog?.birthDate
 		? new Date(dog.birthDate).toLocaleDateString()
 		: "Non renseignée";
 
 	const handleGoBack = () => {
 		navigate(-1);
-	};
-
-	const handleOwnerClick = (owner: Owner) => {
-		navigate(`/owner/${owner.id}`);
 	};
 
 	return (
@@ -109,10 +101,7 @@ function DogId() {
 							<div className="dogProfile__owner">
 								<h1>Propriétaire</h1>
 								<div className="eventDetail__participation--wrapper">
-									<OwnerBubble
-										owner={owner}
-										onOwnerClick={isTrainer ? handleOwnerClick : undefined}
-									/>
+									<OwnerBubble owner={owner} />
 								</div>
 							</div>
 						)}
