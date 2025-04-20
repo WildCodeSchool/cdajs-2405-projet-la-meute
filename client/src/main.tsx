@@ -234,7 +234,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <DogsList/>,
+								element: <DogsList />,
 							},
 						],
 					},
