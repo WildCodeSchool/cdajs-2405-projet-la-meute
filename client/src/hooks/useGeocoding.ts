@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 export type GeocodingResult = {
 	lat: number;
 	lng: number;
-	postalCode?: string;
+	postal_code?: string;
 	city?: string;
 };
 
@@ -14,13 +14,13 @@ export type UseGeocodingReturn = {
 	searchByPostalCode: (code: string) => Promise<GeocodingResult | null>;
 	searchByCity: (cityName: string) => Promise<GeocodingResult | null>;
 	searchByAddress: (params: {
-		postalCode?: string;
+		postal_code?: string;
 		city?: string;
 	}) => Promise<GeocodingResult | null>;
 	reverseGeocode: (
 		lat: number,
 		lng: number,
-	) => Promise<{ postalCode?: string; city?: string } | null>;
+	) => Promise<{ postal_code?: string; city?: string } | null>;
 };
 
 export const useGeocoding = (): UseGeocodingReturn => {
@@ -59,7 +59,7 @@ export const useGeocoding = (): UseGeocodingReturn => {
 					return {
 						lat: Number.parseFloat(result.lat),
 						lng: Number.parseFloat(result.lon),
-						postalCode: result.address?.postcode,
+						postal_code: result.address?.postcode,
 						city: cityName,
 					};
 				}
@@ -109,7 +109,7 @@ export const useGeocoding = (): UseGeocodingReturn => {
 					return {
 						lat: Number.parseFloat(result.lat),
 						lng: Number.parseFloat(result.lon),
-						postalCode: result.address?.postcode,
+						postal_code: result.address?.postcode,
 						city: cityName,
 					};
 				}
@@ -129,13 +129,13 @@ export const useGeocoding = (): UseGeocodingReturn => {
 
 	const searchByAddress = useCallback(
 		async (params: {
-			postalCode?: string;
+			postal_code?: string;
 			city?: string;
 		}): Promise<GeocodingResult | null> => {
-			const { postalCode, city } = params;
+			const { postal_code, city } = params;
 
 			if (
-				(!postalCode || postalCode.length < 2) &&
+				(!postal_code || postal_code.length < 2) &&
 				(!city || city.length < 2)
 			) {
 				setError("Veuillez fournir un code postal ou une ville");
@@ -147,8 +147,8 @@ export const useGeocoding = (): UseGeocodingReturn => {
 				setError(null);
 
 				let query = "";
-				if (postalCode && postalCode.length >= 2) {
-					query += `postalcode=${postalCode}`;
+				if (postal_code && postal_code.length >= 2) {
+					query += `postalcode=${postal_code}`;
 				}
 
 				if (city && city.length >= 2) {
@@ -177,7 +177,7 @@ export const useGeocoding = (): UseGeocodingReturn => {
 					return {
 						lat: Number.parseFloat(result.lat),
 						lng: Number.parseFloat(result.lon),
-						postalCode: result.address?.postcode,
+						postal_code: result.address?.postcode,
 						city: cityName,
 					};
 				}
@@ -199,7 +199,7 @@ export const useGeocoding = (): UseGeocodingReturn => {
 		async (
 			lat: number,
 			lng: number,
-		): Promise<{ postalCode?: string; city?: string } | null> => {
+		): Promise<{ postal_code?: string; city?: string } | null> => {
 			try {
 				setIsLoading(true);
 				setError(null);
@@ -218,7 +218,7 @@ export const useGeocoding = (): UseGeocodingReturn => {
 					const { postcode, city, town, village } = data.address;
 
 					return {
-						postalCode: postcode,
+						postal_code: postcode,
 						city: city || town || village || "",
 					};
 				}

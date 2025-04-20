@@ -3,15 +3,9 @@ import type { Dog } from "./Dog";
 export interface Location {
 	latitude: number;
 	longitude: number;
-}
-
-export interface LocationType {
-	latitude: number;
-	longitude: number;
-	postalCode?: string;
+	postal_code?: string;
 	city?: string;
 }
-
 export interface Event {
 	id: number;
 	date: string;

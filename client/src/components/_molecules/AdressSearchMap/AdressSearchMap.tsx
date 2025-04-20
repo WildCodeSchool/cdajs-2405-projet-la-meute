@@ -5,10 +5,10 @@ import LeafletMap, {
 	type leafletMarkerType,
 } from "@/components/_atoms/LeafletMap/LeafletMap";
 import { useGeocoding } from "@/hooks/useGeocoding";
-import type { LocationType } from "@/types/Event";
+import type { Location } from "@/types/Event";
 
 type AddressSearchMapProps = {
-	markerLocation?: LocationType;
+	markerLocation?: Location;
 	setMarkerLocation?: Dispatch<leafletMarkerType[]>;
 	className?: string;
 };
@@ -17,10 +17,10 @@ function AddressSearchMap({
 	markerLocation,
 	setMarkerLocation,
 }: AddressSearchMapProps) {
-	const [postalCode, setPostalCode] = useState<string>("");
+	const [postal_code, setPostalCode] = useState<string>("");
 	const [city, setCity] = useState<string>("");
 	const [inputTimeout, setInputTimeout] = useState<NodeJS.Timeout | null>(null);
-	const [localMarkerLocation, setLocalMarkerLocation] = useState<LocationType>(
+	const [localMarkerLocation, setLocalMarkerLocation] = useState<Location>(
 		markerLocation || { latitude: 48.853495, longitude: 2.348392 },
 	);
 
@@ -31,6 +31,8 @@ function AddressSearchMap({
 		if (markerLocation) {
 			setLocalMarkerLocation(markerLocation);
 		}
+		if (markerLocation?.postal_code) setPostalCode(markerLocation.postal_code);
+		if (markerLocation?.city) setCity(markerLocation.city);
 	}, [markerLocation]);
 
 	useEffect(() => {
@@ -43,7 +45,7 @@ function AddressSearchMap({
 				localMarkerLocation.longitude,
 			).then((result) => {
 				if (result) {
-					if (result.postalCode) setPostalCode(result.postalCode);
+					if (result.postal_code) setPostalCode(result.postal_code);
 					if (result.city) setCity(result.city);
 				}
 			});
@@ -55,32 +57,46 @@ function AddressSearchMap({
 			setLocalMarkerLocation({
 				latitude: position.lat,
 				longitude: position.lng,
+				postal_code,
+				city,
 			});
 
 			if (setMarkerLocation) {
-				setMarkerLocation([position]);
+				const markerWithInfo = [
+					{
+						...position,
+						postal_code,
+						city,
+					},
+				];
+				setMarkerLocation(markerWithInfo);
 			}
 		},
-		[setMarkerLocation],
+		[setMarkerLocation, postal_code, city],
 	);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 
-		if (name === "postalCode") {
+		if (name === "postal_code") {
 			setPostalCode(value);
 
 			if (value.length === 5) {
 				searchByPostalCode(value).then((result) => {
 					if (result) {
-						setCity(result.city || "");
+						const newCity = result.city || "";
+						setCity(newCity);
 
 						const newPosition: leafletMarkerType = {
 							lat: result.lat,
 							lng: result.lng,
 						};
 
-						updateMarkerPosition(newPosition);
+						updateMarkerPosition({
+							...newPosition,
+							postal_code: value.toString(),
+							city: newCity,
+						});
 					}
 				});
 			}
@@ -95,14 +111,19 @@ function AddressSearchMap({
 				const timeout = setTimeout(() => {
 					searchByCity(value).then((result) => {
 						if (result) {
-							if (result.postalCode) setPostalCode(result.postalCode);
+							const newPostalCode = result.postal_code || "";
+							if (result.postal_code) setPostalCode(newPostalCode);
 
 							const newPosition: leafletMarkerType = {
 								lat: result.lat,
 								lng: result.lng,
 							};
 
-							updateMarkerPosition(newPosition);
+							updateMarkerPosition({
+								...newPosition,
+								postal_code: newPostalCode,
+								city: value,
+							});
 						}
 					});
 				}, 500);
@@ -111,37 +132,46 @@ function AddressSearchMap({
 			}
 		}
 	};
-
-	const searchNow = (type: "postalCode" | "city", value: string) => {
+	const searchNow = (type: "postal_code" | "city", value: string) => {
 		if (inputTimeout) {
 			clearTimeout(inputTimeout);
 			setInputTimeout(null);
 		}
 
-		if (type === "postalCode" && value.length >= 3) {
+		if (type === "postal_code" && value.length >= 3) {
 			searchByPostalCode(value).then((result) => {
 				if (result) {
-					setCity(result.city || "");
+					const newCity = result.city || "";
+					setCity(newCity);
 
 					const newPosition: leafletMarkerType = {
 						lat: result.lat,
 						lng: result.lng,
 					};
 
-					updateMarkerPosition(newPosition);
+					updateMarkerPosition({
+						...newPosition,
+						postal_code: value,
+						city: newCity,
+					});
 				}
 			});
 		} else if (type === "city" && value.length >= 2) {
 			searchByCity(value).then((result) => {
 				if (result) {
-					if (result.postalCode) setPostalCode(result.postalCode);
+					const newPostalCode = result.postal_code || "";
+					if (result.postal_code) setPostalCode(newPostalCode);
 
 					const newPosition: leafletMarkerType = {
 						lat: result.lat,
 						lng: result.lng,
 					};
 
-					updateMarkerPosition(newPosition);
+					updateMarkerPosition({
+						...newPosition,
+						postal_code: newPostalCode,
+						city: value,
+					});
 				}
 			});
 		}
@@ -152,7 +182,7 @@ function AddressSearchMap({
 			e.preventDefault();
 
 			const { name, value } = e.currentTarget;
-			searchNow(name as "postalCode" | "city", value);
+			searchNow(name as "postal_code" | "city", value);
 		}
 	};
 
@@ -189,8 +219,8 @@ function AddressSearchMap({
 					Code postal
 					<input
 						type="text"
-						name="postalCode"
-						value={postalCode}
+						name="postal_code"
+						value={postal_code}
 						onChange={handleInputChange}
 						onKeyDown={handleKeyDown}
 						placeholder="Code postal"

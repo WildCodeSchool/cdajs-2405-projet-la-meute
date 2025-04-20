@@ -4,10 +4,10 @@ import type { Dispatch } from "react";
 import "./LeafletMap.scss";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import type { LatLngExpression, Marker as LeafletMarker } from "leaflet";
-import type { LocationType } from "@/types/Event";
+import type { Location } from "@/types/Event";
 
 type LeafletMapProps = {
-	markerLocation?: LocationType;
+	markerLocation?: Location;
 	setMarkerLocation?: Dispatch<leafletMarkerType[]>;
 	className?: string;
 };
@@ -15,6 +15,8 @@ type LeafletMapProps = {
 export type leafletMarkerType = {
 	lat: number;
 	lng: number;
+	postal_code?: string;
+	city?: string;
 };
 
 function ChangeView({ center }: { center: LatLngExpression }) {

@@ -48,7 +48,7 @@ function EventUpdate() {
 	]);
 	const [showCancelModal, setShowCancelModal] = useState(false);
 	const [showSaveModal, setShowSaveModal] = useState(false);
-	const { data, loading, error } = useQuery(GET_EVENT_BY_ID, {
+	const { data, loading, error, refetch } = useQuery(GET_EVENT_BY_ID, {
 		variables: { eventId: Number(id) },
 		skip: !id,
 		fetchPolicy: "network-only",
@@ -68,6 +68,17 @@ function EventUpdate() {
 			const formattedDate = startDate.toISOString().split("T")[0];
 			const formattedStartTime = startDate.toTimeString().slice(0, 5);
 			const formattedEndTime = endDate.toTimeString().slice(0, 5);
+
+			if (data.getEventById.location) {
+				setMarkerLocation([
+					{
+						lat: data.getEventById.location.latitude,
+						lng: data.getEventById.location.longitude,
+						postal_code: data.getEventById.location.postal_code || "",
+						city: data.getEventById.location.city || "",
+					},
+				]);
+			}
 
 			editForm.setValues({
 				id: Number(id),
@@ -91,6 +102,8 @@ function EventUpdate() {
 			location: {
 				latitude: markerLocation ? markerLocation[0].lat : 48.853495,
 				longitude: markerLocation ? markerLocation[0].lng : 2.349014,
+				postal_code: markerLocation[0].postal_code || "",
+				city: markerLocation[0].city || "",
 			},
 			startTime: "",
 			endTime: "",
@@ -130,6 +143,13 @@ function EventUpdate() {
 			try {
 				const servicesArray = services.map((service) => Number(service.id));
 
+				const location = {
+					latitude: markerLocation[0].lat,
+					longitude: markerLocation[0].lng,
+					postal_code: markerLocation[0].postal_code || "",
+					city: markerLocation[0].city || "",
+				};
+
 				const eventData = {
 					eventId: Number(id),
 					title: formValues.title,
@@ -138,29 +158,17 @@ function EventUpdate() {
 					endDate: formatDateTime(formValues.date, formValues.endTime),
 					price: Number(formValues.price),
 					groupMaxSize: Number(formValues.groupMaxSize),
-					location: {
-						latitude: markerLocation ? markerLocation[0].lat : 48.853495,
-						longitude: markerLocation ? markerLocation[0].lng : 2.349014,
-					},
+					location: location,
 					trainerId: Number(user?.id),
 					serviceIds: servicesArray,
 				};
 
 				await updateEvent({
 					variables: eventData,
-					// Allow to refresh datas without refresh page after submit form when navigate is execute on the id page of event
-					update: (cache, { data }) => {
-						const updatedEvent = data?.updateEvent;
-
-						if (updatedEvent) {
-							cache.writeQuery({
-								query: GET_EVENT_BY_ID,
-								variables: { eventId: Number(id) },
-								data: { getEventById: updatedEvent },
-							});
-						}
-					},
 				});
+
+				await refetch();
+
 				toast.success("L'évènement a été mis à jour avec succès.");
 				navigate(`/event/${id}`);
 			} catch (error) {
