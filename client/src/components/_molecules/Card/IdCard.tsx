@@ -37,7 +37,7 @@ export default function IdCard({
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
 						: role === "trainer" && trainerView
-							? `/trainer/my-dogs/profile/${dogData.id}`
+							? `/trainer/dogs-list/profile/${dogData.id}`
 							: `/dog/${dogData.id}`,
 				buttonText: ownerView
 					? "Modifier le profil"
