@@ -9,9 +9,15 @@ type IdCardProps = {
 	type: "dog" | "owner";
 	data: Dog | Owner;
 	ownerView?: boolean;
+	trainerView?: boolean;
 };
 
-export default function IdCard({ type, data, ownerView }: IdCardProps) {
+export default function IdCard({
+	type,
+	data,
+	ownerView,
+	trainerView,
+}: IdCardProps) {
 	const isDog = type === "dog";
 	const dogData = data as Dog;
 	const ownerData = data as Owner;
@@ -30,8 +36,14 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				link:
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
-						: `/dog/${dogData.id}`,
-				buttonText: ownerView ? "Modifier le profil" : "Voir le profil",
+						: role === "trainer" && trainerView
+							? `/trainer/my-dogs/profile/${dogData.id}`
+							: `/dog/${dogData.id}`,
+				buttonText: ownerView
+					? "Modifier le profil"
+					: trainerView
+						? "Voir les détails"
+						: "Voir le profil",
 			};
 		}
 
