@@ -61,6 +61,7 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 			description: initialData?.description || "",
 			price: initialData?.price || "",
 			groupMaxSize: initialData?.group_max_size || "",
+			services: initialData?.services || [],
 		},
 		onSubmit: async (formValues) => {
 			await handleSubmit(formValues);
@@ -164,9 +165,13 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 						clients, vous pouvez en choisir jusqu’à 3.
 					</p>
 					<div className="createEvent__event--services--newService">
-						{services.map((service) => (
-							<Service key={service.id} service={service} />
-						))}
+						{isCreate
+							? services.map((service) => (
+									<Service key={service.id} service={service} />
+								))
+							: initialData?.services.map((service) => (
+									<Service key={service.id} service={service} />
+								))}
 						<NewService services={services} setServices={setServices} />
 					</div>
 				</label>
