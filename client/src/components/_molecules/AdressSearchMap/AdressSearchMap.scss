@@ -18,6 +18,7 @@
             flex-direction: column;
             margin: 0;
             gap: 0.5rem;
+            width: 50%;
             
             input {
                 background-color: $beige-300;
@@ -26,6 +27,7 @@
                 border-radius: $atoms-radius;
                 padding: 0.8rem;
                 padding-inline: 2rem;
+                width: 100%;
             }
         }
     }
