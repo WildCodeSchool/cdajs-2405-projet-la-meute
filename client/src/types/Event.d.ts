@@ -8,6 +8,8 @@ export interface Location {
 export interface LocationType {
 	latitude: number;
 	longitude: number;
+	postalCode?: string;
+	city?: string;
 }
 
 export interface Event {

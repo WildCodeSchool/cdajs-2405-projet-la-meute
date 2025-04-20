@@ -4,9 +4,7 @@ import { useUser } from "@/hooks/useUser";
 import { useForm } from "@/hooks/useForm";
 import { useMutation, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
-import LeafletMap, {
-	type leafletMarkerType,
-} from "@/components/_atoms/LeafletMap/LeafletMap";
+import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
 
 import "./EventUpdate.scss";
 import type { ServiceType } from "@/types/Service";
@@ -20,6 +18,8 @@ import Button from "@/components/_atoms/Button/Button";
 import Modal from "@/components/_molecules/Modal/Modal";
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
+import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
+import useGeocoding from "@/hooks/useGeocoding";
 
 type endTimeStyleType = {
 	outline?: string;
@@ -38,6 +38,7 @@ interface EventFormValues extends Record<string, unknown> {
 
 function EventUpdate() {
 	const { id } = useParams();
+	const { validateCoordinates } = useGeocoding();
 	const navigate = useNavigate();
 	const { user } = useUser();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>({});
@@ -72,6 +73,7 @@ function EventUpdate() {
 				id: Number(id),
 				title: data.getEventById.title || "",
 				date: formattedDate || "",
+				location: data.getEventById.location || {},
 				startTime: formattedStartTime || "",
 				endTime: formattedEndTime || "",
 				description: data.getEventById.description || "",
@@ -86,6 +88,10 @@ function EventUpdate() {
 			id: Number(id),
 			title: "",
 			date: "",
+			location: {
+				latitude: markerLocation ? markerLocation[0].lat : 48.853495,
+				longitude: markerLocation ? markerLocation[0].lng : 2.349014,
+			},
 			startTime: "",
 			endTime: "",
 			description: "",
@@ -111,6 +117,15 @@ function EventUpdate() {
 	};
 
 	const handleSubmit = async (formValues: EventFormValues) => {
+		if (
+			!markerLocation ||
+			markerLocation.length === 0 ||
+			!validateCoordinates(markerLocation[0].lat, markerLocation[0].lng)
+		) {
+			toast.error("Veuillez sélectionner une localisation valide sur la carte");
+			return;
+		}
+
 		if (user?.role === "trainer") {
 			try {
 				const servicesArray = services.map((service) => Number(service.id));
@@ -159,6 +174,16 @@ function EventUpdate() {
 
 	const handleFormValidate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (
+			!markerLocation ||
+			markerLocation.length === 0 ||
+			!validateCoordinates(markerLocation[0].lat, markerLocation[0].lng)
+		) {
+			toast.error("Veuillez sélectionner une localisation valide sur la carte");
+			return;
+		}
+
 		if (editForm.values.startTime >= editForm.values.endTime) {
 			setEndTimeStyle({ outline: "2px solid red" });
 			toast.error(
@@ -295,11 +320,10 @@ function EventUpdate() {
 					</label>
 				</span>
 
-				<span className="createEvent__event--location">
-					{/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
-					<label>Localisation&nbsp;*</label>
-					<LeafletMap setMarkerLocation={setMarkerLocation} />
-				</span>
+				<AddressSearchMap
+					setMarkerLocation={setMarkerLocation}
+					markerLocation={data.getEventById.location}
+				/>
 
 				<span className="createEvent__event createEvent__event--buttons">
 					<Button
