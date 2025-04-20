@@ -16,6 +16,8 @@ export interface Event {
 	price: number;
 	startDate: Date;
 	endDate: Date;
+	startTime: string;
+	endTime: string;
 	participation: Participation[];
 	services: ServiceType[];
 	trainer?: Trainer | null;

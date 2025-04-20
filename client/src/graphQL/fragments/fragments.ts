@@ -62,7 +62,9 @@ export const EVENT_FRAGMENT = gql`
             postal_code
         }
         startDate
+        startTime
         endDate
+        endTime
         group_max_size
         price
     }

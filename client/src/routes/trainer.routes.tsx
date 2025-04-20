@@ -4,11 +4,11 @@ import { planningLoader } from "@/routesLoaders/planning.loader";
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
 
-import EventCreator from "@/pages/Event/EventCreator/EventCreator";
 import EventUpdate from "@/pages/Event/EventUpdate/EventUpdate";
 import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId";
+import EventCreate from "@/pages/Event/EventCreator/EventCreate";
 
 export const trainerRoutes = {
 	path: "trainer",
@@ -35,11 +35,11 @@ export const trainerRoutes = {
 					children: [
 						{
 							path: "new",
-							element: <EventCreator />, // TODO: consider merging with EventUpdate – only differs by mode (create vs edit)
+							element: <EventCreate />,
 						},
 						{
 							path: ":id/edit",
-							element: <EventUpdate />, // TODO: consider merging with EventCreator only differs by mode (create vs edit)
+							element: <EventUpdate />,
 						},
 					],
 				},
