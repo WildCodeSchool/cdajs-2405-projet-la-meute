@@ -60,7 +60,9 @@ export const EVENT_FRAGMENT = gql`
             longitude
         }
         startDate
+        startTime
         endDate
+        endTime
         group_max_size
         price
     }

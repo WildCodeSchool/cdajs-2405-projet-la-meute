@@ -39,9 +39,23 @@ export class Event {
 	@Field()
 	startDate: Date;
 
+	@Field()
+	startTime(): string {
+		const startDate = new Date(this.startDate);
+		const formattedStartTime = startDate.toTimeString().slice(0, 5);
+		return formattedStartTime;
+	}
+
 	@Column()
 	@Field()
 	endDate: Date;
+
+	@Field()
+	endTime(): string {
+		const endDate = new Date(this.endDate);
+		const formattedEndTime = endDate.toTimeString().slice(0, 5);
+		return formattedEndTime;
+	}
 
 	@Column("int")
 	@Field()
