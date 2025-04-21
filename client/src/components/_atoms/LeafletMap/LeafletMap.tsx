@@ -1,4 +1,3 @@
-// components/_atoms/LeafletMap/LeafletMap.tsx
 import { useRef, useState, useCallback, useEffect } from "react";
 import type { Dispatch } from "react";
 import "./LeafletMap.scss";
