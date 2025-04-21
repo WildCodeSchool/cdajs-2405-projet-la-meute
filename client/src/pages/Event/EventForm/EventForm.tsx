@@ -1,5 +1,5 @@
 import "./EventForm.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Event } from "@/types/Event";
 import { useNavigate } from "react-router-dom";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
@@ -61,6 +61,12 @@ function EventForm({
 
 	const query = isCreate ? CREATE_EVENT : UPDATE_EVENT;
 	const [selectedQuery] = useMutation(query);
+
+	useEffect(() => {
+		if (mode === "update" && initialData?.services) {
+			setServices(initialData.services);
+		}
+	}, [mode, initialData]);
 
 	const formattedDate = initialData?.startDate
 		? new Date(initialData.startDate).toISOString().split("T")[0]
@@ -202,13 +208,9 @@ function EventForm({
 						clients, vous pouvez en choisir jusqu’à 3.
 					</p>
 					<div className="createEvent__event--services--newService">
-						{isCreate
-							? services.map((service) => (
-									<Service key={service.id} service={service} />
-								))
-							: initialData?.services.map((service) => (
-									<Service key={service.id} service={service} />
-								))}
+						{services.map((service) => (
+							<Service key={service.id} service={service} />
+						))}
 						<NewService services={services} setServices={setServices} />
 					</div>
 				</label>
