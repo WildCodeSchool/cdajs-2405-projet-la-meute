@@ -103,16 +103,6 @@
             }
         }
 
-        &--location {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-inline: -3vw;
-            font-weight: $bold;
-            label {
-                margin-inline: 3vw;
-            }
-        }
         &--buttons {
             display: flex;
             justify-content: end;

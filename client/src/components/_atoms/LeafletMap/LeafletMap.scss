@@ -4,3 +4,9 @@
     height: 300px;
     z-index: 0;
 }
+
+.leaflet-map-container {
+    &-eventForm {
+        margin-inline: -3vw;
+    }
+}

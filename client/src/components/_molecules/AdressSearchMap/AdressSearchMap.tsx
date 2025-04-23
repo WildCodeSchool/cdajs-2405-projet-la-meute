@@ -16,6 +16,7 @@ type AddressSearchMapProps = {
 function AddressSearchMap({
 	markerLocation,
 	setMarkerLocation,
+	className = "",
 }: AddressSearchMapProps) {
 	const [postal_code, setPostalCode] = useState<string>("");
 	const [city, setCity] = useState<string>("");
@@ -249,6 +250,7 @@ function AddressSearchMap({
 			<LeafletMap
 				markerLocation={localMarkerLocation}
 				setMarkerLocation={handleMarkerMove}
+				className={className}
 			/>
 		</section>
 	);
