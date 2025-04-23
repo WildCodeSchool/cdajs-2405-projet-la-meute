@@ -26,11 +26,7 @@ function ChangeView({ center }: { center: LatLngExpression }) {
 	return null;
 }
 
-function LeafletMap({
-	markerLocation,
-	setMarkerLocation,
-	className = "",
-}: LeafletMapProps) {
+function LeafletMap({ markerLocation, setMarkerLocation }: LeafletMapProps) {
 	const DEFAULT_POSITION: LatLngExpression = [48.853495, 2.348392];
 
 	const hasValidInitialMarker =
@@ -68,23 +64,21 @@ function LeafletMap({
 	}, [setMarkerLocation]);
 
 	return (
-		<div className={`leaflet-map-container ${className}`}>
-			<MapContainer id="map" center={position} zoom={13} scrollWheelZoom={true}>
-				<ChangeView center={position} />
-				<TileLayer
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				/>
-				<Marker
-					position={position}
-					draggable={true}
-					eventHandlers={{ dragend: handleDragEnd }}
-					ref={markerRef}
-				>
-					<Popup>Déplacez-moi !</Popup>
-				</Marker>
-			</MapContainer>
-		</div>
+		<MapContainer id="map" center={position} zoom={13} scrollWheelZoom={true}>
+			<ChangeView center={position} />
+			<TileLayer
+				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+			/>
+			<Marker
+				position={position}
+				draggable={true}
+				eventHandlers={{ dragend: handleDragEnd }}
+				ref={markerRef}
+			>
+				<Popup>Déplacez-moi !</Popup>
+			</Marker>
+		</MapContainer>
 	);
 }
 
