@@ -68,7 +68,7 @@ function LeafletMap({
 	}, [setMarkerLocation]);
 
 	return (
-		<div className={`leaflet-map-container ${className}`}>
+		<div className={`leaflet-map-container leaflet-map-container-${className}`}>
 			<MapContainer id="map" center={position} zoom={13} scrollWheelZoom={true}>
 				<ChangeView center={position} />
 				<TileLayer
