@@ -73,17 +73,17 @@ const TextInput = React.forwardRef<
 			type === "confirmPassword" ||
 			type === "oldPassword";
 
-		const autoResize = () => {
+		const textAreaResize = () => {
 			if (inputRef.current && inputType === "textarea") {
-				const el = inputRef.current as HTMLTextAreaElement;
-				el.style.height = "auto";
-				el.style.height = `${el.scrollHeight}px`;
+				const resized = inputRef.current as HTMLTextAreaElement;
+				resized.style.height = "auto";
+				resized.style.height = `${resized.scrollHeight}px`;
 			}
 		};
 
 		// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation> // FIXME:
 		useEffect(() => {
-			autoResize();
+			textAreaResize();
 		}, []);
 
 		// Specific password validation function
@@ -124,7 +124,7 @@ const TextInput = React.forwardRef<
 		const handleBlur = () => {
 			setInputTouched(true);
 			validate();
-			autoResize();
+			textAreaResize();
 		};
 
 		const handleChange = (
@@ -147,7 +147,7 @@ const TextInput = React.forwardRef<
 				}
 			}
 
-			autoResize();
+			textAreaResize();
 		};
 
 		const remaining = maxLength - lengthCount;
