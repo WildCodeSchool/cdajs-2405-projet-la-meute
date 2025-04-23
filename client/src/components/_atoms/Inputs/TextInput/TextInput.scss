@@ -44,6 +44,8 @@
         padding: 0.8rem;
         padding-inline: 2rem;
         font-weight: $light;
+        overflow: "hidden";
+        resize: "none";
 
         &.error-border {
             border-color: $error-color;

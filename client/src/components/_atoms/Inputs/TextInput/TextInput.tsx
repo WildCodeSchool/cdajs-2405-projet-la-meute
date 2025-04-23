@@ -1,6 +1,6 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
-import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
+import { Eye } from "@/assets/icons/eye.tsx";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import "./TextInput.scss";
 import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 
@@ -59,19 +59,32 @@ const TextInput = React.forwardRef<
 			config.validationRules?.message || "Format invalide";
 
 		const fieldName = name || config.mappedName || type;
-
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+		const inputId = `textInput-${type}`;
+
 		useImperativeHandle(
 			ref,
 			() => inputRef.current as HTMLInputElement | HTMLTextAreaElement,
 		);
 
-		const inputId = `textInput-${type}`;
 		const isPasswordField: boolean =
 			type === "password" ||
 			type === "confirmPassword" ||
 			type === "oldPassword";
+
+		const autoResize = () => {
+			if (inputRef.current && inputType === "textarea") {
+				const el = inputRef.current as HTMLTextAreaElement;
+				el.style.height = "auto";
+				el.style.height = `${el.scrollHeight}px`;
+			}
+		};
+
+		// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation> // FIXME:
+		useEffect(() => {
+			autoResize();
+		}, []);
 
 		// Specific password validation function
 		const validatePasswordFormat = (value: string): boolean => {
@@ -111,6 +124,7 @@ const TextInput = React.forwardRef<
 		const handleBlur = () => {
 			setInputTouched(true);
 			validate();
+			autoResize();
 		};
 
 		const handleChange = (
@@ -132,6 +146,8 @@ const TextInput = React.forwardRef<
 					validate();
 				}
 			}
+
+			autoResize();
 		};
 
 		const remaining = maxLength - lengthCount;
@@ -158,7 +174,7 @@ const TextInput = React.forwardRef<
 					<textarea
 						id={inputId}
 						name={fieldName}
-						ref={ref as React.RefObject<HTMLTextAreaElement>}
+						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
 						value={value}
 						required={required}
