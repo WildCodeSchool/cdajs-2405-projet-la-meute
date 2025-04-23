@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import EventForm from "@/pages/Event/EventForm/EventForm";
 import { GET_EVENT_BY_ID } from "@/graphQL/queries/event";
+import EventForm from "@/pages/Event/EventForm/EventForm";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 export default function EventUpdate() {
 	const { id } = useParams();

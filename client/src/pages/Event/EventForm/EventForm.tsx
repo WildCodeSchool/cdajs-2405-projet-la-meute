@@ -1,22 +1,20 @@
-import "./EventForm.scss";
-import { useEffect, useState } from "react";
-import type { Event } from "@/types/Event";
-import { useNavigate } from "react-router-dom";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
-import type { Location } from "@/types/Event";
+import NewService from "@/components/_atoms/Service/NewService";
+import Service from "@/components/_atoms/Service/Service";
+import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
+import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
 import { useForm } from "@/hooks/useForm";
 import { useGeocoding } from "@/hooks/useGeocoding";
 import { useUser } from "@/hooks/useUser";
+import type { Event, Location } from "@/types/Event";
 import type { ServiceType } from "@/types/Service";
-
 import { useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import NewService from "@/components/_atoms/Service/NewService";
-import Service from "@/components/_atoms/Service/Service";
-import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
-import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
 import EventFormActions from "./Controls/EventFormActions";
+import "./EventForm.scss";
 
 type endTimeStyleType = {
 	outline?: string;
