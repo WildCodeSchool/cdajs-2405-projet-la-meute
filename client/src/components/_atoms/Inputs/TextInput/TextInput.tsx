@@ -1,6 +1,12 @@
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
 import { Eye } from "@/assets/icons/eye.tsx";
-import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from "react";
 import "./TextInput.scss";
 import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 
@@ -73,18 +79,17 @@ const TextInput = React.forwardRef<
 			type === "confirmPassword" ||
 			type === "oldPassword";
 
-		const textAreaResize = () => {
+		const textAreaResize = useCallback(() => {
 			if (inputRef.current && inputType === "textarea") {
 				const resized = inputRef.current as HTMLTextAreaElement;
 				resized.style.height = "auto";
 				resized.style.height = `${resized.scrollHeight}px`;
 			}
-		};
+		}, [inputType]);
 
-		// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation> // FIXME:
 		useEffect(() => {
 			textAreaResize();
-		}, []);
+		}, [textAreaResize]);
 
 		// Specific password validation function
 		const validatePasswordFormat = (value: string): boolean => {
