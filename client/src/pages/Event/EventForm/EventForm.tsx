@@ -1,4 +1,3 @@
-import "./EventForm.scss";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
 import NewService from "@/components/_atoms/Service/NewService";
@@ -8,14 +7,14 @@ import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
 import { useForm } from "@/hooks/useForm";
 import { useGeocoding } from "@/hooks/useGeocoding";
 import { useUser } from "@/hooks/useUser";
-import type { Location } from "@/types/Event";
-import type { Event } from "@/types/Event";
+import type { Event, Location } from "@/types/Event";
 import type { ServiceType } from "@/types/Service";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EventFormActions from "./Controls/EventFormActions";
+import "./EventForm.scss";
 
 type endTimeStyleType = {
 	outline?: string;

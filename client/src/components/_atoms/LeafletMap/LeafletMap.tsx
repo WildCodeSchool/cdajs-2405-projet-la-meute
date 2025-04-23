@@ -1,8 +1,8 @@
-import { type Dispatch, useCallback, useEffect, useRef, useState } from "react";
-import "./LeafletMap.scss";
 import type { Location } from "@/types/Event";
 import type { LatLngExpression, Marker as LeafletMarker } from "leaflet";
+import { type Dispatch, useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import "./LeafletMap.scss";
 
 type LeafletMapProps = {
 	markerLocation?: Location;
