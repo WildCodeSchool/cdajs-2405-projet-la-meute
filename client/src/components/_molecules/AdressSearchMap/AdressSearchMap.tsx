@@ -1,6 +1,5 @@
 import "./AdressSearchMap.scss";
-import { useState, useEffect, useCallback } from "react";
-import type { Dispatch } from "react";
+import { useState, useEffect, useCallback, type Dispatch } from "react";
 import LeafletMap, {
 	type leafletMarkerType,
 } from "@/components/_atoms/LeafletMap/LeafletMap";
@@ -16,7 +15,6 @@ type AddressSearchMapProps = {
 function AddressSearchMap({
 	markerLocation,
 	setMarkerLocation,
-	className = "",
 }: AddressSearchMapProps) {
 	const [postal_code, setPostalCode] = useState<string>("");
 	const [city, setCity] = useState<string>("");
@@ -250,7 +248,6 @@ function AddressSearchMap({
 			<LeafletMap
 				markerLocation={localMarkerLocation}
 				setMarkerLocation={handleMarkerMove}
-				className={className}
 			/>
 		</section>
 	);

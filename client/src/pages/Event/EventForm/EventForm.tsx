@@ -299,7 +299,6 @@ function EventForm({
 				<AddressSearchMap
 					markerLocation={form.values.location as Location}
 					setMarkerLocation={setMarkerLocation}
-					className="eventForm"
 				/>
 				<EventFormActions isCreate={isCreate} />
 			</form>
