@@ -1,19 +1,20 @@
-import "./EventForm.scss";
-import { useEffect, useState } from "react";
-import type { Event } from "@/types/Event";
-import { useNavigate } from "react-router-dom";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
-import { useForm } from "@/hooks/useForm";
-import { useUser } from "@/hooks/useUser";
-import type { ServiceType } from "@/types/Service";
-import { useMutation } from "@apollo/client";
-import { toast } from "react-toastify";
-import LeafletMap from "@/components/_atoms/LeafletMap/LeafletMap";
 import NewService from "@/components/_atoms/Service/NewService";
 import Service from "@/components/_atoms/Service/Service";
+import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
 import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
+import { useForm } from "@/hooks/useForm";
+import { useGeocoding } from "@/hooks/useGeocoding";
+import { useUser } from "@/hooks/useUser";
+import type { Event, Location } from "@/types/Event";
+import type { ServiceType } from "@/types/Service";
+import { useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import EventFormActions from "./Controls/EventFormActions";
+import "./EventForm.scss";
 
 type endTimeStyleType = {
 	outline?: string;
@@ -22,6 +23,7 @@ type endTimeStyleType = {
 interface EventFormProps {
 	mode: "create" | "update";
 	initialData?: Event | null;
+	refetch: () => void;
 }
 
 interface EventFormValues extends Record<string, unknown> {
@@ -35,13 +37,24 @@ interface EventFormValues extends Record<string, unknown> {
 	groupMaxSize: string | number;
 }
 
-function EventForm({ mode = "create", initialData = null }: EventFormProps) {
+function EventForm({
+	mode = "create",
+	initialData = null,
+	refetch,
+}: EventFormProps) {
 	const navigate = useNavigate();
 	const { user } = useUser();
+	const { validateCoordinates } = useGeocoding();
 	const [endTimeStyle, setEndTimeStyle] = useState<endTimeStyleType>();
 	const [services, setServices] = useState<ServiceType[]>([]);
-	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>();
-
+	const [markerLocation, setMarkerLocation] = useState<leafletMarkerType[]>([
+		{
+			lat: initialData?.location.latitude || 48.853495,
+			lng: initialData?.location.longitude || 2.349014,
+			postal_code: initialData?.location.postal_code || "",
+			city: initialData?.location.city || "",
+		},
+	]);
 	const isCreate = mode === "create";
 
 	const query = isCreate ? CREATE_EVENT : UPDATE_EVENT;
@@ -62,6 +75,12 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 			id: Number(initialData?.id),
 			title: initialData?.title || "",
 			date: formattedDate,
+			location: {
+				latitude: markerLocation ? markerLocation[0].lat : 48.853495,
+				longitude: markerLocation ? markerLocation[0].lng : 2.349014,
+				postal_code: markerLocation ? markerLocation[0].postal_code : "",
+				city: markerLocation ? markerLocation[0].city : "",
+			},
 			startTime: initialData?.startTime || "",
 			endTime: initialData?.endTime || "",
 			description: initialData?.description || "",
@@ -98,6 +117,15 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 	};
 
 	const handleSubmit = async (formValues: EventFormValues) => {
+		if (
+			!markerLocation ||
+			markerLocation.length === 0 ||
+			!validateCoordinates(markerLocation[0].lat, markerLocation[0].lng)
+		) {
+			toast.error("Veuillez sélectionner une localisation valide sur la carte");
+			return;
+		}
+
 		if (!validateTimes(formValues.startTime, formValues.endTime)) {
 			return;
 		}
@@ -105,16 +133,20 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 		if (user?.role === "trainer") {
 			const servicesArray = services.map((service) => Number(service.id));
 
+			const location = {
+				latitude: markerLocation[0].lat,
+				longitude: markerLocation[0].lng,
+				postal_code: String(markerLocation[0].postal_code || ""),
+				city: String(markerLocation[0].city || ""),
+			};
+
 			const eventData = {
 				eventId: Number(formValues.id),
 				endDate: formatDateTime(formValues.date, formValues.endTime),
 				startDate: formatDateTime(formValues.date, formValues.startTime),
 				price: Number(formValues.price),
 				groupMaxSize: Number(formValues.groupMaxSize),
-				location: {
-					latitude: markerLocation ? markerLocation[0].lat : 48.853495,
-					longitude: markerLocation ? markerLocation[0].lng : 2.349014,
-				},
+				location: location,
 				description: formValues.description,
 				title: formValues.title,
 				trainerId: Number(user?.id),
@@ -127,6 +159,9 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 						...eventData,
 					},
 				});
+
+				if (!isCreate) await refetch();
+
 				toast.success(
 					`L'évènement a été ${isCreate ? "créé" : "mis à jour"} avec succès.`,
 				);
@@ -260,12 +295,10 @@ function EventForm({ mode = "create", initialData = null }: EventFormProps) {
 						/>
 					</label>
 				</span>
-				<span className="createEvent__event--location">
-					{/* biome-ignore lint/a11y/noLabelWithoutControl: uniformized label even though this input isn't treated as one */}
-					<label>Localisation&nbsp;*</label>
-					<LeafletMap setMarkerLocation={setMarkerLocation} />
-				</span>
-
+				<AddressSearchMap
+					markerLocation={form.values.location as Location}
+					setMarkerLocation={setMarkerLocation}
+				/>
 				<EventFormActions isCreate={isCreate} />
 			</form>
 		</section>

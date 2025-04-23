@@ -47,4 +47,10 @@ export class LocationInput {
 
 	@Field()
 	longitude?: number;
+
+	@Field(() => String, { nullable: true })
+	postal_code?: string;
+
+	@Field(() => String, { nullable: true })
+	city?: string;
 }
