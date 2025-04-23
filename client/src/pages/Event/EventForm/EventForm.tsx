@@ -1,20 +1,20 @@
 import "./EventForm.scss";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
-import { toast } from "react-toastify";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
+import NewService from "@/components/_atoms/Service/NewService";
+import Service from "@/components/_atoms/Service/Service";
+import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
+import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
 import { useForm } from "@/hooks/useForm";
 import { useGeocoding } from "@/hooks/useGeocoding";
 import { useUser } from "@/hooks/useUser";
 import type { Location } from "@/types/Event";
 import type { Event } from "@/types/Event";
 import type { ServiceType } from "@/types/Service";
-import type { leafletMarkerType } from "@/components/_atoms/LeafletMap/LeafletMap";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import NewService from "@/components/_atoms/Service/NewService";
-import Service from "@/components/_atoms/Service/Service";
-import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
-import { CREATE_EVENT, UPDATE_EVENT } from "@/graphQL/mutations/event";
+import { useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import EventFormActions from "./Controls/EventFormActions";
 
 type endTimeStyleType = {

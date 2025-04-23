@@ -1,10 +1,10 @@
-import "./AdressSearchMap.scss";
-import { useState, useEffect, useCallback, type Dispatch } from "react";
 import LeafletMap, {
 	type leafletMarkerType,
 } from "@/components/_atoms/LeafletMap/LeafletMap";
 import { useGeocoding } from "@/hooks/useGeocoding";
 import type { Location } from "@/types/Event";
+import { useCallback, useEffect, useState, type Dispatch } from "react";
+import "./AdressSearchMap.scss";
 
 type AddressSearchMapProps = {
 	markerLocation?: Location;
