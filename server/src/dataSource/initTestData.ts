@@ -42,11 +42,11 @@ async function createData() {
 			return phoneNumber;
 		};
 
-		//1. Create owners
+		// 1. Create owners
 		const ownerRepository = dataSource.getRepository(Owner);
 		const dogRepository = dataSource.getRepository(Dog);
 
-		//Fix owners
+		// Set owners
 		const owners: Owner[] = [];
 		const john = ownerRepository.create({
 			lastname: "Doe",
@@ -67,7 +67,7 @@ async function createData() {
 			postal_code: "59000",
 		});
 
-		const fixOwners = await ownerRepository.save([john, marie]);
+		const setOwners = await ownerRepository.save([john, marie]);
 
 		// === Random owners ===
 		for (let i = 0; i < 50; i++) {
@@ -84,12 +84,12 @@ async function createData() {
 			);
 		}
 		const savedOwners = await ownerRepository.save(owners);
-		const allOwners = [...fixOwners, ...savedOwners];
+		const allOwners = [...setOwners, ...savedOwners];
 
-		//2. Create trainers
+		// 2. Create trainers
 		const trainerRepository = dataSource.getRepository(Trainer);
 
-		//Fix Trainer
+		// Set Trainer
 		const trainers: Trainer[] = [];
 		const jane = trainerRepository.create({
 			firstname: "Jane",
@@ -99,7 +99,7 @@ async function createData() {
 			phone_number: generateFrenchPhone(),
 			city: "Lyon",
 			postal_code: "69000",
-			description: "Je suis un très bon éducateur et je sens bon.",
+			description: "Je suis un très bon éducateur et je sens bon la fraise.",
 			siret: faker.string.numeric(14),
 			company_name: faker.company.name(),
 		});
@@ -126,7 +126,7 @@ async function createData() {
 		}
 		const savedTrainers = await trainerRepository.save(trainers);
 
-		//3. Create dog
+		// 3. Create dogs
 		const dogs: Dog[] = [];
 		for (let i = 0; i < 100; i++) {
 			dogs.push(
@@ -140,7 +140,7 @@ async function createData() {
 		}
 		const savedDogs = await dogRepository.save(dogs);
 
-		// 4. Create Service
+		// 4. Create Services
 		const serviceRepository = dataSource.getRepository(Service);
 
 		const services: Service[] = [];
@@ -156,7 +156,7 @@ async function createData() {
 
 		const savedServices = await serviceRepository.save(services);
 
-		// 5. Create Event
+		// 5. Create Events
 		const eventRepository = dataSource.getRepository(Event);
 
 		const events: Event[] = [];
@@ -164,14 +164,17 @@ async function createData() {
 			const start = faker.date.soon({ days: 15 });
 			const end = new Date(start.getTime() + 1000 * 60 * 60);
 			const randomEvent = faker.helpers.arrayElement(frenchData.events);
+			const location = faker.helpers.arrayElement(frenchData.locations);
 
 			events.push(
 				eventRepository.create({
 					title: randomEvent.title,
 					description: randomEvent.description,
 					location: {
-						longitude: faker.location.latitude(),
-						latitude: faker.location.longitude(),
+						latitude: location.latitude,
+						longitude: location.longitude,
+						city: location.city,
+						postal_code: location.postal_code,
 					},
 					startDate: start,
 					endDate: end,
@@ -188,7 +191,7 @@ async function createData() {
 
 		const savedEvents = await eventRepository.save(events);
 
-		// 6. Create Participation
+		// 6. Create Participations
 		const participationRepository = dataSource.getRepository(Participation);
 		const participations: Participation[] = [];
 		for (let i = 0; i < 30; i++) {
@@ -201,7 +204,7 @@ async function createData() {
 		}
 		await participationRepository.save(participations);
 
-		// 7. Create Favorite
+		// 7. Create Favorites
 		const favoriteRepository = dataSource.getRepository(Favorite);
 		const favorites: Favorite[] = [];
 		for (let i = 0; i < 15; i++) {
