@@ -123,7 +123,6 @@ function EventDetail() {
 								/>
 							</label>
 						</span>
-						{/* FIXME: the text area doesn't fit its content */}
 						<TextInput
 							className="createEvent__event eventDetail__description eventDetail__margin"
 							label="Description"
@@ -135,7 +134,7 @@ function EventDetail() {
 						/>
 						<AddressSearchMap
 							markerLocation={event.location as Location}
-							mode="display"
+							display
 						/>
 						<EventActionsByRole />
 					</div>

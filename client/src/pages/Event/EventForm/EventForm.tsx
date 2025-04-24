@@ -261,7 +261,7 @@ function EventForm({
 					name="description"
 					value={form.values.description}
 					onChange={form.handleChange}
-					count={true}
+					count
 					required
 				/>
 

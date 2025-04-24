@@ -9,13 +9,13 @@ import "./AdressSearchMap.scss";
 type AddressSearchMapProps = {
 	markerLocation?: Location;
 	setMarkerLocation?: Dispatch<leafletMarkerType[]>;
-	mode?: "display" | "";
+	display: boolean;
 };
 
 function AddressSearchMap({
 	markerLocation,
 	setMarkerLocation,
-	mode = "",
+	display,
 }: AddressSearchMapProps) {
 	const [postal_code, setPostalCode] = useState<string>("");
 	const [city, setCity] = useState<string>("");
@@ -224,7 +224,7 @@ function AddressSearchMap({
 						onChange={handleInputChange}
 						onKeyDown={handleKeyDown}
 						placeholder="Code postal"
-						disabled={mode === "display" ? true : isLoading}
+						disabled={display ? true : isLoading}
 						maxLength={5}
 					/>
 				</label>
@@ -237,7 +237,7 @@ function AddressSearchMap({
 						onChange={handleInputChange}
 						onKeyDown={handleKeyDown}
 						placeholder="Ville"
-						disabled={mode === "display" ? true : isLoading}
+						disabled={display ? true : isLoading}
 					/>
 				</label>
 			</span>
@@ -249,7 +249,7 @@ function AddressSearchMap({
 			<LeafletMap
 				markerLocation={localMarkerLocation}
 				setMarkerLocation={handleMarkerMove}
-				mode={mode}
+				display
 			/>
 		</section>
 	);

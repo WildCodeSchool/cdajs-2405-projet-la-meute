@@ -7,7 +7,7 @@ import "./LeafletMap.scss";
 type LeafletMapProps = {
 	markerLocation?: Location;
 	setMarkerLocation?: Dispatch<leafletMarkerType[]>;
-	mode?: "display" | "";
+	display: boolean;
 };
 
 export type leafletMarkerType = {
@@ -28,7 +28,7 @@ function ChangeView({ center }: { center: LatLngExpression }) {
 function LeafletMap({
 	markerLocation,
 	setMarkerLocation,
-	mode = "",
+	display,
 }: LeafletMapProps) {
 	const DEFAULT_POSITION: LatLngExpression = [48.853495, 2.348392];
 
@@ -75,11 +75,11 @@ function LeafletMap({
 			/>
 			<Marker
 				position={position}
-				draggable={mode !== "display"}
+				draggable={!display}
 				eventHandlers={{ dragend: handleDragEnd }}
 				ref={markerRef}
 			>
-				{mode !== "display" && <Popup>Déplacez-moi !</Popup>}
+				{!display && <Popup>Déplacez-moi !</Popup>}
 			</Marker>
 		</MapContainer>
 	);
