@@ -273,6 +273,7 @@ function EventForm({
 							placeholder="Prix TTC - €"
 							type="number"
 							min={0}
+							step="0.01"
 							name="price"
 							value={form.values.price}
 							onChange={form.handleChange}
