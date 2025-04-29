@@ -1,18 +1,16 @@
-import "./SearchPage.scss";
-
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
-
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
+import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+import Search from "@/components/_molecules/Search/Search";
 import {
 	SEARCH_AVAILABLE_EVENTS,
 	SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 } from "@/graphQL/queries/search";
-import type { SearchableEntity, SearchIndex } from "@/types/Search";
 import { useUser } from "@/hooks/useUser";
-
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import Search from "@/components/_molecules/Search/Search";
-import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
+import type { SearchableEntity, SearchIndex } from "@/types/Search";
+import { useQuery } from "@apollo/client";
+import { useState } from "react";
+import "./SearchPage.scss";
 
 export interface filterOption {
 	value: string;
@@ -74,6 +72,7 @@ function SearchPage() {
 			searchField: filter,
 			...(isTrainer && { trainerId: Number(user?.id) }),
 		},
+		fetchPolicy: "no-cache",
 	});
 
 	return (
@@ -89,7 +88,7 @@ function SearchPage() {
 				filterOptions={filterOptions}
 			/>
 
-			{loading && <p>Chargement...</p>}
+			{loading && <LoadingIndicator />}
 			{error && <p>Erreur : {error.message}</p>}
 			{data?.[switchData.backendQuery]?.length === 0 && !loading && (
 				<p>Aucun résultat trouvé.</p>

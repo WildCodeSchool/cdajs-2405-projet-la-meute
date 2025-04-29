@@ -25,12 +25,12 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				imageAlt: `${dogData.name} le chien`,
 				title: dogData.name,
 				subtitle: dogData.breed,
-				age: `${dogData.getAge} ans`,
+				age: dogData.getAge,
 				info: dogData.info,
 				link:
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
-						: `/dog/${dogData.id}`,
+						: `/profile/view/dog/${dogData.id}`,
 				buttonText: ownerView ? "Modifier le profil" : "Voir le profil",
 			};
 		}

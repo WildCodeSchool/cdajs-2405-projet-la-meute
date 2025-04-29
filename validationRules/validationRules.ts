@@ -22,7 +22,7 @@ const validationRules: ValidationRules = {
 		pattern:
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
 		message:
-			"Le format du mot de passe est incorrect.",
+			"Votre mot de passe n'est pas assez sécurisé.",
 	},
 	PHONE: {
 		pattern: /^\+?[0-9]{1,4}?[0-9]{6,14}$/,

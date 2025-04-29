@@ -2,11 +2,11 @@
 @use "@style" as *;
 
 $types: (
-    "success": ("base-color": $green-300,
+    "success": ("base-color": $green-200,
         "accent": $green-400,
         "color": $font-dark,
     ),
-    "info": ("base-color": $blue-400,
+    "info": ("base-color": $blue-500,
         "accent": $blue-200,
         "color": $font-light,
     ),
@@ -37,7 +37,7 @@ $types: (
     }
 
     &__picture {
-        height: 150px;
+        height: 250px;
         aspect-ratio: 1;
         object-fit: scale-down;
     }
@@ -84,7 +84,7 @@ $types: (
             min-height: $btn-height;
             color: $primary-light;
             font-weight: $semiBold;
-            border-radius: $atoms-radius;
+            border-radius: $atoms-radius;   
             padding: 1.25rem;
             padding-inline: 3.5rem;
             margin: 0.2rem;
@@ -105,6 +105,39 @@ $types: (
 
             .modal__actions--cancel {
                 background-color: map.get($props, "accent");
+            }
+        }
+    }
+
+    &__btn {
+        &--cancelOrange {
+            background-color: $orange-500 !important;
+            &:hover {
+                background-color: $orange-400 !important;
+            }
+        }
+        &--cancelBlue {
+            background-color: $blue-400 !important;
+            &:hover {
+                background-color: $blue-300 !important;
+            }
+        }
+        &--cancelGreen {
+            background-color: $green-400 !important;
+            &:hover {
+                background-color: $green-300 !important;
+            }
+        }
+        &--successGreen {
+            background-color: $green-400 !important;
+            &:hover {
+                background-color: $green-300 !important;
+            }
+        }
+        &--confirm {
+            background-color: $blue-500 !important;
+            &:hover {
+                background-color: $blue-400 !important;
             }
         }
     }

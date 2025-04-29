@@ -16,6 +16,28 @@
         }
     }
 
+    &.length-counter {
+        position: relative;
+
+        &::after {
+            content: attr(data-count);
+            position: absolute;
+            bottom: -1rem;
+            right: 0;
+            color: $beige-500;
+            font-size: $s;
+            font-weight: 300;
+        }
+        
+        &[data-color="warning"]::after  {
+            color: $orange-500;
+        }
+        
+        &[data-color="error"]::after  {
+            color: $error-color;
+        }
+    }
+
     input,
     textarea {
         border-radius: 7px;
@@ -41,6 +63,12 @@
             background-color: $blue-400;
             color: $font-light;
         }
+
+        .password-toggle {  
+            .eyes {
+                stroke: $primary-light;
+            }
+        }
     }
 
     &__light {
@@ -56,6 +84,12 @@
             background-color: $beige-300;
             color: $blue-300;
         }
+
+        .password-toggle {  
+            .eyes {
+                stroke: $primary-dark;
+            }
+        }
     }
 
     .password-toggle {
@@ -68,10 +102,5 @@
         height: min-content;
         line-height: 0;
         padding: 0;
-
-        .eyes {
-            stroke: $primary-light;
-            fill: none;
-        }
     }
 }

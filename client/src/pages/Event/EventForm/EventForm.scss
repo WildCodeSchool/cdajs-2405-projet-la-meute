@@ -1,0 +1,145 @@
+@use "@style" as *;
+
+.sectionEvent {
+    display: flex;
+    justify-content: center;
+}
+
+.createEvent {
+    display: flex;
+    flex-direction: column;
+    background-color: $beige-200;
+    margin: 1rem;
+    margin-block-start: calc(1rem + 3vh);
+    border-radius: $windows-radius;
+    padding: 2vh 3vw 2vh 3vw;
+    padding-bottom: 1rem;
+    gap: 3vh;
+    width: 70%;
+    &__title {
+        font-weight: $bold;
+        font-size: $xxl;
+    }
+    &__input {
+        background-color: $beige-300;
+        border: none;
+        color: $blue-400;
+        border-radius: $atoms-radius;
+        padding: 0.8rem;
+        padding-inline: 2rem;
+    }
+    & textarea {
+        background-color: $beige-300;
+        border: none;
+        color: $blue-400;
+        border-radius: $atoms-radius;
+        padding: 0.8rem;
+        padding-inline: 2rem;
+        resize: none;
+        height: 10rem;
+        overflow: auto;
+    }
+
+    &__event {
+        font-weight: $bold;
+        color: $blue-400;
+
+        display: flex;
+        justify-content: space-between;
+        & label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        &--services {
+            display: flex;
+            flex-direction: column;
+            &--p {
+                font-weight: $regular;
+                font-size: $xs;
+            }
+            &--newService {
+                background-color: $beige-300;
+                border-radius: $atoms-radius;
+                padding: 0.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+        &--dates {
+            align-items: flex-end;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--startTime {
+            grid-area: 1 / 2 / 2 / 3;
+        }
+        &--endTime {
+            grid-area: 1 / 3 / 2 / 4;
+        }
+        &--prices {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            label {
+                width: 50%;
+            }
+
+            & span {
+                display: flex;
+                input {
+                    width: 100%;
+                }
+                p {
+                    margin-inline-start: -30%;
+                }
+            }
+        }
+
+        &--buttons {
+            display: flex;
+            justify-content: end;
+            margin-block: 3rem;
+        }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+
+    .sectionEvent {
+        display: flex;
+        justify-content: center;
+    }
+
+    .createEvent {
+        width: 100%;
+    }
+
+    .createEvent__event {
+        &--dates {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        &--date {
+            grid-area: 1 / 1 / 2 / 3;
+        }
+        &--startTime {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+        &--endTime {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+    }
+
+    .createEvent__event--buttons {
+        flex-direction: column;
+        margin-block-end: 2rem;
+    }
+}

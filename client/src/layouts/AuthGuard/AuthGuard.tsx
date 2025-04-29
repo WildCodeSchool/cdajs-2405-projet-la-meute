@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/AuthContext";
 import { Outlet } from "react-router-dom";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 interface AuthGuardProps {
 	allowedRoles?: string[];
@@ -34,7 +35,18 @@ const AuthGuard = ({ allowedRoles, children }: AuthGuardProps) => {
 	}, [isAuthenticated, isLoading, navigate, role, allowedRoles]);
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return (
+			<main
+				style={{
+					minHeight: "100vh",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<LoadingIndicator />
+			</main>
+		);
 	}
 
 	return children ? <>{children}</> : <Outlet />;
