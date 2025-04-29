@@ -14,17 +14,44 @@ import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeade
 import Search from "@/components/_molecules/Search/Search";
 import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
 
+export interface filterOption {
+	value: string;
+	label: string;
+}
+
 const mappedArray = [
 	{
 		role: "trainer",
-		filterOptions: ["dog", "lastname", "firstname", "email"],
+		filterOptions: [
+			{
+				value: "dog",
+				label: "Chien",
+			},
+			{
+				value: "lastname",
+				label: "Nom",
+			},
+			{
+				value: "firstname",
+				label: "Prénom",
+			},
+			{
+				value: "email",
+				label: "Email",
+			},
+		],
 		title: "Clients",
 		frontendQuery: SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 		backendQuery: "searchInCustomerByTrainerID",
 	},
 	{
 		role: "owner",
-		filterOptions: ["event"],
+		filterOptions: [
+			{
+				value: "event",
+				label: "Évènements",
+			},
+		],
 		title: "Évènements",
 		frontendQuery: SEARCH_AVAILABLE_EVENTS,
 		backendQuery: "searchAvailableEvents",
