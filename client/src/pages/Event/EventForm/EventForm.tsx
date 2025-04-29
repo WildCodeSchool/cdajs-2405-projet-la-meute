@@ -261,25 +261,24 @@ function EventForm({
 					name="description"
 					value={form.values.description}
 					onChange={form.handleChange}
+					count
 					required
 				/>
 
 				<span className="createEvent__event createEvent__event--prices">
 					<label className="createEvent__event--price">
 						Prix par chien en euros *
-						<span>
-							<input
-								className="createEvent__input"
-								placeholder="Prix TTC"
-								type="number"
-								min={0}
-								name="price"
-								value={form.values.price}
-								onChange={form.handleChange}
-								required
-							/>
-							<p>€</p>
-						</span>
+						<input
+							className="createEvent__input"
+							placeholder="Prix TTC - €"
+							type="number"
+							min={0}
+							step="0.01"
+							name="price"
+							value={form.values.price}
+							onChange={form.handleChange}
+							required
+						/>
 					</label>
 					<label className="createEvent__event--groupMaxSize">
 						Nombre maximum de chiens participants&nbsp;*
