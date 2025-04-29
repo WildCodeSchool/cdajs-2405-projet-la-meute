@@ -1,9 +1,9 @@
+import Button from "@/components/_atoms/Button/Button";
 import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import type { ProfileFormValues } from "../Profile";
-import Button from "@/components/_atoms/Button/Button";
 import Modal from "@/components/_molecules/Modal/Modal";
 import { useEffect, useState } from "react";
+import type { ProfileFormValues } from "../Profile";
 
 interface FormType {
 	values: ProfileFormValues;
@@ -96,7 +96,7 @@ function ProfileView({
 				onChange={form.handleChange}
 			/>
 			{isTrainer && (
-				<p>
+				<p className="profile__form--info">
 					Indiquez une adresse générale pour donner un périmètre à vos clients.
 				</p>
 			)}
