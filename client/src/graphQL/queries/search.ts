@@ -78,6 +78,21 @@ export const SEARCH_AVAILABLE_EVENTS = gql`
     query SearchAvailableEvents($query: String!, $searchField: String) {
         searchAvailableEvents(query: $query, searchField: $searchField) {
             entity {
+                ... on Trainer {
+                    ...TrainerFragment
+                }
+                ... on Owner {
+                    ...OwnerFragment
+                }
+                ... on Dog {
+                    ...DogFragment
+                }
+                ... on Service {
+                    ...ServiceFragment
+                }
+                ... on Participation {
+                    ...ParticipationFragment
+                }
                 ... on Event {
                     ...EventFragment
                     trainer {
@@ -102,4 +117,7 @@ export const SEARCH_AVAILABLE_EVENTS = gql`
 ${EVENT_FRAGMENT}
 ${SERVICE_FRAGMENT}
 ${DOG_FRAGMENT}
+${TRAINER_FRAGMENT}
+${OWNER_FRAGMENT}
+${PARTICIPATION_FRAGMENT}
 `;
