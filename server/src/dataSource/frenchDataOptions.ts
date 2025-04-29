@@ -136,3 +136,66 @@ export const events = [
 			"Conseils, jeux et socialisation pour chiots dans une ambiance bienveillante.",
 	},
 ];
+
+export const locations = [
+	{
+		city: "Paris",
+		postal_code: "75000",
+		latitude: 48.8566,
+		longitude: 2.3522,
+	},
+	{
+		city: "Lyon",
+		postal_code: "69000",
+		latitude: 45.75,
+		longitude: 4.85,
+	},
+	{
+		city: "Lille",
+		postal_code: "59000",
+		latitude: 50.6292,
+		longitude: 3.0573,
+	},
+	{
+		city: "Marseille",
+		postal_code: "13000",
+		latitude: 43.2965,
+		longitude: 5.3698,
+	},
+	{
+		city: "Toulouse",
+		postal_code: "31000",
+		latitude: 43.6047,
+		longitude: 1.4442,
+	},
+	{
+		city: "Bordeaux",
+		postal_code: "33000",
+		latitude: 44.8378,
+		longitude: -0.5792,
+	},
+	{
+		city: "Nantes",
+		postal_code: "44000",
+		latitude: 47.2184,
+		longitude: -1.5536,
+	},
+	{
+		city: "Strasbourg",
+		postal_code: "67000",
+		latitude: 48.5734,
+		longitude: 7.7521,
+	},
+	{
+		city: "Nice",
+		postal_code: "06000",
+		latitude: 43.7102,
+		longitude: 7.262,
+	},
+	{
+		city: "Rennes",
+		postal_code: "35000",
+		latitude: 48.1173,
+		longitude: -1.6778,
+	},
+];

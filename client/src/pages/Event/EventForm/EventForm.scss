@@ -85,20 +85,12 @@
             grid-area: 1 / 3 / 2 / 4;
         }
         &--prices {
-            display: flex;
             gap: 1rem;
             align-items: end;
             label {
                 width: 50%;
-            }
-
-            & span {
-                display: flex;
                 input {
                     width: 100%;
-                }
-                p {
-                    margin-inline-start: -30%;
                 }
             }
         }
@@ -140,6 +132,6 @@
 
     .createEvent__event--buttons {
         flex-direction: column;
-        margin-block-end: 2rem;
+        margin-block: 2rem;
     }
 }

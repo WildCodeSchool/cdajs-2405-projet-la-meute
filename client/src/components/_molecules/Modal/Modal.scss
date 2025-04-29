@@ -154,3 +154,9 @@ $types: (
         transform: translateY(0) scale(1);
     }
 }
+
+@media screen and (max-width: $mobile) {
+    .modal__actions button {
+        width: 100%;
+    }
+}
