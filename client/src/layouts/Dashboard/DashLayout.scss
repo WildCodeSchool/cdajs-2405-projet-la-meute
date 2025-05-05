@@ -1,12 +1,15 @@
 @use "@style" as *;
 
+.dashHeader__back--invisible {
+    visibility: hidden;
+    pointer-events: none;
+}
+
 // HEADER DESKTOP
 .dashHeader {
     height: $dashHeaderHeight;
     padding-inline-end: $dashInlinePadding;
-    padding-inline-start: calc(
-        #{$dashHeaderHeight} + #{$dashInlinePadding}
-    ); // #{} shows the calculation in developer tools
+    padding-inline-start: calc(#{$dashHeaderHeight} + #{$dashInlinePadding}); // #{} shows the calculation in developer tools
     position: fixed;
     top: 0;
     left: 0;
@@ -32,12 +35,18 @@
         font-weight: $bold;
         font-size: $m;
         cursor: pointer;
+
         &:hover {
             color: $font-dark;
         }
 
         &--icon {
             width: $m;
+        }
+
+        &--invisible {
+            visibility: hidden;
+            pointer-events: none;
         }
     }
 
@@ -58,6 +67,7 @@
     &__avatar {
         height: 100%;
         display: flex;
+
         & img {
             border-radius: 50%;
             height: 60px;
@@ -65,7 +75,7 @@
             margin: auto;
             object-fit: cover;
             outline: 2px solid $blue-500;
-            
+
         }
     }
 }
@@ -106,13 +116,16 @@
     &__item {
         width: 100%;
         text-align: center;
+
         & svg {
             fill: rgba($beige-100, 0.6);
         }
+
         &--active {
             background-color: $blue-100;
             border-radius: 50%;
             padding: 10px;
+
             & svg {
                 fill: $beige-100;
             }
@@ -135,6 +148,7 @@
         background: transparent;
         border: none;
         cursor: pointer;
+
         svg {
             fill: $blue-100;
         }
@@ -154,9 +168,25 @@
 
 // MEDIA QUERY
 @media screen and (max-width: $mobile) {
+
     // HEADER MOBILE
     .dashHeader {
         padding-inline: $dashInlinePadding;
+
+        &__avatar {
+            height: 70%;
+            display: flex;
+
+            & img {
+                border-radius: 50%;
+                height: 60px;
+                aspect-ratio: 1;
+                margin: auto;
+                object-fit: cover;
+                outline: 2px solid $blue-500;
+
+            }
+        }
     }
 
     // SIDEBAR MOBILE (FOOTER)
@@ -178,6 +208,7 @@
             background: transparent;
             border: none;
             cursor: pointer;
+
             svg {
                 fill: $green-400;
             }

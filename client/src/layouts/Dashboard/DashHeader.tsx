@@ -1,31 +1,39 @@
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Exit } from "@/assets/icons/exit";
 import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
-import { useNavigate, Link } from "react-router-dom";
 
 export default function DashHeader() {
 	const { user } = useUser();
 	const { logout } = useAuth();
 	const navigate = useNavigate();
 	const isMobile = useIsMobile();
+	const location = useLocation();
+
+	const hideBackButton = location.pathname.includes("planning");
 
 	return (
 		<>
 			<header className="dashHeader">
 				<h1 className="hidden__mobile">Bonjour {user?.firstname} !</h1>
-				<button
-					type="button"
-					className="dashHeader__back hidden__desktop"
-					onClick={() => {
-						navigate(-1);
-					}}
-				>
-					<LeftChevron className="dashHeader__back--icon" />
-					Retour
-				</button>
+
+				{isMobile && (
+					<button
+						type="button"
+						className={`dashHeader__back hidden__desktop ${hideBackButton ? "dashHeader__back--invisible" : ""}`}
+						onClick={() => {
+							if (!hideBackButton) navigate(-1);
+						}}
+						aria-hidden={hideBackButton}
+					>
+						<LeftChevron className="dashHeader__back--icon" />
+						Retour
+					</button>
+				)}
+
 				<span className="dashHeader__right-corner">
 					{isMobile && (
 						<button
