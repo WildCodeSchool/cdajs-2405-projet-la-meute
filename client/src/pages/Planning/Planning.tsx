@@ -3,10 +3,9 @@ import "@/pages/Planning/Planning.scss";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 
 import { Await, useLoaderData, useNavigate } from "react-router-dom";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import PlanningCalendar from "./PlanningCalendar";
-import { useNavigation } from "@/context/NavigationContext";
 
 // Interfaces
 import type { Event } from "@/types/Event";
@@ -19,15 +18,6 @@ function Planning() {
 
 	const navigate = useNavigate();
 	const isMobile = useIsMobile();
-	const { setCurrentPage } = useNavigation();
-
-	// Indicate that we are on the page Planning for the check of back button on mobile
-	useEffect(() => {
-		setCurrentPage("planning");
-		return () => {
-			setCurrentPage("");
-		};
-	}, [setCurrentPage]);
 
 	const { events, role } = useLoaderData() as {
 		events: Event[];

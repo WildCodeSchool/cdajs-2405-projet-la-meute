@@ -1,10 +1,5 @@
 @use "@style" as *;
 
-.dashHeader__back--invisible {
-    visibility: hidden;
-    pointer-events: none;
-}
-
 // HEADER DESKTOP
 .dashHeader {
     height: $dashHeaderHeight;
@@ -45,7 +40,7 @@
         }
 
         &--invisible {
-            visibility: hidden;
+            opacity: 0.3;
             pointer-events: none;
         }
     }
