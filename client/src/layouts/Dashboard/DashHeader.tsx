@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate, Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 export default function DashHeader() {
 	const { user } = useUser();
@@ -37,7 +38,12 @@ export default function DashHeader() {
 							<Exit className="dashSideBar__icon dashHeader__icon" />
 						</button>
 					)}
-					<Link className="dashHeader__avatar" to="/profile">
+					<Link
+						className="dashHeader__avatar"
+						to="/profile"
+						data-tooltip-id="tooltip-my-profile"
+						data-tooltip-content="Mon profil"
+					>
 						<img
 							src={
 								user?.avatar
@@ -48,6 +54,12 @@ export default function DashHeader() {
 							title="Mon profil"
 						/>
 					</Link>
+					<Tooltip
+						id="tooltip-my-profile"
+						place="bottom"
+						offset={30}
+						className="dashSideBar__tooltip"
+					/>
 				</span>
 			</header>
 		</>
