@@ -32,9 +32,11 @@ describe("LogoutButton", () => {
 			</MockedProvider>,
 		);
 
-		const logoutButton = document.querySelector(".dashSidebar__logout");
+		const logoutButton = await screen.findByRole("button", {
+			name: "Se déconnecter",
+		});
 
-		expect(logoutButton).toBeInTheDocument();
+		expect(logoutButton).toHaveClass("dashSideBar__logout");
 	});
 
 	it("should delete jwt token in Localstorage and redirect at homePage", async () => {
