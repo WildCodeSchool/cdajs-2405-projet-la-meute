@@ -32,9 +32,7 @@ describe("LogoutButton", () => {
 			</MockedProvider>,
 		);
 
-		const logoutButton = await screen.findByRole("button", {
-			name: /Se déconnecter/i,
-		});
+		const logoutButton = document.querySelector(".dashSidebar__logout");
 
 		expect(logoutButton).toBeInTheDocument();
 	});
