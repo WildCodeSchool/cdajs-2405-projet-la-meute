@@ -78,15 +78,20 @@ export class EventResolver {
 	}
 
 	// Get dog_id by event_id
-	@Query(() => [Participation])
+	@Query(() => [Dog])
 	async getDogsByEventsId(
 		@Arg("eventId") eventId: number,
-	): Promise<Participation[] | null> {
+	): Promise<Dog[] | null> {
 		const dogsByEventsId = await participationRepository.find({
 			where: { event: { id: eventId } },
 			relations: ["dog"],
 		});
-		return dogsByEventsId || [];
+
+		const dogs = dogsByEventsId
+			.map((participation) => participation.dog)
+			.filter((dog): dog is Dog => dog !== undefined);
+
+		return dogs || [];
 	}
 
 	// Create event

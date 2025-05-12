@@ -8,7 +8,7 @@ import { useForm } from "@/hooks/useForm";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-	const { login, loading } = useAuth();
+	const { login } = useAuth();
 	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const form = useForm({
@@ -25,8 +25,6 @@ export default function Login() {
 			}
 		},
 	});
-
-	if (loading) return <p>Loading...</p>;
 
 	return (
 		<main className="login">

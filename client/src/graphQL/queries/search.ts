@@ -56,3 +56,68 @@ ${OWNER_FRAGMENT}
 ${FAVORITE_FRAGMENT}
 ${PARTICIPATION_FRAGMENT}
 `;
+
+export const SEARCH_IN_CUSTOMER_BY_TRAINER_ID = gql`
+    query SearchInCustomerByTrainerID($trainerId: Float!, $query: String!, $searchField: String) {
+        searchInCustomerByTrainerID(trainerId: $trainerId, query: $query, searchField: $searchField) {
+            entity {
+            ... on Owner {
+                ...OwnerFragment
+                dogs {
+                ...DogFragment
+                }
+            }
+        }
+    }
+}
+${DOG_FRAGMENT}
+${OWNER_FRAGMENT}
+`;
+
+export const SEARCH_AVAILABLE_EVENTS = gql`
+    query SearchAvailableEvents($query: String!, $searchField: String) {
+        searchAvailableEvents(query: $query, searchField: $searchField) {
+            entity {
+                ... on Trainer {
+                    ...TrainerFragment
+                }
+                ... on Owner {
+                    ...OwnerFragment
+                }
+                ... on Dog {
+                    ...DogFragment
+                }
+                ... on Service {
+                    ...ServiceFragment
+                }
+                ... on Participation {
+                    ...ParticipationFragment
+                }
+                ... on Event {
+                    ...EventFragment
+                    trainer {
+                        id
+                        firstname
+                        lastname
+                        avatar
+                    }
+                    services {
+                        ...ServiceFragment
+                    }
+                    participation {
+                        id
+                        dog {
+                            ...DogFragment
+                        }
+                    }
+                }
+            }
+        }
+    }
+${EVENT_FRAGMENT}
+${SERVICE_FRAGMENT}
+${DOG_FRAGMENT}
+${TRAINER_FRAGMENT}
+${OWNER_FRAGMENT}
+${PARTICIPATION_FRAGMENT}
+`;

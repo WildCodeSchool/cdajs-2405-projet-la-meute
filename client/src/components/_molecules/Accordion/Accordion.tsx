@@ -4,7 +4,8 @@
  * Controls the state (open/closed) of each item and orchestrates their display
  */
 
-import React, { useState, useRef } from "react";
+import type React from "react";
+import { useState, useRef } from "react";
 import AccordionItem from "../../_atoms/AccordionItem/AccordionItem";
 import "./Accordion.scss";
 
@@ -30,7 +31,7 @@ const Accordion: React.FC<AccordionProps> = ({ items, className = "" }) => {
 		<div className={`accordion ${className}`} ref={accordionRef}>
 			{items.map((item, index) => (
 				<AccordionItem
-					key={index}
+					key={`${item}`}
 					title={item.title}
 					content={item.content}
 					isOpen={openIndex === index}
