@@ -5,8 +5,6 @@ import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { useUser } from "@/hooks/useUser";
-import { useNavigate, Link } from "react-router-dom";
-import { Tooltip } from "react-tooltip";
 import useNavigationTracker from "@/hooks/useNavigationTracker";
 
 export default function DashHeader() {
@@ -43,41 +41,30 @@ export default function DashHeader() {
 					<LeftChevron className="dashHeader__back--icon" />
 					Retour
 				</button>
-				<span className="dashHeader__right-corner">
-					{isMobile && (
-						<button
-							onClick={logout}
-							type="button"
-							className="dashSideBar__logout"
-							aria-label="Se déconnecter"
-						>
-							<Exit className="dashSideBar__icon dashHeader__icon" />
-						</button>
-					)}
-					<Link
-						className="dashHeader__avatar"
-						to="/profile"
-						data-tooltip-id="tooltip-my-profile"
-						data-tooltip-content="Mon profil"
+			)}
+			<span className="dashHeader__right-corner">
+				{isMobile && (
+					<button
+						onClick={handleLogout}
+						type="button"
+						className="dashSideBar__logout"
+						aria-label="Se déconnecter"
 					>
-						<img
-							src={
-								user?.avatar
-									? useImageUrl(user?.avatar)
-									: useImageUrl("/upload/images/defaultuserprofile.jpg")
-							}
-							alt="avatar de l'utilisateur"
-							title="Mon profil"
-						/>
-					</Link>
-					<Tooltip
-						id="tooltip-my-profile"
-						place="bottom"
-						offset={30}
-						className="dashSideBar__tooltip"
+						<Exit className="dashSideBar__icon dashHeader__icon" />
+					</button>
+				)}
+				<Link className="dashHeader__avatar" to="/profile">
+					<img
+						src={
+							user?.avatar
+								? useImageUrl(user?.avatar)
+								: useImageUrl("/upload/images/defaultuserprofile.jpg")
+						}
+						alt="avatar de l'utilisateur"
+						title="Mon profil"
 					/>
-				</span>
-			</header>
-		</>
+				</Link>
+			</span>
+		</header>
 	);
 }
