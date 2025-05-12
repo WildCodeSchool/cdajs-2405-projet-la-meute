@@ -4,7 +4,9 @@
 .dashHeader {
     height: $dashHeaderHeight;
     padding-inline-end: $dashInlinePadding;
-    padding-inline-start: calc(#{$dashHeaderHeight} + #{$dashInlinePadding}); // #{} shows the calculation in developer tools
+    padding-inline-start: calc(
+        #{$dashHeaderHeight} + #{$dashInlinePadding}
+    ); // #{} shows the calculation in developer tools
     position: fixed;
     top: 0;
     left: 0;
@@ -70,7 +72,6 @@
             margin: auto;
             object-fit: cover;
             outline: 2px solid $blue-500;
-
         }
     }
 }
@@ -163,7 +164,6 @@
 
 // MEDIA QUERY
 @media screen and (max-width: $mobile) {
-
     // HEADER MOBILE
     .dashHeader {
         padding-inline: $dashInlinePadding;
@@ -179,7 +179,6 @@
                 margin: auto;
                 object-fit: cover;
                 outline: 2px solid $blue-500;
-
             }
         }
     }

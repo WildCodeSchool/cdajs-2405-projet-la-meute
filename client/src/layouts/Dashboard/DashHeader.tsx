@@ -15,18 +15,19 @@ export default function DashHeader() {
 
 	const { clickCount, resetClickCount } = useNavigationTracker();
 
-	// Return back on the previous page
+	// Return to the previous page
 	const handleBack = () => {
 		navigate(-1);
 	};
 
-	// Logout and reset the counter that disabled the backButton when arrive on the dashboard
+	// Logout and reset the counter to disable the backButton when user arrives on the dashboard
 	const handleLogout = () => {
 		logout();
 		resetClickCount();
 	};
 
-	// Click count is to 1 if you come from the login to dashboard, it count to 1 click, after we activate the backButton
+	// Counter is first incremented when the user comes from login toward the dashboard
+	// Each new navigation increments it, if counter > 1, the back button is active
 	const backButtonClass =
 		clickCount !== 1
 			? "dashHeader__back"
