@@ -12,7 +12,7 @@
 
 .eventDetail__participation--wrapper {
     margin-top: 1rem;
-    
+
     .owner__infos .owner__email a {
         text-decoration: $orange-400 underline;
     }
@@ -76,9 +76,8 @@
             grid-column-gap: 20px;
             grid-row-gap: 50px;
             margin: 2rem;
-            
 
-            &>div:nth-child(3) {
+            & > div:nth-child(3) {
                 grid-column: 1 / span 2;
             }
         }
@@ -123,6 +122,17 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            margin-top: auto;
+        }
+    }
+
+    &__return {
+        &--button {
+            width: 100%;
+            grid-column: 2;
+            justify-self: center;
+            text-align: center;
+            margin-top: 2rem;
         }
     }
 }
@@ -158,6 +168,27 @@
 
         &__nav {
             margin: 1rem;
+            gap: 2rem;
+
+            &--button {
+                margin-top: 1rem;
+            }
+        }
+
+        &__return {
+            &--button {
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+            }
+        }
+
+        &--event .dogProfile__nav--button {
+            margin-top: 1rem;
+        }
+
+        &--profile .dogProfile__return--button {
+            margin-top: 1rem;
         }
     }
 }

@@ -9,6 +9,8 @@ import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId";
 import EventCreate from "@/pages/Event/EventCreator/EventCreate";
+import DogsList from "@/pages/Trainer/DogsList/DogsList.tsx";
+import DogId from "@/pages/Trainer/DogId/DogId";
 
 export const trainerRoutes = {
 	path: "trainer",
@@ -63,7 +65,11 @@ export const trainerRoutes = {
 			children: [
 				{
 					index: true,
-					element: <p>dogs List</p>, // FIXME: feature not yet defined – purpose of this route is unclear
+					element: <DogsList />,
+				},
+				{
+					path: ":id",
+					element: <DogId source="profile" />,
 				},
 			],
 		},
