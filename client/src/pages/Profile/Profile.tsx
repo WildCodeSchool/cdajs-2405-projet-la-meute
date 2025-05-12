@@ -29,7 +29,7 @@ export interface ProfileFormValues extends Record<string, unknown> {
 }
 
 function Profile() {
-	const { role, user } = useUser();
+	const { role, user, reloadUser } = useUser();
 	const [view, setView] = useState<ViewType>("profile");
 
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -96,13 +96,15 @@ function Profile() {
 					isTrainer: isTrainer,
 				},
 			});
-			if (response.data.UpdateUser.message === "User updated successfully") {
+
+			const message = response.data?.UpdateUser?.message;
+
+			if (message === "User updated successfully") {
 				toast.success("Profil sauvegardé avec succès !");
-			} else if (response.data.UpdateUser.message === "User not found") {
+				await reloadUser();
+			} else if (message === "User not found") {
 				toast.error("Utilisateur non trouvé.");
-			} else if (
-				response.data.UpdateUser.message === "There was no field to update"
-			) {
+			} else if (message === "There was no field to update") {
 				toast.warning("Aucun champ à mettre à jour.");
 			} else {
 				toast.error("Erreur lors de la mise à jour du profil.");
