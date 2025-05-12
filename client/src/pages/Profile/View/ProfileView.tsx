@@ -2,8 +2,8 @@ import Button from "@/components/_atoms/Button/Button";
 import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Modal from "@/components/_molecules/Modal/Modal";
+import type { ProfileFormValues } from "@/pages/Profile/Profile";
 import { useEffect, useState } from "react";
-import type { ProfileFormValues } from "../Profile";
 
 interface FormType {
 	values: ProfileFormValues;
