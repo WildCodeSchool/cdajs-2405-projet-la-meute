@@ -1,17 +1,23 @@
-import "./IdCard.scss";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import { useUser } from "@/hooks/useUser";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 import { Link } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
-import { useImageUrl } from "@/hooks/useImageUrl";
+import "./IdCard.scss";
 
 type IdCardProps = {
 	type: "dog" | "owner";
 	data: Dog | Owner;
 	ownerView?: boolean;
+	trainerView?: boolean;
 };
 
-export default function IdCard({ type, data, ownerView }: IdCardProps) {
+export default function IdCard({
+	type,
+	data,
+	ownerView,
+	trainerView,
+}: IdCardProps) {
 	const isDog = type === "dog";
 	const dogData = data as Dog;
 	const ownerData = data as Owner;
@@ -30,8 +36,14 @@ export default function IdCard({ type, data, ownerView }: IdCardProps) {
 				link:
 					role === "owner"
 						? `/owner/my-dogs/profile/${dogData.id}`
-						: `/profile/view/dog/${dogData.id}`,
-				buttonText: ownerView ? "Modifier le profil" : "Voir le profil",
+						: role === "trainer" && trainerView
+							? `/profile/view/dog/${dogData.id}`
+							: `/dog/${dogData.id}`,
+				buttonText: ownerView
+					? "Modifier le profil"
+					: trainerView
+						? "Voir les détails"
+						: "Voir le profil",
 			};
 		}
 

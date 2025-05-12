@@ -29,3 +29,17 @@ query GetParticipationByDogId($dogId: Float!) {
 }
 ${EVENT_FRAGMENT}
 `;
+
+export const GET_DOGS_BY_TRAINER_EVENTS = gql`
+    query GetDogsByTrainerEvents($trainerId: Float!) {
+        getDogsByTrainerEvents(trainerId: $trainerId) {
+            id
+            name
+            birthDate
+            breed
+            picture
+            info
+            getAge
+        }
+    }
+`;

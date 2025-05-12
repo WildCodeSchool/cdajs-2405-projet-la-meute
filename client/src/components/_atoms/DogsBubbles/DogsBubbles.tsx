@@ -1,16 +1,22 @@
-import type React from "react";
-import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Dog } from "@/types/Dog";
-import { useNavigate } from "react-router-dom";
+import type React from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./DogsBubbles.scss";
 
 interface DogBubblesProps {
 	dogs: Dog[];
 	maxSize: number;
+	context?: "event" | "profile";
 }
 
-const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
+const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize, context }) => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const { id: eventId } = useParams();
+
+	const isEventContext =
+		context === "event" || location.pathname.includes("/event/");
 
 	if (!dogs || dogs.length === 0) {
 		return (
@@ -23,7 +29,11 @@ const DogBubbles: React.FC<DogBubblesProps> = ({ dogs, maxSize }) => {
 	}
 
 	const handleDogClick = (dogId: number) => {
-		navigate(`/profile/view/dog/${Number(dogId)}`);
+		if (isEventContext && eventId) {
+			navigate(`/event/${eventId}/dog/${dogId}`);
+		} else {
+			navigate(`/profile/view/dog/${dogId}`);
+		}
 	};
 
 	return (

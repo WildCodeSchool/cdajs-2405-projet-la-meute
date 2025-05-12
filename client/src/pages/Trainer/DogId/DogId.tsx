@@ -1,17 +1,35 @@
-import "./DogId.scss";
 import Button from "@/components/_atoms/Button/Button";
-import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import OwnerBubble from "@/components/_atoms/OwnerBubble/OwnerBubble";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
 import { useImageUrl } from "@/hooks/useImageUrl";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import OwnerBubble from "@/components/_atoms/OwnerBubble/OwnerBubble";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
+import { useQuery } from "@apollo/client";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./DogId.scss";
 
-function DogId() {
-	const { id } = useParams();
+interface DogIdProps {
+	source?: "event" | "profile";
+	backButtonText?: string;
+	className?: string;
+}
+
+function DogId({
+	source: explicitSource,
+	backButtonText: explicitButtonText,
+	className = "",
+}: DogIdProps) {
+	const { id, eventId } = useParams();
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const isEventContext =
+		location.pathname.includes("/event/") || explicitSource === "event";
+
+	const buttonText =
+		explicitButtonText ||
+		(isEventContext ? "Retour à l'évènement" : "Retour à la liste");
 
 	const {
 		loading: dogLoading,
@@ -42,17 +60,19 @@ function DogId() {
 		: "Non renseignée";
 
 	const handleGoBack = () => {
-		navigate(-1);
+		if (isEventContext && eventId) {
+			navigate(`/event/${eventId}`);
+		} else {
+			navigate(-1);
+		}
 	};
+
+	const mainClassName = `dogProfile ${isEventContext ? "dogProfile--event" : "dogProfile--profile"} ${className}`;
 
 	return (
 		<>
 			<PlanningHeader
-				title={
-					dog
-						? `Profil de ${dog.name}${dog.breed ? ` (${dog.breed})` : ""}`
-						: "Profil"
-				}
+				title={dog ? `Profil de ${dog.name}` : "Profil"}
 				buttonLabel="invite"
 				href="mailto:contact@pawplanner.com"
 			/>
@@ -61,7 +81,7 @@ function DogId() {
 			) : error ? (
 				<p>Erreur: {error.message}</p>
 			) : dog ? (
-				<main className="dogProfile">
+				<main className={mainClassName}>
 					<div className="dogProfile__form">
 						<div className="dogProfile__form--title">
 							<img
@@ -74,18 +94,15 @@ function DogId() {
 							/>
 							<h2>{dog.name}</h2>
 						</div>
-
 						<div className="dogProfile__form--info">
 							<div className="dogProfile__form--detail">
 								<h3>Race</h3>
 								<p>{dog.breed || "Non renseignée"}</p>
 							</div>
-
 							<div className="dogProfile__form--detail">
 								<h3>Date de naissance</h3>
 								<p>{formattedBirthDate}</p>
 							</div>
-
 							{dog.info && (
 								<div className="dogProfile__form--detail">
 									<h3>Description</h3>
@@ -106,14 +123,25 @@ function DogId() {
 							</div>
 						)}
 
-						<div className="dogProfile__nav--button">
-							<Button
-								style={{ type: "thin-btn-light", color: "blue" }}
-								onClick={handleGoBack}
-							>
-								Retour à l'évènement
-							</Button>
-						</div>
+						{isEventContext ? (
+							<div className="dogProfile__nav--button">
+								<Button
+									style={{ type: "thin-btn-light", color: "blue" }}
+									onClick={handleGoBack}
+								>
+									{buttonText}
+								</Button>
+							</div>
+						) : (
+							<div className="dogProfile__return--button">
+								<Button
+									style={{ type: "thin-btn-light", color: "blue" }}
+									onClick={handleGoBack}
+								>
+									{buttonText}
+								</Button>
+							</div>
+						)}
 					</div>
 				</main>
 			) : (
