@@ -1,8 +1,8 @@
-import type React from "react";
-import "./DogsBubbles.scss";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Dog } from "@/types/Dog";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import type React from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./DogsBubbles.scss";
 
 interface DogBubblesProps {
 	dogs: Dog[];

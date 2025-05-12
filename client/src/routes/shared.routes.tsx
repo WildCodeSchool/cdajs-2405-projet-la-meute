@@ -48,7 +48,7 @@ export const sharedProfileRoutes: RouteObject = {
 		},
 		{
 			path: "view/dog/:id",
-			element: <DogId backButtonText="Retour au profil" />, // View another owner's dog profile
+			element: <DogId backButtonText="Retour à la liste " />, // View another owner's dog profile
 		},
 	],
 };

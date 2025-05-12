@@ -1,13 +1,13 @@
-import "./DogId.scss";
-import { useQuery } from "@apollo/client";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
-import { useImageUrl } from "@/hooks/useImageUrl";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import Button from "@/components/_atoms/Button/Button";
 import OwnerBubble from "@/components/_atoms/OwnerBubble/OwnerBubble";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+import { GET_DOG_BY_ID, GET_OWNER_BY_DOG_ID } from "@/graphQL/queries/dog";
+import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
+import { useQuery } from "@apollo/client";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./DogId.scss";
 
 interface DogIdProps {
 	source?: "event" | "profile";
@@ -27,11 +27,9 @@ function DogId({
 	const isEventContext =
 		location.pathname.includes("/event/") || explicitSource === "event";
 
-	const source = explicitSource || (isEventContext ? "event" : "profile");
-
 	const buttonText =
 		explicitButtonText ||
-		(isEventContext ? "Retour à l'évènement" : "Retour au profil");
+		(isEventContext ? "Retour à l'évènement" : "Retour à la liste");
 
 	const {
 		loading: dogLoading,
@@ -74,11 +72,7 @@ function DogId({
 	return (
 		<>
 			<PlanningHeader
-				title={
-					dog
-						? `Profil de ${dog.name}${dog.breed ? ` (${dog.breed})` : ""}`
-						: "Profil"
-				}
+				title={dog ? `Profil de ${dog.name}` : "Profil"}
 				buttonLabel="invite"
 				href="mailto:contact@pawplanner.com"
 			/>

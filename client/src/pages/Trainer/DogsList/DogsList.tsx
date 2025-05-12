@@ -1,11 +1,11 @@
-import "./DogsList.scss";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import IdCard from "@/components/_molecules/Card/IdCard";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import { GET_DOGS_BY_TRAINER_EVENTS } from "@/graphQL/queries/participation";
-import { useQuery } from "@apollo/client";
 import { useUser } from "@/hooks/useUser";
 import type { Dog } from "@/types/Dog";
+import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
+import "./DogsList.scss";
 
 function DogsList() {
 	const { user } = useUser();
@@ -47,7 +47,7 @@ function DogsList() {
 			</section>
 			<section className="DogsList__idCardsDogs">
 				{dogs.map((dog: Dog) => (
-					<IdCard key={dog.id} type="dog" data={dog} trainerView={true} />
+					<IdCard key={dog.id} type="dog" data={dog} trainerView />
 				))}
 			</section>
 		</>

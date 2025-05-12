@@ -1,9 +1,9 @@
-import "./IdCard.scss";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import { useUser } from "@/hooks/useUser";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 import { Link } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
-import { useImageUrl } from "@/hooks/useImageUrl";
+import "./IdCard.scss";
 
 type IdCardProps = {
 	type: "dog" | "owner";

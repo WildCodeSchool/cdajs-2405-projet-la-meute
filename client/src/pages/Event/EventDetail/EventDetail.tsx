@@ -86,9 +86,7 @@ function EventDetail() {
 									<input
 										className="createEvent__input"
 										type="string"
-										defaultValue={
-											availableSlots > 0 ? availableSlots : "Complet"
-										}
+										value={availableSlots > 0 ? availableSlots : "Complet"}
 										disabled={true}
 									/>
 								</label>
