@@ -38,6 +38,11 @@
         &--icon {
             width: $m;
         }
+
+        &--invisible {
+            opacity: 0.3;
+            pointer-events: none;
+        }
     }
 
     &__right-corner {
@@ -65,7 +70,6 @@
             margin: auto;
             object-fit: cover;
             outline: 2px solid $blue-500;
-
         }
     }
 }
@@ -183,6 +187,20 @@
     // HEADER MOBILE
     .dashHeader {
         padding-inline: $dashInlinePadding;
+
+        &__avatar {
+            height: 70%;
+            display: flex;
+
+            & img {
+                border-radius: 50%;
+                height: 60px;
+                aspect-ratio: 1;
+                margin: auto;
+                object-fit: cover;
+                outline: 2px solid $blue-500;
+            }
+        }
     }
 
     // SIDEBAR MOBILE (FOOTER)

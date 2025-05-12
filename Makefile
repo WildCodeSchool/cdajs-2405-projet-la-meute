@@ -7,6 +7,7 @@ SERVER_MIGRATION_PATH = ${SERVER_PATH}/migrations/
 CLIENT_VALIDATION_PATH = client/src/helpers/readonly/validationRules.ts
 OS := $(shell uname)
 
+# Rules
 .PHONY: default
 default: launch
 
