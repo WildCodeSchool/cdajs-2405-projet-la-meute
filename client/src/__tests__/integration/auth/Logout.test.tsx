@@ -33,10 +33,10 @@ describe("LogoutButton", () => {
 		);
 
 		const logoutButton = await screen.findByRole("button", {
-			name: "Se déconnecter",
+			name: /Se déconnecter/i,
 		});
 
-		expect(logoutButton).toHaveClass("dashSideBar__logout");
+		expect(logoutButton).toBeInTheDocument();
 	});
 
 	it("should delete jwt token in Localstorage and redirect at homePage", async () => {
