@@ -25,7 +25,7 @@ const DashSideBar = () => {
 	const navItems = {
 		trainer: [
 			{ path: "planning", icon: <Calendar className="dashSideBar__icon" /> },
-			{ path: "dogs-list", icon: <Paw className="dashSideBar__icon" /> },
+			{ path: "dogs", icon: <Paw className="dashSideBar__icon" /> },
 			{ path: "customers", icon: <Users className="dashSideBar__icon" /> },
 		],
 		owner: [

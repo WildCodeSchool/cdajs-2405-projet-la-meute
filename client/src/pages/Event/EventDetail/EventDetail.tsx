@@ -147,12 +147,14 @@ function EventDetail() {
 							type="dogs"
 							event={event}
 							dogs={dogs}
+							context="event"
 						/>
 					) : (
 						<ParticipantsOverview
 							title="Éducateur"
 							type="trainer"
 							event={event}
+							context="event"
 						/>
 					)}
 				</div>

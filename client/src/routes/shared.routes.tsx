@@ -19,6 +19,10 @@ export const sharedEventRoutes: RouteObject = {
 			path: ":id",
 			element: <EventDetail />,
 		},
+		{
+			path: ":eventId/dog/:id",
+			element: <DogId source="event" backButtonText="Retour à l'évènement" />,
+		},
 	],
 };
 
@@ -44,7 +48,7 @@ export const sharedProfileRoutes: RouteObject = {
 		},
 		{
 			path: "view/dog/:id",
-			element: <DogId />, // View another owner's dog profile
+			element: <DogId backButtonText="Retour au profil" />, // View another owner's dog profile
 		},
 	],
 };

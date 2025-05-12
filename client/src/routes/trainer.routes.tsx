@@ -10,7 +10,7 @@ import Planning from "@/pages/Planning/Planning";
 import SearchPage from "@/pages/SearchPage/SearchPage";
 import CustomerId from "@/pages/Trainer/Customers/CustomerId/CustomerId";
 import DogsList from "@/pages/Trainer/DogsList/DogsList.tsx";
-import DogProfile from "@/pages/Trainer/DogProfile/DogProfile";
+import DogId from "@/pages/Trainer/DogId/DogId";
 
 export const trainerRoutes = {
 	path: "trainer",
@@ -61,15 +61,15 @@ export const trainerRoutes = {
 			],
 		},
 		{
-			path: "dogs-list",
+			path: "dogs",
 			children: [
 				{
 					index: true,
 					element: <DogsList />,
 				},
 				{
-					path: "profile/:id",
-					element: <DogProfile />,
+					path: ":id",
+					element: <DogId source="profile" />,
 				},
 			],
 		},
