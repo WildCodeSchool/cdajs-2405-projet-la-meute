@@ -3,13 +3,9 @@ import type { Dog } from "./Dog";
 export interface Location {
 	latitude: number;
 	longitude: number;
+	postal_code?: string;
+	city?: string;
 }
-
-export interface LocationType {
-	latitude: number;
-	longitude: number;
-}
-
 export interface Event {
 	id: number;
 	date: string;
@@ -20,6 +16,8 @@ export interface Event {
 	price: number;
 	startDate: Date;
 	endDate: Date;
+	startTime: string;
+	endTime: string;
 	participation: Participation[];
 	services: ServiceType[];
 	trainer?: Trainer | null;

@@ -37,6 +37,8 @@
         &--phone {
             font-weight: $regular;
             margin: 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
         &--dog {
             color: $blue-400;
@@ -109,6 +111,10 @@
         flex-direction: column;
         &__owner {
             width: 100%;
+            &--avatar {
+                height: 60px;
+                width: 60px;
+            }
             &--dogs {
                 width: 100%;
                 margin-top: 1rem;

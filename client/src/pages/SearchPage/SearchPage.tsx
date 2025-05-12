@@ -1,31 +1,55 @@
-import "./SearchPage.scss";
-
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
-
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
+import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
+import Search from "@/components/_molecules/Search/Search";
 import {
 	SEARCH_AVAILABLE_EVENTS,
 	SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 } from "@/graphQL/queries/search";
-import type { SearchableEntity, SearchIndex } from "@/types/Search";
 import { useUser } from "@/hooks/useUser";
+import type { SearchableEntity, SearchIndex } from "@/types/Search";
+import { useQuery } from "@apollo/client";
+import { useState } from "react";
+import "./SearchPage.scss";
 
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-import Search from "@/components/_molecules/Search/Search";
-import SearchResultItem from "@/components/_atoms/SearchResultItem/SearchResultItem";
-import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
+export interface filterOption {
+	value: string;
+	label: string;
+}
 
 const mappedArray = [
 	{
 		role: "trainer",
-		filterOptions: ["dog", "lastname", "firstname", "email"],
+		filterOptions: [
+			{
+				value: "dog",
+				label: "Chien",
+			},
+			{
+				value: "lastname",
+				label: "Nom",
+			},
+			{
+				value: "firstname",
+				label: "Prénom",
+			},
+			{
+				value: "email",
+				label: "Email",
+			},
+		],
 		title: "Clients",
 		frontendQuery: SEARCH_IN_CUSTOMER_BY_TRAINER_ID,
 		backendQuery: "searchInCustomerByTrainerID",
 	},
 	{
 		role: "owner",
-		filterOptions: ["event"],
+		filterOptions: [
+			{
+				value: "event",
+				label: "Évènements",
+			},
+		],
 		title: "Évènements",
 		frontendQuery: SEARCH_AVAILABLE_EVENTS,
 		backendQuery: "searchAvailableEvents",
@@ -48,7 +72,6 @@ function SearchPage() {
 			searchField: filter,
 			...(isTrainer && { trainerId: Number(user?.id) }),
 		},
-		skip: isTrainer && !searchTerm,
 		fetchPolicy: "no-cache",
 	});
 

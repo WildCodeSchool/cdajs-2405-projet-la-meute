@@ -1,25 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-
-import { useUser } from "@/hooks/useUser";
-import { useDateFormatter } from "@/hooks/useDateFormatter";
-
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
+import Service from "@/components/_atoms/Service/Service";
+import AddressSearchMap from "@/components/_molecules/AdressSearchMap/AdressSearchMap";
+import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
+import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
 import {
 	GET_DOGS_BY_EVENTS_ID,
 	GET_EVENT_BY_ID,
 } from "@/graphQL/queries/event";
-
+import { useDateFormatter } from "@/hooks/useDateFormatter";
+import { useUser } from "@/hooks/useUser";
+import type { Location } from "@/types/Event";
 import type { ServiceType } from "@/types/Service";
-
-import "./EventDetail.scss";
-
-import Service from "@/components/_atoms/Service/Service";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader.tsx";
-import ParticipantsOverview from "@/components/_molecules/ParticipantsOverview/ParticipantsOverview";
-
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import EventActionsByRole from "./Controls/EventActionsByRole";
+import "./EventDetail.scss";
 
 function EventDetail() {
 	const { id } = useParams();
@@ -135,6 +131,10 @@ function EventDetail() {
 							type="description"
 							value={event.description}
 							onChange={() => ""}
+						/>
+						<AddressSearchMap
+							markerLocation={event.location as Location}
+							display
 						/>
 						<EventActionsByRole />
 					</div>
