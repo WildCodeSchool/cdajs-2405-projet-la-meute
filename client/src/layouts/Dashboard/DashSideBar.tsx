@@ -1,16 +1,14 @@
-import { useLocation, Link } from "react-router-dom";
-import { Tooltip } from "react-tooltip";
-import Logo from "@/assets/logo/beige/symbol/logo-pawplanner-symbol-beige.svg";
-
 import { Calendar } from "@/assets/icons/calendar";
-import { Users } from "@/assets/icons/users";
-import { Search } from "@/assets/icons/search";
-import { Paw } from "@/assets/icons/paw";
 import { Exit } from "@/assets/icons/exit";
-
+import { Paw } from "@/assets/icons/paw";
+import { Search } from "@/assets/icons/search";
+import { Users } from "@/assets/icons/users";
+import Logo from "@/assets/logo/beige/symbol/logo-pawplanner-symbol-beige.svg";
+import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
-import { useIsMobile } from "@/hooks/checkIsMobile";
+import { Link, useLocation } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 const DashSideBar = () => {
 	const location = useLocation();

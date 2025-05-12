@@ -4,7 +4,9 @@
 .dashHeader {
     height: $dashHeaderHeight;
     padding-inline-end: $dashInlinePadding;
-    padding-inline-start: calc(#{$dashHeaderHeight} + #{$dashInlinePadding}); // #{} shows the calculation in developer tools
+    padding-inline-start: calc(
+        #{$dashHeaderHeight} + #{$dashInlinePadding}
+    ); // #{} shows the calculation in developer tools
     position: fixed;
     top: 0;
     left: 0;

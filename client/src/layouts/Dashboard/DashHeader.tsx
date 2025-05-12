@@ -3,9 +3,9 @@ import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
-import { useUser } from "@/hooks/useUser";
-import { useNavigate, Link } from "react-router-dom";
 import useNavigationTracker from "@/hooks/useNavigationTracker";
+import { useUser } from "@/hooks/useUser";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 
 export default function DashHeader() {
