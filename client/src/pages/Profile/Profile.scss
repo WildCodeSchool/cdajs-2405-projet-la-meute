@@ -68,6 +68,10 @@
             }
         }
 
+        &--info {
+            color: $blue-100;
+        }
+
         &--button {
             margin-block: 3rem;
             width: fit-content;
