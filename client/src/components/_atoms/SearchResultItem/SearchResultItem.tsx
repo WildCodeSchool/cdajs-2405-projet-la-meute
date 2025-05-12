@@ -1,19 +1,15 @@
-import "./SearchResultItem.scss";
-
-import { Link } from "react-router-dom";
-import { useImageUrl } from "@/hooks/useImageUrl";
-import { formatEventDateTime } from "@/helpers/formatEventDate";
-
-import type { Owner, Trainer } from "@/types/User";
-import type { SearchableEntity } from "@/types/Search";
-import type { Dog } from "@/types/Dog";
-import type { Event } from "@/types/Event";
-
 import { CalendarWithClock } from "@/assets/icons/calendar-with-clock";
 import { MapPin } from "@/assets/icons/map-pin";
-
-import Service from "@/components/_atoms/Service/Service";
 import DogBubbles from "@/components/_atoms/DogsBubbles/DogsBubbles";
+import Service from "@/components/_atoms/Service/Service";
+import { formatEventDateTime } from "@/helpers/formatEventDate";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import type { Dog } from "@/types/Dog";
+import type { Event } from "@/types/Event";
+import type { SearchableEntity } from "@/types/Search";
+import type { Owner, Trainer } from "@/types/User";
+import { Link } from "react-router-dom";
+import "./SearchResultItem.scss";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const type = entity.__typename.toLowerCase();
@@ -32,7 +28,9 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						<p className="searchResultItem__owner--name">
 							{owner.firstname} {owner.lastname}
 						</p>
-						<p className="searchResultItem__owner--email">{owner.email}</p>
+						<p className="searchResultItem__owner--email">
+							{owner.email.toLowerCase()}
+						</p>
 						<p className="searchResultItem__owner--location">
 							{owner.postal_code} {owner.city}
 						</p>

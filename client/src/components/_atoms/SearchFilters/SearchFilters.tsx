@@ -1,9 +1,10 @@
+import type { filterOption } from "@/pages/SearchPage/SearchPage";
 import { useState } from "react";
 import "./SearchFilters.scss";
 
 interface SearchFiltersProps {
 	setFilter: React.Dispatch<React.SetStateAction<string>>;
-	filterOptions: string[];
+	filterOptions: filterOption[];
 }
 
 function SearchFilters({ setFilter, filterOptions }: SearchFiltersProps) {
@@ -27,8 +28,12 @@ function SearchFilters({ setFilter, filterOptions }: SearchFiltersProps) {
 				</option>
 				<option value="">Aucun filtre appliqué</option>
 				{filterOptions.map((filter) => (
-					<option className="searchFilters__option" key={filter} value={filter}>
-						{filter}
+					<option
+						className="searchFilters__option"
+						key={filter.value}
+						value={filter.value}
+					>
+						{filter.label}
 					</option>
 				))}
 			</select>
