@@ -116,7 +116,8 @@ export class SearchResolvers {
 				.leftJoinAndSelect("event.trainer", "trainer")
 				.leftJoinAndSelect("event.services", "services")
 				.leftJoinAndSelect("event.participation", "participation")
-				.leftJoinAndSelect("participation.dog", "dog");
+				.leftJoinAndSelect("participation.dog", "dog")
+				.orderBy("event.startDate", "DESC");
 
 			const availableEvents = await queryBuilder.getMany();
 
@@ -156,7 +157,8 @@ export class SearchResolvers {
 				.leftJoinAndSelect("event.trainer", "trainer")
 				.leftJoinAndSelect("event.services", "services")
 				.leftJoinAndSelect("event.participation", "participation")
-				.leftJoinAndSelect("participation.dog", "dog");
+				.leftJoinAndSelect("participation.dog", "dog")
+				.orderBy("event.startDate", "DESC");
 
 			const availableEvents = await queryBuilder.getMany();
 
@@ -212,7 +214,8 @@ export class SearchResolvers {
 			.leftJoinAndSelect("event.trainer", "trainer")
 			.leftJoinAndSelect("event.services", "services")
 			.leftJoinAndSelect("event.participation", "participation")
-			.leftJoinAndSelect("participation.dog", "dog");
+			.leftJoinAndSelect("participation.dog", "dog")
+			.orderBy("event.startDate", "DESC");
 
 		const availableEvents = await queryBuilder.getMany();
 
