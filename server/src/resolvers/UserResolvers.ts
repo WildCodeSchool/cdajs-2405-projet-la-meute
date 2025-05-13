@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Float, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
 import { User } from "../entities/User";
@@ -42,6 +42,17 @@ export class UserResolvers {
 	async getAllOwners(): Promise<Owner[]> {
 		const owners: Owner[] = await dataSource.manager.find(Owner);
 		return owners;
+	}
+
+	// Retrieves an owner by their ID
+	@Query(() => Owner)
+	async getOwnerById(
+		@Arg("id", () => Float) id: number,
+	): Promise<Owner | null> {
+		const owner = await dataSource.manager.findOne(Owner, {
+			where: { id },
+		});
+		return owner;
 	}
 
 	// Get all trainers

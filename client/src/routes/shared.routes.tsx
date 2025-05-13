@@ -6,6 +6,7 @@ import DashLayout from "@/layouts/Dashboard/DashLayout";
 import EventDetail from "@/pages/Event/EventDetail/EventDetail";
 import Profile from "@/pages/Profile/Profile";
 import DogId from "@/pages/Trainer/DogId/DogId";
+import OwnerId from "@/pages/Owner/OwnerId";
 
 export const sharedEventRoutes: RouteObject = {
 	path: "event",
@@ -44,7 +45,7 @@ export const sharedProfileRoutes: RouteObject = {
 		},
 		{
 			path: "view/owner/:id",
-			element: "owner profile", // View another owner's profile
+			element: <OwnerId />, // View another owner's profile
 		},
 		{
 			path: "view/dog/:id",
