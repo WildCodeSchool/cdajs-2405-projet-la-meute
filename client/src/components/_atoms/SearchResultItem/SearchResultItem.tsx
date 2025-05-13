@@ -8,9 +8,8 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 import type { SearchableEntity } from "@/types/Search";
 import type { Owner, Trainer } from "@/types/User";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SearchResultItem.scss";
-import { useNavigate } from "react-router-dom";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 	const navigate = useNavigate();

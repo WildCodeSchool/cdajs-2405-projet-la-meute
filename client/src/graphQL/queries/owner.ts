@@ -1,5 +1,5 @@
+import { DOG_FRAGMENT, OWNER_FRAGMENT } from "@/graphQL/fragments/fragments";
 import { gql } from "@apollo/client";
-import { OWNER_FRAGMENT, DOG_FRAGMENT } from "../fragments/fragments";
 
 export const GET_OWNER_BY_ID = gql`
   query GetOwnerById($id: Float!) {

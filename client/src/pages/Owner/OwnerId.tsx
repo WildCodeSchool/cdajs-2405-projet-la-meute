@@ -1,14 +1,14 @@
 import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import {
-	GET_OWNER_BY_ID,
 	GET_ALL_DOGS_BY_OWNER_ID,
+	GET_OWNER_BY_ID,
 } from "@/graphQL/queries/owner";
 import { useImageUrl } from "@/hooks/useImageUrl";
-import type { Owner } from "@/types/User";
 import type { Dog } from "@/types/Dog";
+import type { Owner } from "@/types/User";
 import { useQuery } from "@apollo/client";
-import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./OwnerId.scss";
 
 interface OwnerIdProps {

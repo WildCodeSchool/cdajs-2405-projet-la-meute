@@ -1,4 +1,3 @@
-import { gql } from "@apollo/client";
 import {
 	DOG_FRAGMENT,
 	EVENT_FRAGMENT,
@@ -7,7 +6,8 @@ import {
 	PARTICIPATION_FRAGMENT,
 	SERVICE_FRAGMENT,
 	TRAINER_FRAGMENT,
-} from "../fragments/fragments";
+} from "@/graphQL/fragments/fragments";
+import { gql } from "@apollo/client";
 
 export const SEARCH_QUERY = gql`
     query Search($query: String!) {
