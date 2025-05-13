@@ -8,7 +8,7 @@ import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Owner } from "@/types/User";
 import type { Dog } from "@/types/Dog";
 import { useQuery } from "@apollo/client";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import "./OwnerId.scss";
 
 interface OwnerIdProps {
@@ -67,14 +67,13 @@ function OwnerId({
 		}
 	};
 
-	const handleViewDog = (dogId: number | undefined) => {
-		if (!dogId) return;
+	const getDogLink = (dogId: number | undefined) => {
+		if (!dogId) return "";
 
 		if (isEventContext && eventId) {
-			navigate(`/event/${eventId}/dog/${dogId}`);
-		} else {
-			navigate(`/profile/view/dog/${dogId}`);
+			return `/event/${eventId}/dog/${dogId}`;
 		}
+		return `/profile/view/dog/${dogId}`;
 	};
 
 	const mainClassName = `ownerProfile ${isEventContext ? "ownerProfile--event" : "ownerProfile--profile"} ${className}`;
@@ -159,12 +158,11 @@ function OwnerId({
 								<h1>Chiens</h1>
 								<div className="ownerProfile__dogs--list">
 									{dogs.map((dog) => (
-										<button
+										<Link
 											key={dog.id}
+											to={getDogLink(dog.id)}
 											className="ownerProfile__dogs--item"
-											onClick={() => dog.id && handleViewDog(dog.id)}
 											aria-label={`Voir le profil de ${dog.name}`}
-											type="button"
 										>
 											<img
 												src={
@@ -175,8 +173,7 @@ function OwnerId({
 												alt={dog.name}
 											/>
 											<p>{dog.name}</p>
-											{dog.getAge && <span>{dog.getAge}</span>}
-										</button>
+										</Link>
 									))}
 								</div>
 							</div>
@@ -199,7 +196,7 @@ function OwnerId({
 					</div>
 				</main>
 			) : (
-				<p>Propriétaire non trouvé</p>
+				<p>Profil client non trouvé</p>
 			)}
 		</>
 	);
