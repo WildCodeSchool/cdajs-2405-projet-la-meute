@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { planningLoader } from "@/routesLoaders/planning.loader";
+import { eventUpdateLoader } from "@/routesLoaders/eventUpdate.loader";
 
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
@@ -42,6 +43,7 @@ export const trainerRoutes = {
 						{
 							path: ":id/edit",
 							element: <EventUpdate />,
+							loader: eventUpdateLoader,
 						},
 					],
 				},
