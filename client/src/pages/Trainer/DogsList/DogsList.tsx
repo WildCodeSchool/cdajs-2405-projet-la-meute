@@ -6,6 +6,7 @@ import type { Dog } from "@/types/Dog";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import "./DogsList.scss";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 function DogsList() {
 	const { user } = useUser();
@@ -25,7 +26,7 @@ function DogsList() {
 	const dogs = data?.getDogsByTrainerEvents || [];
 
 	if (loading) {
-		return <p>loading...</p>;
+		return <LoadingIndicator />;
 	}
 
 	return (

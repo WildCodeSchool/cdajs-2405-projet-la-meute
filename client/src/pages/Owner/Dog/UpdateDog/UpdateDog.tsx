@@ -2,6 +2,7 @@ import DogForm from "../DogForm/DogForm";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_DOG_BY_ID } from "@/graphQL/queries/dog";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 export default function UpdateDog() {
 	const { id } = useParams();
@@ -13,7 +14,7 @@ export default function UpdateDog() {
 	});
 
 	if (loading) {
-		return <p>loading...</p>;
+		return <LoadingIndicator />;
 	}
 
 	return <DogForm mode="update" initialData={data.getDogById} />;

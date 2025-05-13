@@ -17,6 +17,7 @@ import Modal from "@/components/_molecules/Modal/Modal";
 
 import ImgModalWarning from "@/assets/illustrations/chien-ville-point-exclamation.png";
 import ImgModalSuccess from "@/assets/illustrations/chien-high-five-proprietaire-canape-bleu.png";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 function EventOwnerActions() {
 	const { id } = useParams();
@@ -183,8 +184,8 @@ function EventOwnerActions() {
 		}
 	};
 
-	if (!user) return <div>Chargement de l'utilisateur...</div>;
-	if (loading) return <div>Chargement de l'événement...</div>;
+	if (!user) return <LoadingIndicator />;
+	if (loading) return <LoadingIndicator />;
 	if (error) return <div>Erreur : {error.message}</div>;
 
 	return (
