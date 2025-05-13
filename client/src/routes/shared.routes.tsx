@@ -1,4 +1,5 @@
 import type { RouteObject } from "react-router-dom";
+import { eventDetailLoader } from "@/routesLoaders/eventDetail.loader";
 
 import AuthGuard from "@/layouts/AuthGuard/AuthGuard";
 import DashLayout from "@/layouts/Dashboard/DashLayout";
@@ -19,6 +20,7 @@ export const sharedEventRoutes: RouteObject = {
 		{
 			path: ":id",
 			element: <EventDetail />,
+			loader: eventDetailLoader,
 		},
 		{
 			path: ":eventId/dog/:id",

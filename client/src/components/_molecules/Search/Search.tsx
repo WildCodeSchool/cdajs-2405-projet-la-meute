@@ -2,6 +2,7 @@ import SearchBar from "@/components/_atoms/SearchBar/SearchBar";
 import SearchFilters from "@/components/_atoms/SearchFilters/SearchFilters";
 import type { filterOption } from "@/pages/SearchPage/SearchPage";
 import "./Search.scss";
+import { useLocation } from "react-router-dom";
 
 interface SearchProps {
 	setSearchTerm: (query: string) => void;
@@ -10,10 +11,15 @@ interface SearchProps {
 }
 
 function Search({ setSearchTerm, setFilter, filterOptions }: SearchProps) {
+	const { pathname } = useLocation();
+	const noFilters = pathname.includes("owner/search");
+
 	return (
 		<section className="search">
 			<SearchBar onSearch={setSearchTerm} />
-			<SearchFilters setFilter={setFilter} filterOptions={filterOptions} />
+			{!noFilters && (
+				<SearchFilters setFilter={setFilter} filterOptions={filterOptions} />
+			)}
 		</section>
 	);
 }

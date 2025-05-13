@@ -108,7 +108,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 				</span>
 				<span className="searchResultItem__event--location">
 					<MapPin className="searchResultItem__event--icon" />
-					{event.location.latitude},{event.location.longitude}
+					{event.location.city}
 				</span>
 			</span>
 			<span className="searchResultItem__event--dogs">
