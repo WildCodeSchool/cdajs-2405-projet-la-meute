@@ -9,7 +9,6 @@ export async function eventUpdateLoader({ params }: { params: Params }) {
 		throw new Response("Missing event ID", { status: 400 });
 	}
 
-	// Utilisation de `defer` pour permettre le chargement progressif
 	const eventPromise = client
 		.query({
 			query: GET_EVENT_BY_ID,
