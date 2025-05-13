@@ -12,6 +12,7 @@
         justify-content: flex-start;
         width: 50%;
         color: $font-dark;
+        cursor: pointer;
         &--avatar {
             @include avatar;
             height: 100px;

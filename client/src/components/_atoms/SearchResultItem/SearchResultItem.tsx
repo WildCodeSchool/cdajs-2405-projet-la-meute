@@ -10,14 +10,29 @@ import type { SearchableEntity } from "@/types/Search";
 import type { Owner, Trainer } from "@/types/User";
 import { Link } from "react-router-dom";
 import "./SearchResultItem.scss";
+import { useNavigate } from "react-router-dom";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
+	const navigate = useNavigate();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
+
+		const handleNavigateToOwner = () => {
+			navigate(`/profile/view/owner/${owner.id}`);
+		};
+
 		return (
-			<Link to={`/profile/view/owner/${owner.id}`} className="searchResultItem">
+			<div
+				className="searchResultItem"
+				onClick={handleNavigateToOwner}
+				role="button"
+				tabIndex={0}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") handleNavigateToOwner();
+				}}
+			>
 				<span className="searchResultItem__owner">
 					<img
 						src={useImageUrl(owner.avatar)}
@@ -39,12 +54,15 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						</p>
 					</span>
 				</span>
+
 				<span className="searchResultItem__owner--dogs">
 					{owner.dogs.map((dog) => (
 						<Link
-							to={`/profile/view/dog/${dog.id}`}
 							key={dog.id}
+							to={`/profile/view/dog/${dog.id}`}
 							className="searchResultItem__owner--dog"
+							onClick={(e) => e.stopPropagation()}
+							aria-label={`Voir le profil de ${dog.name}`}
 						>
 							<img
 								src={useImageUrl(dog.picture)}
@@ -55,7 +73,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						</Link>
 					))}
 				</span>
-			</Link>
+			</div>
 		);
 	}
 
