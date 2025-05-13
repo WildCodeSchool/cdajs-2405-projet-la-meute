@@ -35,7 +35,7 @@ export default function DogForm({
 	const [tempFile, setTempFile] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-	const { user } = useUser();
+	const { user, reloadUser } = useUser();
 	const navigate = useNavigate();
 
 	const form = useForm<DogFormValues>({
@@ -118,6 +118,8 @@ export default function DogForm({
 			await selectedQuery({
 				variables,
 			});
+
+			await reloadUser();
 
 			const message =
 				mode === "create"
