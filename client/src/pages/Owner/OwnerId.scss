@@ -135,6 +135,8 @@
                 border-radius: 50%;
                 object-fit: cover;
                 outline: 2px solid $blue-500;
+                aspect-ratio: 1;
+                height: 70px;
             }
 
             p {
@@ -157,7 +159,7 @@
     &__nav--button {
         margin-top: auto;
         display: flex;
-        justify-content : center
+        justify-content: center;
     }
 
     &--event {

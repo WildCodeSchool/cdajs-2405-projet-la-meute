@@ -8,28 +8,19 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 import type { SearchableEntity } from "@/types/Search";
 import type { Owner, Trainer } from "@/types/User";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./SearchResultItem.scss";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
-	const navigate = useNavigate();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
 
-		const handleNavigateToOwner = () => {
-			navigate(`/profile/view/owner/${owner.id}`);
-		};
-
 		return (
-			<button
-				className="searchResultItem"
-				onClick={handleNavigateToOwner}
-				type="button"
-				onKeyDown={(e) => {
-					if (e.key === "Enter") handleNavigateToOwner();
-				}}
+			<Link
+				className="searchResultItem searchResultItem__button"
+				to={`/profile/view/owner/${owner.id}`}
 			>
 				<span className="searchResultItem__owner">
 					<img
@@ -71,7 +62,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						</Link>
 					))}
 				</span>
-			</button>
+			</Link>
 		);
 	}
 
