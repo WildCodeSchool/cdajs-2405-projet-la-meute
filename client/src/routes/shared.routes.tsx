@@ -4,6 +4,7 @@ import EventDetail from "@/pages/Event/EventDetail/EventDetail";
 import OwnerId from "@/pages/Owner/OwnerId";
 import Profile from "@/pages/Profile/Profile";
 import DogId from "@/pages/Trainer/DogId/DogId";
+import { eventDetailLoader } from "@/routesLoaders/eventDetail.loader";
 import type { RouteObject } from "react-router-dom";
 
 export const sharedEventRoutes: RouteObject = {
@@ -17,6 +18,7 @@ export const sharedEventRoutes: RouteObject = {
 		{
 			path: ":id",
 			element: <EventDetail />,
+			loader: eventDetailLoader,
 		},
 		{
 			path: ":eventId/dog/:id",

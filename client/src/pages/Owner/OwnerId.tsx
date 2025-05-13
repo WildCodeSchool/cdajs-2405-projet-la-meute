@@ -10,6 +10,7 @@ import type { Owner } from "@/types/User";
 import { useQuery } from "@apollo/client";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./OwnerId.scss";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 interface OwnerIdProps {
 	source?: "event" | "profile";
@@ -90,7 +91,7 @@ function OwnerId({
 				href="mailto:contact@pawplanner.com"
 			/>
 			{loading ? (
-				<p>Chargement...</p>
+				<LoadingIndicator />
 			) : error ? (
 				<div>
 					<p>Une erreur est survenue lors du chargement des données.</p>
