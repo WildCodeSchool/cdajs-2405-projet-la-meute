@@ -24,11 +24,10 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 		};
 
 		return (
-			<div
+			<button
 				className="searchResultItem"
 				onClick={handleNavigateToOwner}
-				role="button"
-				tabIndex={0}
+				type="button"
 				onKeyDown={(e) => {
 					if (e.key === "Enter") handleNavigateToOwner();
 				}}
@@ -73,7 +72,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 						</Link>
 					))}
 				</span>
-			</div>
+			</button>
 		);
 	}
 

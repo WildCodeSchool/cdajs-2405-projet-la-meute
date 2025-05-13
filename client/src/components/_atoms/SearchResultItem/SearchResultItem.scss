@@ -7,11 +7,14 @@
     border-radius: $windows-radius;
     margin: 1rem;
     display: flex;
+    border: transparent;
+    width: 100%;
     &__owner {
         display: flex;
         justify-content: flex-start;
         width: 50%;
         color: $font-dark;
+    
         cursor: pointer;
         &--avatar {
             @include avatar;
