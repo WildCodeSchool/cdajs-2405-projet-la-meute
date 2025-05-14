@@ -4,10 +4,10 @@ import * as crypto from "node:crypto";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
-import { Owner } from "../entities/Owner";
 import type { Dog } from "../entities/Dog";
-import { Trainer } from "../entities/Trainer";
+import { Owner } from "../entities/Owner";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
+import { Trainer } from "../entities/Trainer";
 import { User } from "../entities/User";
 import { EmailService } from "../services/EmailService";
 import * as authTypes from "../types/authTypes";
@@ -443,13 +443,13 @@ export class UserResolvers {
 		}
 
 		try {
-			const uniqueSuffix = user.id ?? Math.floor(Math.random() * 10000);
+			const uniqueSuffix = crypto.randomUUID();
 
 			// Anonymization of personal user data
 			user.firstname = "xxx";
 			user.lastname = "XXX";
 			user.email = `xxx${uniqueSuffix}@xxx.xx`; // email must be unique
-			user.phone_number = "0600000000"; // phone number must have digit format
+			user.phone_number = "0600000000";
 
 			user.city = "xxx";
 			user.postal_code = "00000";
