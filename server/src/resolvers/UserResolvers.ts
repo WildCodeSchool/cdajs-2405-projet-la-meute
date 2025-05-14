@@ -44,6 +44,15 @@ export class UserResolvers {
 		return owners;
 	}
 
+	// Retrieves an owner by their ID
+	@Query(() => Owner)
+	async getOwnerById(@Arg("id") id: number): Promise<Owner | null> {
+		const owner = await dataSource.manager.findOne(Owner, {
+			where: { id },
+		});
+		return owner;
+	}
+
 	// Get all trainers
 	@Query(() => [Trainer])
 	async getAllTrainers(): Promise<Trainer[]> {

@@ -1,11 +1,10 @@
-import { gql } from "@apollo/client";
-
 import {
+	DOG_FRAGMENT,
 	EVENT_FRAGMENT,
 	SERVICE_FRAGMENT,
 	TRAINER_FRAGMENT,
-	DOG_FRAGMENT,
-} from "../fragments/fragments";
+} from "@/graphQL/fragments/fragments";
+import { gql } from "@apollo/client";
 
 export const GET_ALL_EVENTS = gql`
 query GetAllEvents {
