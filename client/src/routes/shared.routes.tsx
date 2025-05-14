@@ -7,6 +7,7 @@ import DashLayout from "@/layouts/Dashboard/DashLayout";
 import EventDetail from "@/pages/Event/EventDetail/EventDetail";
 import Profile from "@/pages/Profile/Profile";
 import DogId from "@/pages/Trainer/DogId/DogId";
+import TrainerId from "@/pages/Trainer/TrainerId";
 
 export const sharedEventRoutes: RouteObject = {
 	path: "event",
@@ -42,7 +43,7 @@ export const sharedProfileRoutes: RouteObject = {
 		},
 		{
 			path: "view/trainer/:id",
-			element: "trainer profile", // View another trainer's profile
+			element: <TrainerId />, // View another trainer's profile
 		},
 		{
 			path: "view/owner/:id",
