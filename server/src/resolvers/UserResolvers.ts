@@ -8,7 +8,6 @@ import { Owner } from "../entities/Owner";
 import type { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
-import { Trainer } from "../entities/Trainer";
 import { User } from "../entities/User";
 import { EmailService } from "../services/EmailService";
 import * as authTypes from "../types/authTypes";
