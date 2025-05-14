@@ -1,11 +1,11 @@
 import Button from "@/components/_atoms/Button/Button";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import { GET_TRAINER_BY_ID } from "@/graphQL/queries/trainer";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Trainer } from "@/types/User";
 import { useQuery } from "@apollo/client";
-import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
-import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./TrainerId.scss";
 
 interface TrainerIdProps {

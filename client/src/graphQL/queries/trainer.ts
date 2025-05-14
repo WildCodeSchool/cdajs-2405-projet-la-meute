@@ -1,5 +1,5 @@
+import { TRAINER_FRAGMENT } from "@/graphQL/fragments/fragments";
 import { gql } from "@apollo/client";
-import { TRAINER_FRAGMENT } from "../fragments/fragments";
 
 export const GET_TRAINER_BY_ID = gql`
     query GetTrainerById($id: Float!) {
