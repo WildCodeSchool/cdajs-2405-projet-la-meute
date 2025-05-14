@@ -88,3 +88,14 @@ export const UPDATE_USER = gql`
     }
   }
 `;
+export const DEACTIVATE_ACCOUNT = gql`
+  mutation DeactivateAccount($userId: String!, $role: String!) {
+    deactivateAccount(userId: $userId, role: $role) {
+      message
+      user {
+        id
+        email
+      }
+    }
+  }
+`;

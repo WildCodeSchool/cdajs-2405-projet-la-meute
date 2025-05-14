@@ -4,6 +4,7 @@ import * as crypto from "node:crypto";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
+import type { Dog } from "../entities/Dog";
 import { Owner } from "../entities/Owner";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
 import { Trainer } from "../entities/Trainer";
@@ -421,6 +422,58 @@ export class UserResolvers {
 						? error.message
 						: "Une erreur est survenue lors du changement de mot de passe",
 			};
+		}
+	}
+
+	@Mutation(() => MessageAndUserResponse)
+	async deactivateAccount(
+		@Arg("userId") userId: string,
+		@Arg("role") role: string,
+	): Promise<MessageAndUserResponse> {
+		const isOwner = role.toLowerCase() === "owner";
+		const userRepo = dataSource.getRepository(isOwner ? Owner : Trainer);
+
+		const user = await userRepo.findOne({
+			where: { id: Number(userId) },
+			relations: isOwner ? ["dogs"] : [],
+		});
+
+		if (!user) {
+			throw new Error("Utilisateur introuvable");
+		}
+
+		try {
+			const uniqueSuffix = crypto.randomUUID();
+
+			// Anonymization of personal user data
+			user.firstname = "xxx";
+			user.lastname = "XXX";
+			user.email = `xxx${uniqueSuffix}@xxx.xx`; // email must be unique
+			user.phone_number = "0600000000";
+
+			user.city = "xxx";
+			user.postal_code = "00000";
+
+			await userRepo.save(user);
+
+			if (isOwner && "dogs" in user && user.dogs) {
+				const dogs = user.dogs as Dog[];
+				for (const dog of dogs) {
+					dog.name = "xxx";
+					await dataSource.manager.save(dog);
+				}
+			}
+
+			return {
+				message: "Compte désactivé : les données ont été anonymisées.",
+				user,
+			};
+		} catch (error) {
+			console.error("Erreur lors de la désactivation :", error);
+
+			throw new Error(
+				"Une erreur est survenue lors de la désactivation du compte",
+			);
 		}
 	}
 
