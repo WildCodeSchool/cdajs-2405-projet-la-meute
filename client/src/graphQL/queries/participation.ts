@@ -1,6 +1,5 @@
+import { DOG_FRAGMENT, EVENT_FRAGMENT } from "@/graphQL/fragments/fragments";
 import { gql } from "@apollo/client";
-
-import { EVENT_FRAGMENT, DOG_FRAGMENT } from "../fragments/fragments";
 
 export const GET_PARTICIPATION_BY_ID = gql`
 query GetParticipationById($participationId: Float!) {

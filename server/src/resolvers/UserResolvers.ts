@@ -1,16 +1,17 @@
+import "dotenv/config";
+import jwt from "jsonwebtoken";
+import * as crypto from "node:crypto";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
-import { User } from "../entities/User";
 import { Owner } from "../entities/Owner";
 import type { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
+import { Trainer } from "../entities/Trainer";
+import { User } from "../entities/User";
 import { EmailService } from "../services/EmailService";
 import * as authTypes from "../types/authTypes";
-import * as crypto from "node:crypto";
-import jwt from "jsonwebtoken";
-import "dotenv/config";
 import { UpdateUserInput } from "../types/inputTypes";
 import { MessageAndUserResponse } from "../types/responseType";
 import { FileUploadResolver } from "./FileUpload";
@@ -45,11 +46,28 @@ export class UserResolvers {
 		return owners;
 	}
 
+	// Retrieves an owner by their ID
+	@Query(() => Owner)
+	async getOwnerById(@Arg("id") id: number): Promise<Owner | null> {
+		const owner = await dataSource.manager.findOne(Owner, {
+			where: { id },
+		});
+		return owner;
+	}
+
 	// Get all trainers
 	@Query(() => [Trainer])
 	async getAllTrainers(): Promise<Trainer[]> {
 		const trainers: Trainer[] = await dataSource.manager.find(Trainer);
 		return trainers;
+	}
+
+	@Query(() => Trainer, { nullable: true })
+	async getTrainerById(@Arg("id") id: number): Promise<Trainer | null> {
+		const trainer = await dataSource.manager.findOne(Trainer, {
+			where: { id },
+		});
+		return trainer;
 	}
 
 	// Get one user by email
@@ -120,7 +138,7 @@ export class UserResolvers {
 				owner.lastname = lastname;
 				owner.firstname = firstname;
 				owner.email = email;
-				owner.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				owner.password_hashed = password; // Password will be hashed automatically via @BeforeInsert
 				owner.phone_number = phone_number;
 				owner.city = city;
 				owner.postal_code = postal_code;
@@ -137,7 +155,7 @@ export class UserResolvers {
 				trainer.lastname = lastname;
 				trainer.firstname = firstname;
 				trainer.email = email;
-				trainer.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				trainer.password_hashed = password; // Password will be hashed automatically via @BeforeInsert
 				trainer.phone_number = phone_number;
 				trainer.city = city;
 				trainer.postal_code = postal_code;
