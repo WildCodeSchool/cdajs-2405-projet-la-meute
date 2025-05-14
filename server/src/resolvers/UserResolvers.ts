@@ -448,14 +448,8 @@ export class UserResolvers {
 			// Anonymization of personal user data
 			user.firstname = "xxx";
 			user.lastname = "XXX";
-			user.email = `xxx${uniqueSuffix}@xxx.xx`;
-
-			if (user.phone_number) {
-				const lastDigits = String(uniqueSuffix).slice(-4).padStart(4, "0");
-				user.phone_number = `0600${lastDigits}00`;
-			} else {
-				user.phone_number = "";
-			}
+			user.email = `xxx${uniqueSuffix}@xxx.xx`; // email must be unique
+			user.phone_number = "0600000000"; // phone number must have digit format
 
 			user.city = "xxx";
 			user.postal_code = "00000";
@@ -471,19 +465,14 @@ export class UserResolvers {
 			}
 
 			return {
-				message: "Compte désactivé et données anonymisées",
+				message: "Compte désactivé : les données ont été anonymisées.",
 				user,
 			};
 		} catch (error) {
 			console.error("Erreur lors de la désactivation :", error);
 
-			if (error instanceof Error) {
-				throw new Error(
-					`Le format du numéro de téléphone est invalide: ${error.message}`,
-				);
-			}
 			throw new Error(
-				"Le format du numéro de téléphone est invalide: Erreur inconnue",
+				"Une erreur est survenue lors de la désactivation du compte",
 			);
 		}
 	}
