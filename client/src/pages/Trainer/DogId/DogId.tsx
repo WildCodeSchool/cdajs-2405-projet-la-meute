@@ -28,8 +28,7 @@ function DogId({
 		location.pathname.includes("/event/") || explicitSource === "event";
 
 	const buttonText =
-		explicitButtonText ||
-		(isEventContext ? "Retour à l'évènement" : "Retour à la liste");
+		explicitButtonText || (isEventContext ? "Retour à l'évènement" : "Retour");
 
 	const {
 		loading: dogLoading,

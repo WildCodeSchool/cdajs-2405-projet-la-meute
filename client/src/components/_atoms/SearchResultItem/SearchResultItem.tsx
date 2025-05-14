@@ -8,22 +8,21 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 import type { SearchableEntity } from "@/types/Search";
 import type { Owner, Trainer } from "@/types/User";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./SearchResultItem.scss";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
-	const navigate = useNavigate();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
 		const owner = entity as unknown as Owner & { dogs: Dog[] };
 
 		return (
-			<Link
-				className="searchResultItem searchResultItem__button"
-				to={`/profile/view/owner/${owner.id}`}
-			>
-				<span className="searchResultItem__owner">
+			<article className="searchResultItem searchResultItem__button">
+				<Link
+					className="searchResultItem__owner"
+					to={`/profile/view/owner/${owner.id}`}
+				>
 					<img
 						src={useImageUrl(owner.avatar)}
 						alt={`Avatar de ${owner.firstname} ${owner.lastname}`}
@@ -43,14 +42,13 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 							{owner.phone_number}
 						</p>
 					</span>
-				</span>
+				</Link>
 
 				<span className="searchResultItem__owner--dogs">
 					{owner.dogs.map((dog) => (
-						<button
-							type="button"
+						<Link
 							key={dog.id}
-							onClick={() => navigate(`/profile/view/dog/${dog.id}`)}
+							to={`/profile/view/dog/${dog.id}`}
 							className="searchResultItem__owner--dog"
 							aria-label={`Voir le profil de ${dog.name}`}
 						>
@@ -60,19 +58,20 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 								className="dog__bubble"
 							/>
 							<p className="searchResultItem__owner--dog--name">{dog.name}</p>
-						</button>
+						</Link>
 					))}
 				</span>
-			</Link>
+			</article>
 		);
 	}
 
 	// default search result is of type Event
-	const event = entity as unknown as Event & { trainer: Trainer };
+	const event = entity as Event & { trainer: Trainer };
 	const dogs = event.participation.map((participation) => participation.dog);
+
 	return (
-		<Link to={`/event/${entity.id}`} className="searchResultItem">
-			<span className="searchResultItem__event">
+		<article className="searchResultItem">
+			<Link to={`/event/${entity.id}`} className="searchResultItem__event">
 				<h2 className="searchResultItem__event--title">{event.title}</h2>
 				<span className="searchResultItem__event--trainer">
 					<img
@@ -101,11 +100,11 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 					<MapPin className="searchResultItem__event--icon" />
 					{event.location.city}
 				</span>
-			</span>
+			</Link>
 			<span className="searchResultItem__event--dogs">
 				<DogBubbles dogs={dogs} maxSize={event.group_max_size} />
 			</span>
-		</Link>
+		</article>
 	);
 }
 

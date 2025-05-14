@@ -13,14 +13,16 @@
         justify-content: flex-start;
         width: 50%;
         color: $font-dark;
-
         cursor: pointer;
+        &:hover {
+            color: $font-dark;
+        }
         &--avatar {
             @include avatar;
             height: 100px;
             width: 100px;
             padding: 0;
-            border: 3px solid currentColor;
+            border: 3px solid $font-dark;
             margin-block: auto;
         }
         &--infos {
@@ -56,6 +58,9 @@
             &--name {
                 margin-bottom: 0;
             }
+            & .dog__bubble {
+                outline-color: $font-dark;
+            }
         }
     }
     &__owner--dogs,
@@ -71,6 +76,9 @@
         flex-direction: column;
         width: 50%;
         color: $font-dark;
+        &:hover {
+            color: $font-dark;
+        }
         &--title {
             margin-block: 0.5rem;
             font-size: $xl;
@@ -85,7 +93,7 @@
             height: 50px;
             width: 50px;
             padding: 0;
-            border: 3px solid currentColor;
+            border: 3px solid $font-dark;
         }
         &--services {
             display: flex;
