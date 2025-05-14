@@ -51,6 +51,14 @@ export class UserResolvers {
 		return trainers;
 	}
 
+	@Query(() => Trainer, { nullable: true })
+	async getTrainerById(@Arg("id") id: number): Promise<Trainer | null> {
+		const trainer = await dataSource.manager.findOne(Trainer, {
+			where: { id },
+		});
+		return trainer;
+	}
+
 	// Get one user by email
 	@Query(() => Trainer || Owner || null)
 	async getUserByEmail(
