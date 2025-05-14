@@ -46,9 +46,7 @@ export class UserResolvers {
 
 	// Retrieves an owner by their ID
 	@Query(() => Owner)
-	async getOwnerById(
-		@Arg("id", () => Float) id: number,
-	): Promise<Owner | null> {
+	async getOwnerById(@Arg("id") id: number): Promise<Owner | null> {
 		const owner = await dataSource.manager.findOne(Owner, {
 			where: { id },
 		});

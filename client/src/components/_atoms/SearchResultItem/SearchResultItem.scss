@@ -7,13 +7,13 @@
     border-radius: $windows-radius;
     margin: 1rem;
     display: flex;
-    border: transparent;
+
     &__owner {
         display: flex;
         justify-content: flex-start;
         width: 50%;
         color: $font-dark;
-    
+
         cursor: pointer;
         &--avatar {
             @include avatar;
@@ -44,6 +44,8 @@
             overflow-wrap: break-word;
         }
         &--dog {
+            border: transparent;
+            background-color: transparent;
             color: $blue-400;
             display: flex;
             flex-direction: column;
@@ -56,7 +58,8 @@
             }
         }
     }
-    &__owner--dogs, &__event--dogs {
+    &__owner--dogs,
+    &__event--dogs {
         display: flex;
         width: 50%;
         justify-content: center;

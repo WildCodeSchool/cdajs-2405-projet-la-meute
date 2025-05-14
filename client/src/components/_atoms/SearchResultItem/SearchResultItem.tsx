@@ -8,10 +8,11 @@ import type { Dog } from "@/types/Dog";
 import type { Event } from "@/types/Event";
 import type { SearchableEntity } from "@/types/Search";
 import type { Owner, Trainer } from "@/types/User";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SearchResultItem.scss";
 
 function SearchResultItem({ entity }: { entity: SearchableEntity }) {
+	const navigate = useNavigate();
 	const type = entity.__typename.toLowerCase();
 
 	if (type === "owner") {
@@ -46,11 +47,11 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 
 				<span className="searchResultItem__owner--dogs">
 					{owner.dogs.map((dog) => (
-						<Link
+						<button
+							type="button"
 							key={dog.id}
-							to={`/profile/view/dog/${dog.id}`}
+							onClick={() => navigate(`/profile/view/dog/${dog.id}`)}
 							className="searchResultItem__owner--dog"
-							onClick={(e) => e.stopPropagation()}
 							aria-label={`Voir le profil de ${dog.name}`}
 						>
 							<img
@@ -59,7 +60,7 @@ function SearchResultItem({ entity }: { entity: SearchableEntity }) {
 								className="dog__bubble"
 							/>
 							<p className="searchResultItem__owner--dog--name">{dog.name}</p>
-						</Link>
+						</button>
 					))}
 				</span>
 			</Link>
