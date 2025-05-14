@@ -446,11 +446,10 @@ export class UserResolvers {
 			const uniqueSuffix = crypto.randomUUID();
 
 			// Anonymization of personal user data
-			user.firstname = "xxx";
-			user.lastname = "XXX";
+			user.firstname = "Utilisateur";
+			user.lastname = "désactivé";
 			user.email = `xxx${uniqueSuffix}@xxx.xx`; // email must be unique
 			user.phone_number = "0600000000";
-
 			user.city = "xxx";
 			user.postal_code = "00000";
 
@@ -459,7 +458,7 @@ export class UserResolvers {
 			if (isOwner && "dogs" in user && user.dogs) {
 				const dogs = user.dogs as Dog[];
 				for (const dog of dogs) {
-					dog.name = "xxx";
+					dog.name = "Désactivé";
 					await dataSource.manager.save(dog);
 				}
 			}

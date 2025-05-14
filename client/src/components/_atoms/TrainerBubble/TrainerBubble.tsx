@@ -1,7 +1,8 @@
-import type React from "react";
-import "./TrainerBubble.scss";
+import { safeEmail } from "@/helpers/safeEmail";
 import { useImageUrl } from "@/hooks/useImageUrl";
+import type React from "react";
 import { useNavigate } from "react-router-dom";
+import "./TrainerBubble.scss";
 
 interface Trainer {
 	id: number;
@@ -53,7 +54,7 @@ const TrainerBubble: React.FC<TrainerBubbleProps> = ({ trainer }) => {
 				<p className="trainer__name">
 					{trainer.firstname} {trainer.lastname}
 				</p>
-				<p className="trainer__email">{trainer.email}</p>
+				<p className="trainer__email">{safeEmail(trainer.email)}</p>
 			</div>
 		</div>
 	);

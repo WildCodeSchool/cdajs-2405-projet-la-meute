@@ -1,8 +1,9 @@
+import { safeEmail } from "@/helpers/safeEmail";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import type { Owner } from "@/types/User";
 import type React from "react";
 import { useNavigate } from "react-router-dom";
 import "./OwnerBubble.scss";
-import { useImageUrl } from "@/hooks/useImageUrl";
-import type { Owner } from "@/types/User";
 
 interface OwnerBubbleProps {
 	owner: Owner;
@@ -45,7 +46,7 @@ const OwnerBubble: React.FC<OwnerBubbleProps> = ({ owner }) => {
 							href={`mailto:${owner.email}`}
 							title={`Envoyer un email à ${owner.firstname} ${owner.lastname}`}
 						>
-							{owner.email}
+							{safeEmail(owner.email)}
 						</a>
 					</p>
 				)}

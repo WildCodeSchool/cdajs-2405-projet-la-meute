@@ -1,21 +1,53 @@
 import Button from "@/components/_atoms/Button/Button";
 import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import { PASSWORD_RESET } from "@/graphQL/mutations/user";
+import { DEACTIVATE_ACCOUNT, PASSWORD_RESET } from "@/graphQL/mutations/user";
 import { useForm } from "@/hooks/useForm";
 import { useUser } from "@/hooks/useUser";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function AccountManagementView() {
 	const { user } = useUser();
+	const navigate = useNavigate();
 	const [resetPassword] = useMutation(PASSWORD_RESET);
+	const [deactivateAccount] = useMutation(DEACTIVATE_ACCOUNT);
 	const [openSection, setOpenSection] = useState<"reset" | "delete" | null>(
 		null,
 	);
 
 	const handleAccordion = (section: "reset" | "delete") => {
 		setOpenSection((prev) => (prev === section ? null : section));
+	};
+
+	const handleDeactivate = async () => {
+		if (!user) return;
+
+		const confirmed = window.confirm(
+			"Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+		);
+		if (!confirmed) return;
+
+		try {
+			const { data } = await deactivateAccount({
+				variables: {
+					userId: user.id,
+					role: user.role,
+				},
+			});
+
+			if (data.deactivateAccount?.user) {
+				toast.success("Compte anonymisé avec succès.");
+				navigate("/");
+			} else {
+				toast.error(
+					data.deactivateAccount.message || "Échec de la suppression.",
+				);
+			}
+		} catch (error) {
+			toast.error("Une erreur est survenue lors de la suppression.");
+		}
 	};
 
 	const getToggleSymbol = (section: "reset" | "delete") =>
@@ -124,8 +156,9 @@ export default function AccountManagementView() {
 					</p>
 					<Button
 						className="profile__form--button"
-						type="submit"
+						type="button"
 						style="btn-cancel"
+						onClick={handleDeactivate}
 					>
 						Supprimer le compte
 					</Button>
