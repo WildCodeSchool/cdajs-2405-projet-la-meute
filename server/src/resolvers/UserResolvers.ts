@@ -3,6 +3,7 @@ import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
 import { User } from "../entities/User";
 import { Owner } from "../entities/Owner";
+import type { Dog } from "../entities/Dog";
 import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
 import { EmailService } from "../services/EmailService";
@@ -404,6 +405,69 @@ export class UserResolvers {
 						? error.message
 						: "Une erreur est survenue lors du changement de mot de passe",
 			};
+		}
+	}
+
+	@Mutation(() => MessageAndUserResponse)
+	async deactivateAccount(
+		@Arg("userId") userId: string,
+		@Arg("role") role: string,
+	): Promise<MessageAndUserResponse> {
+		const isOwner = role.toLowerCase() === "owner";
+		const userRepo = dataSource.getRepository(isOwner ? Owner : Trainer);
+
+		const user = await userRepo.findOne({
+			where: { id: Number(userId) },
+			relations: isOwner ? ["dogs"] : [],
+		});
+
+		if (!user) {
+			throw new Error("Utilisateur introuvable");
+		}
+
+		try {
+			const uniqueSuffix = user.id ?? Math.floor(Math.random() * 10000);
+
+			// Anonymization of personal user data
+			user.firstname = "xxx";
+			user.lastname = "XXX";
+			user.email = `xxx${uniqueSuffix}@xxx.xx`;
+
+			if (user.phone_number) {
+				const lastDigits = String(uniqueSuffix).slice(-4).padStart(4, "0");
+				user.phone_number = `0600${lastDigits}00`;
+			} else {
+				user.phone_number = "";
+			}
+
+			user.city = "xxx";
+			user.postal_code = "00000";
+
+			await userRepo.save(user);
+
+			if (isOwner && "dogs" in user && user.dogs) {
+				const dogs = user.dogs as Dog[];
+				for (const dog of dogs) {
+					dog.name = "xxx";
+					await dataSource.manager.save(dog);
+				}
+			}
+
+			return {
+				message: "Compte désactivé et données anonymisées",
+				user,
+			};
+		} catch (error) {
+			console.error("Erreur lors de la désactivation :", error);
+
+			if (error instanceof Error) {
+				throw new Error(
+					`Le format du numéro de téléphone est invalide: ${error.message}`,
+				);
+			}
+			throw new Error(
+				"Le format du numéro de téléphone est invalide: Erreur inconnue",
+			);
 		}
 	}
 

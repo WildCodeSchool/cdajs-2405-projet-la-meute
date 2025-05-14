@@ -22,6 +22,7 @@ interface TokenPayload {
 
 export interface AuthContextType extends AuthState {
 	updateAuth: (newAuthState: Partial<AuthState>) => void;
+	logout: () => void;
 }
 
 const initialAuthState: AuthState = {
@@ -35,6 +36,7 @@ const initialAuthState: AuthState = {
 export const AuthContext = createContext<AuthContextType>({
 	...initialAuthState,
 	updateAuth: () => {},
+	logout: () => {},
 });
 
 interface AuthProviderProps {
@@ -126,9 +128,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		});
 	};
 
+	const logout = () => {
+		localStorage.removeItem("authToken");
+		setAuthState({
+			...initialAuthState,
+			isLoading: false,
+		});
+		client.resetStore();
+	};
+
 	const value = {
 		...authState,
 		updateAuth,
+		logout,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
