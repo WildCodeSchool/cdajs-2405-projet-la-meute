@@ -1,16 +1,17 @@
 import Button from "@/components/_atoms/Button/Button";
+import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
 import {
 	GET_ALL_DOGS_BY_OWNER_ID,
 	GET_OWNER_BY_ID,
 } from "@/graphQL/queries/owner";
+import { safeEmail } from "@/helpers/safeEmail";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import type { Dog } from "@/types/Dog";
 import type { Owner } from "@/types/User";
 import { useQuery } from "@apollo/client";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./OwnerId.scss";
-import LoadingIndicator from "@/components/_atoms/LoadingIndicator/LoadingIndicator";
 
 interface OwnerIdProps {
 	source?: "event" | "profile";
@@ -124,7 +125,7 @@ function OwnerId({
 									href={`mailto:${owner.email}`}
 									title={`Envoyer un email à ${owner.firstname} ${owner.lastname}`}
 								>
-									{owner.email}
+									{safeEmail(owner.email)}
 								</a>
 							</div>
 							<div className="ownerProfile__form--detail">
