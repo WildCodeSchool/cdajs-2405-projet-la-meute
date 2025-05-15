@@ -5,10 +5,14 @@ import path from "node:path";
 export default defineConfig({
 	plugins: [react()],
 	test: {
-		silent:true,
+		silent: true,
 		globals: true,
-		environment: 'jsdom', 
+		environment: 'jsdom',
 		setupFiles: './src/__tests__/setup.ts',
+		exclude: [
+			'tests',
+			'playwright.config.ts',
+		],
 	},
 	server: {
 		host: "0.0.0.0",
