@@ -100,14 +100,16 @@ function ProfileView({
 					Indiquez une adresse générale pour donner un périmètre à vos clients.
 				</p>
 			)}
-			<TextInput
-				style="light"
-				type="description"
-				inputType="textarea"
-				name="description"
-				value={form.values.description}
-				onChange={form.handleChange}
-			/>
+			{isTrainer && (
+				<TextInput
+					style="light"
+					type="description"
+					inputType="textarea"
+					name="description"
+					value={form.values.description}
+					onChange={form.handleChange}
+				/>
+			)}
 			<Modal
 				type="info"
 				isOpen={confirmModal}

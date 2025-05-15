@@ -94,7 +94,7 @@ export default function AccountManagementView() {
 			<span
 				onClick={() => handleAccordion("reset")}
 				onKeyDown={() => handleAccordion("reset")}
-				className="profile__form--title"
+				className="profile__form--title profile__form--accordion"
 			>
 				<h3 className="accordion__title">Réinitialiser le mot de passe</h3>
 				<p className="accordion__toggle">{getToggleSymbol("reset")}</p>
@@ -139,7 +139,7 @@ export default function AccountManagementView() {
 			<span
 				onClick={() => handleAccordion("delete")}
 				onKeyDown={() => handleAccordion("delete")}
-				className="profile__form--title"
+				className="profile__form--title profile__form--accordion"
 			>
 				<h3 className="accordion__title profile__form--delete">
 					Supprimer le compte

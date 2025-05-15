@@ -23,6 +23,7 @@ interface TokenPayload {
 export interface AuthContextType extends AuthState {
 	updateAuth: (newAuthState: Partial<AuthState>) => void;
 	logout: () => void;
+	refreshUser: () => Promise<void>;
 }
 
 const initialAuthState: AuthState = {
@@ -37,6 +38,7 @@ export const AuthContext = createContext<AuthContextType>({
 	...initialAuthState,
 	updateAuth: () => {},
 	logout: () => {},
+	refreshUser: async () => {},
 });
 
 interface AuthProviderProps {
@@ -128,6 +130,50 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		});
 	};
 
+	const refreshUser = async (): Promise<void> => {
+		const token = localStorage.getItem("authToken");
+		if (!token) {
+			updateAuth({
+				user: null,
+				role: null,
+				isAuthenticated: false,
+			});
+			return;
+		}
+
+		try {
+			const decoded = jwtDecode(token) as { role: "owner" | "trainer" };
+			const isTrainer = decoded.role === "trainer";
+
+			const { data } = await client.query({
+				query: ME,
+				variables: { token, isTrainer },
+				fetchPolicy: "no-cache",
+			});
+
+			if (data.me) {
+				updateAuth({
+					user: data.me,
+					role: decoded.role,
+					isAuthenticated: true,
+				});
+			} else {
+				updateAuth({
+					user: null,
+					role: null,
+					isAuthenticated: false,
+				});
+			}
+		} catch (error) {
+			updateAuth({
+				user: null,
+				role: null,
+				isAuthenticated: false,
+				error: error instanceof ApolloError ? error : null,
+			});
+		}
+	};
+
 	const logout = () => {
 		localStorage.removeItem("authToken");
 		setAuthState({
@@ -141,6 +187,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		...authState,
 		updateAuth,
 		logout,
+		refreshUser,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
