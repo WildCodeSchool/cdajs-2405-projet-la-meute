@@ -1,21 +1,19 @@
-import "./Profile.scss";
-import { toast } from "react-toastify";
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { UPDATE_USER } from "@/graphQL/mutations/user";
-import { useUser } from "@/hooks/useUser";
-import { useImageUrl } from "@/hooks/useImageUrl";
-import { useForm } from "@/hooks/useForm";
-import type { Trainer } from "@/types/User";
-
 import Button from "@/components/_atoms/Button/Button";
 import PlanningHeader from "@/components/_molecules/PlanningHeader/PlanningHeader";
-
+import { UPDATE_USER } from "@/graphQL/mutations/user";
+import { useForm } from "@/hooks/useForm";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import { useUser } from "@/hooks/useUser";
+import type { Trainer } from "@/types/User";
+import { useMutation } from "@apollo/client";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import "./Profile.scss";
 import type { ViewType } from "./ProfileMenu";
-import ProfileView from "./View/ProfileView";
-import PersonalView from "./View/PersonalView";
 import ProfileMenu from "./ProfileMenu";
 import AccountManagementView from "./View/AccountManagementView";
+import PersonalView from "./View/PersonalView";
+import ProfileView from "./View/ProfileView";
 
 export interface ProfileFormValues extends Record<string, unknown> {
 	firstname: string;
