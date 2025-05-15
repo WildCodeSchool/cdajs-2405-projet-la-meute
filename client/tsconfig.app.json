@@ -27,4 +27,5 @@
     "types": ["vitest", "jest"]
   },
   "include": ["src","../validation"],
+  "exclude": ["**/*.stories.ts"]
 }

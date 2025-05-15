@@ -23,7 +23,7 @@ type endTimeStyleType = {
 interface EventFormProps {
 	mode: "create" | "update";
 	initialData?: Event | null;
-	refetch: () => void;
+	refetch?: () => void;
 }
 
 interface EventFormValues extends Record<string, unknown> {
@@ -160,7 +160,7 @@ function EventForm({
 					},
 				});
 
-				if (!isCreate) await refetch();
+				if (!isCreate && refetch) await refetch();
 
 				toast.success(
 					`L'évènement a été ${isCreate ? "créé" : "mis à jour"} avec succès.`,
