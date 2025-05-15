@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@apollo/client": "^3.12.7",
@@ -32,13 +33,16 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
+    "react-loading-indicators": "^1.0.0",
     "react-router-dom": "^6.26.2",
     "react-toastify": "^11.0.5",
+    "react-tooltip": "^5.28.1",
     "sass": "^1.78.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/js": "^9.9.0",
+    "@playwright/test": "^1.52.0",
     "@storybook/addon-essentials": "^8.5.6",
     "@storybook/addon-interactions": "^8.5.6",
     "@storybook/addon-onboarding": "^8.5.6",
@@ -54,6 +58,7 @@
     "@types/jest": "^29.5.14",
     "@types/js-cookie": "^3.0.6",
     "@types/leaflet": "^1.9.16",
+    "@types/node": "^22.15.18",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

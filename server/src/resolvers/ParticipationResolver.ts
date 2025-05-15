@@ -3,6 +3,7 @@ import { dataSource } from "../dataSource/dataSource";
 import { Dog } from "../entities/Dog";
 import { Event } from "../entities/Event";
 import { Participation } from "../entities/Participation";
+import { In } from "typeorm";
 
 const dogRepository = dataSource.getRepository(Dog);
 const eventRepository = dataSource.getRepository(Event);
@@ -43,6 +44,49 @@ export class ParticipationResolver {
 		}
 
 		return participation || [];
+	}
+
+	@Query(() => [Dog])
+	async getDogsByTrainerEvents(
+		@Arg("trainerId") trainerId: number,
+	): Promise<Dog[]> {
+		const events = await eventRepository.find({
+			where: { trainer: { id: trainerId } },
+		});
+
+		if (events.length === 0) {
+			return [];
+		}
+
+		const eventIds = events.map((event) => event.id);
+
+		const participations = await participationRepository.find({
+			where: { event: { id: In(eventIds) } },
+			relations: ["dog"],
+		});
+
+		if (participations.length === 0) {
+			return [];
+		}
+
+		const dogIds: number[] = [];
+		for (const p of participations) {
+			if (p.dog?.id) {
+				dogIds.push(p.dog.id);
+			}
+		}
+
+		const uniqueDogIds = [...new Set(dogIds)];
+
+		if (uniqueDogIds.length === 0) {
+			return [];
+		}
+
+		const dogs = await dogRepository.find({
+			where: { id: In(uniqueDogIds) },
+		});
+
+		return dogs;
 	}
 
 	@Mutation(() => Participation)

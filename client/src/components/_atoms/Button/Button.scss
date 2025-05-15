@@ -7,6 +7,7 @@ $btn-types: (
 	"dark-secondary",
 	"light",
 	"invite",
+	"cancel",
 	"role-select-left",
 	"role-select-right",
 	"thin-btn-light"
@@ -16,6 +17,7 @@ $colors: (
 	"orange": $orange-400,
 	"blue": $blue-100,
 	"green": $green-400,
+	"red": $error-color
 );
 
 .button {
@@ -83,6 +85,24 @@ $colors: (
 
 	&.btn-invite {
 		$background-color: $blue-500;
+		background-color: $background-color;
+
+		&:hover {
+			background-color: color.adjust($background-color, $lightness: 10%);
+		}
+	}
+
+	&.btn-confirm {
+		$background-color: $green-400;
+		background-color: $background-color;
+
+		&:hover {
+			background-color: color.adjust($background-color, $lightness: 10%);
+		}
+	}
+
+	&.btn-cancel {
+		$background-color: $error-color;
 		background-color: $background-color;
 
 		&:hover {

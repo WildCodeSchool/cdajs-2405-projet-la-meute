@@ -1,6 +1,5 @@
+import { DOG_FRAGMENT, EVENT_FRAGMENT } from "@/graphQL/fragments/fragments";
 import { gql } from "@apollo/client";
-
-import { EVENT_FRAGMENT, DOG_FRAGMENT } from "../fragments/fragments";
 
 export const GET_PARTICIPATION_BY_ID = gql`
 query GetParticipationById($participationId: Float!) {
@@ -28,4 +27,18 @@ query GetParticipationByDogId($dogId: Float!) {
     }
 }
 ${EVENT_FRAGMENT}
+`;
+
+export const GET_DOGS_BY_TRAINER_EVENTS = gql`
+    query GetDogsByTrainerEvents($trainerId: Float!) {
+        getDogsByTrainerEvents(trainerId: $trainerId) {
+            id
+            name
+            birthDate
+            breed
+            picture
+            info
+            getAge
+        }
+    }
 `;

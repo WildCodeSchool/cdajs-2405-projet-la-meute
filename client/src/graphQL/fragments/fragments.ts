@@ -58,9 +58,13 @@ export const EVENT_FRAGMENT = gql`
         location {
             latitude
             longitude
+            city
+            postal_code
         }
         startDate
+        startTime
         endDate
+        endTime
         group_max_size
         price
     }

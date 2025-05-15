@@ -1,15 +1,16 @@
+import "dotenv/config";
+import jwt from "jsonwebtoken";
+import * as crypto from "node:crypto";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { MoreThan } from "typeorm";
 import { dataSource } from "../dataSource/dataSource";
-import { User } from "../entities/User";
+import type { Dog } from "../entities/Dog";
 import { Owner } from "../entities/Owner";
-import { Trainer } from "../entities/Trainer";
 import { PasswordResetToken } from "../entities/PasswordResetToken";
+import { Trainer } from "../entities/Trainer";
+import { User } from "../entities/User";
 import { EmailService } from "../services/EmailService";
 import * as authTypes from "../types/authTypes";
-import * as crypto from "node:crypto";
-import jwt from "jsonwebtoken";
-import "dotenv/config";
 import { UpdateUserInput } from "../types/inputTypes";
 import { MessageAndUserResponse } from "../types/responseType";
 import { FileUploadResolver } from "./FileUpload";
@@ -44,11 +45,28 @@ export class UserResolvers {
 		return owners;
 	}
 
+	// Retrieves an owner by their ID
+	@Query(() => Owner)
+	async getOwnerById(@Arg("id") id: number): Promise<Owner | null> {
+		const owner = await dataSource.manager.findOne(Owner, {
+			where: { id },
+		});
+		return owner;
+	}
+
 	// Get all trainers
 	@Query(() => [Trainer])
 	async getAllTrainers(): Promise<Trainer[]> {
 		const trainers: Trainer[] = await dataSource.manager.find(Trainer);
 		return trainers;
+	}
+
+	@Query(() => Trainer, { nullable: true })
+	async getTrainerById(@Arg("id") id: number): Promise<Trainer | null> {
+		const trainer = await dataSource.manager.findOne(Trainer, {
+			where: { id },
+		});
+		return trainer;
 	}
 
 	// Get one user by email
@@ -119,7 +137,7 @@ export class UserResolvers {
 				owner.lastname = lastname;
 				owner.firstname = firstname;
 				owner.email = email;
-				owner.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				owner.password_hashed = password; // Password will be hashed automatically via @BeforeInsert
 				owner.phone_number = phone_number;
 				owner.city = city;
 				owner.postal_code = postal_code;
@@ -136,7 +154,7 @@ export class UserResolvers {
 				trainer.lastname = lastname;
 				trainer.firstname = firstname;
 				trainer.email = email;
-				trainer.password_hashed = password; // Le mot de passe sera hashé automatiquement via @BeforeInsert
+				trainer.password_hashed = password; // Password will be hashed automatically via @BeforeInsert
 				trainer.phone_number = phone_number;
 				trainer.city = city;
 				trainer.postal_code = postal_code;
@@ -145,11 +163,14 @@ export class UserResolvers {
 			}
 			throw new Error("Rôle invalide");
 		} catch (error) {
-			console.error("Erreur lors de l'inscription:", error);
-			throw new Error("Erreur lors de l'inscription");
+			if (error instanceof Error) {
+				console.error("Erreur :", error.message);
+				throw new Error(error.message);
+			}
+			console.error("Erreur inconnue :", error);
+			throw new Error("Une erreur inconnue est survenue.");
 		}
 	}
-
 	// Login
 	// User logs in with email and password
 	@Mutation(() => String, { nullable: true })
@@ -255,7 +276,7 @@ export class UserResolvers {
 	// request password reset
 	// User have a valid token and reset password.
 	@Mutation(() => authTypes.ResetPasswordResponse)
-	async PasswordReset(
+	async PasswordResetByEmail(
 		@Arg("token") token: string,
 		@Arg("newPassword") newPassword: string,
 	): Promise<authTypes.ResetPasswordResponse> {
@@ -323,6 +344,135 @@ export class UserResolvers {
 						? error.message
 						: "Une erreur est survenue lors du changement de mot de passe",
 			};
+		}
+	}
+
+	@Mutation(() => authTypes.ResetPasswordResponse)
+	async passwordReset(
+		@Arg("oldPassword") oldPassword: string,
+		@Arg("newPassword") newPassword: string,
+		@Arg("email") email: string,
+	): Promise<authTypes.ResetPasswordResponse> {
+		try {
+			if (!oldPassword || !newPassword || !email) {
+				throw new Error("Passwords and email are required");
+			}
+
+			const secretKey = process.env.JWTSECRETKEY;
+			if (!secretKey) {
+				throw new Error("JWT secret key is not defined");
+			}
+
+			const user = await this.findUserByEmail(email.trim(), {
+				select: ["id", "password_hashed", "role"],
+			});
+
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			// Using bcrypt to compare submitted password with hashed password
+			const validPassword = await user.checkPassword(oldPassword);
+			if (!validPassword) {
+				throw new Error("L'ancien mot de passe est incorrect");
+			}
+
+			if (user.role === "owner") {
+				const ownerRepository = dataSource.getRepository(Owner);
+				const owner = await ownerRepository.findOne({
+					where: { id: user.id },
+				});
+
+				if (!owner) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await owner.resetPassword(newPassword);
+				await ownerRepository.save(owner);
+			} else {
+				const trainerRepository = dataSource.getRepository(Trainer);
+				const trainer = await trainerRepository.findOne({
+					where: { id: user.id },
+				});
+
+				if (!trainer) {
+					return {
+						success: false,
+						message: "Utilisateur non trouvé",
+					};
+				}
+
+				await trainer.resetPassword(newPassword);
+				await trainerRepository.save(trainer);
+			}
+
+			return {
+				success: true,
+				message: "Votre mot de passe a été modifié avec succès",
+			};
+		} catch (error) {
+			console.error("Erreur lors du changement de mot de passe:", error);
+			return {
+				success: false,
+				message:
+					error instanceof Error
+						? error.message
+						: "Une erreur est survenue lors du changement de mot de passe",
+			};
+		}
+	}
+
+	@Mutation(() => MessageAndUserResponse)
+	async deactivateAccount(
+		@Arg("userId") userId: string,
+		@Arg("role") role: string,
+	): Promise<MessageAndUserResponse> {
+		const isOwner = role.toLowerCase() === "owner";
+		const userRepo = dataSource.getRepository(isOwner ? Owner : Trainer);
+
+		const user = await userRepo.findOne({
+			where: { id: Number(userId) },
+			relations: isOwner ? ["dogs"] : [],
+		});
+
+		if (!user) {
+			throw new Error("Utilisateur introuvable");
+		}
+
+		try {
+			const uniqueSuffix = crypto.randomUUID();
+
+			// Anonymization of personal user data
+			user.firstname = "Utilisateur";
+			user.lastname = "désactivé";
+			user.email = `xxx${uniqueSuffix}@xxx.xx`; // email must be unique
+			user.phone_number = "0600000000";
+			user.city = "xxx";
+			user.postal_code = "00000";
+
+			await userRepo.save(user);
+
+			if (isOwner && "dogs" in user && user.dogs) {
+				const dogs = user.dogs as Dog[];
+				for (const dog of dogs) {
+					dog.name = "Désactivé";
+					await dataSource.manager.save(dog);
+				}
+			}
+
+			return {
+				message: "Compte désactivé : les données ont été anonymisées.",
+				user,
+			};
+		} catch (error) {
+			console.error("Erreur lors de la désactivation :", error);
+
+			throw new Error(
+				"Une erreur est survenue lors de la désactivation du compte",
+			);
 		}
 	}
 

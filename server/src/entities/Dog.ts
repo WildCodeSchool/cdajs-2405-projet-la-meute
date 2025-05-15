@@ -73,9 +73,15 @@ export class Dog {
 	participation?: Participation[];
 
 	@Field()
-	getAge(): number {
+	getAge(): string {
 		const diff = new Date().getTime() - new Date(this.birthDate).getTime();
-		return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+		const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+		const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+
+		if (years < 1) {
+			return `${months} mois`;
+		}
+		return `${years} ${years === 1 ? "an" : "ans"}`;
 	}
 
 	constructor(

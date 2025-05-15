@@ -3,7 +3,7 @@ import {
 	EVENT_FRAGMENT,
 	SERVICE_FRAGMENT,
 	TRAINER_FRAGMENT,
-} from "../fragments/fragments";
+} from "@/graphQL/fragments/fragments";
 
 export const DELETE_EVENT = gql`
   mutation DeleteEvent($eventId: Float!) {

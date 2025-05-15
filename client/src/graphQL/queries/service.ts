@@ -1,5 +1,5 @@
+import { SERVICE_FRAGMENT } from "@/graphQL/fragments/fragments";
 import { gql } from "@apollo/client";
-import { SERVICE_FRAGMENT } from "../fragments/fragments";
 
 export const GET_ALL_SERVICES = gql`
     query GetAllServices {

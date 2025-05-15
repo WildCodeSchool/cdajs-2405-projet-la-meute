@@ -18,41 +18,59 @@ export default function ServiceModal({
 	services,
 	setServices,
 	onClose,
+	isOpen,
 }: {
 	services: ServiceType[];
 	setServices: Dispatch<SetStateAction<ServiceType[]>>;
 	onClose: () => void;
+	isOpen: boolean;
 }) {
+	const defaultService = {
+		title: "",
+		smiley: "😊",
+		color: "#E37D7D",
+	};
 	const [chosenServices, setChosenServices] = useState<ServiceType[]>([]);
-	const [newServiceTitle, setNewServiceTitle] = useState("");
-	const [newServiceSmiley, setNewServiceSmiley] = useState("😊");
-	const [newServiceColor, setNewServiceColor] = useState("#FF5733");
+	const [newServiceTitle, setNewServiceTitle] = useState(defaultService.title);
+	const [newServiceSmiley, setNewServiceSmiley] = useState(
+		defaultService.smiley,
+	);
+	const [newServiceColor, setNewServiceColor] = useState(defaultService.color);
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 	const emojiPickerRef = useRef<HTMLDivElement>(null);
+	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	const { data, loading, error, refetch } = useQuery(GET_ALL_SERVICES);
 	const [createService] = useMutation(CREATE_SERVICE);
 
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen) {
+			dialog.showModal();
+			dialogRef.current?.focus();
+		} else {
+			dialog.close();
+		}
+	}, [isOpen]);
+
 	const colorOptions = [
-		"#1D7AFC",
-		"#2898BD",
-		"#1F845A",
-		"#5B7F24",
-		"#B38600",
-		"#A84900",
-		"#C9372C",
-		"#AE4787",
-		"#352C63",
+		"#7DADEB",
+		"#76C6C5",
+		"#76C39E",
+		"#B2C98F",
+		"#E2C478",
+		"#E09A6C",
+		"#E37D7D",
+		"#C48FCB",
+		"#9E9CCF",
 	];
 
 	useEffect(() => {
 		services ? setChosenServices(services) : setChosenServices([]);
 	}, [services]);
-
-	if (loading) return <p>Chargement des étiquettes...</p>;
-	if (error) return <p>Erreur : {error.message}</p>;
-	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
 
 	const handleSelectService = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedService = data.getAllServices.find(
@@ -106,9 +124,9 @@ export default function ServiceModal({
 
 			if (data?.createService) {
 				setChosenServices((prev) => [...prev, data.createService]);
-				setNewServiceTitle("");
-				setNewServiceSmiley("😊");
-				setNewServiceColor("#FF5733");
+				setNewServiceTitle(defaultService.title);
+				setNewServiceSmiley(defaultService.smiley);
+				setNewServiceColor(defaultService.color);
 				refetch();
 			}
 		} catch (error) {
@@ -126,8 +144,31 @@ export default function ServiceModal({
 		onClose();
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === "Escape" && isOpen) {
+			onClose();
+		}
+	};
+
+	const backdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+		if (e.target === dialogRef.current) {
+			e.preventDefault();
+			onClose();
+		}
+	};
+
+	if (loading) return <p>Chargement des étiquettes...</p>;
+	if (error) return <p>Erreur : {error.message}</p>;
+	if (!data || !data.getAllServices) return <p>Aucune étiquette disponible.</p>;
+
 	return (
-		<dialog className="serviceModal">
+		<dialog
+			className="serviceModal"
+			ref={dialogRef}
+			onClick={backdropClick}
+			onCancel={onClose}
+			onKeyDown={handleKeyDown}
+		>
 			<div className="serviceModal__content">
 				{/* Pick an existing service */}
 				<label htmlFor="services" className="serviceModal__content--title">

@@ -3,8 +3,10 @@ import { LeftChevron } from "@/assets/icons/left-chevron";
 import { useIsMobile } from "@/hooks/checkIsMobile";
 import { useAuth } from "@/hooks/useAuth";
 import { useImageUrl } from "@/hooks/useImageUrl";
+import useNavigationTracker from "@/hooks/useNavigationTracker";
 import { useUser } from "@/hooks/useUser";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 export default function DashHeader() {
 	const { user } = useUser();
@@ -12,24 +14,44 @@ export default function DashHeader() {
 	const navigate = useNavigate();
 	const isMobile = useIsMobile();
 
+	const { clickCount, resetClickCount } = useNavigationTracker();
+
+	// Return to the previous page
+	const handleBack = () => {
+		navigate(-1);
+	};
+
+	// Logout and reset the counter to disable the backButton when user arrives on the dashboard
+	const handleLogout = () => {
+		logout();
+		resetClickCount();
+	};
+
+	// Counter is first incremented when the user comes from login toward the dashboard
+	// Each new navigation increments it, if counter > 1, the back button is active
+	const backButtonClass =
+		clickCount !== 1
+			? "dashHeader__back"
+			: "dashHeader__back dashHeader__back--invisible";
+
 	return (
 		<>
 			<header className="dashHeader">
 				<h1 className="hidden__mobile">Bonjour {user?.firstname} !</h1>
-				<button
-					type="button"
-					className="dashHeader__back hidden__desktop"
-					onClick={() => {
-						navigate(-1);
-					}}
-				>
-					<LeftChevron className="dashHeader__back--icon" />
-					Retour
-				</button>
+				{isMobile && (
+					<button
+						type="button"
+						className={backButtonClass}
+						onClick={handleBack}
+					>
+						<LeftChevron className="dashHeader__back--icon" />
+						Retour
+					</button>
+				)}
 				<span className="dashHeader__right-corner">
 					{isMobile && (
 						<button
-							onClick={logout}
+							onClick={handleLogout}
 							type="button"
 							className="dashSideBar__logout"
 							aria-label="Se déconnecter"
@@ -37,7 +59,12 @@ export default function DashHeader() {
 							<Exit className="dashSideBar__icon dashHeader__icon" />
 						</button>
 					)}
-					<Link className="dashHeader__avatar" to="/my-profile">
+					<Link
+						className="dashHeader__avatar"
+						to="/profile"
+						data-tooltip-id="tooltip-my-profile"
+						data-tooltip-content="Mon profil"
+					>
 						<img
 							src={
 								user?.avatar
@@ -48,6 +75,12 @@ export default function DashHeader() {
 							title="Mon profil"
 						/>
 					</Link>
+					<Tooltip
+						id="tooltip-my-profile"
+						place="bottom"
+						offset={30}
+						className="dashSideBar__tooltip"
+					/>
 				</span>
 			</header>
 		</>

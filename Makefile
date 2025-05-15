@@ -7,6 +7,7 @@ SERVER_MIGRATION_PATH = ${SERVER_PATH}/migrations/
 CLIENT_VALIDATION_PATH = client/src/helpers/readonly/validationRules.ts
 OS := $(shell uname)
 
+# Rules
 .PHONY: default
 default: launch
 
@@ -80,8 +81,8 @@ migrations: check-server-container
 	@echo "Running migrations..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:run -- -d ./src/dataSource/dataSource.ts"
 
-.PHONY: migrations-revert
-migrations-revert: check-server-container
+.PHONY: migration-revert
+migration-revert: check-server-container
 	@echo "Reverting last migration..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
 
@@ -91,3 +92,8 @@ first-launch: install init-db sync-validation build
 
 .PHONY: launch
 launch: install sync-validation build
+
+.PHONY: test-e2e
+test-e2e:
+	@echo "Running end-to-end tests with Playwright..."
+	cd client && npm run test:e2e

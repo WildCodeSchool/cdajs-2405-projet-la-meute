@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useForm } from "@/hooks/useForm";
 import { useMutation } from "@apollo/client";
-import { PASSWORDRESET } from "@/graphQL/mutations/user";
+import { PASSWORD_RESET_BY_EMAIL } from "@/graphQL/mutations/user";
 
 function NewPassword() {
 	const [searchParams] = useSearchParams();
@@ -15,15 +15,18 @@ function NewPassword() {
 	const token = searchParams.get("token");
 	const [message, setMessage] = useState("");
 
-	const [resetPassword, { loading }] = useMutation(PASSWORDRESET, {
-		onCompleted: (data) => {
-			if (data.PasswordReset.success) {
-				window.location.href = "/login";
-			}
-			setMessage(data.PasswordReset.message);
+	const [resetPasswordByEmail, { loading }] = useMutation(
+		PASSWORD_RESET_BY_EMAIL,
+		{
+			onCompleted: (data) => {
+				if (data.PasswordResetByEmail.success) {
+					window.location.href = "/login";
+				}
+				setMessage(data.PasswordResetByEmail.message);
+			},
+			onError: (error) => setMessage(error.message),
 		},
-		onError: (error) => setMessage(error.message),
-	});
+	);
 
 	const form = useForm({
 		initialValues: {
@@ -32,7 +35,7 @@ function NewPassword() {
 		},
 		onSubmit: async (values) => {
 			try {
-				await resetPassword({
+				await resetPasswordByEmail({
 					variables: {
 						token,
 						newPassword: values.password,

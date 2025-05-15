@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import "./Button.scss";
 
-type ThinButtonColor = "orange" | "blue" | "green";
+type ThinButtonColor = "orange" | "blue" | "green" | "red";
 
 type ButtonStyles =
 	| "submit"
@@ -9,6 +9,8 @@ type ButtonStyles =
 	| "btn-dark-secondary"
 	| "btn-light"
 	| "invite"
+	| "btn-cancel"
+	| "btn-confirm"
 	| "event"
 	| "button"
 	| "role-select-left"
@@ -63,13 +65,17 @@ export default function Button({
 						? "btn-dark-secondary"
 						: style === "invite" || style === "event"
 							? "btn-invite"
-							: style === "role-select-left"
-								? "btn-role-select-left"
-								: style === "role-select-right"
-									? "btn-role-select-right"
-									: style === "none"
-										? ""
-										: "btn-light";
+							: style === "btn-confirm"
+								? "btn-confirm"
+								: style === "btn-cancel"
+									? "btn-cancel"
+									: style === "role-select-left"
+										? "btn-role-select-left"
+										: style === "role-select-right"
+											? "btn-role-select-right"
+											: style === "none"
+												? ""
+												: "btn-light";
 	const navigate = useNavigate();
 
 	if (href) {
