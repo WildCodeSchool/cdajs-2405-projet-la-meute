@@ -1,22 +1,24 @@
-import "./DogForm.scss";
-import { useEffect, useState } from "react";
-import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
-import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
 import Button from "@/components/_atoms/Button/Button";
+import FileInput from "@/components/_atoms/Inputs/FileInputs/FileInput";
+import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Modal from "@/components/_molecules/Modal/Modal";
+import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
+import { GET_DOG_BY_ID } from "@/graphQL/queries/dog";
+import { useForm } from "@/hooks/useForm";
+import { useImageUrl } from "@/hooks/useImageUrl";
+import { useUser } from "@/hooks/useUser";
+import DogDeleteAction from "@/pages/Owner/Dog/DogForm/Controls/DogDeleteAction";
 import type { Dog } from "@/types/Dog";
 import { useMutation } from "@apollo/client";
-import { useUser } from "@/hooks/useUser";
-import { useForm } from "@/hooks/useForm";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CREATE_DOG, UPDATE_DOG } from "@/graphQL/mutations/dog";
-import { useImageUrl } from "@/hooks/useImageUrl";
 import { toast } from "react-toastify";
-import DogDeleteAction from "@/pages/Owner/Dog/DogForm/Controls/DogDeleteAction";
+import "./DogForm.scss";
 
 interface DogFormProps {
 	mode: "create" | "update";
 	initialData?: Dog | null;
+	onRefresh?: () => void;
 }
 
 interface DogFormValues extends Record<string, unknown> {
@@ -67,7 +69,18 @@ export default function DogForm({
 	}, [selectedFile]);
 
 	const query = mode === "create" ? CREATE_DOG : UPDATE_DOG;
-	const [selectedQuery] = useMutation(query);
+	const [selectedQuery] = useMutation(query, {
+		refetchQueries:
+			mode === "update"
+				? [
+						{
+							query: GET_DOG_BY_ID,
+							variables: { getDogByIdId: Number(initialData?.id) },
+						},
+					]
+				: [],
+		awaitRefetchQueries: true,
+	});
 	const formTitle =
 		mode === "create" ? "Ajout d'un chien" : `Profil de ${initialData?.name}`;
 	const formSubtitle =
