@@ -37,8 +37,6 @@
         &--title,
         &--names {
             display: flex;
-            justify-content: space-between;
-            cursor: pointer;
         }
 
         &--title {
@@ -79,6 +77,11 @@
             width: fit-content;
             align-self: flex-end;
             width: 100%;
+        }
+
+        &--accordion {
+            justify-content: space-between;
+            cursor: pointer;
         }
     }
 
