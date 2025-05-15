@@ -128,6 +128,17 @@ async function createData() {
 
 		// 3. Create dogs
 		const dogs: Dog[] = [];
+
+		// Set Dog
+		const dog = dogRepository.create({
+			name: "Kobe",
+			birthDate: faker.date.past({ years: 10 }),
+			breed: "Golden Retriever",
+			owner: john,
+		});
+		dogs.push(dog);
+
+		// === Random dogs ===
 		for (let i = 0; i < 100; i++) {
 			dogs.push(
 				dogRepository.create({
