@@ -38,9 +38,9 @@ function cleanTime(time: string) {
 const timestamp = getTimestamp();
 const eventTitle = `Événement de test - ${timestamp}`;
 const eventTitleModify = `Événement modifié de test - ${timestamp}`;
-const eventTitleRegister = `Inscription à événement - ${timestamp}`;
+const eventTitleSubscribe = `Inscription à événement - ${timestamp}`;
 const eventDescription = `Description de test - ${timestamp}`;
-const eventDescriptionRegister = `Description de test pour l'inscription - ${timestamp}`;
+const eventDescriptionSubscribe = `Description de test pour l'inscription - ${timestamp}`;
 const eventDate = getDate();
 const startTime = getStartTime();
 const endTime = getEndTime();
@@ -118,7 +118,7 @@ test('Delete an event', async ({ page }) => {
 });
 
 // Subscribe to an event
-test('Register my dog to an event', async ({ page }) => {
+test('Subscribe my dog to an event', async ({ page }) => {
   // Creation of new event for testing the subscribe
   await page.goto('http://localhost:4200/login');
   await page.locator('#textInput-email').fill('jane@example.com');
@@ -127,7 +127,7 @@ test('Register my dog to an event', async ({ page }) => {
   await page.waitForLoadState('networkidle');
   await page.getByText('+ Ajouter un évènement').click();
   // Fields of the event
-  await page.locator('#textInput-title').fill(eventTitleRegister);
+  await page.locator('#textInput-title').fill(eventTitleSubscribe);
   await page.getByText('+ Ajouter une étiquette').click();
   await page.locator('#services').selectOption('1');
   await page.getByRole('button', { name: 'Valider', exact: true }).click();
@@ -139,7 +139,7 @@ test('Register my dog to an event', async ({ page }) => {
   const endTimeInput = page.locator('input[name="endTime"]');
   await endTimeInput.click();
   await endTimeInput.pressSequentially(cleanTime(endTime));
-  await page.locator('#textInput-description').fill(eventDescriptionRegister);
+  await page.locator('#textInput-description').fill(eventDescriptionSubscribe);
   await page.locator('input[name="price"]').fill('35');
   await page.locator('input[name="groupMaxSize"]').fill('7');
   await page.locator('input[name="postal_code"]').fill('33000');
@@ -172,7 +172,7 @@ test('Register my dog to an event', async ({ page }) => {
 
 
 // Unsubscribe of the previous event
-test('Unregister my dog to an event', async ({ page }) => {
+test('Unsubscribe my dog to an event', async ({ page }) => {
   // Need to create the event on the previous test before continue
   await page.goto('http://localhost:4200/login');
   await page.locator('#textInput-email').fill('john@example.com');
