@@ -38,7 +38,7 @@ export const LOGIN = gql`
     }
 `;
 
-export const REQUESTPASSWORDRESET = gql`
+export const REQUEST_PASSWORD_RESET = gql`
   mutation RequestPasswordReset($email: String!) {
     RequestPasswordReset(email: $email) {
       message
@@ -47,13 +47,22 @@ export const REQUESTPASSWORDRESET = gql`
   }
 `;
 
-export const PASSWORDRESET = gql`
-  mutation PasswordReset($newPassword: String!, $token: String!) {
-    PasswordReset(newPassword: $newPassword, token: $token) {
+export const PASSWORD_RESET_BY_EMAIL = gql`
+  mutation PasswordResetByEmail($newPassword: String!, $token: String!) {
+    PasswordResetByEmail(newPassword: $newPassword, token: $token) {
       message
       success
     }
   }
+`;
+
+export const PASSWORD_RESET = gql`
+mutation passwordReset($email: String!, $newPassword: String!, $oldPassword: String!) {
+  passwordReset(email: $email, newPassword: $newPassword, oldPassword: $oldPassword) {
+    message
+    success
+  }
+}
 `;
 
 export const UPDATE_USER = gql`
@@ -75,6 +84,18 @@ export const UPDATE_USER = gql`
                 company_name
                 description
         }  
+      }
+    }
+  }
+`;
+
+export const DEACTIVATE_ACCOUNT = gql`
+  mutation DeactivateAccount($userId: String!, $role: String!) {
+    deactivateAccount(userId: $userId, role: $role) {
+      message
+      user {
+        id
+        email
       }
     }
   }

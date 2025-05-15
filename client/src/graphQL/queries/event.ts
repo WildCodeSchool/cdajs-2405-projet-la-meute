@@ -1,11 +1,10 @@
-import { gql } from "@apollo/client";
-
 import {
+	DOG_FRAGMENT,
 	EVENT_FRAGMENT,
 	SERVICE_FRAGMENT,
 	TRAINER_FRAGMENT,
-	DOG_FRAGMENT,
-} from "../fragments/fragments";
+} from "@/graphQL/fragments/fragments";
+import { gql } from "@apollo/client";
 
 export const GET_ALL_EVENTS = gql`
 query GetAllEvents {
@@ -92,10 +91,10 @@ export const GET_ALL_EVENTS_BY_OWNER_ID = gql`
 `;
 
 export const GET_DOGS_BY_EVENTS_ID = gql`
-query GetDogsByEventsId($eventId: Float!) {
-  getDogsByEventsId(eventId: $eventId) {
-    ...DogFragment
-  }
-}
-${DOG_FRAGMENT}
+    query GetDogsByEventsId($eventId: Float!) {
+        getDogsByEventsId(eventId: $eventId) {
+            ...DogFragment
+        }
+    }
+    ${DOG_FRAGMENT}
 `;

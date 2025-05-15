@@ -1,6 +1,12 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
-import { Eye } from "@/assets/icons/eye.tsx";
 import { EyeOff } from "@/assets/icons/eye-off.tsx";
+import { Eye } from "@/assets/icons/eye.tsx";
+import React, {
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from "react";
 import "./TextInput.scss";
 import { TEXT_INPUT_CONFIG, type TextInputTypes } from "./TextInputConfig";
 
@@ -15,6 +21,7 @@ interface TextInputProps {
 	placeholder?: string;
 	className?: string;
 	name?: string;
+	count?: boolean;
 	value: string;
 	onChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,34 +46,50 @@ const TextInput = React.forwardRef<
 			className = "",
 			name,
 			value,
+			count,
 			onChange,
 		},
 		ref,
 	) => {
 		const [showPassword, setShowPassword] = useState(false);
 		const [error, setError] = useState<string>("");
+		const [lengthCount, setLengthCount] = useState(value.length);
 		const [inputTouched, setInputTouched] = useState(false);
 
 		const config = TEXT_INPUT_CONFIG[type];
 		const mappedLabel = label || config.mappedLabel || "";
 		const mappedPlaceholder = placeholder || config.mappedPlaceholder || "";
-		const maxLength = config.maxLength;
+		const maxLength = config.maxLength || 1000;
 		const validationPattern = config.validationRules?.pattern;
 		const validationMessage =
 			config.validationRules?.message || "Format invalide";
 
 		const fieldName = name || config.mappedName || type;
-
 		const fieldRequired = required ? " *" : "";
 		const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+		const inputId = `textInput-${type}`;
+
 		useImperativeHandle(
 			ref,
 			() => inputRef.current as HTMLInputElement | HTMLTextAreaElement,
 		);
 
-		const inputId = `textInput-${type}`;
 		const isPasswordField: boolean =
-			type === "password" || type === "confirmPassword";
+			type === "password" ||
+			type === "confirmPassword" ||
+			type === "oldPassword";
+
+		const textAreaResize = useCallback(() => {
+			if (inputRef.current && inputType === "textarea") {
+				const resized = inputRef.current as HTMLTextAreaElement;
+				resized.style.height = "auto";
+				resized.style.height = `${resized.scrollHeight}px`;
+			}
+		}, [inputType]);
+
+		useEffect(() => {
+			textAreaResize();
+		}, [textAreaResize]);
 
 		// Specific password validation function
 		const validatePasswordFormat = (value: string): boolean => {
@@ -106,6 +129,7 @@ const TextInput = React.forwardRef<
 		const handleBlur = () => {
 			setInputTouched(true);
 			validate();
+			textAreaResize();
 		};
 
 		const handleChange = (
@@ -114,6 +138,8 @@ const TextInput = React.forwardRef<
 			if (onChange) {
 				onChange(e);
 			}
+
+			setLengthCount(e.target.value.length);
 
 			if (type === "password" || inputTouched) {
 				if (type === "password") {
@@ -125,12 +151,25 @@ const TextInput = React.forwardRef<
 					validate();
 				}
 			}
+
+			textAreaResize();
 		};
+
+		const remaining = maxLength - lengthCount;
+		let countColor = "default";
+		if (remaining <= maxLength * 0.2) {
+			countColor = "warning";
+		}
+		if (remaining === 0) {
+			countColor = "error";
+		}
 
 		return (
 			<div
-				className={`textInput ${className} textInput__${style} ${!isLogin && error ? "has-error" : ""}`}
+				className={`textInput ${className} textInput__${style} ${!isLogin && error ? "has-error" : ""} ${count && "length-counter"}`}
 				data-error={error}
+				data-count={`Caractères restants : ${remaining}`}
+				data-color={countColor}
 			>
 				<label htmlFor={inputId}>
 					{mappedLabel}
@@ -140,7 +179,7 @@ const TextInput = React.forwardRef<
 					<textarea
 						id={inputId}
 						name={fieldName}
-						ref={ref as React.RefObject<HTMLTextAreaElement>}
+						ref={inputRef as React.RefObject<HTMLTextAreaElement>}
 						placeholder={mappedPlaceholder}
 						value={value}
 						required={required}
@@ -195,7 +234,7 @@ const TextInput = React.forwardRef<
 						)}
 					</button>
 				)}
-				{type === "password" && (
+				{type === "password" && !isLogin && (
 					// Password info
 					<div className="password-info">
 						Le mot de passe doit contenir au moins 8 caractères, une majuscule,

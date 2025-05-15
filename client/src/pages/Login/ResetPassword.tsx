@@ -4,15 +4,15 @@ import TextInput from "@/components/_atoms/Inputs/TextInput/TextInput";
 import Button from "@/components/_atoms/Button/Button";
 import { useMutation } from "@apollo/client";
 import { useForm } from "@/hooks/useForm";
-import { REQUESTPASSWORDRESET } from "@/graphQL/mutations/user";
+import { REQUEST_PASSWORD_RESET } from "@/graphQL/mutations/user";
 
 function ResetPassword() {
 	const [RequestPasswordReset, { loading }] = useMutation(
-		REQUESTPASSWORDRESET,
+		REQUEST_PASSWORD_RESET,
 		{
 			onCompleted: (data) => {
 				if (data.RequestPasswordReset.success) {
-					window.location.href = "/reset-link";
+					window.location.href = "/forgot-password";
 				}
 			},
 			onError: (error) => {

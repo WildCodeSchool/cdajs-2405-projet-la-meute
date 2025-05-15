@@ -9,9 +9,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
 	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const query = event.currentTarget.q.value.trim();
-		if (query) {
-			onSearch(query);
-		}
+		onSearch(query);
 	};
 
 	return (
@@ -36,7 +34,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
 				name="q"
 				placeholder="Rechercher..."
 				aria-label="Rechercher un contenu"
-				required
 				className="searchbar__input"
 			/>
 		</form>
