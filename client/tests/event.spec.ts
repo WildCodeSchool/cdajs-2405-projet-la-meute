@@ -100,23 +100,6 @@ test('Modify an event', async ({ page }) => {
   await expect(page.locator('.Toastify__toast')).toHaveText(/L'évènement a été mis à jour avec succès/);
 });
 
-// Delete an event
-test('Delete an event', async ({ page }) => {
-  await page.goto('http://localhost:4200/login');
-  await page.locator('#textInput-email').fill('jane@example.com');
-  await page.locator('#textInput-password').fill('C@niche22');
-  await page.getByRole('button', { name: 'Me connecter' }).click();
-  await page.waitForLoadState('networkidle');
-  // Searching the test event in the Planning view
-  await page.locator('.fc-event').filter({ hasText: 'Événement de test' }).first().click();
-  await page.getByRole('button', { name: "Supprimer l'événement" }).click();
-  // Confirmation delete of the event after the modal dialog open
-  await expect(page.locator('.modal__prompt')).toContainText('Êtes-vous sûr de vouloir supprimer cet événement ?');
-  await page.locator('.modal__btn--confirm').filter({ hasText: "Supprimer l'événement" }).click();
-  // Toast alert to confirm the delete
-  await expect(page.locator('.Toastify__toast')).toHaveText(/L'événement a été supprimé avec succès/);
-});
-
 // Subscribe to an event
 test('Subscribe my dog to an event', async ({ page }) => {
   // Creation of new event for testing the subscribe
@@ -170,7 +153,6 @@ test('Subscribe my dog to an event', async ({ page }) => {
   await expect(page.locator('.Toastify__toast')).toHaveText(/Inscription réussie à cet événement/);
 });
 
-
 // Unsubscribe of the previous event
 test('Unsubscribe my dog to an event', async ({ page }) => {
   // Need to create the event on the previous test before continue
@@ -185,4 +167,22 @@ test('Unsubscribe my dog to an event', async ({ page }) => {
   await page.getByRole('button', { name: "Confirmer la désinscription" }).click();
   await expect(page.locator('.Toastify__toast')).toHaveText(/Votre désinscription a été prise en compte/);
 });
+
+// Delete an event
+test('Delete an event', async ({ page }) => {
+  await page.goto('http://localhost:4200/login');
+  await page.locator('#textInput-email').fill('jane@example.com');
+  await page.locator('#textInput-password').fill('C@niche22');
+  await page.getByRole('button', { name: 'Me connecter' }).click();
+  await page.waitForLoadState('networkidle');
+  // Searching the test event in the Planning view
+  await page.locator('.fc-event').filter({ hasText: 'Événement modifié de test' }).first().click();
+  await page.getByRole('button', { name: "Supprimer l'événement" }).click();
+  // Confirmation delete of the event after the modal dialog open
+  await expect(page.locator('.modal__prompt')).toContainText('Êtes-vous sûr de vouloir supprimer cet événement ?');
+  await page.locator('.modal__btn--confirm').filter({ hasText: "Supprimer l'événement" }).click();
+  // Toast alert to confirm the delete
+  await expect(page.locator('.Toastify__toast')).toHaveText(/L'événement a été supprimé avec succès/);
+});
+
 // -- END OF THE TEST --
