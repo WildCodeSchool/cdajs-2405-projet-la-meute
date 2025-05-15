@@ -18,7 +18,6 @@ import "./DogForm.scss";
 interface DogFormProps {
 	mode: "create" | "update";
 	initialData?: Dog | null;
-	onRefresh?: () => void;
 }
 
 interface DogFormValues extends Record<string, unknown> {

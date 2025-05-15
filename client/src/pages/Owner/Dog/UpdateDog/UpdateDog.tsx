@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 export default function UpdateDog() {
 	const { id } = useParams();
 
-	const { data, loading, refetch } = useQuery(GET_DOG_BY_ID, {
+	const { data, loading } = useQuery(GET_DOG_BY_ID, {
 		variables: { getDogByIdId: Number(id) },
 	});
 
@@ -15,11 +15,5 @@ export default function UpdateDog() {
 		return <LoadingIndicator />;
 	}
 
-	return (
-		<DogForm
-			mode="update"
-			initialData={data.getDogById}
-			onRefresh={() => refetch()}
-		/>
-	);
+	return <DogForm mode="update" initialData={data.getDogById} />;
 }
