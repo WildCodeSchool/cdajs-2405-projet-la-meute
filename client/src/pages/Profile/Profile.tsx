@@ -29,7 +29,7 @@ export interface ProfileFormValues extends Record<string, unknown> {
 }
 
 function Profile() {
-	const { role, user } = useUser();
+	const { role, user, refreshUser } = useUser();
 	const [view, setView] = useState<ViewType>("profile");
 
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -98,6 +98,7 @@ function Profile() {
 			});
 			if (response.data.UpdateUser.message === "User updated successfully") {
 				toast.success("Profil sauvegardé avec succès !");
+				refreshUser();
 			} else if (response.data.UpdateUser.message === "User not found") {
 				toast.error("Utilisateur non trouvé.");
 			} else if (
