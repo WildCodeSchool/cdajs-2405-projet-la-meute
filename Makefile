@@ -92,3 +92,8 @@ first-launch: install init-db sync-validation build
 
 .PHONY: launch
 launch: install sync-validation build
+
+.PHONY: test-e2e
+test-e2e:
+	@echo "Running end-to-end tests with Playwright..."
+	cd client && npm run test:e2e
