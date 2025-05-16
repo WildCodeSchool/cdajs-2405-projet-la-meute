@@ -48,11 +48,9 @@
             }
 
             & img {
+                @include avatar;
                 max-height: 11vh;
                 max-width: 11vh;
-                aspect-ratio: 1;
-                border-radius: 50%;
-                object-fit: cover;
                 outline: 2px solid $blue-500;
             }
         }

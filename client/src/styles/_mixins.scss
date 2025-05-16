@@ -4,7 +4,8 @@
 
 @mixin avatar {
     border-radius: 50%;
-    padding: 1.2vh 1.5vw;
+    aspect-ratio: 1;
+    object-fit: cover;
 }
 
 @mixin dashContentArea($offset: 0) {

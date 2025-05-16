@@ -66,11 +66,9 @@
         display: flex;
 
         & img {
-            border-radius: 50%;
+            @include avatar;
             height: 60px;
-            aspect-ratio: 1;
             margin: auto;
-            object-fit: cover;
             outline: 2px solid $blue-500;
         }
     }
@@ -195,11 +193,9 @@
             display: flex;
 
             & img {
-                border-radius: 50%;
+                @include avatar;
                 height: 60px;
-                aspect-ratio: 1;
                 margin: auto;
-                object-fit: cover;
                 outline: 2px solid $blue-500;
             }
         }

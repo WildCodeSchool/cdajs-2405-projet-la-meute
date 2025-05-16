@@ -132,10 +132,8 @@
             }
 
             img {
-                border-radius: 50%;
-                object-fit: cover;
+                @include avatar;
                 outline: 2px solid $blue-500;
-                aspect-ratio: 1;
                 height: 70px;
             }
 
