@@ -98,9 +98,9 @@ migration-revert: check-server-container
 	@echo "Reverting last migration..."
 	docker exec -it $(SERVER_CONTAINER) sh -c "npm run typeorm migration:revert -- -d ./src/dataSource/dataSource.ts"
 
-## Install dependencies, intialize the database, sync the form validation rules and build docker containers
+## Install dependencies, intialize the database, sync the form validation rules, build docker containers and run migrations
 .PHONY: first-launch
-first-launch: install init-db sync-validation build
+first-launch: install init-db sync-validation build migrations
 	@echo "Congrats, your first launch is complete. ✨"
 
 ## Install dependencies, sync the form validation rules and build docker containers

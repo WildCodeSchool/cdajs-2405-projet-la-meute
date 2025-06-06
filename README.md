@@ -1,8 +1,6 @@
 # Paw Planner
 
-### -- 🚧 Work in progress 🚧
-
-Started in September 2024 as a school project, **Paw Planner** is a service designed to facilitate the connection between canine professionals and dog owners. Its main feature is a calendar where professionals can propose available slots for specific activities, and dog owners can book these slots.
+Started in September 2024 as a school project, **Paw Planner** is a web application designed to facilitate the connection between canine professionals and dog owners. Its main feature is a calendar where trainers can propose available slots for specific activities, and dog owners can book these slots.
 
 We are a team of four aspiring web developers working on this project: [Florence](https://github.com/FlorenceBuchelet), [Florian](https://github.com/Dolpheus89), [Julien](https://github.com/Carcali) and [Melissa](https://github.com/Melprcllr).
 
@@ -18,32 +16,41 @@ ___
     - **Typescript**
     - **Docker**
     - **Biome** : Biome is an alternative to ESLint and Prettier for ensuring code quality. It provides both linting and formatting in one tool.
+    - **Husky**
 - Server side:
     - **NodeJS**
     - **TypeORM**
-    - **Apollo Server**
     - **TypeGraphQL**
+    - **Apollo Server**
     - **PostegreSQL**
-    - **Jest**
 - Client side:
     - **React** (through ViteJS)
-    - **Apollo Client** (via Vite)
+    - **Apollo Client**
     - **Sass**
+    - **Storybook**
+- Tests:
+    - **Jest**
+    - **MockTypeORM**
+    - **Testing library**
     - **Vitest**
+    - **Playwright**
+
 
 ## Launch
 
 ### TLDR;
 1. **First Launch**
     - Run `make env` and edit your .env file.
-    - Run `make first-launch` (it will install your dependencies, initialize your database and synchronize the forms validation rules)
-    - When your server is ready, run `make migrations`
+    - Run `make first-launch` (it will install your dependencies, initialize your database, synchronize the forms validation rules and build your project)
 2. **Any other launch**
     - Launching docker containers: `make up`
     - Building docker containers and launching project: `make build`
     - Full launch: `make launch` (install dependencies, sync validation rules and build)
+3. **Migrations** :
+    - `make migrations` runs all pending migrations
+    - `make migration-revert` reverts the last run migration
 
-Don't forget to apply migrations when needed with `make migrations`.
+Don't forget to apply migrations when needed with `make migrations`!
 
 **Client**: http://localhost:4200/ </br>
 **Server**: http://localhost:3200/
@@ -52,22 +59,32 @@ Don't forget to apply migrations when needed with `make migrations`.
 
 ### Explanations
 
-First of all, copy and edit the `.env.sample` in a `.env` file. <br>
+First of all, run `make env` and edit the `.env` file with your variables. <br>
 On first launch, **the variables you'll put in this file will be used to create your database** so file it up accordingly with secured informations.
 
-Then run `npm run install:all` to run the `npm install` commands in the /root, /client and /server folders in one go. 
-
-On first launch, create your PostgreSQL user, either inside your container (run `npm run db:init`, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md)) or through a PostgreSQL user interface such as **pgAdmin**.
-
-You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME - replace the variables).
-
-Run `docker compose up`.
+Run `make first-launch`. It will:
+- run the `npm install` commands in the /root, /client and /server folders in one go. 
+- create your PostgreSQL user inside your container, it works as explained in [this documentation](./_ressources/documentation/Database_initialization.md) you could also create it through a PostgreSQL user interface such as **pgAdmin**. You can verify if your user has been created through **adminer** (Système: PostgreSQL | Serveur: db | Utilisateur: $DBUSERNAME | Mot de passe: $DBPASS | Base de données: $DBNAME - replace the variables).
+- synchronize the form validation rules
+- build your project
+- run migrations
 
 Isolated basic commands for debugging purpose: 
 - client side: `npm run dev`
 - server side: `npm start`
 
-// FIXME: add doc design pattern
+## Design Patterns
+
+This project uses common design patterns to ensure maintainability and scalability:
+- **Custom Hook pattern**: Frontend logic such as authentication and API interactions are encapsulated in reusable React hooks (`useAuth`, `useForm`).
+- **ForwardRef**: To make Inputs in Forms reusable we used a form of React **Higher-order component** called ForwardRef, it wraps the component and makes its ref accessible to its parent.
+- **Repository pattern**: Data access is abstracted through TypeORM repositories. This allows for a clear separation between logics.
+- **Resolver pattern**: GraphQL layer uses the Resolver pattern to delegate request to specific functions, keeping them isolated, maintainable and testable.
+
+### Organizational patterns:
+- **Atomic Design**: We use a simplified version of the Atomic Design methodology to allow for scalable UI. Atoms (buttons, inputs), Molecules (cards, forms), Layouts to place components on pages (dashboard) and pages for data injection and routing.
+- **Compound Component Pattern**: The more complex components (Modals for example) use the compound pattern to group related components under a shared parent, improving readability and usage.
+- **Separation of concerns**: Logic-heavy components (pages, resolvers, services) are separated from UI and utility functions to keep responsibilities clear and separated. 
 
 ### Folder Structure
 
